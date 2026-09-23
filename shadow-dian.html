@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>英雄没有闪 · S2赛季游侠-梦花感电新-秘境之王</title>
+  <meta name="description" content="英雄没有闪S2赛季游侠梦花感电3.0配装，卡皮拉巴攻略，感电流推图首选">
+  <meta name="keywords" content="英雄没有闪,梦花感电,暗影游侠,感电3.0,卡皮拉巴,S2赛季">
+  <meta property="og:title" content="暗影游侠梦花感电3.0配装 - 英雄没有闪S2赛季">
+  <meta property="og:description" content="英雄没有闪S2赛季游侠梦花感电3.0配装，卡皮拉巴攻略，感电流推图首选">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="暗影游侠梦花感电3.0配装 - 英雄没有闪S2赛季">
+  <meta name="twitter:description" content="英雄没有闪S2赛季游侠梦花感电3.0配装，卡皮拉巴攻略，感电流推图首选">
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#f59e0b">
@@ -251,6 +260,160 @@
     body { max-width: 1300px; }
     .equip-grid { grid-template-columns: repeat(5, 1fr); }
   }
+
+/* 亮色主题 */
+body.light-theme {
+  --bg: #f5f5f7;
+  --bg-secondary: #ffffff;
+  --card-bg: #ffffff;
+  --text: #1a1a2e;
+  --text-dim: #666;
+  --border: #e0e0e0;
+  --accent: #ff9500;
+  --accent-light: #fff3e0;
+}
+body.light-theme .site-nav {
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid #e0e0e0;
+}
+body.light-theme .hero {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+}
+body.light-theme .section-title {
+  color: #1a1a2e;
+}
+body.light-theme .skill-card,
+body.light-theme .equip-card,
+body.light-theme .engrave-card,
+body.light-theme .follower-card,
+body.light-theme .book-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+body.light-theme .equip-slot,
+body.light-theme .skill-type,
+body.light-theme .engrave-type,
+body.light-theme .follower-role {
+  color: #999;
+}
+body.light-theme .stat {
+  color: #333;
+}
+body.light-theme .tip-box {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+}
+body.light-theme .disclaimer {
+  background: #f5f5f5;
+  color: #666;
+}
+body.light-theme .action-btn {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  color: #333;
+}
+body.light-theme .action-btn:hover {
+  background: #fff3e0;
+}
+
+
+/* 打印优化样式 */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12px;
+  }
+  .site-nav, .action-bar, .comment-section, .disclaimer,
+  .nav-theme-btn, .export-btn {
+    display: none !important;
+  }
+  .hero {
+    background: #fff !important;
+    padding: 10px 0 !important;
+    text-align: center;
+  }
+  .hero h1 {
+    color: #000 !important;
+    font-size: 18px !important;
+  }
+  .subtitle, .badge-row {
+    color: #333 !important;
+    font-size: 11px;
+  }
+  .section {
+    margin: 8px 0 !important;
+    padding: 8px !important;
+    break-inside: avoid;
+  }
+  .section-title {
+    color: #000 !important;
+    font-size: 14px !important;
+    border-bottom: 2px solid #333;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+  .skill-grid, .passive-grid, .equip-grid, .engrave-grid,
+  .follower-grid, .book-grid {
+    gap: 6px !important;
+  }
+  .skill-card, .equip-card, .engrave-card, .follower-card, .book-card {
+    background: #fff !important;
+    border: 1px solid #999 !important;
+    box-shadow: none !important;
+    padding: 6px !important;
+    break-inside: avoid;
+  }
+  .skill-icon, .equip-icon, .engrave-icon, .follower-icon, .book-icon {
+    font-size: 18px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .skill-name, .equip-name, .engrave-name, .follower-name, .book-name {
+    color: #000 !important;
+    font-size: 12px !important;
+  }
+  .skill-type, .equip-slot, .engrave-type, .follower-role {
+    color: #666 !important;
+    font-size: 10px !important;
+  }
+  .skill-branch {
+    color: #333 !important;
+    font-size: 10px !important;
+  }
+  .equip-stats {
+    margin-top: 4px !important;
+  }
+  .stat {
+    color: #000 !important;
+    font-size: 10px !important;
+    padding: 2px 4px !important;
+  }
+  .stat.special {
+    color: #d97706 !important;
+    font-weight: bold;
+  }
+  .tip-box {
+    background: #fffbeb !important;
+    border: 1px solid #f59e0b !important;
+    break-inside: avoid;
+  }
+  .tip-title {
+    color: #000 !important;
+  }
+  .tip-content {
+    color: #333 !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+  @page {
+    margin: 1cm;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -263,6 +426,7 @@
       <span class="nav-game-name">《英雄没有闪》</span>
     </div>
     <div class="nav-right">
+            <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
       <a href="index.html" class="nav-search-btn" title="搜索配装">🔍</a>
     </div>
   </div>
@@ -292,6 +456,10 @@
   <button class="action-btn comment-btn" onclick="scrollToComment()">
     <span class="action-icon">💬</span>
     <span class="action-text">评论</span>
+  <button class="action-btn export-btn" onclick="exportImage()">
+    <span class="action-icon">📷</span>
+    <span class="action-text">导出</span>
+  </button>
   </button>
 </div>
 
@@ -696,6 +864,25 @@
 </div>
 
 <script>
+
+// 主题切换
+function toggleTheme() {
+  const body = document.body;
+  const isLight = body.classList.toggle('light-theme');
+  const btn = document.querySelector('.nav-theme-btn');
+  if (btn) btn.textContent = isLight ? '☀️' : '🌙';
+  localStorage.setItem('yxmysbd_theme', isLight ? 'light' : 'dark');
+}
+// 加载主题偏好
+(function() {
+  const theme = localStorage.getItem('yxmysbd_theme');
+  if (theme === 'light') {
+    document.body.classList.add('light-theme');
+    const btn = document.querySelector('.nav-theme-btn');
+    if (btn) btn.textContent = '☀️';
+  }
+})();
+
 const PAGE_ID = 'shadow-dian';
 const API_BASE = 'https://yxmysbd-api.zyb8808.workers.dev';
 
@@ -732,6 +919,64 @@ function toggleFav(btn) {
 
 function scrollToComment() {
   document.getElementById('comment-section').scrollIntoView({behavior: 'smooth'});
+}
+
+
+// 导出配装为图片
+async function exportImage() {
+  const btn = document.querySelector('.export-btn');
+  const originalText = btn.querySelector('.action-text').textContent;
+  btn.querySelector('.action-text').textContent = '生成中...';
+  btn.disabled = true;
+  try {
+    // 动态加载html2canvas
+    if (typeof html2canvas === 'undefined') {
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+    // 隐藏导航和操作栏，只导出配装内容
+    const nav = document.querySelector('.site-nav');
+    const actionBar = document.querySelector('.action-bar');
+    const comment = document.querySelector('.comment-section');
+    const disclaimer = document.querySelector('.disclaimer');
+    if (nav) nav.style.display = 'none';
+    if (actionBar) actionBar.style.display = 'none';
+    if (comment) comment.style.display = 'none';
+    if (disclaimer) disclaimer.style.display = 'none';
+    const canvas = await html2canvas(document.body, {
+      backgroundColor: '#0a0a0f',
+      scale: 2,
+      useCORS: true,
+      logging: false
+    });
+    // 恢复显示
+    if (nav) nav.style.display = '';
+    if (actionBar) actionBar.style.display = '';
+    if (comment) comment.style.display = '';
+    if (disclaimer) disclaimer.style.display = '';
+    // 下载
+    const link = document.createElement('a');
+    link.download = PAGE_ID + '_配装.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    btn.querySelector('.action-text').textContent = '已导出';
+    setTimeout(() => {
+      btn.querySelector('.action-text').textContent = originalText;
+      btn.disabled = false;
+    }, 2000);
+  } catch (e) {
+    console.error('导出失败:', e);
+    btn.querySelector('.action-text').textContent = '导出失败';
+    setTimeout(() => {
+      btn.querySelector('.action-text').textContent = originalText;
+      btn.disabled = false;
+    }, 2000);
+  }
 }
 
 async function loadLikes() {

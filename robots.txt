@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zybls.github.io/MYS/sitemap.xml
