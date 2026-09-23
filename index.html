@@ -5,7 +5,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>英雄没有闪 · 全职业流派配装大全</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
-        <style> :root { --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e1e2e; --border: #2e2e44; --gold: #f0b040; --cyan: #4ad4e8; --orange: #ff7a3a; --red: #e8443a; --purple: #b06ae8; --green: #5cb85c; --blue: #4a9eff; --text: #d8d8e8; --text-dim: #8888a0; --text-bright: #f0f0ff; } * { margin: 0; padding: 0; box-sizing: border-box; } body { background: var(--bg); color: var(--text); font-family: "Microsoft YaHei", "PingFang SC", sans-serif; line-height: 1.6; padding: 20px; max-width: 1200px; margin: 0 auto; } .hero { text-align: center; padding: 36px 20px 28px; border-bottom: 2px solid var(--gold); margin-bottom: 32px; background: linear-gradient(180deg, rgba(240,176,64,0.08), rgba(240,176,64,0.02), transparent); position: relative; } .hero::before { content: "⚔️"; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 48px; opacity: 0.15; } .hero h1 { font-size: 34px; color: var(--gold); letter-spacing: 5px; margin-bottom: 12px; text-shadow: 0 0 30px rgba(240,176,64,0.3); } .hero .subtitle { color: var(--text-dim); font-size: 15px; margin-bottom: 4px; } .hero .meta { margin-top: 18px; font-size: 13px; color: var(--text-dim); display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; } .hero .meta span { padding: 5px 14px; background: var(--bg-card2); border: 1px solid var(--border); border-radius: 20px; font-weight: bold; } .hero .meta span.ranger { color: var(--green); border-color: rgba(92,184,92,0.4); } .hero .meta span.mage { color: var(--purple); border-color: rgba(176,106,232,0.4); } .hero .meta span.warrior { color: var(--orange); border-color: rgba(255,122,58,0.4); } .hero .meta span.total { color: var(--gold); border-color: rgba(240,176,64,0.4); } .class-section { margin-bottom: 32px; } .class-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); } .class-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; } .class-icon.ranger { background: linear-gradient(135deg, #1a3a1a, #0d200d); border: 2px solid var(--green); } .class-icon.mage { background: linear-gradient(135deg, #3a1a5a, #200d40); border: 2px solid var(--purple); } .class-icon.warrior { background: linear-gradient(135deg, #3a2a1a, #20150d); border: 2px solid var(--orange); } .class-name { font-size: 22px; font-weight: bold; } .class-name.ranger { color: var(--green); } .class-name.mage { color: var(--purple); } .class-name.warrior { color: var(--orange); } .class-count { font-size: 13px; color: var(--text-dim); margin-left: auto; } .build-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; } .build-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px 14px 20px; text-decoration: none; color: inherit; transition: all 0.2s ease; display: block; position: relative; overflow: hidden; } .build-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(240,176,64,0.2); } .build-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; } .build-card.t1::before { background: linear-gradient(180deg, var(--red), #ff6050); } .build-card.recommend::before { background: linear-gradient(180deg, var(--gold), #e0a030); } .build-card.normal::before { background: linear-gradient(180deg, var(--border), #3a3a50); } .build-name { font-size: 17px; font-weight: bold; color: var(--text-bright); margin-bottom: 8px; } .build-tags { margin-bottom: 10px; } .build-tag { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 4px; margin-right: 5px; margin-bottom: 5px; font-weight: bold; } .tag-pve { background: rgba(92,184,92,0.2); color: #7dd87d; border: 1px solid rgba(92,184,92,0.4); } .tag-pk { background: rgba(232,68,58,0.2); color: #ff7060; border: 1px solid rgba(232,68,58,0.4); } .tag-boss { background: rgba(255,122,58,0.2); color: #ff9a5a; border: 1px solid rgba(255,122,58,0.4); } .tag-dual { background: rgba(74,212,232,0.2); color: #6ae0f0; border: 1px solid rgba(74,212,232,0.4); } .tag-t0 { background: rgba(176,106,232,0.2); color: #c890f0; border: 1px solid rgba(176,106,232,0.4); } .build-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; } .build-highlight { font-size: 12px; color: var(--gold); margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); font-weight: bold; } .build-source { font-size: 11px; color: #4ad4e8; margin-top: 6px; display: flex; align-items: center; gap: 4px; opacity: 0.9; } .build-source .source-icon { font-size: 12px; } .other-section { margin-top: 32px; padding-top: 24px; border-top: 2px dashed var(--border); } .other-title { font-size: 18px; color: var(--text-dim); margin-bottom: 16px; } .footer { text-align: center; padding: 32px 20px; color: var(--text-dim); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; line-height: 1.8; } @media (max-width: 600px) { body { padding: 12px; } .hero h1 { font-size: 24px; letter-spacing: 2px; } .build-grid { grid-template-columns: 1fr; } .class-name { font-size: 18px; } } /* ===== 网站导航栏 ===== */ .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: rgba(10,10,15,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(240,176,64,0.3); box-shadow: 0 2px 12px rgba(0,0,0,0.5); } .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; } .nav-left { display: flex; align-items: center; gap: 16px; } .nav-logo { color: #f0b040; font-size: 17px; font-weight: bold; text-decoration: none; letter-spacing: 2px; white-space: nowrap; display: flex; align-items: center; gap: 6px; } .nav-logo .logo-icon { font-size: 20px; } .nav-divider { width: 1px; height: 20px; background: var(--border); } .nav-game-name { color: var(--text-dim); font-size: 13px; white-space: nowrap; letter-spacing: 1px; } .nav-contact { color: var(--text-dim); font-size: 13px; text-decoration: none; padding: 5px 12px; border-radius: 4px; transition: all 0.2s; white-space: nowrap; } .nav-contact:hover { color: var(--gold); background: rgba(240,176,64,0.1); } .nav-right { display: flex; align-items: center; gap: 8px; } .nav-search-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; } .nav-search-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); } /* 全屏搜索 */ .fullscreen-search { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,15,0.97); z-index: 10000; backdrop-filter: blur(20px); align-items: flex-start; justify-content: center; padding-top: 120px; } .fullscreen-search.active { display: flex; } .search-container { width: 90%; max-width: 700px; } .fullscreen-search .search-box { background: var(--bg-card); border: 2px solid var(--gold); border-radius: 14px; padding: 0 20px; display: flex; align-items: center; box-shadow: 0 0 40px rgba(240,176,64,0.2); } .fullscreen-search .search-box .search-icon { font-size: 22px; margin-right: 14px; } .fullscreen-search .search-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-bright); font-size: 18px; padding: 18px 0; font-family: inherit; } .fullscreen-search .search-input::placeholder { color: var(--text-dim); } .search-close-btn { background: none; border: none; color: var(--text-dim); font-size: 28px; cursor: pointer; padding: 4px 10px; } .search-close-btn:hover { color: var(--gold); } .search-hint { text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 16px; } .search-hint kbd { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-family: inherit; } .nav-toggle { display: none; background: none; border: none; color: #f0b040; font-size: 20px; cursor: pointer; padding: 4px 8px; } @media (max-width: 768px) { .nav-game-name { display: none; } .nav-divider { display: none; } .nav-contact { font-size: 12px; padding: 4px 8px; } .nav-logo { font-size: 15px; } } body { padding-top: 60px !important; } /* 留言板样式覆盖 - 与网站主题统一 */ .comment-section { max-width: 1200px; margin: 40px auto; padding: 0 20px; } .comment-section .section-title { color: var(--text-primary); font-size: 20px; font-weight: 700; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid var(--orange, #f59e0b); } .comment-box { background: var(--card-bg) !important; border: 1px solid var(--border) !important; border-radius: 12px !important; padding: 24px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.2); } /* 免责声明样式 */ .disclaimer-section { max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; } .disclaimer-box { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 20px 24px; } .disclaimer-title { color: #f59e0b; font-size: 16px; font-weight: 700; margin-bottom: 10px; } .disclaimer-text { color: #94a3b8; font-size: 13px; line-height: 1.8; } /* 搜索功能 */ .search-section { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; } .search-box { position: relative; display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 0 16px; transition: all 0.2s; } .search-box:focus-within { border-color: var(--orange, #f59e0b); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15); } .search-icon { font-size: 18px; margin-right: 10px; opacity: 0.6; } .search-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-size: 15px; padding: 14px 0; font-family: inherit; } .search-input::placeholder { color: var(--text-dim, #64748b); } .search-clear { background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; padding: 4px 8px; } .search-result-info { text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 10px; min-height: 18px; } .build-card.hidden { display: none !important; } .class-section.hidden { display: none !important; } .no-result { text-align: center; padding: 60px 20px; color: var(--text-dim); font-size: 15px; } /* 热门排行榜 */ .hot-rank-section { max-width: 1100px; margin: 0 auto 30px; padding: 0 20px; } .hot-rank-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; } .hot-rank-title { font-size: 20px; font-weight: 700; color: var(--text); } .hot-rank-list { display: grid; grid-template-columns: 1fr; gap: 8px; } .hot-rank-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; transition: all 0.2s; } .hot-rank-item:hover { border-color: var(--accent); transform: translateY(-2px); } .rank-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; } .rank-num.top1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #1a1a2e; } .rank-num.top2 { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #1a1a2e; } .rank-num.top3 { background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; } .rank-num.normal { background: var(--border); color: var(--text-dim); } .rank-info { flex: 1; min-width: 0; } .rank-name { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .rank-likes { font-size: 12px; color: var(--text-dim); margin-top: 2px; } .rank-loading { grid-column: 1 / -1; text-align: center; padding: 20px; color: var(--text-dim); font-size: 14px; } /* 更新日志 */ .changelog-section { max-width: 1100px; margin: 0 auto 30px; padding: 0 20px; } .changelog-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; } .changelog-title { font-size: 20px; font-weight: 700; color: var(--text); } .changelog-list { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; } .changelog-item { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); } .changelog-item:last-child { border-bottom: none; } .changelog-date { flex-shrink: 0; width: 90px; font-size: 13px; color: var(--accent); font-weight: 600; padding-top: 1px; } .changelog-content { flex: 1; font-size: 14px; color: var(--text); line-height: 1.6; } .changelog-tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 6px; } .tag-update { background: rgba(245,158,11,0.15); color: #f59e0b; } .tag-new { background: rgba(34,197,94,0.15); color: #22c55e; } .tag-fix { background: rgba(239,68,68,0.15); color: #ef4444; } /* ===== 首页优化样式 ===== */ .quick-filter { max-width: 1200px; margin: 0 auto 24px; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; } .filter-btn { padding: 7px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; color: var(--text-dim); font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: inherit; } .filter-btn:hover { border-color: var(--gold); color: var(--gold); } .filter-btn.active { background: var(--gold); color: #1a1a2e; border-color: var(--gold); font-weight: bold; } .two-col-layout { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; } @media (max-width: 768px) { .two-col-layout { grid-template-columns: 1fr; } } .two-col-layout .hot-rank-section, .two-col-layout .changelog-section { max-width: 100%; margin: 0; padding: 0; } .build-core-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; } .core-tag { font-size: 11.5px; padding: 3px 9px; border-radius: 5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); white-space: nowrap; } .core-tag.skill { color: #4ad4e8; border-color: rgba(74,212,232,0.3); background: rgba(74,212,232,0.08); } .core-tag.weapon { color: #f0b040; border-color: rgba(240,176,64,0.3); background: rgba(240,176,64,0.08); } .core-tag.engrave { color: #b06ae8; border-color: rgba(176,106,232,0.3); background: rgba(176,106,232,0.08); } .core-tag.damage { color: #ff7a3a; border-color: rgba(255,122,58,0.3); background: rgba(255,122,58,0.08); } .build-card .build-likes { position: absolute; top: 10px; right: 12px; font-size: 12px; color: var(--text-dim); display: flex; align-items: center; gap: 3px; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 10px; } /* 搜索筛选整合 */ .search-filter-wrap { max-width: 1200px; margin: 0 auto 28px; padding: 0 20px; } .search-filter-wrap .search-section { max-width: 100%; margin: 0 0 14px; padding: 0; } .search-filter-wrap .quick-filter { max-width: 100%; margin: 0; padding: 0; } /* 区块标题统一样式 */ .section-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); } .section-title-row .icon { font-size: 22px; } .section-title-row .title { font-size: 19px; font-weight: 700; color: var(--text-bright); } .section-title-row .count { margin-left: auto; font-size: 12px; color: var(--text-dim); background: var(--bg-card2); padding: 3px 10px; border-radius: 10px; } /* 配装卡片增强 */ .build-card { border-left: none !important; padding: 16px 18px 14px 18px !important; } /* 按职业分类边框颜色 */ .build-card.ranger { border-top: 3px solid var(--green) !important; } .build-card.mage { border-top: 3px solid var(--purple) !important; } .build-card.warrior { border-top: 3px solid var(--orange) !important; } .build-card.t0 { border-top: 3px solid var(--gold) !important; } .build-card .build-name { padding-right: 50px; } /* 热门排行卡片优化 */ .hot-rank-item { padding: 10px 12px !important; } /* 更新日志优化 */ .changelog-list { max-height: 280px; overflow-y: auto; } .changelog-list::-webkit-scrollbar { width: 4px; } .changelog-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; } /* 用途筛选 */ .usage-filter { max-width: 1200px; margin: 0 auto 28px; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; } .usage-filter .filter-btn { padding: 6px 16px; font-size: 12px; } .usage-filter .filter-btn.active { background: var(--cyan); color: #1a1a2e; border-color: var(--cyan); } .filter-divider { max-width: 1200px; margin: 0 auto 14px; padding: 0 20px; text-align: center; font-size: 11px; color: var(--text-dim); letter-spacing: 2px; } </style>
+        <style> :root { --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e1e2e; --border: #2e2e44; --gold: #f0b040; --cyan: #4ad4e8; --orange: #ff7a3a; --red: #e8443a; --purple: #b06ae8; --green: #5cb85c; --blue: #4a9eff; --text: #d8d8e8; --text-dim: #8888a0; --text-bright: #f0f0ff; } * { margin: 0; padding: 0; box-sizing: border-box; } body { background: var(--bg); color: var(--text); font-family: "Microsoft YaHei", "PingFang SC", sans-serif; line-height: 1.6; padding: 20px; max-width: 1200px; margin: 0 auto; } .hero { text-align: center; padding: 36px 20px 28px; border-bottom: 2px solid var(--gold); margin-bottom: 32px; background: linear-gradient(180deg, rgba(240,176,64,0.08), rgba(240,176,64,0.02), transparent); position: relative; } .hero::before { content: "⚔️"; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 48px; opacity: 0.15; } .hero h1 { font-size: 34px; color: var(--gold); letter-spacing: 5px; margin-bottom: 12px; text-shadow: 0 0 30px rgba(240,176,64,0.3); } .hero .subtitle { color: var(--text-dim); font-size: 15px; margin-bottom: 4px; } .hero .meta { margin-top: 18px; font-size: 13px; color: var(--text-dim); display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; } .hero .meta span { padding: 5px 14px; background: var(--bg-card2); border: 1px solid var(--border); border-radius: 20px; font-weight: bold; } .hero .meta span.ranger { color: var(--green); border-color: rgba(92,184,92,0.4); } .hero .meta span.mage { color: var(--purple); border-color: rgba(176,106,232,0.4); } .hero .meta span.warrior { color: var(--orange); border-color: rgba(255,122,58,0.4); } .hero .meta span.total { color: var(--gold); border-color: rgba(240,176,64,0.4); } .class-section { margin-bottom: 32px; } .class-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); } .class-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; } .class-icon.ranger { background: linear-gradient(135deg, #1a3a1a, #0d200d); border: 2px solid var(--green); } .class-icon.mage { background: linear-gradient(135deg, #3a1a5a, #200d40); border: 2px solid var(--purple); } .class-icon.warrior { background: linear-gradient(135deg, #3a2a1a, #20150d); border: 2px solid var(--orange); } .class-name { font-size: 22px; font-weight: bold; } .class-name.ranger { color: var(--green); } .class-name.mage { color: var(--purple); } .class-name.warrior { color: var(--orange); } .class-count { font-size: 13px; color: var(--text-dim); margin-left: auto; } .build-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; } .build-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px 14px 20px; text-decoration: none; color: inherit; transition: all 0.2s ease; display: block; position: relative; overflow: hidden; } .build-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(240,176,64,0.2); } .build-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; } .build-card.t1::before { background: linear-gradient(180deg, var(--red), #ff6050); } .build-card.recommend::before { background: linear-gradient(180deg, var(--gold), #e0a030); } .build-card.normal::before { background: linear-gradient(180deg, var(--border), #3a3a50); } .build-name { font-size: 17px; font-weight: bold; color: var(--text-bright); margin-bottom: 8px; } .build-tags { margin-bottom: 10px; } .build-tag { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 4px; margin-right: 5px; margin-bottom: 5px; font-weight: bold; } .tag-pve { background: rgba(92,184,92,0.2); color: #7dd87d; border: 1px solid rgba(92,184,92,0.4); } .tag-pk { background: rgba(232,68,58,0.2); color: #ff7060; border: 1px solid rgba(232,68,58,0.4); } .tag-boss { background: rgba(255,122,58,0.2); color: #ff9a5a; border: 1px solid rgba(255,122,58,0.4); } .tag-dual { background: rgba(74,212,232,0.2); color: #6ae0f0; border: 1px solid rgba(74,212,232,0.4); } .tag-t0 { background: rgba(176,106,232,0.2); color: #c890f0; border: 1px solid rgba(176,106,232,0.4); } .build-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; } .build-highlight { font-size: 12px; color: var(--gold); margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); font-weight: bold; } .build-source { font-size: 11px; color: #4ad4e8; margin-top: 6px; display: flex; align-items: center; gap: 4px; opacity: 0.9; } .build-source .source-icon { font-size: 12px; } .other-section { margin-top: 32px; padding-top: 24px; border-top: 2px dashed var(--border); } .other-title { font-size: 18px; color: var(--text-dim); margin-bottom: 16px; } .footer { text-align: center; padding: 32px 20px; color: var(--text-dim); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; line-height: 1.8; } @media (max-width: 600px) { body { padding: 12px; } .hero h1 { font-size: 24px; letter-spacing: 2px; } .build-grid { grid-template-columns: 1fr; } .class-name { font-size: 18px; } } /* ===== 网站导航栏 ===== */ .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: rgba(10,10,15,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(240,176,64,0.3); box-shadow: 0 2px 12px rgba(0,0,0,0.5); } .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; } .nav-left { display: flex; align-items: center; gap: 16px; } .nav-logo { color: #f0b040; font-size: 17px; font-weight: bold; text-decoration: none; letter-spacing: 2px; white-space: nowrap; display: flex; align-items: center; gap: 6px; } .nav-logo .logo-icon { font-size: 20px; } .nav-divider { width: 1px; height: 20px; background: var(--border); } .nav-game-name { color: var(--text-dim); font-size: 13px; white-space: nowrap; letter-spacing: 1px; } .nav-contact { color: var(--text-dim); font-size: 13px; text-decoration: none; padding: 5px 12px; border-radius: 4px; transition: all 0.2s; white-space: nowrap; } .nav-contact:hover { color: var(--gold); background: rgba(240,176,64,0.1); } .nav-right { display: flex; align-items: center; gap: 8px; } .nav-search-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; } .nav-search-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); } /* 全屏搜索 */ .fullscreen-search { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,15,0.97); z-index: 10000; backdrop-filter: blur(20px); align-items: flex-start; justify-content: center; padding-top: 120px; } .fullscreen-search.active { display: flex; } .search-container { width: 90%; max-width: 700px; } .fullscreen-search .search-box { background: var(--bg-card); border: 2px solid var(--gold); border-radius: 14px; padding: 0 20px; display: flex; align-items: center; box-shadow: 0 0 40px rgba(240,176,64,0.2); } .fullscreen-search .search-box .search-icon { font-size: 22px; margin-right: 14px; } .fullscreen-search .search-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-bright); font-size: 18px; padding: 18px 0; font-family: inherit; } .fullscreen-search .search-input::placeholder { color: var(--text-dim); } .search-close-btn { background: none; border: none; color: var(--text-dim); font-size: 28px; cursor: pointer; padding: 4px 10px; } .search-close-btn:hover { color: var(--gold); } .search-hint { text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 16px; } .search-hint kbd { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-family: inherit; } .nav-toggle { display: none; background: none; border: none; color: #f0b040; font-size: 20px; cursor: pointer; padding: 4px 8px; } @media (max-width: 768px) { .nav-game-name { display: none; } .nav-divider { display: none; } .nav-contact { font-size: 12px; padding: 4px 8px; } .nav-logo { font-size: 15px; } } body { padding-top: 60px !important; } /* 留言板样式覆盖 - 与网站主题统一 */ .comment-section { max-width: 1200px; margin: 40px auto; padding: 0 20px; } .comment-section .section-title { color: var(--text-primary); font-size: 20px; font-weight: 700; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid var(--orange, #f59e0b); } .comment-box { background: var(--card-bg) !important; border: 1px solid var(--border) !important; border-radius: 12px !important; padding: 24px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.2); } /* 免责声明样式 */ .disclaimer-section { max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; } .disclaimer-box { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 20px 24px; } .disclaimer-title { color: #f59e0b; font-size: 16px; font-weight: 700; margin-bottom: 10px; } .disclaimer-text { color: #94a3b8; font-size: 13px; line-height: 1.8; } /* 搜索功能 */ .search-section { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; } .search-box { position: relative; display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 0 16px; transition: all 0.2s; } .search-box:focus-within { border-color: var(--orange, #f59e0b); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15); } .search-icon { font-size: 18px; margin-right: 10px; opacity: 0.6; } .search-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-size: 15px; padding: 14px 0; font-family: inherit; } .search-input::placeholder { color: var(--text-dim, #64748b); } .search-clear { background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; padding: 4px 8px; } .search-result-info { text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 10px; min-height: 18px; } .build-card.hidden { display: none !important; } .class-section.hidden { display: none !important; } .no-result { text-align: center; padding: 60px 20px; color: var(--text-dim); font-size: 15px; } /* 热门排行榜 */ .hot-rank-section { max-width: 1100px; margin: 0 auto 30px; padding: 0 20px; } .hot-rank-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; } .hot-rank-title { font-size: 20px; font-weight: 700; color: var(--text); } .hot-rank-list { display: grid; grid-template-columns: 1fr; gap: 8px; } .hot-rank-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; transition: all 0.2s; } .hot-rank-item:hover { border-color: var(--accent); transform: translateY(-2px); } .rank-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; } .rank-num.top1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #1a1a2e; } .rank-num.top2 { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #1a1a2e; } .rank-num.top3 { background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; } .rank-num.normal { background: var(--border); color: var(--text-dim); } .rank-info { flex: 1; min-width: 0; } .rank-name { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .rank-likes { font-size: 12px; color: var(--text-dim); margin-top: 2px; } .rank-loading { grid-column: 1 / -1; text-align: center; padding: 20px; color: var(--text-dim); font-size: 14px; } /* 更新日志 */ .changelog-section { max-width: 1100px; margin: 0 auto 30px; padding: 0 20px; } .changelog-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; } .changelog-title { font-size: 20px; font-weight: 700; color: var(--text); } .changelog-list { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; } .changelog-item { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); } .changelog-item:last-child { border-bottom: none; } .changelog-date { flex-shrink: 0; width: 90px; font-size: 13px; color: var(--accent); font-weight: 600; padding-top: 1px; } .changelog-content { flex: 1; font-size: 14px; color: var(--text); line-height: 1.6; } .changelog-tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 6px; } .tag-update { background: rgba(245,158,11,0.15); color: #f59e0b; } .tag-new { background: rgba(34,197,94,0.15); color: #22c55e; } .tag-fix { background: rgba(239,68,68,0.15); color: #ef4444; } /* ===== 首页优化样式 ===== */ .quick-filter { max-width: 1200px; margin: 0 auto 24px; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; } .filter-btn { padding: 7px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; color: var(--text-dim); font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: inherit; } .filter-btn:hover { border-color: var(--gold); color: var(--gold); } .filter-btn.active { background: var(--gold); color: #1a1a2e; border-color: var(--gold); font-weight: bold; } .two-col-layout { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; } @media (max-width: 768px) { .two-col-layout { grid-template-columns: 1fr; } } .two-col-layout .hot-rank-section, .two-col-layout .changelog-section { max-width: 100%; margin: 0; padding: 0; } .build-core-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; } .core-tag { font-size: 11.5px; padding: 3px 9px; border-radius: 5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); white-space: nowrap; } .core-tag.skill { color: #4ad4e8; border-color: rgba(74,212,232,0.3); background: rgba(74,212,232,0.08); } .core-tag.weapon { color: #f0b040; border-color: rgba(240,176,64,0.3); background: rgba(240,176,64,0.08); } .core-tag.engrave { color: #b06ae8; border-color: rgba(176,106,232,0.3); background: rgba(176,106,232,0.08); } .core-tag.damage { color: #ff7a3a; border-color: rgba(255,122,58,0.3); background: rgba(255,122,58,0.08); } .build-card .build-likes { position: absolute; top: 10px; right: 12px; font-size: 12px; color: var(--text-dim); display: flex; align-items: center; gap: 3px; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 10px; } /* 搜索筛选整合 */ .search-filter-wrap { max-width: 1200px; margin: 0 auto 28px; padding: 0 20px; } .search-filter-wrap .search-section { max-width: 100%; margin: 0 0 14px; padding: 0; } .search-filter-wrap .quick-filter { max-width: 100%; margin: 0; padding: 0; } /* 区块标题统一样式 */ .section-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); } .section-title-row .icon { font-size: 22px; } .section-title-row .title { font-size: 19px; font-weight: 700; color: var(--text-bright); } .section-title-row .count { margin-left: auto; font-size: 12px; color: var(--text-dim); background: var(--bg-card2); padding: 3px 10px; border-radius: 10px; } /* 配装卡片增强 */ .build-card { border-left: none !important; padding: 16px 18px 14px 18px !important; } /* 按职业分类边框颜色 */ .build-card.ranger { border-top: 3px solid var(--green) !important; } .build-card.mage { border-top: 3px solid var(--purple) !important; } .build-card.warrior { border-top: 3px solid var(--orange) !important; } .build-card.t0 { border-top: 3px solid var(--gold) !important; } .build-card .build-name { padding-right: 50px; } /* 热门排行卡片优化 */ .hot-rank-item { padding: 10px 12px !important; } /* 更新日志优化 */ .changelog-list { max-height: 280px; overflow-y: auto; } .changelog-list::-webkit-scrollbar { width: 4px; } .changelog-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; } /* 用途筛选 */ .usage-filter { max-width: 1200px; margin: 0 auto 28px; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; } .usage-filter .filter-btn { padding: 6px 16px; font-size: 12px; } .usage-filter .filter-btn.active { background: var(--cyan); color: #1a1a2e; border-color: var(--cyan); } .filter-divider { max-width: 1200px; margin: 0 auto 14px; padding: 0 20px; text-align: center; font-size: 11px; color: var(--text-dim); letter-spacing: 2px; } 
+/* 公告栏 */
+.announcement-bar { max-width: 1200px; margin: 0 auto 24px; padding: 0 20px; }
+.announcement-box { background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(245,158,11,0.04)); border: 1px solid rgba(245,158,11,0.35); border-radius: 10px; padding: 12px 18px; display: flex; align-items: flex-start; gap: 10px; position: relative; }
+.announcement-box.important { background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.04)); border-color: rgba(239,68,68,0.4); }
+.announcement-box.info { background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(59,130,246,0.04)); border-color: rgba(59,130,246,0.35); }
+.ann-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.ann-body { flex: 1; min-width: 0; }
+.ann-title { font-size: 14px; font-weight: 700; color: #f59e0b; margin-bottom: 3px; }
+.announcement-box.important .ann-title { color: #ef4444; }
+.announcement-box.info .ann-title { color: #3b82f6; }
+.ann-content { font-size: 13px; color: #94a3b8; line-height: 1.6; }
+.ann-date { font-size: 11px; color: #64748b; margin-top: 4px; }
+.ann-close { background: none; border: none; color: #64748b; font-size: 18px; cursor: pointer; padding: 0 4px; flex-shrink: 0; line-height: 1; }
+.ann-close:hover { color: #f59e0b; }
+
+</style>
         <link rel="manifest" href="manifest.json">
         <meta name="theme-color" content="#f59e0b">
         </head>
@@ -45,7 +61,21 @@
         <span class="total">📦 共 16 套</span>
         </div>
         </div>
-        <!-- 职业筛选 -->
+        
+<!-- 公告栏 -->
+<div class="announcement-bar" id="announcementBar" style="display:none;">
+  <div class="announcement-box" id="announcementBox">
+    <span class="ann-icon" id="annIcon">📢</span>
+    <div class="ann-body">
+      <div class="ann-title" id="annTitle"></div>
+      <div class="ann-content" id="annContent"></div>
+      <div class="ann-date" id="annDate"></div>
+    </div>
+    <button class="ann-close" onclick="closeAnnouncement()">&times;</button>
+  </div>
+</div>
+
+<!-- 职业筛选 -->
         <div class="quick-filter" style="max-width:1200px;margin:0 auto 10px;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
         <button class="filter-btn active" onclick="filterByClass('all', this)">全部职业</button>
         <button class="filter-btn" onclick="filterByClass('ranger', this)">🏹 游侠</button>
@@ -364,11 +394,302 @@
         <div class="disclaimer-text"> 本站所有配装攻略均来自网络公开资料整理，仅供学习参考，不保证100%准确。游戏版本更新可能导致配装失效，请以游戏内实际数据为准。本站不承担因使用本站内容造成的任何直接或间接损失。游戏名称、商标及相关素材版权归原游戏公司所有。 </div>
         </div>
         </div>
-        <script> function filterBuilds(keyword) { keyword = keyword.toLowerCase().trim(); var cards = document.querySelectorAll('.build-card'); var sections = document.querySelectorAll('.class-section'); var matchCount = 0; cards.forEach(function(card) { var text = card.textContent.toLowerCase(); if (!keyword || text.indexOf(keyword) !== -1) { card.classList.remove('hidden'); matchCount++; } else { card.classList.add('hidden'); } }); // 隐藏没有匹配卡片的职业分区 sections.forEach(function(section) { var visibleCards = section.querySelectorAll('.build-card:not(.hidden)'); if (visibleCards.length === 0) { section.classList.add('hidden'); } else { section.classList.remove('hidden'); } }); var infoEl = document.querySelector('.search-result-info'); var clearBtn = document.querySelector('.search-clear'); if (keyword) { infoEl.textContent = matchCount > 0 ? '找到 ' + matchCount + ' 套匹配配装' : '没有找到匹配的配装，换个关键词试试'; clearBtn.style.display = 'block'; } else { infoEl.textContent = ''; clearBtn.style.display = 'none'; } } function clearSearch() { var input = document.querySelector('.search-input'); input.value = ''; filterBuilds(''); input.focus(); } </script>
-        <script> var PAGE_NAMES = { "tianfa-huodao": "野蛮人天罚火刀", "huodao-shouling": "火刀首领", "fashi-leidian-shaquan": "法师雷电秒杀拳", "fashi-yanbao": "法师炎爆", "fashi-yanling-yanbao": "法师炎灵炎爆", "fashi-leiquan": "法师雷拳", "fashi-bingyan-pk": "法师冰炎PK", "youxia-gandian": "感电3.0修正版", "shadow-dian": "暗影游侠梦花感电", "youxia-jingji-pk": "游侠竞技PK", "youxia-jingji-pve": "游侠竞技PVE", "youxia-shengyin-jingji": "游侠圣银荆棘枪", "zhuling-huoyan": "咒灵火眼", "zhanshi-leichui-pve": "战士雷锤PVE", "zhanshi-leichui-pk": "战士雷锤PK", "zhanshi-diandao": "战士电刀", "zhanshi-huanying-leichui": "野蛮人幻影雷锤", "zhanshi-leixuan": "战士雷旋" }; function loadChangelog() { fetch("https://yxmysbd-api.zyb8808.workers.dev/api/changelog") .then(function(r){return r.json();}) .then(function(data){ var html = ""; if (!data.length) { html = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:14px;">暂无更新记录</div>'; } else { data.slice(0, 8).forEach(function(item){ var tagText = item.tag === "new" ? "新增" : item.tag === "fix" ? "修复" : "更新"; html += '<div class="changelog-item"><div class="changelog-date">' + item.date.slice(5) + '</div>' + '<div class="changelog-content"><span class="changelog-tag tag-' + item.tag + '">' + tagText + '</span>' + item.content + '</div></div>'; }); } document.getElementById("changelogList").innerHTML = html; }).catch(function(){ document.getElementById("changelogList").innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:14px;">更新日志加载失败</div>'; }); } function loadHotRank() { fetch("https://yxmysbd-api.zyb8808.workers.dev/api/likes/all") .then(function(r) { return r.json(); }) .then(function(data) { var list = document.getElementById("hotRankList"); if (!data || !data.length) { list.innerHTML = '<div class="rank-loading">暂无数据</div>'; return; } var top5 = data.slice(0, 5); var html = ""; top5.forEach(function(item, idx) { var name = PAGE_NAMES[item.page] || item.page; var rankClass = idx === 0 ? "top1" : idx === 1 ? "top2" : idx === 2 ? "top3" : "normal"; html += '<a href="' + item.page + '.html" class="hot-rank-item">' + '<div class="rank-num ' + rankClass + '">' + (idx + 1) + '</div>' + '<div class="rank-info">' + '<div class="rank-name">' + name + '</div>' + '<div class="rank-likes">❤️ ' + item.count + ' 赞</div>' + '</div></a>'; }); list.innerHTML = html; }) .catch(function() { document.getElementById("hotRankList").innerHTML = '<div class="rank-loading">排行加载失败，请稍后重试</div>'; }); } var currentClass = 'all'; var currentUsage = 'all'; function applyFilters() { var visibleCount = 0; document.querySelectorAll('.class-section').forEach(function(section) { var icon = section.querySelector('.class-icon'); var classMatch = (currentClass === 'all') || (icon && icon.classList.contains(currentClass)); var cards = section.querySelectorAll('.build-card'); var sectionHasVisible = false; cards.forEach(function(card) { var usage = card.getAttribute('data-usage') || ''; var usageMatch = (currentUsage === 'all') || (usage.indexOf(currentUsage) !== -1); if (classMatch && usageMatch) { card.classList.remove('hidden'); sectionHasVisible = true; visibleCount++; } else { card.classList.add('hidden'); } }); if (classMatch && sectionHasVisible) { section.classList.remove('hidden'); } else { section.classList.add('hidden'); } }); var info = document.querySelector('.search-result-info'); if (info) { if (currentClass === 'all' && currentUsage === 'all') { info.textContent = ''; } else { info.textContent = '找到 ' + visibleCount + ' 套配装'; } } } function filterByClass(cls, btn) { currentClass = cls; // 只更新职业筛选按钮的active状态 btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); }); btn.classList.add('active'); applyFilters(); } function filterByUsage(usage, btn) { currentUsage = usage; // 只更新用途筛选按钮的active状态 btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); }); btn.classList.add('active'); applyFilters(); } function loadCardLikes() { fetch("https://yxmysbd-api.zyb8808.workers.dev/api/likes/all") .then(function(r){ return r.json(); }) .then(function(data){ data.forEach(function(item){ var el = document.querySelector('.like-count[data-page="' + item.page + '"]'); if (el) el.textContent = item.count; }); }).catch(function(){}); } function toggleFullscreenSearch() { var el = document.getElementById("fullscreenSearch"); el.classList.toggle("active"); if (el.classList.contains("active")) { setTimeout(function() { document.getElementById("fullscreenSearchInput").focus(); }, 100); } } document.addEventListener("keydown", function(e) { if (e.key === "Escape") { var el = document.getElementById("fullscreenSearch"); if (el.classList.contains("active")) el.classList.remove("active"); } if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); toggleFullscreenSearch(); } }); if (document.getElementById("hotRankList")) loadHotRank(); loadCardLikes(); if (document.getElementById("changelogList")) loadChangelog(); </script>
-        <script> if ("serviceWorker" in navigator) { window.addEventListener("load", function() { navigator.serviceWorker.register("service-worker.js").catch(function(){}); }); } </script>
-        <script> var PAGE_ID = location.pathname.split("/").pop().replace(".html", "") || "index"; fetch("https://yxmysbd-api.zyb8808.workers.dev/api/track", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({page:PAGE_ID})}).catch(function(){}); function openContactModal() { document.getElementById("contactModal").style.display = "flex"; document.body.style.overflow = "hidden"; } function closeContactModal() { document.getElementById("contactModal").style.display = "none"; document.body.style.overflow = ""; document.getElementById("contactResult").style.display = "none"; } function submitContact() { var name = document.getElementById("contactName").value.trim(); var contact = document.getElementById("contactContact").value.trim(); var content = document.getElementById("contactContent").value.trim(); var resultEl = document.getElementById("contactResult"); var btn = document.getElementById("contactSubmitBtn"); if (!content) { resultEl.style.display = "block"; resultEl.style.color = "var(--red)"; resultEl.textContent = "请填写留言内容"; return; } btn.disabled = true; btn.textContent = "发送中..."; fetch("https://yxmysbd-api.zyb8808.workers.dev/api/messages", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({name: name, contact: contact, content: content}) }).then(function(r){ return r.json(); }) .then(function(data){ if (data.ok) { resultEl.style.display = "block"; resultEl.style.color = "var(--green)"; resultEl.textContent = "发送成功！站长会尽快回复你"; document.getElementById("contactName").value = ""; document.getElementById("contactContact").value = ""; document.getElementById("contactContent").value = ""; setTimeout(closeContactModal, 2000); } else { resultEl.style.display = "block"; resultEl.style.color = "var(--red)"; resultEl.textContent = "发送失败：" + (data.error || "未知错误"); } }).catch(function(){ resultEl.style.display = "block"; resultEl.style.color = "var(--red)"; resultEl.textContent = "网络错误，请稍后重试"; }).finally(function(){ btn.disabled = false; btn.textContent = "发送私信"; }); } // 点击遮罩关闭 document.getElementById("contactModal").addEventListener("click", function(e){ if (e.target === this) closeContactModal(); }); </script>
-        <!-- 联系站长弹窗 -->
+        <script>
+var PAGE_NAMES = {
+  "tianfa-huodao": "野蛮人天罚火刀",
+  "huodao-shouling": "火刀首领",
+  "fashi-leidian-shaquan": "法师雷电秒杀拳",
+  "fashi-yanbao": "法师炎爆",
+  "fashi-yanling-yanbao": "法师炎灵炎爆",
+  "fashi-leiquan": "法师雷拳",
+  "fashi-bingyan-pk": "法师冰炎PK",
+  "youxia-gandian": "感电3.0修正版",
+  "shadow-dian": "暗影游侠梦花感电",
+  "youxia-jingji-pk": "游侠竞技PK",
+  "youxia-jingji-pve": "游侠竞技PVE",
+  "youxia-shengyin-jingji": "游侠圣银荆棘枪",
+  "zhuling-huoyan": "咒灵火眼",
+  "zhanshi-leichui-pve": "战士雷锤PVE",
+  "zhanshi-leichui-pk": "战士雷锤PK",
+  "zhanshi-diandao": "战士电刀",
+  "zhanshi-huanying-leichui": "野蛮人幻影雷锤",
+  "zhanshi-leixuan": "战士雷旋"
+};
+var API = "https://yxmysbd-api.zyb8808.workers.dev";
+
+/* ===== 搜索 ===== */
+function filterBuilds(keyword) {
+  keyword = keyword.toLowerCase().trim();
+  var cards = document.querySelectorAll('.build-card');
+  var sections = document.querySelectorAll('.class-section');
+  var matchCount = 0;
+  cards.forEach(function(card) {
+    var text = card.textContent.toLowerCase();
+    if (!keyword || text.indexOf(keyword) !== -1) {
+      card.classList.remove('hidden');
+      matchCount++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  sections.forEach(function(section) {
+    var visibleCards = section.querySelectorAll('.build-card:not(.hidden)');
+    if (visibleCards.length === 0) {
+      section.classList.add('hidden');
+    } else {
+      section.classList.remove('hidden');
+    }
+  });
+  var infoEl = document.querySelector('.search-result-info');
+  if (infoEl) {
+    infoEl.textContent = keyword ? (matchCount > 0 ? '找到 ' + matchCount + ' 套匹配配装' : '没有找到匹配的配装') : '';
+  }
+}
+
+/* ===== 职业/用途筛选 ===== */
+var currentClass = 'all';
+var currentUsage = 'all';
+function applyFilters() {
+  var visibleCount = 0;
+  document.querySelectorAll('.class-section').forEach(function(section) {
+    var icon = section.querySelector('.class-icon');
+    var classMatch = (currentClass === 'all') || (icon && icon.classList.contains(currentClass));
+    var cards = section.querySelectorAll('.build-card');
+    var sectionHasVisible = false;
+    cards.forEach(function(card) {
+      var usage = card.getAttribute('data-usage') || '';
+      var usageMatch = (currentUsage === 'all') || (usage.indexOf(currentUsage) !== -1);
+      if (classMatch && usageMatch) {
+        card.classList.remove('hidden');
+        sectionHasVisible = true;
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    if (classMatch && sectionHasVisible) {
+      section.classList.remove('hidden');
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+  var info = document.querySelector('.search-result-info');
+  if (info) {
+    info.textContent = (currentClass === 'all' && currentUsage === 'all') ? '' : '找到 ' + visibleCount + ' 套配装';
+  }
+}
+function filterByClass(cls, btn) {
+  currentClass = cls;
+  btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  applyFilters();
+}
+function filterByUsage(usage, btn) {
+  currentUsage = usage;
+  btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  applyFilters();
+}
+
+/* ===== 全屏搜索 ===== */
+function toggleFullscreenSearch() {
+  var el = document.getElementById("fullscreenSearch");
+  el.classList.toggle("active");
+  if (el.classList.contains("active")) {
+    setTimeout(function() { document.getElementById("fullscreenSearchInput").focus(); }, 100);
+  }
+}
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    var el = document.getElementById("fullscreenSearch");
+    if (el.classList.contains("active")) el.classList.remove("active");
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+    e.preventDefault();
+    toggleFullscreenSearch();
+  }
+});
+
+/* ===== 公告栏 ===== */
+function loadAnnouncement() {
+  fetch(API + "/api/announcements")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data || !data.length) return;
+      var ann = data[0];
+      var bar = document.getElementById("announcementBar");
+      var box = document.getElementById("announcementBox");
+      if (!bar || !box) return;
+      box.className = "announcement-box " + ann.type;
+      document.getElementById("annIcon").textContent = ann.type === "important" ? "🔴" : ann.type === "update" ? "🟡" : "📘";
+      document.getElementById("annTitle").textContent = ann.title;
+      document.getElementById("annContent").textContent = ann.content;
+      document.getElementById("annDate").textContent = new Date(ann.createdAt).toLocaleDateString();
+      bar.style.display = "block";
+    })
+    .catch(function() {});
+}
+function closeAnnouncement() {
+  document.getElementById("announcementBar").style.display = "none";
+}
+
+/* ===== 热门排行 ===== */
+function loadHotRank() {
+  fetch(API + "/api/likes/all")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var list = document.getElementById("hotRankList");
+      if (!list) return;
+      if (!data || !data.length) {
+        list.innerHTML = '<div class="rank-loading">暂无数据</div>';
+        return;
+      }
+      var top5 = data.slice(0, 5);
+      var html = "";
+      top5.forEach(function(item, idx) {
+        var name = PAGE_NAMES[item.page] || item.page;
+        var rankClass = idx === 0 ? "top1" : idx === 1 ? "top2" : idx === 2 ? "top3" : "normal";
+        html += '<a href="' + item.page + '.html" class="hot-rank-item">' +
+          '<div class="rank-num ' + rankClass + '">' + (idx + 1) + '</div>' +
+          '<div class="rank-info"><div class="rank-name">' + name + '</div>' +
+          '<div class="rank-likes">❤️ ' + item.count + ' 赞</div></div></a>';
+      });
+      list.innerHTML = html;
+    })
+    .catch(function() {
+      var list = document.getElementById("hotRankList");
+      if (list) list.innerHTML = '<div class="rank-loading">排行加载失败</div>';
+    });
+}
+
+/* ===== 卡片点赞数 ===== */
+function loadCardLikes() {
+  fetch(API + "/api/likes/all")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      data.forEach(function(item) {
+        var el = document.querySelector('.like-count[data-page="' + item.page + '"]');
+        if (el) el.textContent = item.count;
+      });
+    })
+    .catch(function() {});
+}
+
+/* ===== 更新日志 ===== */
+function loadChangelog() {
+  fetch(API + "/api/changelog")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var el = document.getElementById("changelogList");
+      if (!el) return;
+      var html = "";
+      if (!data.length) {
+        html = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:14px;">暂无更新记录</div>';
+      } else {
+        data.slice(0, 8).forEach(function(item) {
+          var tagText = item.tag === "new" ? "新增" : item.tag === "fix" ? "修复" : "更新";
+          html += '<div class="changelog-item"><div class="changelog-date">' + item.date.slice(5) + '</div>' +
+            '<div class="changelog-content"><span class="changelog-tag tag-' + item.tag + '">' + tagText + '</span>' +
+            item.content + '</div></div>';
+        });
+      }
+      el.innerHTML = html;
+    })
+    .catch(function() {
+      var el = document.getElementById("changelogList");
+      if (el) el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:14px;">更新日志加载失败</div>';
+    });
+}
+
+/* ===== 联系站长 ===== */
+function openContactModal() {
+  document.getElementById("contactModal").style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+function closeContactModal() {
+  document.getElementById("contactModal").style.display = "none";
+  document.body.style.overflow = "";
+  document.getElementById("contactResult").style.display = "none";
+}
+function submitContact() {
+  var name = document.getElementById("contactName").value.trim();
+  var contact = document.getElementById("contactContact").value.trim();
+  var content = document.getElementById("contactContent").value.trim();
+  var resultEl = document.getElementById("contactResult");
+  var btn = document.getElementById("contactSubmitBtn");
+  if (!content) {
+    resultEl.style.display = "block";
+    resultEl.style.color = "#ef4444";
+    resultEl.textContent = "请填写留言内容";
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = "发送中...";
+  fetch(API + "/api/messages", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({name: name, contact: contact, content: content})
+  }).then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        resultEl.style.display = "block";
+        resultEl.style.color = "#22c55e";
+        resultEl.textContent = "发送成功！站长会尽快回复你";
+        document.getElementById("contactName").value = "";
+        document.getElementById("contactContact").value = "";
+        document.getElementById("contactContent").value = "";
+        setTimeout(closeContactModal, 2000);
+      } else {
+        resultEl.style.display = "block";
+        resultEl.style.color = "#ef4444";
+        resultEl.textContent = "发送失败";
+      }
+    }).catch(function() {
+      resultEl.style.display = "block";
+      resultEl.style.color = "#ef4444";
+      resultEl.textContent = "网络错误，请稍后重试";
+    }).finally(function() {
+      btn.disabled = false;
+      btn.textContent = "发送私信";
+    });
+}
+
+/* ===== PWA ===== */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("service-worker.js").catch(function() {});
+  });
+}
+
+/* ===== 访问统计 ===== */
+var PAGE_ID = location.pathname.split("/").pop().replace(".html", "") || "index";
+fetch(API + "/api/track", {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({page: PAGE_ID})
+}).catch(function() {});
+
+/* ===== 页面加载完成后初始化 ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  loadAnnouncement();
+  if (document.getElementById("hotRankList")) loadHotRank();
+  loadCardLikes();
+  if (document.getElementById("changelogList")) loadChangelog();
+});
+
+/* 点击遮罩关闭联系弹窗 */
+document.addEventListener("DOMContentLoaded", function() {
+  var modal = document.getElementById("contactModal");
+  if (modal) {
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) closeContactModal();
+    });
+  }
+});
+</script>
+
+
+<!-- 联系站长弹窗 -->
         <div id="contactModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,10,0.92);z-index:9999;align-items:center;justify-content:center;">
         <div style="background:#16161f;border:1px solid #2e2e44;border-radius:16px;padding:28px;width:90%;max-width:440px;position:relative;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
         <div onclick="closeContactModal()" style="position:absolute;top:14px;right:18px;font-size:22px;color:var(--text-dim);cursor:pointer;line-height:1;">×</div>
@@ -386,7 +707,7 @@
         <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;">留言内容 <span style="color:var(--red);">*</span></label>
         <textarea id="contactContent" rows="4" placeholder="想说点什么..." style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;resize:vertical;box-sizing:border-box;font-family:inherit;"></textarea>
         </div>
-        <button onclick="submitContact()" id="contactSubmitBtn" style="width:100%;padding:12px;background:var(--accent);color:#1a1a2e;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">发送私信</button>
+        <button onclick="submitContact()" id="contactSubmitBtn" style="width:100%;padding:12px;background:#f59e0b;color:#1a1a2e;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">发送私信</button>
         <div id="contactResult" style="text-align:center;margin-top:12px;font-size:13px;display:none;"></div>
         </div>
         </div>
