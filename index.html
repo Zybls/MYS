@@ -167,7 +167,59 @@ body { background: var(--bg); color: var(--text); font-family: "Microsoft YaHei"
 
 /* ===== 亮色主题 ===== */
 body.light-theme { --bg: #f5f5f7; --bg-card: #ffffff; --bg-card2: #f0f0f5; --text: #1a1a2e; --text-dim: #666; --text-bright: #000; --border: #e0e0e0; }
-body.light-theme .site-nav { background: rgba(255,255,255,0.95) !important; border-bottom: 1px solid #e0e0e0 !important; }
+body.light-theme /* ===== 导航栏 ===== */
+.site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 52px;
+}
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+.nav-logo:hover { opacity: 0.8; }
+.nav-contact { color: var(--text); font-size: 14px; text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.nav-contact:hover { color: var(--gold); }
+.nav-game-name { color: var(--text-dim); font-size: 15px; }
+.nav-divider { width: 1px; height: 20px; background: var(--border); }
+.nav-search-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px 10px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; }
+.nav-search-btn:hover { background: var(--bg-card2); }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; }
+.nav-theme-btn:hover { background: var(--bg-card2); }
+
+/* ===== 全屏搜索 ===== */
+.fullscreen-search {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(5,5,10,0.97); z-index: 10000;
+    align-items: flex-start; justify-content: center; padding-top: 100px;
+}
+.fullscreen-search.active { display: flex; }
+.search-box { width: 90%; max-width: 600px; position: relative; }
+.search-input {
+    width: 100%; padding: 16px 50px 16px 20px;
+    background: var(--bg-card); border: 2px solid var(--gold);
+    border-radius: 12px; color: var(--text); font-size: 18px; outline: none;
+}
+.search-input::placeholder { color: var(--text-dim); }
+.search-close {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--text-dim); font-size: 24px;
+    cursor: pointer; padding: 4px 8px;
+}
+.search-close:hover { color: var(--text); }
+.search-hint { text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 16px; }
+.search-results { margin-top: 20px; max-height: 50vh; overflow-y: auto; }
+.search-result-item {
+    padding: 12px 16px; background: var(--bg-card); border-radius: 8px;
+    margin-bottom: 8px; cursor: pointer; border: 1px solid var(--border);
+}
+.search-result-item:hover { border-color: var(--gold); }
 body.light-theme .build-card { background: #ffffff !important; border: 1px solid #e0e0e0 !important; }
 body.light-theme .build-name { color: #1a1a2e !important; }
 body.light-theme .hero { background: linear-gradient(180deg, #fff3e0, #fff8f0, transparent) !important; }
