@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英雄没有闪 · 全职业流派配装大全</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: #14141e;
+    --bg-card2: #1e1e2e;
+    --border: #2e2e44;
+    --gold: #f0b040;
+    --cyan: #4ad4e8;
+    --orange: #ff7a3a;
+    --red: #e8443a;
+    --purple: #b06ae8;
+    --green: #5cb85c;
+    --blue: #4a9eff;
+    --text: #d8d8e8;
+    --text-dim: #8888a0;
+    --text-bright: #f0f0ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hero {
+    text-align: center;
+    padding: 40px 20px 32px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 28px;
+    background: linear-gradient(180deg, rgba(240,176,64,0.06), transparent);
+  }
+  .hero h1 {
+    font-size: 32px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+  }
+  .hero .subtitle { color: var(--text-dim); font-size: 15px; }
+  .hero .meta { margin-top: 14px; font-size: 13px; color: var(--text-dim); }
+  .hero .meta span { margin: 0 8px; }
+
+  .class-section {
+    margin-bottom: 32px;
+  }
+  .class-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .class-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .class-icon.ranger { background: linear-gradient(135deg, #1a3a1a, #0d200d); border: 2px solid var(--green); }
+  .class-icon.mage { background: linear-gradient(135deg, #3a1a5a, #200d40); border: 2px solid var(--purple); }
+  .class-icon.warrior { background: linear-gradient(135deg, #3a2a1a, #20150d); border: 2px solid var(--orange); }
+  .class-name { font-size: 22px; font-weight: bold; }
+  .class-name.ranger { color: var(--green); }
+  .class-name.mage { color: var(--purple); }
+  .class-name.warrior { color: var(--orange); }
+  .class-count { font-size: 13px; color: var(--text-dim); margin-left: auto; }
+
+  .build-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .build-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .build-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(240,176,64,0.15);
+  }
+  .build-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+  }
+  .build-card.t1::before { background: var(--red); }
+  .build-card.recommend::before { background: var(--gold); }
+  .build-card.normal::before { background: var(--border); }
+
+  .build-name {
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--text-bright);
+    margin-bottom: 6px;
+    padding-left: 8px;
+  }
+  .build-tags {
+    margin-bottom: 10px;
+    padding-left: 8px;
+  }
+  .build-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+  .tag-pve { background: var(--green); color: #fff; }
+  .tag-pk { background: var(--red); color: #fff; }
+  .tag-boss { background: var(--orange); color: #000; }
+  .tag-dual { background: var(--cyan); color: #000; }
+  .tag-t0 { background: var(--purple); color: #fff; }
+
+  .build-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    padding-left: 8px;
+  }
+  .build-highlight {
+    font-size: 12px;
+    color: var(--gold);
+    margin-top: 8px;
+    padding-left: 8px;
+    font-weight: bold;
+  }
+
+  .other-section {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px dashed var(--border);
+  }
+  .other-title {
+    font-size: 18px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text-dim);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 12px; }
+    .hero h1 { font-size: 24px; letter-spacing: 2px; }
+    .build-grid { grid-template-columns: 1fr; }
+    .class-name { font-size: 18px; }
+  }
+
+  /* ===== 网站导航栏 ===== */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(240,176,64,0.3);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 48px;
+  }
+  .nav-logo {
+    color: #f0b040; font-size: 16px; font-weight: bold;
+    text-decoration: none; letter-spacing: 1px; white-space: nowrap;
+  }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-link {
+    color: #d8d8e8; font-size: 13px; padding: 6px 12px;
+    border-radius: 4px; cursor: pointer; text-decoration: none;
+    transition: all 0.2s; display: inline-block; white-space: nowrap;
+  }
+  .nav-link:hover { background: rgba(240,176,64,0.15); color: #f0b040; }
+  .nav-home { color: #4ad4e8; }
+  .nav-dropdown { position: relative; }
+  .dropdown-menu {
+    display: none; position: absolute; top: 100%; left: 0;
+    background: rgba(20,20,30,0.98); border: 1px solid #2e2e44;
+    border-radius: 6px; padding: 6px 0; min-width: 140px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6); z-index: 10000;
+  }
+  .nav-dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu a {
+    display: block; padding: 7px 16px; color: #d8d8e8;
+    font-size: 13px; text-decoration: none; transition: all 0.15s;
+  }
+  .dropdown-menu a:hover { background: rgba(240,176,64,0.15); color: #f0b040; padding-left: 20px; }
+  .nav-toggle {
+    display: none; background: none; border: none; color: #f0b040;
+    font-size: 20px; cursor: pointer; padding: 4px 8px;
+  }
+  @media (max-width: 768px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none; position: absolute; top: 48px; left: 0; right: 0;
+      background: rgba(10,10,15,0.98); flex-direction: column;
+      padding: 10px 20px; gap: 2px; border-bottom: 1px solid #2e2e44;
+    }
+    .nav-links.open { display: flex; }
+    .nav-dropdown { width: 100%; }
+    .dropdown-menu { position: static; display: block; background: transparent; border: none; box-shadow: none; padding-left: 16px; }
+  }
+  body { padding-top: 56px !important; }
+
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">⚔️ 配装站</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link nav-home">首页</a>
+      <div class="nav-dropdown">
+        <span class="nav-link">🏹 游侠</span>
+        <div class="dropdown-menu">
+          <a href="youxia-gandian.html">感电3.0</a>
+          <a href="youxia-jingji-pk.html">荆棘PK</a>
+          <a href="youxia-jingji-pve.html">荆棘PVE</a>
+          <a href="shadow-dian.html">暗影游侠感电</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link">🔮 法师</span>
+        <div class="dropdown-menu">
+          <a href="zhuling-huoyan.html">咒灵火眼</a>
+          <a href="fashi-yanling-yanbao.html">咒灵炎爆</a>
+          <a href="fashi-yanbao.html">炎爆</a>
+          <a href="fashi-leiquan.html">幻影雷拳</a>
+          <a href="fashi-leidian-shaquan.html">雷电秒杀拳</a>
+          <a href="fashi-bingyan-pk.html">冰焰PK</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link">⚔️ 战士</span>
+        <div class="dropdown-menu">
+          <a href="zhanshi-leichui-pve.html">雷锤PVE</a>
+          <a href="zhanshi-leichui-pk.html">雷锤PK</a>
+          <a href="zhanshi-diandao.html">电刀</a>
+          <a href="zhanshi-leixuan.html">雷旋</a>
+          <a href="tianfa-huodao.html">天罚火刀</a>
+          <a href="huodao-shouling.html">火刀首领</a>
+        </div>
+      </div>
+    </div>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>全职业流派配装大全</h1>
+  <div class="subtitle">《英雄没有闪》9月版 · 邪神攻略站流派集锦整理</div>
+  <div class="meta">
+    <span>🏹 游侠 3套</span>
+    <span>🔮 法师 5套</span>
+    <span>⚔️ 战士 4套</span>
+    <span>📦 其他 3套</span>
+  </div>
+</div>
+
+<!-- 游侠 -->
+<div class="class-section">
+  <div class="class-header">
+    <div class="class-icon ranger">🏹</div>
+    <div class="class-name ranger">暗影游侠</div>
+    <div class="class-count">3 套流派</div>
+  </div>
+  <div class="build-grid">
+    <a href="youxia-gandian.html" class="build-card t1">
+      <div class="build-name">感电 3.0 修正版</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pve">秘境</span>
+        <span class="build-tag tag-t0">全职业第一</span>
+      </div>
+      <div class="build-desc">选梦花，复仇破甲体系，四件套必须，重视附伤率。附伤概率必须85%以上。</div>
+      <div class="build-highlight">⚡ 目前感电打秘境仍然是全职业第一</div>
+    </a>
+    <a href="youxia-jingji-pk.html" class="build-card recommend">
+      <div class="build-name">荆棘 PK 减速流</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pk">PK</span>
+        <span class="build-tag tag-dual">双重恶心人</span>
+      </div>
+      <div class="build-desc">减速流+法术反制双重套路。4件套/2件套灵活切换，游侠内战纯虐，越战也能虐。</div>
+      <div class="build-highlight">🛡️ 最肉+最强控制，王者之巅必备</div>
+    </a>
+    <a href="youxia-jingji-pve.html" class="build-card normal">
+      <div class="build-name">荆棘 PVE 首领打桩</div>
+      <div class="build-tags">
+        <span class="build-tag tag-boss">首领打桩</span>
+        <span class="build-tag tag-pve">PVE</span>
+      </div>
+      <div class="build-desc">复仇清算体系，易伤不断是关键。20秒叠满200层易伤。诛魔马具提伤1.5倍。</div>
+      <div class="build-highlight">🎯 易伤不断是关键，复仇CD40%+</div>
+    </a>
+  </div>
+</div>
+
+<!-- 法师 -->
+<div class="class-section">
+  <div class="class-header">
+    <div class="class-icon mage">🔮</div>
+    <div class="class-name mage">秘法师</div>
+    <div class="class-count">5 套流派</div>
+  </div>
+  <div class="build-grid">
+    <a href="zhuling-huoyan.html" class="build-card t1">
+      <div class="build-name">咒灵火眼 首领讨伐</div>
+      <div class="build-tags">
+        <span class="build-tag tag-boss">首领打桩</span>
+        <span class="build-tag tag-t0">最高搭配</span>
+      </div>
+      <div class="build-desc">咒灵+火眼+灼热体系，首领讨伐最高搭配。全高清游戏图标版。</div>
+      <div class="build-highlight">🔥 法师首领打桩最高搭配！</div>
+    </a>
+    <a href="fashi-yanling-yanbao.html" class="build-card recommend">
+      <div class="build-name">咒灵炎爆 PVE</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pve">PVE</span>
+        <span class="build-tag tag-dual">电以太叠易伤</span>
+      </div>
+      <div class="build-desc">灼热+咒灵+电以太新套路，20秒叠满200层易伤。有咒灵最佳选择。</div>
+      <div class="build-highlight">⚡ 电以太叠易伤新套路，幸运至上</div>
+    </a>
+    <a href="fashi-yanbao.html" class="build-card normal">
+      <div class="build-name">炎爆 最新搭配</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pve">PVE</span>
+        <span class="build-tag tag-dual">双套路</span>
+      </div>
+      <div class="build-desc">常规陨星+咒灵电以太双套路。基础技概率施加易伤新发现。无咒灵用陨星更稳定。</div>
+      <div class="build-highlight">🔄 有咒灵用电以太，无咒灵用陨星</div>
+    </a>
+    <a href="fashi-leiquan.html" class="build-card recommend">
+      <div class="build-name">幻影雷拳 PVE+PK</div>
+      <div class="build-tags">
+        <span class="build-tag tag-dual">PVE+PK</span>
+        <span class="build-tag tag-t0">门槛0</span>
+      </div>
+      <div class="build-desc">门槛为0，不需要永恒武器！法师玩家必做。PK超越冰焰，幻影突袭三刀暴击秒人。</div>
+      <div class="build-highlight">👊 10500%爆发，没几个流派扛得住三刀</div>
+    </a>
+    <a href="fashi-bingyan-pk.html" class="build-card normal">
+      <div class="build-name">冰焰 2件套 PK</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pk">PK</span>
+        <span class="build-tag tag-dual">最肉+最强控制</span>
+      </div>
+      <div class="build-desc">棱镜神威开局法术反制，2件套+博学者护肩1.27倍增伤。博学者裤子天克冰焰。</div>
+      <div class="build-highlight">❄️ 最肉+最强控制，全程风筝敌手</div>
+    </a>
+  </div>
+</div>
+
+<!-- 战士 -->
+<div class="class-section">
+  <div class="class-header">
+    <div class="class-icon warrior">⚔️</div>
+    <div class="class-name warrior">野蛮人</div>
+    <div class="class-count">4 套流派</div>
+  </div>
+  <div class="build-grid">
+    <a href="zhanshi-leichui-pve.html" class="build-card t1">
+      <div class="build-name">幻影雷锤 PVE</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pve">PVE</span>
+        <span class="build-tag tag-t0">T0梯队</span>
+      </div>
+      <div class="build-desc">蛮子PVE崛起！幻影突袭+马撞赌爆发。51万过470万关卡，堪比游侠感电。</div>
+      <div class="build-highlight">🔨 51万→470万，电刀过不去的这套轻松过</div>
+    </a>
+    <a href="zhanshi-leichui-pk.html" class="build-card t1">
+      <div class="build-name">幻影雷锤 PK</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pk">PK</span>
+        <span class="build-tag tag-t0">T0级别</span>
+      </div>
+      <div class="build-desc">幻影三重奏：净世雷锤+幻影突袭+三重奏。越战10万兆！对抗高额法术反制。</div>
+      <div class="build-highlight">⚡ 越战10万兆，10500%爆发满血秒人</div>
+    </a>
+    <a href="zhanshi-diandao.html" class="build-card recommend">
+      <div class="build-name">电刀 最新搭配</div>
+      <div class="build-tags">
+        <span class="build-tag tag-dual">三修万金油</span>
+      </div>
+      <div class="build-desc">蛮子万金油，既能爬塔又能首领又能PK！三重奏+无情收割2件套，踏平+虹吸解决回能。</div>
+      <div class="build-highlight">⚡ 爬塔+首领+PK三修，入门首选</div>
+    </a>
+    <a href="zhanshi-leixuan.html" class="build-card normal">
+      <div class="build-name">雷旋 最新搭配</div>
+      <div class="build-tags">
+        <span class="build-tag tag-boss">首领特化</span>
+      </div>
+      <div class="build-desc">天罚附伤流，首领3倍增伤。附伤:暴伤:持续伤=6:3:1，大头都是附加伤害。用12电不用12风。</div>
+      <div class="build-highlight">🌀 首领3倍增伤，附伤率必须100%</div>
+    </a>
+  </div>
+</div>
+
+<!-- 其他配装 -->
+<div class="other-section">
+  <div class="other-title">📦 其他配装参考</div>
+  <div class="build-grid">
+    <a href="huodao-shouling.html" class="build-card normal">
+      <div class="build-name">火刀首领 BD（小冬瓜版）</div>
+      <div class="build-tags">
+        <span class="build-tag tag-boss">首领</span>
+      </div>
+      <div class="build-desc">小冬瓜抖音攻略整理，火刀首领BD配装一览。</div>
+    </a>
+    <a href="tianfa-huodao.html" class="build-card normal">
+      <div class="build-name">S2野蛮人天罚火刀 BD</div>
+      <div class="build-tags">
+        <span class="build-tag tag-boss">首领</span>
+        <span class="build-tag tag-pve">贪婪</span>
+      </div>
+      <div class="build-desc">卡皮拉巴版，S2赛季野蛮人天罚火刀-首领贪婪一图流搭配攻略。</div>
+    </a>
+    <a href="shadow-dian.html" class="build-card normal">
+      <div class="build-name">暗影游侠梦花感电 BD</div>
+      <div class="build-tags">
+        <span class="build-tag tag-pve">PVE</span>
+      </div>
+      <div class="build-desc">卡皮拉巴版，S2赛季暗影游侠梦花感电9.3改动完整版。</div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  英雄没有闪 · 全职业流派配装大全<br>
+  数据来源：邪神攻略站 9月版流派集锦 | 整理制作：配装参考手册<br>
+  共收录 15 套流派配装，点击卡片查看详细配装页
+</div>
+
+</body>
+</html>

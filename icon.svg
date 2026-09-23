@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0f172a"/>
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#f59e0b" stroke-width="8" opacity="0.3"/>
+  <path d="M256 100 L290 220 L410 220 L315 295 L350 415 L256 345 L162 415 L197 295 L102 220 L222 220 Z" fill="#f59e0b" opacity="0.9"/>
+  <path d="M256 140 L280 225 L365 225 L297 278 L322 360 L256 318 L190 360 L215 278 L147 225 L232 225 Z" fill="#fbbf24"/>
+  <text x="256" y="470" text-anchor="middle" fill="#f59e0b" font-size="36" font-weight="bold" font-family="sans-serif">配装</text>
+</svg>

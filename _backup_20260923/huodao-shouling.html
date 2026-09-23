@@ -1,0 +1,1014 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英雄没有闪 · 火刀首领BD配装一览</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔</text></svg>">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --bg-card: #1a1814;
+    --bg-card2: #221f1a;
+    --border: #3a352c;
+    --gold: #e8b84a;
+    --gold-dim: #b8943a;
+    --orange: #e8632a;
+    --orange-glow: #ff7a3a;
+    --red: #d94040;
+    --green: #5cb85c;
+    --text: #e8e0d0;
+    --text-dim: #9a8f7a;
+    --text-bright: #fff8e8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  /* ===== 顶部标题 ===== */
+  .hero {
+    text-align: center;
+    padding: 40px 20px 30px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero h1 {
+    font-size: 32px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .hero .subtitle {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .hero .badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 16px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  /* ===== 通用区块 ===== */
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 20px;
+    color: var(--gold);
+    border-left: 4px solid var(--orange);
+    padding-left: 12px;
+    margin-bottom: 16px;
+  }
+  /* ===== 三职业卡片 ===== */
+  .class-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .class-card {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all .2s;
+  }
+  .class-card.highlight {
+    border-color: var(--orange);
+    box-shadow: 0 0 16px rgba(232,99,42,.3);
+  }
+  .class-card .class-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-bright);
+    margin-bottom: 6px;
+  }
+  .class-card .build-name {
+    font-size: 22px;
+    color: var(--orange-glow);
+    font-weight: bold;
+  }
+  .class-card .tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 10px;
+    background: var(--bg);
+    border: 1px solid var(--gold-dim);
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--gold);
+  }
+  /* ===== 配装明细 ===== */
+  .build-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .build-item {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .build-item .label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .build-item .value {
+    font-size: 16px;
+    color: var(--text-bright);
+    font-weight: bold;
+  }
+  .build-item .value .opt {
+    color: var(--gold);
+  }
+  .build-item .value .alt {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  /* ===== 表格 ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--bg-card2);
+    color: var(--gold);
+    font-weight: bold;
+  }
+  td { color: var(--text); }
+  td.highlight { color: var(--orange-glow); font-weight: bold; }
+
+  /* 词条标签 */
+  .affix-tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .affix-tag {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 4px 9px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    line-height: 1.4;
+    transition: all 0.15s;
+  }
+  .affix-tag:hover { transform: scale(1.05); }
+  .affix-tag.atk { background: rgba(255,122,58,0.15); color: #ff9a5a; border: 1px solid rgba(255,122,58,0.4); }
+  .affix-tag.def { background: rgba(74,158,255,0.15); color: #6ab0ff; border: 1px solid rgba(74,158,255,0.4); }
+  .affix-tag.func { background: rgba(176,106,232,0.15); color: #c890f0; border: 1px solid rgba(176,106,232,0.4); }
+  .affix-tag.special { background: rgba(232,184,74,0.15); color: #f0cc70; border: 1px solid rgba(232,184,74,0.4); }
+  .affix-tag.crit { background: rgba(232,68,58,0.18); color: #ff7060; border: 1px solid rgba(232,68,58,0.5); }
+
+  /* 词条图例 */
+  .affix-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 10px 16px;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  /* 装备卡片布局 */
+  .equip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .equip-card {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: all 0.2s;
+  }
+  .equip-card:hover {
+    border-color: var(--gold-dim, #e8b84a);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .equip-card.atk { border-left: 3px solid var(--orange, #ff7a3a); }
+  .equip-card.def { border-left: 3px solid #4a9eff; }
+  .equip-card.special { border-left: 3px solid var(--gold, #e8b84a); }
+  .equip-card.crit { border-left: 3px solid var(--red, #e8443a); }
+  .equip-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .equip-slot {
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+  }
+  .equip-name {
+    font-size: 15px;
+    color: var(--text-bright);
+    font-weight: bold;
+  }
+  .equip-note {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(232,68,58,0.1);
+    border-left: 3px solid var(--red, #e8443a);
+    border-radius: 4px;
+    font-size: 11px;
+    color: #ff8070;
+    line-height: 1.6;
+  }
+  /* ===== 词条标签 ===== */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag-item {
+    padding: 6px 14px;
+    background: var(--bg-card2);
+    border: 1px solid var(--gold-dim);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text-bright);
+  }
+  .tag-item.priority {
+    border-color: var(--orange);
+    color: var(--orange-glow);
+  }
+  /* ===== 刻印实例 ===== */
+  .rune-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .rune-card {
+    background: linear-gradient(135deg, #2a1f14, #1a1814);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    padding: 18px;
+  }
+  .rune-card .rune-name {
+    font-size: 17px;
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .rune-card .rune-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .rune-card .stat {
+    font-size: 13px;
+    padding: 3px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .rune-card .stat.red { color: var(--red); }
+  .rune-card .stat.gold { color: var(--gold); }
+  /* ===== 注意事项 ===== */
+  .note-list {
+    list-style: none;
+  }
+  .note-list li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: var(--text);
+  }
+  .note-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: bold;
+  }
+  /* ===== 页脚 ===== */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-dim);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  /* ===== 响应式 ===== */
+  @media (max-width: 720px) {
+    .class-grid, .build-grid, .rune-grid { grid-template-columns: 1fr; }
+    .equip-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 24px; }
+    body { padding: 10px; }
+  }
+
+  /* ===== 网站导航栏 ===== */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(240,176,64,0.3);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 48px;
+  }
+  .nav-logo {
+    color: #f0b040; font-size: 16px; font-weight: bold;
+    text-decoration: none; letter-spacing: 1px; white-space: nowrap;
+  }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-link {
+    color: #d8d8e8; font-size: 13px; padding: 6px 12px;
+    border-radius: 4px; cursor: pointer; text-decoration: none;
+    transition: all 0.2s; display: inline-block; white-space: nowrap;
+  }
+  .nav-link:hover { background: rgba(240,176,64,0.15); color: #f0b040; }
+  .nav-home { color: #4ad4e8; }
+  .nav-dropdown { position: relative; }
+  .dropdown-menu {
+    display: none; position: absolute; top: 100%; left: 0;
+    background: rgba(20,20,30,0.98); border: 1px solid #2e2e44;
+    border-radius: 6px; padding: 6px 0; min-width: 140px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6); z-index: 10000;
+  }
+  .nav-dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu a {
+    display: block; padding: 7px 16px; color: #d8d8e8;
+    font-size: 13px; text-decoration: none; transition: all 0.15s;
+  }
+  .dropdown-menu a:hover { background: rgba(240,176,64,0.15); color: #f0b040; padding-left: 20px; }
+  .nav-toggle {
+    display: none; background: none; border: none; color: #f0b040;
+    font-size: 20px; cursor: pointer; padding: 4px 8px;
+  }
+  @media (max-width: 768px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none; position: absolute; top: 48px; left: 0; right: 0;
+      background: rgba(10,10,15,0.98); flex-direction: column;
+      padding: 10px 20px; gap: 2px; border-bottom: 1px solid #2e2e44;
+    }
+    .nav-links.open { display: flex; }
+    .nav-dropdown { width: 100%; }
+    .dropdown-menu { position: static; display: block; background: transparent; border: none; box-shadow: none; padding-left: 16px; }
+  }
+  body { padding-top: 56px !important; }
+
+
+  /* 技能卡片 */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .skill-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: all 0.2s;
+  }
+  .skill-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .skill-card.highlight {
+    border-color: var(--orange);
+    background: linear-gradient(135deg, rgba(255,122,58,0.08), var(--card-bg));
+  }
+  .skill-icon {
+    font-size: 28px;
+    min-width: 40px;
+    text-align: center;
+    line-height: 1;
+  }
+  .skill-info { flex: 1; }
+  .skill-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+  }
+  .skill-type {
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--bg-darker);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: normal;
+  }
+  .skill-level {
+    font-size: 12px;
+    color: var(--cyan);
+    margin-bottom: 4px;
+  }
+  .skill-runes {
+    font-size: 12px;
+    color: var(--purple);
+    margin-bottom: 6px;
+  }
+  .skill-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  /* 刻印布局 */
+  .engrave-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .engrave-center {
+    width: 100%;
+    max-width: 500px;
+  }
+  .engrave-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+  }
+  .engrave-slot {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .engrave-slot.main {
+    border-color: var(--red);
+    background: linear-gradient(135deg, rgba(232,68,58,0.1), var(--card-bg));
+  }
+  .slot-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .slot-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+  .slot-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">⚔️ 配装站</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link nav-home">首页</a>
+      <div class="nav-dropdown">
+        <span class="nav-link">🏹 游侠</span>
+        <div class="dropdown-menu">
+          <a href="youxia-gandian.html">感电3.0</a>
+          <a href="youxia-jingji-pk.html">荆棘PK</a>
+          <a href="youxia-jingji-pve.html">荆棘PVE</a>
+          <a href="shadow-dian.html">暗影游侠感电</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link">🔮 法师</span>
+        <div class="dropdown-menu">
+          <a href="zhuling-huoyan.html">咒灵火眼</a>
+          <a href="fashi-yanling-yanbao.html">咒灵炎爆</a>
+          <a href="fashi-yanbao.html">炎爆</a>
+          <a href="fashi-leiquan.html">幻影雷拳</a>
+          <a href="fashi-leidian-shaquan.html">雷电秒杀拳</a>
+          <a href="fashi-bingyan-pk.html">冰焰PK</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link">⚔️ 战士</span>
+        <div class="dropdown-menu">
+          <a href="zhanshi-leichui-pve.html">雷锤PVE</a>
+          <a href="zhanshi-leichui-pk.html">雷锤PK</a>
+          <a href="zhanshi-diandao.html">电刀</a>
+          <a href="zhanshi-leixuan.html">雷旋</a>
+          <a href="tianfa-huodao.html">天罚火刀</a>
+          <a href="huodao-shouling.html">火刀首领</a>
+        </div>
+      </div>
+    </div>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<!-- ===== 顶部标题 ===== -->
+<div class="hero">
+  <h1>火刀首领 · BD配装一览</h1>
+  <div class="subtitle">英雄没有闪 · 野蛮人火刀流派 · 首领战配装参考</div>
+  <div class="badge">来源：抖音 @小冬瓜 · 9/11攻略</div>
+</div>
+
+<!-- ===== 三职业选择 ===== -->
+<div class="section">
+  <div class="section-title">一、三职业首领战流派对应</div>
+  <div class="class-grid">
+    <div class="class-card">
+      <div class="class-name">秘法师</div>
+      <div class="build-name">火眼</div>
+      <div class="tag">首领战可选</div>
+    </div>
+    <div class="class-card">
+      <div class="class-name">游侠</div>
+      <div class="build-name">荆棘</div>
+      <div class="tag">首领战可选</div>
+    </div>
+    <div class="class-card highlight">
+      <div class="class-name">野蛮人</div>
+      <div class="build-name">火刀</div>
+      <div class="tag">本篇重点</div>
+    </div>
+  </div>
+  <p style="margin-top:14px;color:var(--text-dim);font-size:14px;">
+    最终伤害取决于：<span style="color:var(--gold);">洗练、铸造、马具、永恒等级</span>
+  </p>
+</div>
+
+<!-- ===== 主动技能 ===== -->
+<div class="section">
+  <div class="section-title">二、主动技能搭配</div>
+  <div class="skill-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🗡️</div>
+      <div class="skill-info">
+        <div class="skill-name">破伤 <span class="skill-type">基础</span></div>
+        <div class="skill-level">300级 · 创伤</div>
+        <div class="skill-runes">符文：粉碎 / 双重</div>
+        <div class="skill-desc">对前方小范围敌人造成40%攻击物理伤害，施加140%攻击创伤。符文满后创伤提升至240%，命中施加2层易伤。</div>
+      </div>
+    </div>
+    <div class="skill-card highlight">
+      <div class="skill-icon">🔥</div>
+      <div class="skill-info">
+        <div class="skill-name">无情收割 <span class="skill-type">核心</span></div>
+        <div class="skill-level">202级 · 火/创伤</div>
+        <div class="skill-runes">符文：炎刃 / 狂电 / 祭刀</div>
+        <div class="skill-desc">本BD核心！60%概率施放火刀造成火元素伤害，火刀暴击时创伤提升至750%，并施加3秒剧痛。暴击率+10%，持续伤害+20%。</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💥</div>
+      <div class="skill-info">
+        <div class="skill-name">踏平 <span class="skill-type">掌控1</span></div>
+        <div class="skill-level">300级 · 昏迷</div>
+        <div class="skill-runes">符文：昏厥 / 强劲</div>
+        <div class="skill-desc">冷却8秒，对周围敌人造成200%攻击物理伤害并眩晕1秒。每命中1目标缩短终极冷却1秒（最多6秒），施加20层易伤，最终伤害+5%。</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📢</div>
+      <div class="skill-info">
+        <div class="skill-name">决战咆哮 <span class="skill-type">掌控2</span></div>
+        <div class="skill-level">300级 · 增伤</div>
+        <div class="skill-runes">符文：破势 / 扬志</div>
+        <div class="skill-desc">冷却8秒，全队伤害强化+25%、移速+10%，持续8秒。施放时对周围敌人施加25层易伤，击中恢复+50%。</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚔️</div>
+      <div class="skill-info">
+        <div class="skill-name">破碎穿透 <span class="skill-type">终极</span></div>
+        <div class="skill-level">205级 · 创伤</div>
+        <div class="skill-runes">符文：炸裂 / 蛮劲 / 涌动</div>
+        <div class="skill-desc">冷却12秒，对前方大范围敌人造成3次100%攻击物理伤害，施加3次450%攻击创伤，额外施加100%重伤。持续伤害+10%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 被动技能与侍从 ===== -->
+<div class="section">
+  <div class="section-title">三、被动技能与侍从</div>
+  <div class="sub-row">
+    <div class="sub-group">
+      <div class="sub-title">被动技能（4个）</div>
+      <div class="sub-items">
+        <span class="sub-tag">🗡️ 砍倒 <span class="note">对健康目标增伤85.8%，首领翻倍</span></span>
+        <span class="sub-tag">💪 越战越勇 <span class="note">每8秒/击杀+5%增伤，叠8层</span></span>
+        <span class="sub-tag">🔥 怒意高涨 <span class="note">能量<50%时回能+52%</span></span>
+        <span class="sub-tag">⚔️ 远古蛮灵之力 <span class="note">终极冷却-20%</span></span>
+      </div>
+    </div>
+    <div class="sub-group">
+      <div class="sub-title">侍从（3个）</div>
+      <div class="sub-items">
+        <span class="sub-tag">🐄 奶牛之王</span>
+        <span class="sub-tag">🥚 魔蛋</span>
+        <span class="sub-tag">⚔️ 莉娅布罗</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===== 核心配装概要 ===== -->
+<div class="section">
+  <div class="section-title">四、核心配装概要</div>
+  <div class="build-grid">
+    <div class="build-item">
+      <div class="label">武器</div>
+      <div class="value">天罚（永恒）</div>
+    </div>
+    <div class="build-item">
+      <div class="label">套装</div>
+      <div class="value">四件套搭配</div>
+    </div>
+    <div class="build-item">
+      <div class="label">圣物 / 古籍</div>
+      <div class="value">优先 <span class="opt">暴击伤害</span></div>
+    </div>
+    <div class="build-item">
+      <div class="label">核心刻印</div>
+      <div class="value">诅咒之语 <span class="alt">或</span> 灾厄预兆</div>
+    </div>
+    <div class="build-item">
+      <div class="label">右下角刻印</div>
+      <div class="value">优先 <span class="opt">碎骨</span> <span class="alt">，其次 虹吸</span></div>
+    </div>
+    <div class="build-item">
+      <div class="label">最终伤害取决于</div>
+      <div class="value">洗练 · 铸造 · 马具 · 永恒等级</div>
+    </div>
+  </div>
+</div>
+<!-- ===== 装备详情 ===== -->
+<div class="section">
+  <div class="section-title">五、12件装备详情</div>
+  <div class="equip-grid">
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">⚔️ 武器</span>
+        <span class="equip-name">天罚（永恒310级）</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理伤害</span>
+        <span class="affix-tag atk">💥 核心技增伤</span>
+        <span class="affix-tag atk">🎯 暴击率</span>
+        <span class="affix-tag atk">🔥 暴击伤害</span>
+      </div>
+      <div class="equip-note">*永恒武器，能量≥100时施放核心消耗所有能量触发风驰电掣，伤害强化。核心技增伤+11%</div>
+    </div>
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">⛑️ 头盔</span>
+        <span class="equip-name">残碎祖魂</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理伤害</span>
+        <span class="affix-tag atk">💥 核心技增伤</span>
+        <span class="affix-tag atk">🎯 暴击率</span>
+        <span class="affix-tag atk">🔥 暴击伤害</span>
+      </div>
+      <div class="equip-note">*散件，基础技增伤+16%。核心25%概率召唤远古之灵造成200%攻击伤害+指引标记，对标记敌人增伤40%</div>
+    </div>
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">🦺 护肩</span>
+        <span class="equip-name">镇魔破煞</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag def">🛡️ 防御</span>
+        <span class="affix-tag def">🛡️ 混合抗性</span>
+        <span class="affix-tag def">💚 每秒恢复</span>
+        <span class="affix-tag def">🛡️ 最终持续抗性</span>
+      </div>
+      <div class="equip-note">*散件，终极技增伤+16%。战斗中每5秒获得1层蛮力</div>
+    </div>
+    <div class="equip-card def">
+      <div class="equip-header">
+        <span class="equip-slot">🛡️ 衣服</span>
+        <span class="equip-name">战争领主的统治</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag def">🛡️ 防御</span>
+        <span class="affix-tag def">🛡️ 混合抗性</span>
+        <span class="affix-tag def">💚 每秒恢复</span>
+        <span class="affix-tag def">🛡️ 最终持续抗性</span>
+      </div>
+      <div class="equip-note">*战争领主套装，基础技增伤+16%</div>
+    </div>
+    <div class="equip-card def">
+      <div class="equip-header">
+        <span class="equip-slot">🧤 护手</span>
+        <span class="equip-name">战争领主的铁腕</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag def">🛡️ 生命</span>
+        <span class="affix-tag def">🛡️ 混合抗性</span>
+        <span class="affix-tag def">💚 每秒恢复</span>
+        <span class="affix-tag def">🛡️ 最终持续抗性</span>
+      </div>
+      <div class="equip-note">*战争领主套装，终极技增伤+16%</div>
+    </div>
+    <div class="equip-card def">
+      <div class="equip-header">
+        <span class="equip-slot">👖 护腿</span>
+        <span class="equip-name">战争领主的威严</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag def">🛡️ 生命</span>
+        <span class="affix-tag def">🛡️ 混合抗性</span>
+        <span class="affix-tag def">💚 每秒恢复</span>
+        <span class="affix-tag special">❤️ 健康增伤（6孔）</span>
+      </div>
+      <div class="equip-note">*战争领主套装，基础技增伤+16%，第6孔洗健康增伤</div>
+    </div>
+    <div class="equip-card def">
+      <div class="equip-header">
+        <span class="equip-slot">👟 鞋子</span>
+        <span class="equip-name">战争领主的步态</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理伤害</span>
+        <span class="affix-tag def">🛡️ 混合抗性</span>
+        <span class="affix-tag def">💚 每秒恢复</span>
+        <span class="affix-tag special">😤 刺耳怒吼（6孔）</span>
+      </div>
+      <div class="equip-note">*战争领主套装，终极技增伤+16%，第6孔洗刺耳怒吼/霜寒</div>
+    </div>
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">🔗 腰带</span>
+        <span class="equip-name">秽噬的存续</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理伤害</span>
+        <span class="affix-tag atk">💥 核心技增伤</span>
+        <span class="affix-tag atk">🎯 暴击率</span>
+        <span class="affix-tag atk">🔥 暴击伤害</span>
+      </div>
+      <div class="equip-note">*散件，终极技增伤+16%。无情收割伤害+50%，角色持续伤害+20%</div>
+    </div>
+    <div class="equip-card def">
+      <div class="equip-header">
+        <span class="equip-slot">🧤 护腕</span>
+        <span class="equip-name">冠军威能</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag def">🛡️ 防御</span>
+        <span class="affix-tag def">🛡️ 混合抗性</span>
+        <span class="affix-tag def">💚 每秒恢复</span>
+        <span class="affix-tag def">🛡️ 最终持续抗性</span>
+      </div>
+      <div class="equip-note">*散件，基础技增伤+16%。造成持续伤害时降低敌人30%持续伤害抗性，最多叠3层</div>
+    </div>
+    <div class="equip-card crit">
+      <div class="equip-header">
+        <span class="equip-slot">📿 项链</span>
+        <span class="equip-name">黑曜穿刺</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理伤害</span>
+        <span class="affix-tag atk">💥 核心技增伤</span>
+        <span class="affix-tag atk">🎯 暴击率</span>
+        <span class="affix-tag atk">🔥 暴击伤害</span>
+      </div>
+      <div class="equip-note">*散件首饰，核心技增伤+8%。施放核心45%概率加快破碎穿透冷却2秒</div>
+    </div>
+    <div class="equip-card crit">
+      <div class="equip-header">
+        <span class="equip-slot">🔮 护符</span>
+        <span class="equip-name">不屈本我</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理伤害</span>
+        <span class="affix-tag atk">💥 核心技增伤</span>
+        <span class="affix-tag atk">🎯 暴击率</span>
+        <span class="affix-tag atk">🔥 暴击伤害</span>
+      </div>
+      <div class="equip-note">*散件首饰，核心技增伤+8%。施放核心50%概率本次核心伤害强化60%</div>
+    </div>
+    <div class="equip-card crit">
+      <div class="equip-header">
+        <span class="equip-slot">💍 戒指</span>
+        <span class="equip-name">巨龙遗骸</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理伤害</span>
+        <span class="affix-tag atk">💥 核心技增伤</span>
+        <span class="affix-tag atk">🎯 暴击率</span>
+        <span class="affix-tag atk">🔥 暴击伤害</span>
+      </div>
+      <div class="equip-note">*散件首饰，核心技增伤+8%。施放决战咆哮获得愤怒能量</div>
+    </div>
+  </div>
+  <div style="margin-top:14px;padding:12px;background:rgba(232,184,74,0.08);border-radius:8px;border:1px solid rgba(232,184,74,0.2);">
+    <b style="color:var(--gold);">战争领主套装效果：</b>
+    <span style="color:var(--text-dim);font-size:13px;">2件 → 无情收割伤害+80%、持续伤害+80%；4件 → 每第三次无情收割触发凌厉终结（额外大范围攻击）</span>
+  </div>
+</div>
+<!-- ===== 洗练属性推荐 ===== -->
+<div class="section">
+  <div class="section-title">六、洗练属性推荐</div>
+
+  <!-- 词条图例 -->
+  <div class="affix-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(255,122,58,0.6);"></div>输出词条</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(74,158,255,0.6);"></div>防御词条</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(176,106,232,0.6);"></div>功能词条</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(232,184,74,0.6);"></div>特殊词条</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(232,68,58,0.7);"></div>核心暴击词条</div>
+  </div>
+
+  <div class="equip-grid">
+    <!-- 主属性 -->
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">⚔️ 主属性</span>
+        <span class="equip-name">物理</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">⚔️ 物理</span>
+      </div>
+    </div>
+
+    <!-- 技能增伤 -->
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">💥 技能增伤</span>
+        <span class="equip-name">核心/终极</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">💥 核心</span>
+        <span class="affix-tag atk">💥 终极</span>
+      </div>
+    </div>
+
+    <!-- 暴击类 -->
+    <div class="equip-card crit">
+      <div class="equip-header">
+        <span class="equip-slot">🎯 暴击类</span>
+        <span class="equip-name">暴击/幸运</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">🎯 暴击</span>
+        <span class="affix-tag atk">🎯 幸运</span>
+      </div>
+    </div>
+
+    <!-- 伤害类 -->
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">🔥 伤害类</span>
+        <span class="equip-name">爆伤/持续</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag atk">🔥 爆伤</span>
+        <span class="affix-tag atk">🔥 持续</span>
+      </div>
+    </div>
+
+    <!-- 核心/基础位 -->
+    <div class="equip-card atk">
+      <div class="equip-header">
+        <span class="equip-slot">⚡ 核心/基础位</span>
+        <span class="equip-name">增伤/急速</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag func">💥 增伤</span>
+        <span class="affix-tag func">⚡ 急速</span>
+      </div>
+    </div>
+
+    <!-- 掌控/终极位 -->
+    <div class="equip-card special">
+      <div class="equip-header">
+        <span class="equip-slot">❄️ 掌控/终极位</span>
+        <span class="equip-name">冷却缩减</span>
+      </div>
+      <div class="affix-tags">
+        <span class="affix-tag func">❄️ 冷却</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 第六条词条 ===== -->
+<div class="section">
+  <div class="section-title">七、第六条词条推荐（鞋/裤）</div>
+  <div class="affix-tags" style="gap:6px;">
+    <span class="affix-tag special">❤️ 健康时伤害强化</span>
+    <span class="affix-tag func">🪓 砍树</span>
+    <span class="affix-tag func">🔄 终极技能回能</span>
+    <span class="affix-tag func">😤 刺耳怒吼</span>
+    <span class="affix-tag func">❄️ 霜寒</span>
+  </div>
+</div>
+
+<!-- ===== 刻印搭配 ===== -->
+<div class="section">
+  <div class="section-title">八、刻印搭配（5个位置）</div>
+  <div class="engrave-layout">
+    <div class="engrave-center">
+      <div class="engrave-slot main">
+        <div class="slot-label">中心（主刻印）</div>
+        <div class="slot-name">诅咒之雨 <span class="alt">或</span> 灾厄预兆</div>
+        <div class="slot-desc">诅咒之雨更稳定：持续伤害触发5次1000%攻击元素伤害+异界诅咒<br>灾厄预兆上限更高：终极技能触发4秒痛苦无常</div>
+      </div>
+    </div>
+    <div class="engrave-row">
+      <div class="engrave-slot">
+        <div class="slot-label">左上角</div>
+        <div class="slot-name">余震 <span class="alt">或</span> 滚石</div>
+        <div class="slot-desc">余震：掌控技能触发700%攻击物理伤害+击飞<br>滚石：核心触发时召唤岩石对撞聚集敌人</div>
+      </div>
+      <div class="engrave-slot">
+        <div class="slot-label">右上角</div>
+        <div class="slot-name">共鸣</div>
+        <div class="slot-desc">以共鸣为主，提升元素伤害联动</div>
+      </div>
+    </div>
+    <div class="engrave-row">
+      <div class="engrave-slot">
+        <div class="slot-label">左下角</div>
+        <div class="slot-name">狂热</div>
+        <div class="slot-desc">提升伤害强化与输出节奏</div>
+      </div>
+      <div class="engrave-slot">
+        <div class="slot-label">右下角</div>
+        <div class="slot-name">碎骨 <span class="alt">优先</span> / 虹吸 <span class="alt">其次</span></div>
+        <div class="slot-desc">碎骨：基础技能击中施加碎骨（增伤核心）<br>虹吸：控制成功偷取25点能量（回能备选）</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:14px;padding:12px;background:rgba(232,68,58,0.08);border-radius:8px;border:1px solid rgba(232,68,58,0.2);">
+    <b style="color:var(--red);">刻印优先级：</b>
+    <span style="color:var(--text-dim);font-size:13px;">右下角碎骨是核心增伤手段，必须优先；中心刻印根据装备和输出习惯选择诅咒之雨（稳定）或灾厄预兆（爆发）；左上余震/滚石二选一即可。</span>
+  </div>
+</div>
+<!-- ===== 注意事项 ===== -->
+<div class="section">
+  <div class="section-title">九、注意事项</div>
+  <ul class="note-list">
+    <li>古籍优先升暴击伤害套（祷纹古册 / 荣誉捍卫），爆伤词条战力提升最大</li>
+    <li>右下角刻印碎骨优于虹吸，资源优先投入碎骨</li>
+    <li>技能选择有余震/滚石二选一、碎骨/虹吸二选一，根据个人手感调整</li>
+    <li>洗练优先把前4个词条洗到优质属性，比硬抠5、6词条满格性价比更高</li>
+    <li>刺耳怒吼/霜寒是鞋裤第六词条的PVE优选，减速流很强但注意减速抗性</li>
+  </ul>
+</div>
+
+<div class="footer">
+  配装整理自抖音 @小冬瓜 9/11 火刀首领攻略视频 · 仅供参考
+</div>
+
+</body>
+</html>

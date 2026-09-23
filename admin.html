@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配装站 - 管理后台</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --border: #334155;
+  --text: #e2e8f0;
+  --text-dim: #64748b;
+  --accent: #f59e0b;
+  --red: #ef4444;
+  --green: #22c55e;
+  --blue: #3b82f6;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.login-wrap { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+.login-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 360px; text-align: center; }
+.login-box h1 { font-size: 24px; margin-bottom: 8px; }
+.login-box p { color: var(--text-dim); font-size: 14px; margin-bottom: 24px; }
+.login-box input { width: 100%; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; margin-bottom: 16px; outline: none; }
+.login-box input:focus { border-color: var(--accent); }
+.login-box button { width: 100%; padding: 12px; background: var(--accent); color: #1a1a2e; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+.login-error { color: var(--red); font-size: 13px; margin-top: 12px; display: none; }
+.admin-header { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+.admin-header h1 { font-size: 18px; }
+.admin-header .actions { display: flex; gap: 12px; align-items: center; }
+.admin-header a { color: var(--text-dim); text-decoration: none; font-size: 14px; }
+.admin-header a:hover { color: var(--accent); }
+.admin-header button { padding: 6px 14px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--text-dim); cursor: pointer; font-size: 13px; }
+.admin-header button:hover { border-color: var(--red); color: var(--red); }
+.admin-body { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.stat-card .label { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; }
+.stat-card .value { font-size: 28px; font-weight: 700; color: var(--accent); }
+.stat-card .value.blue { color: var(--blue); }
+.stat-card .value.green { color: var(--green); }
+.panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+.panel-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+.rank-list { display: flex; flex-direction: column; gap: 8px; }
+.rank-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--bg); border-radius: 8px; }
+.rank-item .num { width: 24px; font-weight: 700; color: var(--text-dim); text-align: center; }
+.rank-item .name { flex: 1; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rank-item .bar-wrap { flex: 2; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.rank-item .bar { height: 100%; background: linear-gradient(90deg, var(--accent), #fbbf24); border-radius: 4px; }
+.rank-item .bar.blue { background: linear-gradient(90deg, var(--blue), #60a5fa); }
+.rank-item .count { width: 50px; text-align: right; font-size: 14px; font-weight: 600; }
+.rank-item .reset-btn { padding: 4px 10px; background: transparent; border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); cursor: pointer; font-size: 12px; }
+.rank-item .reset-btn:hover { border-color: var(--red); color: var(--red); }
+.chart-wrap { position: relative; height: 220px; }
+canvas { width: 100%; height: 100%; }
+.changelog-form { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.changelog-form input, .changelog-form select { padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; outline: none; }
+.changelog-form input:focus, .changelog-form select:focus { border-color: var(--accent); }
+.changelog-form input[type="text"] { flex: 1; min-width: 200px; }
+.changelog-form button { padding: 8px 16px; background: var(--accent); color: #1a1a2e; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; }
+.changelog-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: var(--bg); border-radius: 8px; margin-bottom: 8px; }
+.changelog-item .date { flex-shrink: 0; width: 80px; font-size: 13px; color: var(--accent); font-weight: 600; }
+.changelog-item .tag { flex-shrink: 0; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.tag-update { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.tag-new { background: rgba(34,197,94,0.15); color: #22c55e; }
+.tag-fix { background: rgba(239,68,68,0.15); color: #ef4444; }
+.changelog-item .content { flex: 1; font-size: 14px; line-height: 1.5; }
+.changelog-item .del-btn { flex-shrink: 0; background: transparent; border: none; color: var(--text-dim); cursor: pointer; font-size: 16px; padding: 0 4px; }
+.changelog-item .del-btn:hover { color: var(--red); }
+.notes-editor { display: flex; flex-direction: column; gap: 12px; }
+.notes-editor select { padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; }
+.notes-editor textarea { width: 100%; min-height: 120px; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; line-height: 1.6; resize: vertical; outline: none; font-family: inherit; }
+.notes-editor textarea:focus { border-color: var(--accent); }
+.notes-editor .note-meta { font-size: 12px; color: var(--text-dim); }
+.notes-editor button { align-self: flex-end; padding: 10px 24px; background: var(--accent); color: #1a1a2e; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
+.empty { text-align: center; padding: 30px; color: var(--text-dim); font-size: 14px; }
+.msg-item { padding: 14px; background: var(--bg); border-radius: 8px; margin-bottom: 10px; border-left: 3px solid var(--accent); }
+.msg-item .msg-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.msg-item .msg-name { font-weight: 600; font-size: 14px; color: var(--accent); }
+.msg-item .msg-date { font-size: 12px; color: var(--text-dim); }
+.msg-item .msg-contact { font-size: 13px; color: var(--blue); margin-bottom: 6px; }
+.msg-item .msg-content { font-size: 14px; line-height: 1.6; color: var(--text); white-space: pre-wrap; }
+.msg-item .msg-actions { margin-top: 8px; text-align: right; }
+.msg-item .del-btn { padding: 4px 12px; background: transparent; border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); cursor: pointer; font-size: 12px; }
+.msg-item .del-btn:hover { border-color: var(--red); color: var(--red); }
+
+.toast { position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px; font-size: 14px; z-index: 9999; display: none; }
+.toast.success { background: var(--green); color: #fff; }
+.toast.error { background: var(--red); color: #fff; }
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--card-bg); padding: 4px; border-radius: 10px; border: 1px solid var(--border); }
+.tab-btn { flex: 1; padding: 10px; background: transparent; border: none; color: var(--text-dim); cursor: pointer; font-size: 14px; border-radius: 8px; transition: all 0.2s; }
+.tab-btn.active { background: var(--accent); color: #1a1a2e; font-weight: 600; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- 登录页 -->
+<div class="login-wrap" id="loginPage">
+  <div class="login-box">
+    <h1>⚙️ 管理后台</h1>
+    <p>英雄没有闪配装站</p>
+    <input type="password" id="tokenInput" placeholder="请输入管理密码" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError">密码错误，请重试</div>
+  </div>
+</div>
+
+<!-- 后台主界面 -->
+<div id="adminPage" style="display:none;">
+  <div class="admin-header">
+    <h1>⚙️ 配装站管理后台</h1>
+    <div class="actions">
+      <a href="index.html">← 返回网站</a>
+      <button onclick="doLogout()">退出登录</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <!-- 统计卡片 -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">总访问量</div><div class="value blue" id="totalVisits">0</div></div>
+      <div class="stat-card"><div class="label">总点赞数</div><div class="value" id="totalLikes">0</div></div>
+      <div class="stat-card"><div class="label">配装总数</div><div class="value green">16</div></div>
+      <div class="stat-card"><div class="label">今日访问</div><div class="value" id="todayVisits">0</div></div>
+    </div>
+
+    <!-- 标签页 -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('data')">📊 数据统计</button>
+      <button class="tab-btn" onclick="switchTab('likes')">🔥 点赞管理</button>
+      <button class="tab-btn" onclick="switchTab('notes')">📝 配装备注</button>
+      <button class="tab-btn" onclick="switchTab('changelog')">📋 更新日志</button>
+      <button class="tab-btn" onclick="switchTab('messages')">💬 私信管理</button>
+    </div>
+
+    <!-- 数据统计 -->
+    <div class="tab-content active" id="tab-data">
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-title">📈 近7天访问趋势</div>
+          <div class="chart-wrap"><canvas id="visitChart"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">👀 页面访问排行</div>
+          <div class="rank-list" id="visitRank"><div class="empty">加载中...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 点赞管理 -->
+    <div class="tab-content" id="tab-likes">
+      <div class="panel">
+        <div class="panel-title">🔥 点赞数据排行</div>
+        <div class="rank-list" id="rankList"><div class="empty">加载中...</div></div>
+      </div>
+    </div>
+
+    <!-- 配装备注 -->
+    <div class="tab-content" id="tab-notes">
+      <div class="panel">
+        <div class="panel-title">📝 配装备注编辑</div>
+        <div class="notes-editor">
+          <select id="notePageSelect" onchange="loadNote()">
+            <option value="">选择配装...</option>
+          </select>
+          <div class="note-meta" id="noteMeta"></div>
+          <textarea id="noteContent" placeholder="在这里编辑配装备注，支持多行文本。保存后会显示在对应配装页面顶部。"></textarea>
+          <button onclick="saveNote()">💾 保存备注</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 更新日志 -->
+    <div class="tab-content" id="tab-changelog">
+      <div class="panel">
+        <div class="panel-title">📋 更新日志管理</div>
+        <div class="changelog-form">
+          <input type="date" id="clDate">
+          <select id="clTag">
+            <option value="update">更新</option>
+            <option value="new">新增</option>
+            <option value="fix">修复</option>
+          </select>
+          <input type="text" id="clContent" placeholder="更新内容描述...">
+          <button onclick="addChangelog()">添加</button>
+        </div>
+        <div id="changelogList"><div class="empty">加载中...</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- 私信管理 -->
+    <div class="tab-content" id="tab-messages">
+      <div class="panel">
+        <div class="panel-title">💬 站长私信 <span id="msgCount" style="font-size:13px;color:var(--text-dim);font-weight:normal;"></span></div>
+        <div id="messagesList"><div class="empty">加载中...</div></div>
+      </div>
+    </div>
+
+<script>
+var API_BASE = "https://yxmysbd-api.zyb8808.workers.dev";
+var PAGE_NAMES = {
+  "tianfa-huodao": "野蛮人天罚火刀", "huodao-shouling": "火刀首领",
+  "fashi-leidian-shaquan": "法师雷电秒杀拳", "fashi-yanbao": "法师炎爆",
+  "fashi-yanling-yanbao": "法师炎灵炎爆", "fashi-leiquan": "法师雷拳",
+  "fashi-bingyan-pk": "法师冰炎PK", "youxia-gandian": "感电3.0修正版",
+  "shadow-dian": "暗影游侠梦花感电", "youxia-jingji-pk": "游侠竞技PK",
+  "youxia-jingji-pve": "游侠竞技PVE", "zhuling-huoyan": "咒灵火眼",
+  "zhanshi-leichui-pve": "战士雷锤PVE", "zhanshi-leichui-pk": "战士雷锤PK",
+  "zhanshi-diandao": "战士电刀", "zhanshi-leixuan": "战士雷旋"
+};
+
+function getToken() { return localStorage.getItem("yxmysbd_admin_token") || ""; }
+function setToken(t) { localStorage.setItem("yxmysbd_admin_token", t); }
+function clearToken() { localStorage.removeItem("yxmysbd_admin_token"); }
+
+function showToast(msg, type) {
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.className = "toast " + (type || "success"); t.style.display = "block";
+  setTimeout(function() { t.style.display = "none"; }, 2500);
+}
+
+
+function loadMessages() {
+  fetch(API_BASE + "/api/messages", { headers: {"X-Admin-Token": getToken()} })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      document.getElementById("msgCount").textContent = "（共" + data.length + "条）";
+      if (!data.length) {
+        document.getElementById("messagesList").innerHTML = '<div class="empty">暂无私信</div>';
+        return;
+      }
+      var html = "";
+      data.forEach(function(msg){
+        var date = new Date(msg.createdAt).toLocaleString();
+        html += '<div class="msg-item">' +
+          '<div class="msg-header"><span class="msg-name">' + (msg.name || '匿名') + '</span>' +
+          '<span class="msg-date">' + date + '</span></div>' +
+          (msg.contact ? '<div class="msg-contact">📞 ' + msg.contact + '</div>' : '') +
+          '<div class="msg-content">' + msg.content + '</div>' +
+          '<div class="msg-actions"><button class="del-btn" onclick="delMessage(\'' + msg.id + '\')">删除</button></div>' +
+          '</div>';
+      });
+      document.getElementById("messagesList").innerHTML = html;
+    }).catch(function(){
+      document.getElementById("messagesList").innerHTML = '<div class="empty">加载失败</div>';
+    });
+}
+
+function delMessage(id) {
+  if (!confirm("确定删除这条私信吗？")) return;
+  fetch(API_BASE + "/api/messages/" + id, { method: "DELETE", headers: {"X-Admin-Token": getToken()} })
+    .then(function(r){ return r.json(); })
+    .then(function(data){ if (data.ok) { showToast("已删除"); loadMessages(); } })
+    .catch(function(){ showToast("删除失败", "error"); });
+}
+
+function switchTab(name) {
+  document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
+  document.querySelectorAll(".tab-content").forEach(function(c) { c.classList.remove("active"); });
+  event.target.classList.add("active");
+  document.getElementById("tab-" + name).classList.add("active");
+}
+
+function doLogin() {
+  var token = document.getElementById("tokenInput").value.trim();
+  if (!token) return;
+  fetch(API_BASE + "/api/admin/login", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({token: token}) })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok) { setToken(token); showAdmin(); }
+      else { document.getElementById("loginError").style.display = "block"; }
+    }).catch(function() { document.getElementById("loginError").style.display = "block"; });
+}
+
+function doLogout() {
+  clearToken();
+  document.getElementById("adminPage").style.display = "none";
+  document.getElementById("loginPage").style.display = "flex";
+  document.getElementById("tokenInput").value = "";
+}
+
+function showAdmin() {
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("adminPage").style.display = "block";
+  initNoteSelect();
+  loadAllData();
+}
+
+function loadAllData() {
+  loadStats();
+  loadRankData();
+  loadChangelog();
+  loadMessages();
+}
+
+function loadStats() {
+  fetch(API_BASE + "/api/stats")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      document.getElementById("totalVisits").textContent = data.total;
+      var today = data.daily[data.daily.length - 1];
+      document.getElementById("todayVisits").textContent = today ? today.total : 0;
+      drawChart(data.daily);
+      // 访问排行
+      var maxVisit = 0;
+      data.pageStats.forEach(function(item) { if (item.count > maxVisit) maxVisit = item.count; });
+      var html = "";
+      data.pageStats.slice(0, 10).forEach(function(item, idx) {
+        var name = PAGE_NAMES[item.page] || item.page;
+        var pct = maxVisit > 0 ? (item.count / maxVisit * 100) : 0;
+        html += '<div class="rank-item"><div class="num">' + (idx + 1) + '</div>' +
+          '<div class="name">' + name + '</div>' +
+          '<div class="bar-wrap"><div class="bar blue" style="width:' + pct + '%"></div></div>' +
+          '<div class="count">' + item.count + '</div></div>';
+      });
+      document.getElementById("visitRank").innerHTML = html || '<div class="empty">暂无数据</div>';
+    }).catch(function() {
+      document.getElementById("visitRank").innerHTML = '<div class="empty">加载失败</div>';
+    });
+}
+
+function drawChart(daily) {
+  var canvas = document.getElementById("visitChart");
+  var ctx = canvas.getContext("2d");
+  var dpr = window.devicePixelRatio || 1;
+  var rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = 220 * dpr;
+  ctx.scale(dpr, dpr);
+  var W = rect.width, H = 220, pad = 40;
+  ctx.clearRect(0, 0, W, H);
+  var maxVal = Math.max.apply(null, daily.map(function(d) { return d.total; }).concat([1]));
+  var barW = (W - pad * 2) / daily.length * 0.6;
+  var gap = (W - pad * 2) / daily.length * 0.4;
+  // 网格线
+  ctx.strokeStyle = "#334155"; ctx.lineWidth = 1;
+  for (var i = 0; i <= 4; i++) {
+    var y = pad + (H - pad * 2) * i / 4;
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke();
+    ctx.fillStyle = "#64748b"; ctx.font = "11px sans-serif"; ctx.textAlign = "right";
+    ctx.fillText(Math.round(maxVal * (4 - i) / 4), pad - 6, y + 4);
+  }
+  // 柱状图
+  daily.forEach(function(d, i) {
+    var x = pad + i * (barW + gap) + gap / 2;
+    var h = (d.total / maxVal) * (H - pad * 2);
+    var y = H - pad - h;
+    var grad = ctx.createLinearGradient(0, y, 0, H - pad);
+    grad.addColorStop(0, "#f59e0b"); grad.addColorStop(1, "#fbbf24");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.roundRect(x, y, barW, h, [4, 4, 0, 0]);
+    ctx.fill();
+    // 数值
+    if (d.total > 0) {
+      ctx.fillStyle = "#e2e8f0"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText(d.total, x + barW / 2, y - 6);
+    }
+    // 日期
+    ctx.fillStyle = "#64748b"; ctx.font = "10px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(d.date.slice(5), x + barW / 2, H - pad + 16);
+  });
+}
+
+function loadRankData() {
+  fetch(API_BASE + "/api/likes/all")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var total = 0, maxCount = 0;
+      data.forEach(function(item) { total += item.count; if (item.count > maxCount) maxCount = item.count; });
+      document.getElementById("totalLikes").textContent = total;
+      var html = "";
+      data.forEach(function(item, idx) {
+        var name = PAGE_NAMES[item.page] || item.page;
+        var pct = maxCount > 0 ? (item.count / maxCount * 100) : 0;
+        html += '<div class="rank-item"><div class="num">' + (idx + 1) + '</div>' +
+          '<div class="name">' + name + '</div>' +
+          '<div class="bar-wrap"><div class="bar" style="width:' + pct + '%"></div></div>' +
+          '<div class="count">' + item.count + '</div>' +
+          '<button class="reset-btn" onclick="resetLikes(\'' + item.page + '\')">重置</button></div>';
+      });
+      document.getElementById("rankList").innerHTML = html;
+    }).catch(function() { document.getElementById("rankList").innerHTML = '<div class="empty">数据加载失败</div>'; });
+}
+
+function resetLikes(page) {
+  if (!confirm("确定重置「" + (PAGE_NAMES[page] || page) + "」的点赞数吗？")) return;
+  fetch(API_BASE + "/api/admin/reset-likes", { method: "POST", headers: {"Content-Type": "application/json", "X-Admin-Token": getToken()}, body: JSON.stringify({page: page}) })
+    .then(function(r) { return r.json(); })
+    .then(function(data) { if (data.ok) { showToast("已重置"); loadRankData(); } else { showToast("操作失败", "error"); } })
+    .catch(function() { showToast("网络错误", "error"); });
+}
+
+function initNoteSelect() {
+  var sel = document.getElementById("notePageSelect");
+  sel.innerHTML = '<option value="">选择配装...</option>';
+  Object.keys(PAGE_NAMES).forEach(function(page) {
+    var opt = document.createElement("option");
+    opt.value = page; opt.textContent = PAGE_NAMES[page];
+    sel.appendChild(opt);
+  });
+}
+
+function loadNote() {
+  var page = document.getElementById("notePageSelect").value;
+  if (!page) { document.getElementById("noteContent").value = ""; document.getElementById("noteMeta").textContent = ""; return; }
+  fetch(API_BASE + "/api/notes/" + page)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      document.getElementById("noteContent").value = data.content || "";
+      document.getElementById("noteMeta").textContent = data.updatedAt ? "最后更新：" + new Date(data.updatedAt).toLocaleString() : "尚未保存备注";
+    }).catch(function() { showToast("加载失败", "error"); });
+}
+
+function saveNote() {
+  var page = document.getElementById("notePageSelect").value;
+  if (!page) { showToast("请先选择配装", "error"); return; }
+  var content = document.getElementById("noteContent").value;
+  fetch(API_BASE + "/api/notes/" + page, { method: "PUT", headers: {"Content-Type": "application/json", "X-Admin-Token": getToken()}, body: JSON.stringify({content: content}) })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.updatedAt) { showToast("保存成功"); loadNote(); }
+      else { showToast("保存失败：" + (data.error || ""), "error"); }
+    }).catch(function() { showToast("网络错误", "error"); });
+}
+
+function loadChangelog() {
+  fetch(API_BASE + "/api/changelog")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.length) { document.getElementById("changelogList").innerHTML = '<div class="empty">暂无更新日志</div>'; return; }
+      var html = "";
+      data.forEach(function(item) {
+        html += '<div class="changelog-item"><div class="date">' + item.date + '</div>' +
+          '<div class="tag tag-' + item.tag + '">' + (item.tag === 'new' ? '新增' : item.tag === 'fix' ? '修复' : '更新') + '</div>' +
+          '<div class="content">' + item.content + '</div>' +
+          '<button class="del-btn" onclick="delChangelog(\'' + item.id + '\')">×</button></div>';
+      });
+      document.getElementById("changelogList").innerHTML = html;
+    }).catch(function() { document.getElementById("changelogList").innerHTML = '<div class="empty">加载失败</div>'; });
+}
+
+function addChangelog() {
+  var date = document.getElementById("clDate").value;
+  var tag = document.getElementById("clTag").value;
+  var content = document.getElementById("clContent").value.trim();
+  if (!content) { showToast("请输入更新内容", "error"); return; }
+  if (!date) date = new Date().toISOString().slice(0, 10);
+  fetch(API_BASE + "/api/changelog", { method: "POST", headers: {"Content-Type": "application/json", "X-Admin-Token": getToken()}, body: JSON.stringify({date: date, tag: tag, content: content}) })
+    .then(function(r) { return r.json(); })
+    .then(function(data) { if (data.id) { showToast("添加成功"); document.getElementById("clContent").value = ""; loadChangelog();
+  loadMessages(); } else { showToast("添加失败", "error"); } })
+    .catch(function() { showToast("网络错误", "error"); });
+}
+
+function delChangelog(id) {
+  if (!confirm("确定删除这条更新日志吗？")) return;
+  fetch(API_BASE + "/api/changelog/" + id, { method: "DELETE", headers: {"X-Admin-Token": getToken()} })
+    .then(function(r) { return r.json(); })
+    .then(function(data) { if (data.ok) { showToast("已删除"); loadChangelog();
+  loadMessages(); } else { showToast("删除失败", "error"); } })
+    .catch(function() { showToast("网络错误", "error"); });
+}
+
+if (getToken()) {
+  fetch(API_BASE + "/api/admin/login", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({token: getToken()}) })
+    .then(function(r) { return r.json(); })
+    .then(function(data) { if (data.ok) showAdmin(); }).catch(function() {});
+}
+document.getElementById("clDate").value = new Date().toISOString().slice(0, 10);
+</script>
+</body>
+</html>

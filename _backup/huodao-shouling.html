@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英雄没有闪 · 火刀首领BD配装一览</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔</text></svg>">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --bg-card: #1a1814;
+    --bg-card2: #221f1a;
+    --border: #3a352c;
+    --gold: #e8b84a;
+    --gold-dim: #b8943a;
+    --orange: #e8632a;
+    --orange-glow: #ff7a3a;
+    --red: #d94040;
+    --green: #5cb85c;
+    --text: #e8e0d0;
+    --text-dim: #9a8f7a;
+    --text-bright: #fff8e8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  /* ===== 顶部标题 ===== */
+  .hero {
+    text-align: center;
+    padding: 40px 20px 30px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero h1 {
+    font-size: 32px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .hero .subtitle {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .hero .badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 16px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  /* ===== 通用区块 ===== */
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 20px;
+    color: var(--gold);
+    border-left: 4px solid var(--orange);
+    padding-left: 12px;
+    margin-bottom: 16px;
+  }
+  /* ===== 三职业卡片 ===== */
+  .class-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .class-card {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all .2s;
+  }
+  .class-card.highlight {
+    border-color: var(--orange);
+    box-shadow: 0 0 16px rgba(232,99,42,.3);
+  }
+  .class-card .class-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-bright);
+    margin-bottom: 6px;
+  }
+  .class-card .build-name {
+    font-size: 22px;
+    color: var(--orange-glow);
+    font-weight: bold;
+  }
+  .class-card .tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 10px;
+    background: var(--bg);
+    border: 1px solid var(--gold-dim);
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--gold);
+  }
+  /* ===== 配装明细 ===== */
+  .build-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .build-item {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .build-item .label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .build-item .value {
+    font-size: 16px;
+    color: var(--text-bright);
+    font-weight: bold;
+  }
+  .build-item .value .opt {
+    color: var(--gold);
+  }
+  .build-item .value .alt {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  /* ===== 表格 ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--bg-card2);
+    color: var(--gold);
+    font-weight: bold;
+  }
+  td { color: var(--text); }
+  td.highlight { color: var(--orange-glow); font-weight: bold; }
+
+  /* 词条标签 */
+  .affix-tags { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .affix-tag {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  .affix-tag.atk { background: rgba(255,122,58,0.15); color: #ff9a5a; border: 1px solid rgba(255,122,58,0.4); }
+  .affix-tag.def { background: rgba(74,158,255,0.15); color: #6ab0ff; border: 1px solid rgba(74,158,255,0.4); }
+  .affix-tag.func { background: rgba(176,106,232,0.15); color: #c890f0; border: 1px solid rgba(176,106,232,0.4); }
+  .affix-tag.special { background: rgba(232,184,74,0.15); color: #f0cc70; border: 1px solid rgba(232,184,74,0.4); }
+  .affix-tag.crit { background: rgba(232,68,58,0.18); color: #ff7060; border: 1px solid rgba(232,68,58,0.5); }
+  /* ===== 词条标签 ===== */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag-item {
+    padding: 6px 14px;
+    background: var(--bg-card2);
+    border: 1px solid var(--gold-dim);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text-bright);
+  }
+  .tag-item.priority {
+    border-color: var(--orange);
+    color: var(--orange-glow);
+  }
+  /* ===== 刻印实例 ===== */
+  .rune-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .rune-card {
+    background: linear-gradient(135deg, #2a1f14, #1a1814);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    padding: 18px;
+  }
+  .rune-card .rune-name {
+    font-size: 17px;
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .rune-card .rune-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .rune-card .stat {
+    font-size: 13px;
+    padding: 3px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .rune-card .stat.red { color: var(--red); }
+  .rune-card .stat.gold { color: var(--gold); }
+  /* ===== 注意事项 ===== */
+  .note-list {
+    list-style: none;
+  }
+  .note-list li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: var(--text);
+  }
+  .note-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: bold;
+  }
+  /* ===== 页脚 ===== */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-dim);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  /* ===== 响应式 ===== */
+  @media (max-width: 720px) {
+    .class-grid, .build-grid, .rune-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 24px; }
+    body { padding: 10px; }
+  }
+
+  /* ===== 网站导航栏 ===== */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(240,176,64,0.3);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 48px;
+  }
+  .nav-logo {
+    color: #f0b040; font-size: 16px; font-weight: bold;
+    text-decoration: none; letter-spacing: 1px; white-space: nowrap;
+  }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-link {
+    color: #d8d8e8; font-size: 13px; padding: 6px 12px;
+    border-radius: 4px; cursor: pointer; text-decoration: none;
+    transition: all 0.2s; display: inline-block; white-space: nowrap;
+  }
+  .nav-link:hover { background: rgba(240,176,64,0.15); color: #f0b040; }
+  .nav-home { color: #4ad4e8; }
+  .nav-dropdown { position: relative; }
+  .dropdown-menu {
+    display: none; position: absolute; top: 100%; left: 0;
+    background: rgba(20,20,30,0.98); border: 1px solid #2e2e44;
+    border-radius: 6px; padding: 6px 0; min-width: 140px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6); z-index: 10000;
+  }
+  .nav-dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu a {
+    display: block; padding: 7px 16px; color: #d8d8e8;
+    font-size: 13px; text-decoration: none; transition: all 0.15s;
+  }
+  .dropdown-menu a:hover { background: rgba(240,176,64,0.15); color: #f0b040; padding-left: 20px; }
+  .nav-toggle {
+    display: none; background: none; border: none; color: #f0b040;
+    font-size: 20px; cursor: pointer; padding: 4px 8px;
+  }
+  @media (max-width: 768px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none; position: absolute; top: 48px; left: 0; right: 0;
+      background: rgba(10,10,15,0.98); flex-direction: column;
+      padding: 10px 20px; gap: 2px; border-bottom: 1px solid #2e2e44;
+    }
+    .nav-links.open { display: flex; }
+    .nav-dropdown { width: 100%; }
+    .dropdown-menu { position: static; display: block; background: transparent; border: none; box-shadow: none; padding-left: 16px; }
+  }
+  body { padding-top: 56px !important; }
+
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">⚔️ 配装站</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link nav-home">首页</a>
+      <div class="nav-dropdown">
+        <span class="nav-link">🏹 游侠</span>
+        <div class="dropdown-menu">
+          <a href="youxia-gandian.html">感电3.0</a>
+          <a href="youxia-jingji-pk.html">荆棘PK</a>
+          <a href="youxia-jingji-pve.html">荆棘PVE</a>
+          <a href="shadow-dian.html">暗影游侠感电</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link">🔮 法师</span>
+        <div class="dropdown-menu">
+          <a href="zhuling-huoyan.html">咒灵火眼</a>
+          <a href="fashi-yanling-yanbao.html">咒灵炎爆</a>
+          <a href="fashi-yanbao.html">炎爆</a>
+          <a href="fashi-leiquan.html">幻影雷拳</a>
+          <a href="fashi-bingyan-pk.html">冰焰PK</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-link">⚔️ 战士</span>
+        <div class="dropdown-menu">
+          <a href="zhanshi-leichui-pve.html">雷锤PVE</a>
+          <a href="zhanshi-leichui-pk.html">雷锤PK</a>
+          <a href="zhanshi-diandao.html">电刀</a>
+          <a href="zhanshi-leixuan.html">雷旋</a>
+          <a href="tianfa-huodao.html">天罚火刀</a>
+          <a href="huodao-shouling.html">火刀首领</a>
+        </div>
+      </div>
+    </div>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<!-- ===== 顶部标题 ===== -->
+<div class="hero">
+  <h1>火刀首领 · BD配装一览</h1>
+  <div class="subtitle">英雄没有闪 · 野蛮人火刀流派 · 首领战配装参考</div>
+  <div class="badge">来源：抖音 @小冬瓜 · 9/11攻略</div>
+</div>
+
+<!-- ===== 三职业选择 ===== -->
+<div class="section">
+  <div class="section-title">一、三职业首领战流派对应</div>
+  <div class="class-grid">
+    <div class="class-card">
+      <div class="class-name">秘法师</div>
+      <div class="build-name">火眼</div>
+      <div class="tag">首领战可选</div>
+    </div>
+    <div class="class-card">
+      <div class="class-name">游侠</div>
+      <div class="build-name">荆棘</div>
+      <div class="tag">首领战可选</div>
+    </div>
+    <div class="class-card highlight">
+      <div class="class-name">野蛮人</div>
+      <div class="build-name">火刀</div>
+      <div class="tag">本篇重点</div>
+    </div>
+  </div>
+  <p style="margin-top:14px;color:var(--text-dim);font-size:14px;">
+    最终伤害取决于：<span style="color:var(--gold);">洗练、铸造、马具、永恒等级</span>
+  </p>
+</div>
+
+<!-- ===== 火刀BD核心配装 ===== -->
+<div class="section">
+  <div class="section-title">二、火刀BD核心配装</div>
+  <div class="build-grid">
+    <div class="build-item">
+      <div class="label">装备部位</div>
+      <div class="value">武器 · 头/肩 · 腰带 · 护腕 · 首饰</div>
+    </div>
+    <div class="build-item">
+      <div class="label">圣物 / 古籍</div>
+      <div class="value">优先 <span class="opt">暴击伤害</span></div>
+    </div>
+    <div class="build-item">
+      <div class="label">核心刻印</div>
+      <div class="value">诅咒之语 <span class="alt">或</span> 灾厄预兆</div>
+    </div>
+    <div class="build-item">
+      <div class="label">右下角刻印</div>
+      <div class="value">优先 <span class="opt">碎骨</span> <span class="alt">，其次 虹吸</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;">
+    <div class="label" style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">技能选择</div>
+    <div class="tag-list">
+      <span class="tag-item">余震 <span style="color:var(--text-dim);">/ 滚石</span></span>
+      <span class="tag-item priority">共鸣</span>
+      <span class="tag-item priority">狂热</span>
+      <span class="tag-item">碎骨 <span style="color:var(--text-dim);">/ 虹吸</span></span>
+    </div>
+    <div class="label" style="font-size:13px;color:var(--text-dim);margin-top:12px;margin-bottom:8px;">主力技能</div>
+    <div class="tag-list">
+      <span class="tag-item priority">粉碎火刀强击</span>
+      <span class="tag-item">或 蛮劲</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 洗练属性推荐 ===== -->
+<div class="section">
+  <div class="section-title">三、洗练属性推荐</div>
+  <table>
+    <colgroup>
+      <col style="width:30%">
+      <col style="width:70%">
+    </colgroup>
+    <thead>
+      <tr><th>部位/类型</th><th>推荐词条</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>主属性</td><td><div class="affix-tags"><span class="affix-tag atk">⚔️ 物理</span></div></td></tr>
+      <tr><td>技能增伤</td><td><div class="affix-tags"><span class="affix-tag atk">💥 核心</span><span class="affix-tag atk">💥 终极</span></div></td></tr>
+      <tr><td>暴击类</td><td><div class="affix-tags"><span class="affix-tag atk">🎯 暴击</span><span class="affix-tag atk">🎯 幸运</span></div></td></tr>
+      <tr><td>伤害类</td><td><div class="affix-tags"><span class="affix-tag atk">🔥 爆伤</span><span class="affix-tag atk">🔥 持续</span></div></td></tr>
+      <tr><td>核心/基础位</td><td><div class="affix-tags"><span class="affix-tag func">💥 增伤</span><span class="affix-tag func">⚡ 急速</span></div></td></tr>
+      <tr><td>掌控/终极位</td><td><div class="affix-tags"><span class="affix-tag func">❄️ 冷却</span></div></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== 第六条词条 ===== -->
+<div class="section">
+  <div class="section-title">四、第六条词条推荐（鞋/裤）</div>
+  <div class="affix-tags" style="gap:6px;">
+    <span class="affix-tag special">❤️ 健康时伤害强化</span>
+    <span class="affix-tag func">🪓 砍树</span>
+    <span class="affix-tag func">🔄 终极技能回能</span>
+    <span class="affix-tag func">😤 刺耳怒吼</span>
+    <span class="affix-tag func">❄️ 霜寒</span>
+  </div>
+</div>
+
+<!-- ===== 刻印实例参考 ===== -->
+<div class="section">
+  <div class="section-title">五、刻印实例参考</div>
+  <div class="rune-grid">
+    <div class="rune-card">
+      <div class="rune-name">核心 · 诅咒之语</div>
+      <div class="rune-meta">30级 · 评分 4414 · 最多3种不同元素</div>
+      <div class="stat">攻击 +60万（基础）</div>
+      <div class="stat red">最终暴击伤害 +18.4%</div>
+      <div class="stat gold">最终增伤 +7.68%</div>
+      <div class="stat">攻击 +12.2%</div>
+      <div class="stat">攻击 +1872</div>
+      <div class="stat red">最终增伤 +20.9%</div>
+    </div>
+    <div class="rune-card">
+      <div class="rune-name">刺刻 · 虹吸</div>
+      <div class="rune-meta">30级 · 评分 15188 · 最多3种不同元素</div>
+      <div class="stat">生命 +2亿（基础）</div>
+      <div class="stat red">混合抗性 +27%</div>
+      <div class="stat gold">攻击 +9.7%</div>
+      <div class="stat">攻击 +6272</div>
+      <div class="stat gold">攻击 +5.7%</div>
+      <div class="stat">生命 +1058143</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 注意事项 ===== -->
+<div class="section">
+  <div class="section-title">六、注意事项</div>
+  <ul class="note-list">
+    <li>古籍优先升暴击伤害套（祷纹古册 / 荣誉捍卫），爆伤词条战力提升最大</li>
+    <li>右下角刻印碎骨优于虹吸，资源优先投入碎骨</li>
+    <li>技能选择有余震/滚石二选一、碎骨/虹吸二选一，根据个人手感调整</li>
+    <li>洗练优先把前4个词条洗到优质属性，比硬抠5、6词条满格性价比更高</li>
+    <li>刺耳怒吼/霜寒是鞋裤第六词条的PVE优选，减速流很强但注意减速抗性</li>
+  </ul>
+</div>
+
+<div class="footer">
+  配装整理自抖音 @小冬瓜 9/11 火刀首领攻略视频 · 仅供参考
+</div>
+
+</body>
+</html>

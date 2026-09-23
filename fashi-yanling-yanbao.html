@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英雄没有闪 · S2赛季法师-咒灵炎爆PVE-电以太叠易伤</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: #14141e;
+    --bg-card2: #1e293b;
+    --border: #2e2e44;
+    --gold: #f59e0b;
+    --gold-dim: #b45309;
+    --red: #ef4444;
+    --orange: #f97316;
+    --green: #22c55e;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --text: #d8d8e8;
+    --text-dim: #94a3b8;
+    --text-bright: #f1f5f9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.7;
+    padding: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 16px;
+  }
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(240,176,64,0.3);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 52px;
+  }
+  .nav-left { display: flex; align-items: center; gap: 16px; }
+  .nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+  .nav-home-btn { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+  .nav-home-btn:hover { color: var(--gold); }
+  .nav-game-name { color: var(--text-dim); font-size: 15px; }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-search-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px 10px; border-radius: 6px; }
+  .nav-search-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); }
+  body { padding-top: 68px; }
+  .hero {
+    text-align: center;
+    padding: 32px 20px 24px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 30px; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+  .hero .subtitle { color: var(--text-dim); font-size: 15px; margin-bottom: 16px; }
+  .hero .badge-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+  .hero .badge {
+    display: inline-block; padding: 5px 14px; border-radius: 20px;
+    font-size: 14px; font-weight: bold;
+  }
+  .badge.t0 { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+  .badge.pve { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
+  .badge.ranger { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; }
+  .badge.gold { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #fff; }
+  .action-bar {
+    display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;
+  }
+  .action-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 24px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg-card);
+    color: var(--text); cursor: pointer; font-size: 16px;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .action-btn.active { background: rgba(245,158,11,0.15); border-color: var(--gold); color: var(--gold); }
+  .action-icon { font-size: 18px; }
+  .action-count { background: var(--bg); padding: 3px 10px; border-radius: 12px; font-size: 14px; min-width: 24px; text-align: center; }
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 20px; color: var(--gold);
+    border-left: 4px solid var(--orange);
+    padding-left: 14px; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title .icon { font-size: 22px; }
+  .skill-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .passive-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .skill-card {
+    background: var(--bg-card2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 8px; text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .skill-card:hover { transform: translateY(-2px); border-color: var(--gold); }
+  .skill-icon {
+    width: 48px; height: 48px; margin: 0 auto 8px;
+    background: linear-gradient(135deg, #2d3748, #1a202c);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; border: 1px solid var(--border);
+  }
+  .skill-type { font-size: 12px; color: var(--text-dim); margin-bottom: 4px; }
+  .skill-name { font-size: 15px; font-weight: bold; color: var(--text-bright); line-height: 1.4; }
+  .skill-branch { font-size: 13px; color: var(--orange); margin-top: 4px; }
+  .equip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .equip-card {
+    background: var(--bg-card2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px; transition: border-color 0.2s;
+  }
+  .equip-card:hover { border-color: var(--gold); }
+  .equip-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .equip-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .equip-icon.weapon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+  .equip-icon.set { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+  .equip-icon.legend { background: linear-gradient(135deg, #ef4444, #dc2626); }
+  .equip-info { flex: 1; min-width: 0; }
+  .equip-slot { font-size: 12px; color: var(--text-dim); }
+  .equip-name { font-size: 15px; font-weight: bold; color: var(--text-bright); }
+  .equip-stats { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+  .equip-stats .stat { display: block; }
+  .equip-stats .stat.special { color: #ff9500; font-weight: bold; }
+  .engrave-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .engrave-card {
+    background: var(--bg-card2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 8px; text-align: center;
+  }
+  .engrave-card.main {
+    border-color: var(--red);
+    background: linear-gradient(135deg, rgba(239,68,68,0.1), var(--bg-card2));
+  }
+  .engrave-icon {
+    width: 44px; height: 44px; margin: 0 auto 8px;
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .engrave-card:not(.main) .engrave-icon {
+    background: linear-gradient(135deg, #f59e0b, #b45309);
+  }
+  .engrave-type { font-size: 12px; color: var(--text-dim); }
+  .engrave-name { font-size: 15px; font-weight: bold; color: var(--text-bright); margin-top: 4px; }
+  .follower-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .follower-card {
+    background: var(--bg-card2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px; text-align: center;
+  }
+  .follower-icon {
+    width: 56px; height: 56px; margin: 0 auto 10px;
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .follower-name { font-size: 17px; font-weight: bold; color: var(--text-bright); }
+  .follower-role { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .book-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .book-card {
+    background: var(--bg-card2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px; text-align: center;
+  }
+  .book-icon { font-size: 24px; margin-bottom: 6px; }
+  .book-name { font-size: 15px; font-weight: bold; color: var(--text-bright); }
+  .tip-box {
+    background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(249,115,22,0.05));
+    border: 1px solid var(--gold-dim); border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 10px;
+  }
+  .tip-box .tip-title { font-size: 16px; font-weight: bold; color: var(--gold); margin-bottom: 8px; }
+  .tip-box .tip-content { font-size: 15px; color: var(--text); line-height: 1.8; }
+  .tip-box .highlight { color: var(--orange); font-weight: bold; }
+  .tip-box .red { color: var(--red); font-weight: bold; }
+  .comment-section {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px; margin-bottom: 16px;
+  }
+  .disclaimer {
+    background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 8px; padding: 16px 18px; margin-bottom: 20px;
+    font-size: 14px; color: var(--text-dim); line-height: 1.8;
+  }
+  .disclaimer strong { color: var(--gold); }
+  @media (max-width: 768px) {
+    body { font-size: 15px; padding: 12px; }
+    .skill-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .passive-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .equip-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .engrave-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .follower-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .book-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .hero h1 { font-size: 24px; }
+    .hero .subtitle { font-size: 14px; }
+    .section-title { font-size: 18px; }
+    .skill-name { font-size: 14px; }
+    .skill-branch { font-size: 12px; }
+    .equip-name { font-size: 14px; }
+    .equip-stats { font-size: 12px; }
+    .engrave-name { font-size: 14px; }
+    .follower-name { font-size: 15px; }
+    .book-name { font-size: 14px; }
+    .tip-box .tip-content { font-size: 14px; }
+    .action-btn { padding: 8px 16px; font-size: 15px; }
+    .nav-game-name { display: none; }
+    .nav-logo { font-size: 16px; }
+  }
+  @media (max-width: 480px) {
+    body { font-size: 14px; padding: 10px; }
+    .skill-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .passive-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .engrave-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .equip-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .follower-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .book-grid { grid-template-columns: repeat(1, 1fr); gap: 6px; }
+    .hero h1 { font-size: 22px; }
+    .hero .subtitle { font-size: 13px; }
+    .section-title { font-size: 17px; }
+    .skill-name { font-size: 13px; }
+    .equip-name { font-size: 13px; }
+    .equip-stats { font-size: 11px; }
+    .engrave-name { font-size: 13px; }
+    .follower-name { font-size: 14px; }
+    .book-name { font-size: 13px; }
+    .tip-box .tip-content { font-size: 13px; }
+    .action-btn { padding: 8px 14px; font-size: 14px; }
+    .badge { font-size: 12px; padding: 4px 10px; }
+  }
+  @media (min-width: 1400px) {
+    body { max-width: 1300px; }
+    .equip-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <span class="nav-game-name">《英雄没有闪》</span>
+    </div>
+    <div class="nav-right">
+      <a href="index.html" class="nav-search-btn" title="搜索配装">🔍</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>🔥 S2赛季法师 · 咒灵炎爆PVE · 电以太叠易伤新套路</h1>
+  <div class="subtitle">秘法师 · 朽蚀牧师4件套 · 邪神攻略站（小邪邪）26.9.9版</div>
+  <div class="badge-row">
+    <span class="badge pve">⚔️ PVE推图</span>
+    <span class="badge ranger">🏹 暗影游侠</span>
+    <span class="badge t0">🔥 持续伤害王</span>
+    <span class="badge gold">⚡ 12电+12暗</span>
+  </div>
+</div>
+
+<div class="action-bar">
+  <button class="action-btn like-btn" onclick="toggleLike(this)">
+    <span class="action-icon">👍</span>
+    <span class="action-text">点赞</span>
+    <span class="action-count">0</span>
+  </button>
+  <button class="action-btn fav-btn" onclick="toggleFav(this)">
+    <span class="action-icon">⭐</span>
+    <span class="action-text">收藏</span>
+  </button>
+  <button class="action-btn comment-btn" onclick="scrollToComment()">
+    <span class="action-icon">💬</span>
+    <span class="action-text">评论</span>
+  </button>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">⚡</span>主动技能（5个）</div>
+  <div class="skill-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🔥</div>
+      <div class="skill-type">基础技</div>
+      <div class="skill-name">火焰波</div>
+      <div class="skill-branch">灼热</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💥</div>
+      <div class="skill-type">核心技</div>
+      <div class="skill-name">火球术</div>
+      <div class="skill-branch">炎爆</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌀</div>
+      <div class="skill-type">掌控技1</div>
+      <div class="skill-name">引力场</div>
+      <div class="skill-branch">领域</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-type">掌控技2</div>
+      <div class="skill-name">闪电球</div>
+      <div class="skill-branch">电解</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-type">终极技</div>
+      <div class="skill-name">以太之躯</div>
+      <div class="skill-branch">滚雷</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🛡️</span>被动技能（4个）</div>
+  <div class="passive-grid">
+    <div class="skill-card">
+      <div class="skill-icon">😈</div>
+      <div class="skill-name">恶魔契约</div>
+      <div class="skill-branch">高风险高回报</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-name">元素共鸣</div>
+      <div class="skill-branch">元素增伤</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔮</div>
+      <div class="skill-name">唤法</div>
+      <div class="skill-branch">冷却缩减</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💪</div>
+      <div class="skill-name">强盛</div>
+      <div class="skill-branch">健康增伤</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🛡️</span>暗能装备（12件）与洗炼词条</div>
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon weapon">⚔️</div>
+        <div class="equip-info">
+          <div class="equip-slot">武器</div>
+          <div class="equip-name">咒灵（永恒）</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">元素伤害</span>
+        <span class="stat special">核心技增伤</span>
+        <span class="stat special">暴击率/幸运</span>
+        <span class="stat special">暴伤</span>
+        <span class="stat special">火球术增伤/急速</span>
+        <span class="stat special">基础技概率易伤/健康时伤害强化</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon set">⛑️</div>
+        <div class="equip-info">
+          <div class="equip-slot">头盔</div>
+          <div class="equip-name">朽蚀牧师套装</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">元素伤害</span>
+        <span class="stat special">核心技增伤</span>
+        <span class="stat special">暴击率/幸运</span>
+        <span class="stat special">暴伤</span>
+        <span class="stat special">火球术增伤/急速</span>
+        <span class="stat special">基础技概率易伤/健康时伤害强化</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon legend">🦾</div>
+        <div class="equip-info">
+          <div class="equip-slot">护肩</div>
+          <div class="equip-name">博学者的远瞻</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">元素伤害</span>
+        <span class="stat special">核心技增伤</span>
+        <span class="stat special">暴击率/幸运</span>
+        <span class="stat special">暴伤</span>
+        <span class="stat special">火球术增伤/急速</span>
+        <span class="stat special">基础技概率易伤/健康时伤害强化</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon set">🥋</div>
+        <div class="equip-info">
+          <div class="equip-slot">胸甲</div>
+          <div class="equip-name">朽蚀牧师套装</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">混合抗性</span>
+        <span class="stat">三抗性之一</span>
+        <span class="stat">每秒恢复</span>
+        <span class="stat">格挡值</span>
+        <span class="stat">火焰波急速</span>
+        <span class="stat special">唤法等级/强盛等级</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon legend">🧤</div>
+        <div class="equip-info">
+          <div class="equip-slot">护手</div>
+          <div class="equip-name">虚空迅疾</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">混合抗性</span>
+        <span class="stat">三抗性之一</span>
+        <span class="stat">每秒恢复</span>
+        <span class="stat">格挡值</span>
+        <span class="stat">引力场冷却缩减</span>
+        <span class="stat special">灵光一现</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon set">👖</div>
+        <div class="equip-info">
+          <div class="equip-slot">护腿</div>
+          <div class="equip-name">朽蚀牧师套装</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">混合抗性</span>
+        <span class="stat">三抗性之一</span>
+        <span class="stat">每秒恢复</span>
+        <span class="stat">格挡值</span>
+        <span class="stat">闪电球冷却缩减</span>
+        <span class="stat">随意（刺耳怒吼/法术反击/干扰施法）</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon set">👟</div>
+        <div class="equip-info">
+          <div class="equip-slot">靴子</div>
+          <div class="equip-name">朽蚀牧师套装</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">混合抗性</span>
+        <span class="stat">三抗性之一</span>
+        <span class="stat">每秒恢复</span>
+        <span class="stat">格挡值</span>
+        <span class="stat">闪电球冷却缩减</span>
+        <span class="stat">随意（刺耳怒吼/法术反击/干扰施法）</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon legend">🧦</div>
+        <div class="equip-info">
+          <div class="equip-slot">护腕</div>
+          <div class="equip-name">绝境迸发</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">混合抗性</span>
+        <span class="stat">三抗性之一</span>
+        <span class="stat">每秒恢复</span>
+        <span class="stat">格挡值</span>
+        <span class="stat">火焰波急速</span>
+        <span class="stat special">唤法等级/强盛等级</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon legend">🎗️</div>
+        <div class="equip-info">
+          <div class="equip-slot">腰带</div>
+          <div class="equip-name">虚空热寂</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">混合抗性</span>
+        <span class="stat">三抗性之一</span>
+        <span class="stat">每秒恢复</span>
+        <span class="stat">格挡值</span>
+        <span class="stat">引力场冷却缩减</span>
+        <span class="stat special">灵光一现</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon legend">📿</div>
+        <div class="equip-info">
+          <div class="equip-slot">项链</div>
+          <div class="equip-name">时序寒霜</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">元素伤害</span>
+        <span class="stat special">核心技增伤</span>
+        <span class="stat special">暴击率/幸运</span>
+        <span class="stat special">暴伤</span>
+        <span class="stat special">以太冷却缩减</span>
+        <span class="stat">各类伤害减免</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon legend">🪓</div>
+        <div class="equip-info">
+          <div class="equip-slot">护符</div>
+          <div class="equip-name">终焉护佑</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">元素伤害</span>
+        <span class="stat special">核心技增伤</span>
+        <span class="stat special">暴击率/幸运</span>
+        <span class="stat special">暴伤</span>
+        <span class="stat special">以太冷却缩减</span>
+        <span class="stat">各类伤害减免</span>
+      </div>
+    </div>
+    <div class="equip-card">
+      <div class="equip-header">
+        <div class="equip-icon legend">💍</div>
+        <div class="equip-info">
+          <div class="equip-slot">戒指</div>
+          <div class="equip-name">凛冬律则</div>
+        </div>
+      </div>
+      <div class="equip-stats">
+        <span class="stat">元素伤害</span>
+        <span class="stat special">核心技增伤</span>
+        <span class="stat special">暴击率/幸运</span>
+        <span class="stat special">暴伤</span>
+        <span class="stat special">以太冷却缩减</span>
+        <span class="stat">各类伤害减免</span>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px; padding:10px 14px; background:rgba(245,158,11,0.08); border-radius:8px; border:1px solid rgba(245,158,11,0.2);">
+    <span style="color:var(--gold); font-weight:bold;">📦 套装效果：</span>
+    <span style="color:var(--text);">朽蚀牧师2件：火球术技能增伤提高80%，持续伤害提高80% | 朽蚀牧师4件：火球术命中目标时有50%概率施放灰烬流星，对范围内敌人造成6次共计600%伤害以及6层燃烧和6层触电</span>
+  </div>
+  <div style="margin-top:8px; padding:10px 14px; background:rgba(239,68,68,0.08); border-radius:8px; border:1px solid rgba(239,68,68,0.2);">
+    <span style="color:#ef4444; font-weight:bold;">⚠️ 洗练要点：</span>
+    <span style="color:var(--text); font-size:14px;">暴击率到100%然后堆幸运；必须至少洗一条基础技概率施加易伤；因为有唤法的存在，冷却缩减都洗到35%足矣；强化尽量给第六词条</span>
+  </div>
+</div></div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🔮</span>刻印搭配（12电+12暗）</div>
+  <div class="engrave-grid">
+    <div class="engrave-card">
+      <div class="engrave-icon">❄️</div>
+      <div class="engrave-type">控制</div>
+      <div class="engrave-name">雪暴</div>
+    </div>
+    <div class="engrave-card">
+      <div class="engrave-icon">🛡️</div>
+      <div class="engrave-type">防御</div>
+      <div class="engrave-name">坚韧</div>
+    </div>
+    <div class="engrave-card main">
+      <div class="engrave-icon">⚡</div>
+      <div class="engrave-type">主刻印</div>
+      <div class="engrave-name">雷霆领主</div>
+    </div>
+    <div class="engrave-card">
+      <div class="engrave-icon">🔥</div>
+      <div class="engrave-type">强化</div>
+      <div class="engrave-name">狂热</div>
+    </div>
+    <div class="engrave-card">
+      <div class="engrave-icon">💧</div>
+      <div class="engrave-type">削弱</div>
+      <div class="engrave-name">虹吸</div>
+    </div>
+  </div>
+  <div style="margin-top:14px; padding:10px 14px; background:rgba(59,130,246,0.1); border-radius:8px; border:1px solid rgba(59,130,246,0.3);">
+    <span style="color:#60a5fa; font-weight:bold; font-size:16px;">⚡ 共鸣：</span>
+    <span style="color:var(--text); font-size:16px;">电弧共鸣 x12 + 暗影共鸣 x12</span>
+  </div>
+</div></div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">🐾</span>侍从搭配（3个）</div>
+  <div class="follower-grid">
+    <div class="follower-card">
+      <div class="follower-icon">👸</div>
+      <div class="follower-name">莉娅布罗</div>
+      <div class="follower-role">备战（暴击暴伤）</div>
+    </div>
+    <div class="follower-card">
+      <div class="follower-icon">🥚</div>
+      <div class="follower-name">魔蛋</div>
+      <div class="follower-role">主战</div>
+    </div>
+    <div class="follower-card">
+      <div class="follower-icon">🐮</div>
+      <div class="follower-name">奶牛之王</div>
+      <div class="follower-role">备战（急速+治疗）</div>
+    </div>
+  </div>
+</div></div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">📖</span>书籍供奉</div>
+  <div class="book-grid">
+    <div class="book-card">
+      <div class="book-icon">📕</div>
+      <div class="book-name">暴击伤害（优先）</div>
+    </div>
+    <div class="book-card">
+      <div class="book-icon">📗</div>
+      <div class="book-name">持续伤害（其次）</div>
+    </div>
+  </div>
+</div></div>
+
+<div class="section">
+  <div class="section-title"><span class="icon">💡</span>关键提示</div>
+  <div class="tip-box">
+    <div class="tip-title">⚡ 核心PVE套路</div>
+    <div class="tip-content">
+      咒灵炎爆PVE，朽蚀牧师4件套+火球术炎爆，<span class="highlight">电以太叠易伤新套路</span>。咒灵永恒武器提供燃烧、触电有概率额外施加3层，持续伤害提高30%，持续伤害对首领单位造成的伤害强化80%。
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">🔥 基础技概率易伤的重要性</div>
+    <div class="tip-content">
+      "基础技概率施加易伤"这个词条有点说法！<span class="highlight">如果是咒灵+电以太，一定洗一条基础技概率施加易伤</span>，如果不是咒灵，那无所谓。
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">⏱️ 冷却缩减控制</div>
+    <div class="tip-content">
+      因为有唤法的存在，<span class="highlight">冷却缩减都洗到35%足矣</span>。唤法直接就有15%，巅峰等级10%，只要再洗35%足矣。
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">⚠️ 注意事项</div>
+    <div class="tip-content">
+      1. 暴击率到100%然后堆幸运。<br>
+      2. 铸造强化全给5、6词条，这样加战力最高。<br>
+      3. 选择初始胚子的时候，只看前4词条对不对，数值高不高。<br>
+      4. 防具优选带每秒恢复的胚子。<br>
+      5. 强化的时候紧盯战力变化，留下加战力最高的那次强化。
+    </div>
+  </div>
+</div></div>
+
+<div class="comment-section" id="comment-section">
+  <div class="section-title"><span class="icon">💬</span>留言板</div>
+  <livere-comment client-id="9Xb93o4GKHetNel7Yjv3"></livere-comment>
+  <script type="module" src="https://www.livere.org/livere-widget.js"></script>
+</div>
+
+<div class="disclaimer">
+  <strong>⚠️ 免责声明：</strong>本站所有配装攻略均来源于网络公开资料整理，仅供游戏玩家参考交流。游戏内容及相关素材版权归原游戏公司所有，如有侵权请联系站长删除。配装数据可能随游戏版本更新而变化，请以游戏内实际数据为准。
+</div>
+
+<script>
+const PAGE_ID = 'fashi-yanling-yanbao';
+const API_BASE = 'https://yxmysbd-api.zyb8808.workers.dev';
+
+async function toggleLike(btn) {
+  const countEl = btn.querySelector('.action-count');
+  const isActive = btn.classList.toggle('active');
+  if (isActive) {
+    btn.querySelector('.action-text').textContent = '已赞';
+    try {
+      const res = await fetch(API_BASE + '/api/like', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({page: PAGE_ID})
+      });
+      const data = await res.json();
+      if (data.likes !== undefined) countEl.textContent = data.likes;
+    } catch(e) {}
+  } else {
+    btn.querySelector('.action-text').textContent = '点赞';
+  }
+}
+
+function toggleFav(btn) {
+  const isActive = btn.classList.toggle('active');
+  btn.querySelector('.action-text').textContent = isActive ? '已收藏' : '收藏';
+  let favs = JSON.parse(localStorage.getItem('yxmysbd_favs') || '[]');
+  if (isActive) {
+    if (!favs.includes(PAGE_ID)) favs.push(PAGE_ID);
+  } else {
+    favs = favs.filter(p => p !== PAGE_ID);
+  }
+  localStorage.setItem('yxmysbd_favs', JSON.stringify(favs));
+}
+
+function scrollToComment() {
+  document.getElementById('comment-section').scrollIntoView({behavior: 'smooth'});
+}
+
+async function loadLikes() {
+  try {
+    const res = await fetch(API_BASE + '/api/likes/all');
+    const data = await res.json();
+    if (data[PAGE_ID] !== undefined) {
+      document.querySelector('.like-btn .action-count').textContent = data[PAGE_ID];
+    }
+  } catch(e) {}
+  const favs = JSON.parse(localStorage.getItem('yxmysbd_favs') || '[]');
+  if (favs.includes(PAGE_ID)) {
+    const btn = document.querySelector('.fav-btn');
+    btn.classList.add('active');
+    btn.querySelector('.action-text').textContent = '已收藏';
+  }
+}
+loadLikes();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(() => {});
+}
+</script>
+
+</body>
+</html>

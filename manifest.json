@@ -1,0 +1,18 @@
+{
+  "name": "英雄没有闪配装站",
+  "short_name": "配装站",
+  "description": "英雄没有闪S2赛季全职业配装攻略，16套流派一图流",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
