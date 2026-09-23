@@ -795,6 +795,14 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeSearch();
 });
 
+
+// 访问统计
+fetch(API_BASE + "/api/track", {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({page: PAGE_ID})
+}).catch(() => {});
+
 loadLikes();
 
 if ('serviceWorker' in navigator) {
