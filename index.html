@@ -23,6 +23,7 @@
     --border: #2e2e44;
     --gold: #f59e0b;
     --gold-dim: #b45309;
+    --cyan: #06b6d4;
     --red: #ef4444;
     --orange: #f97316;
     --green: #22c55e;
@@ -176,7 +177,7 @@ body { background: var(--bg); color: var(--text); font-family: "Microsoft YaHei"
 
 /* ===== 亮色主题 ===== */
 body.light-theme { --bg: #f5f5f7; --bg-card: #ffffff; --bg-card2: #f0f0f5; --text: #1a1a2e; --text-dim: #666; --text-bright: #000; --border: #e0e0e0; }
-body.light-theme /* ===== 导航栏 ===== */
+/* ===== 导航栏 ===== */
 .site-nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
     background: rgba(10,10,15,0.95);
@@ -192,7 +193,7 @@ body.light-theme /* ===== 导航栏 ===== */
 .nav-right { display: flex; align-items: center; gap: 8px; }
 .nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 6px; }
 .nav-logo:hover { opacity: 0.8; }
-.nav-contact { color: var(--text); font-size: 14px; text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.nav-contact { color: var(--text); font-size: 14px; text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 4px; background: none; border: none; font-family: inherit; padding: 0; line-height: 1; }
 .nav-contact:hover { color: var(--gold); }
 .nav-game-name { color: var(--text-dim); font-size: 15px; }
 .nav-divider { width: 1px; height: 20px; background: var(--border); }
@@ -235,6 +236,11 @@ body.light-theme .hero { background: linear-gradient(180deg, #fff3e0, #fff8f0, t
 body.light-theme .hero h1 { color: #d97706 !important; }
 body.light-theme .hot-rank-item, body.light-theme .changelog-list, body.light-theme .comment-box { background: #ffffff !important; border-color: #e0e0e0 !important; }
 body.light-theme .filter-btn { background: #ffffff; border-color: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(245,245,247,0.95); border-bottom-color: rgba(0,0,0,0.08); }
+body.light-theme .nav-logo { color: #d97706; }
+body.light-theme .nav-contact, body.light-theme .nav-game-name, body.light-theme .nav-theme-btn, body.light-theme .nav-search-btn { color: #1a1a2e; }
+body.light-theme .nav-theme-btn, body.light-theme .nav-search-btn { background: none; }
+body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { background: rgba(0,0,0,0.05); }
 
 /* ===== 打印优化 ===== */
 @media print {
@@ -294,7 +300,7 @@ body.light-theme .filter-btn { background: #ffffff; border-color: #e0e0e0; }
         <div class="nav-left">
         <a href="index.html" class="nav-logo"><span class="logo-icon">🌐</span>天涯若比邻</a>
         <div class="nav-divider"></div>
-        <a href="javascript:void(0)" onclick="openContactModal()" class="nav-contact">💬 联系站长</a>
+        <button type="button" onclick="openContactModal()" class="nav-contact">💬 联系站长</button>
         <div class="nav-divider"></div>
         <span class="nav-game-name">《英雄没有闪》</span>
         </div>
@@ -347,6 +353,7 @@ body.light-theme .filter-btn { background: #ffffff; border-color: #e0e0e0; }
         </div>
         <div class="search-result-info" style="text-align:center;color:var(--text-dim);font-size:13px;margin-bottom:20px;min-height:18px;"></div>
         
+<main id="mainContent">
 <div class="class-section">
         <div class="class-header">
         <div class="class-icon ranger">🏹</div>
@@ -678,6 +685,7 @@ body.light-theme .filter-btn { background: #ffffff; border-color: #e0e0e0; }
         </a>
                 </div>
         </div>
+</main>
 
 <!-- 热门排行 & 更新日志 -->
 <div class="two-col-layout">
@@ -752,7 +760,6 @@ var PAGE_NAMES = {
   "zhanshi-leichui-pve": "战士雷锤PVE",
   "zhanshi-leichui-pk": "战士雷锤PK",
   "zhanshi-diandao": "战士电刀",
-  "zhanshi-huanying-leichui": "野蛮人幻影雷锤",
   "zhanshi-leixuan": "战士雷旋"
 };
 var API = "https://yxmysbd-api.zyb8808.workers.dev";
@@ -1001,13 +1008,22 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-/* ===== 访问统计 ===== */
+/* ===== 访问统计（按会话去重） ===== */
 var PAGE_ID = location.pathname.split("/").pop().replace(".html", "") || "index";
-fetch(API + "/api/track", {
-  method: "POST",
-  headers: {"Content-Type": "application/json"},
-  body: JSON.stringify({page: PAGE_ID})
-}).catch(function() {});
+(function trackVisit() {
+  var t;
+  try { t = JSON.parse(sessionStorage.getItem("yxmysbd_session") || '{"started":false,"pages":[]}'); }
+  catch (e) { t = {"started":false,"pages":[]}; }
+  if (t.pages.indexOf(PAGE_ID) !== -1) return;
+  var newSession = !t.started;
+  t.started = true; t.pages.push(PAGE_ID);
+  try { sessionStorage.setItem("yxmysbd_session", JSON.stringify(t)); } catch (e) {}
+  fetch(API + "/api/track", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({page: PAGE_ID, newSession: newSession})
+  }).catch(function() {});
+})();
 
 /* ===== 页面加载完成后初始化 ===== */
 document.addEventListener("DOMContentLoaded", function() {

@@ -329,7 +329,7 @@ body.light-theme .action-btn:hover {
     font-size: 12px;
   }
   .site-nav, .action-bar, .comment-section, .disclaimer,
-  .nav-theme-btn, .export-btn {
+  .nav-theme-btn {
     display: none !important;
   }
   .hero {
@@ -459,10 +459,6 @@ body.light-theme .action-btn:hover {
   <button class="action-btn comment-btn" onclick="scrollToComment()">
     <span class="action-icon">💬</span>
     <span class="action-text">评论</span>
-  <button class="action-btn export-btn" onclick="exportImage()">
-    <span class="action-icon">📷</span>
-    <span class="action-text">导出</span>
-  </button>
   </button>
 </div>
 
@@ -887,20 +883,20 @@ const API_BASE = 'https://yxmysbd-api.zyb8808.workers.dev';
 
 async function toggleLike(btn) {
   const countEl = btn.querySelector('.action-count');
+  const textEl = btn.querySelector('.action-text');
   const isActive = btn.classList.toggle('active');
-  if (isActive) {
-    btn.querySelector('.action-text').textContent = '已赞';
-    try {
-      const res = await fetch(API_BASE + '/api/like', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({page: PAGE_ID})
-      });
-      const data = await res.json();
-      if (data.likes !== undefined) countEl.textContent = data.likes;
-    } catch(e) {}
-  } else {
-    btn.querySelector('.action-text').textContent = '点赞';
+  try {
+    const res = await fetch(API_BASE + '/api/likes/' + PAGE_ID, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({liked: isActive})
+    });
+    const data = await res.json();
+    if (data.count !== undefined) countEl.textContent = data.count;
+    textEl.textContent = isActive ? '已赞' : '点赞';
+    localStorage.setItem('yxmysbd_liked_' + PAGE_ID, isActive ? '1' : '0');
+  } catch(e) {
+    btn.classList.toggle('active');
   }
 }
 
@@ -921,70 +917,12 @@ function scrollToComment() {
 }
 
 
-// 导出配装为图片
-async function exportImage() {
-  const btn = document.querySelector('.export-btn');
-  const originalText = btn.querySelector('.action-text').textContent;
-  btn.querySelector('.action-text').textContent = '生成中...';
-  btn.disabled = true;
-  try {
-    // 动态加载html2canvas
-    if (typeof html2canvas === 'undefined') {
-      await new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    }
-    // 隐藏导航和操作栏，只导出配装内容
-    const nav = document.querySelector('.site-nav');
-    const actionBar = document.querySelector('.action-bar');
-    const comment = document.querySelector('.comment-section');
-    const disclaimer = document.querySelector('.disclaimer');
-    if (nav) nav.style.display = 'none';
-    if (actionBar) actionBar.style.display = 'none';
-    if (comment) comment.style.display = 'none';
-    if (disclaimer) disclaimer.style.display = 'none';
-    const canvas = await html2canvas(document.body, {
-      backgroundColor: '#0a0a0f',
-      scale: 2,
-      useCORS: true,
-      logging: false
-    });
-    // 恢复显示
-    if (nav) nav.style.display = '';
-    if (actionBar) actionBar.style.display = '';
-    if (comment) comment.style.display = '';
-    if (disclaimer) disclaimer.style.display = '';
-    // 下载
-    const link = document.createElement('a');
-    link.download = PAGE_ID + '_配装.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    btn.querySelector('.action-text').textContent = '已导出';
-    setTimeout(() => {
-      btn.querySelector('.action-text').textContent = originalText;
-      btn.disabled = false;
-    }, 2000);
-  } catch (e) {
-    console.error('导出失败:', e);
-    btn.querySelector('.action-text').textContent = '导出失败';
-    setTimeout(() => {
-      btn.querySelector('.action-text').textContent = originalText;
-      btn.disabled = false;
-    }, 2000);
-  }
-}
-
 async function loadLikes() {
   try {
     const res = await fetch(API_BASE + '/api/likes/all');
     const data = await res.json();
-    if (data[PAGE_ID] !== undefined) {
-      document.querySelector('.like-btn .action-count').textContent = data[PAGE_ID];
-    }
+    const item = Array.isArray(data) ? data.find(function(d){return d.page === PAGE_ID;}) : null;
+    if (item) document.querySelector('.like-btn .action-count').textContent = item.count;
   } catch(e) {}
   const favs = JSON.parse(localStorage.getItem('yxmysbd_favs') || '[]');
   if (favs.includes(PAGE_ID)) {
@@ -992,14 +930,28 @@ async function loadLikes() {
     btn.classList.add('active');
     btn.querySelector('.action-text').textContent = '已收藏';
   }
+  if (localStorage.getItem('yxmysbd_liked_' + PAGE_ID) === '1') {
+    const lbtn = document.querySelector('.like-btn');
+    lbtn.classList.add('active');
+    lbtn.querySelector('.action-text').textContent = '已赞';
+  }
 }
 
-// 访问统计
-fetch(API_BASE + "/api/track", {
-  method: "POST",
-  headers: {"Content-Type": "application/json"},
-  body: JSON.stringify({page: PAGE_ID})
-}).catch(() => {});
+// 访问统计（按会话去重：首次进站算一个访客，同会话翻到新页面只记该页热度，重复打开不重复计）
+(function trackVisit() {
+  let t;
+  try { t = JSON.parse(sessionStorage.getItem('yxmysbd_session') || '{"started":false,"pages":[]}'); }
+  catch (e) { t = {"started":false,"pages":[]}; }
+  if (t.pages.indexOf(PAGE_ID) !== -1) return;
+  const newSession = !t.started;
+  t.started = true; t.pages.push(PAGE_ID);
+  try { sessionStorage.setItem('yxmysbd_session', JSON.stringify(t)); } catch (e) {}
+  fetch(API_BASE + "/api/track", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({page: PAGE_ID, newSession: newSession})
+  }).catch(() => {});
+})();
 
 loadLikes();
 

@@ -217,7 +217,7 @@ body.light-theme .action-btn:hover {
     <div class="stats-row">
       <div class="stat-card"><div class="label">总访问量</div><div class="value blue" id="totalVisits">0</div></div>
       <div class="stat-card"><div class="label">总点赞数</div><div class="value" id="totalLikes">0</div></div>
-      <div class="stat-card"><div class="label">配装总数</div><div class="value green" id="totalBuilds">18</div></div>
+      <div class="stat-card"><div class="label">配装总数</div><div class="value green" id="totalBuilds">17</div></div>
       <div class="stat-card"><div class="label">今日访问</div><div class="value purple" id="todayVisits">0</div></div>
     </div>
     <div class="tabs">
@@ -344,7 +344,7 @@ function toggleTheme() {
   }
 })();
 var API_BASE="https://yxmysbd-api.zyb8808.workers.dev";
-var PAGE_NAMES={"tianfa-huodao":"野蛮人天罚火刀","huodao-shouling":"火刀首领","fashi-leidian-shaquan":"法师雷电秒杀拳","fashi-yanbao":"法师炎爆","fashi-yanling-yanbao":"法师炎灵炎爆","fashi-leiquan":"法师雷拳","fashi-bingyan-pk":"法师冰炎PK","youxia-gandian":"感电3.0修正版","shadow-dian":"暗影游侠梦花感电","youxia-jingji-pk":"游侠竞技PK","youxia-jingji-pve":"游侠竞技PVE","youxia-shengyin-jingji":"圣银荆棘枪","zhuling-huoyan":"咒灵火眼","zhanshi-leichui-pve":"战士雷锤PVE","zhanshi-leichui-pk":"战士雷锤PK","zhanshi-diandao":"战士电刀","zhanshi-huanying-leichui":"幻影雷锤","zhanshi-leixuan":"战士雷旋"};
+var PAGE_NAMES={"tianfa-huodao":"野蛮人天罚火刀","huodao-shouling":"火刀首领","fashi-leidian-shaquan":"法师雷电秒杀拳","fashi-yanbao":"法师炎爆","fashi-yanling-yanbao":"法师炎灵炎爆","fashi-leiquan":"法师雷拳","fashi-bingyan-pk":"法师冰炎PK","youxia-gandian":"感电3.0修正版","shadow-dian":"暗影游侠梦花感电","youxia-jingji-pk":"游侠竞技PK","youxia-jingji-pve":"游侠竞技PVE","youxia-shengyin-jingji":"圣银荆棘枪","zhuling-huoyan":"咒灵火眼","zhanshi-leichui-pve":"战士雷锤PVE","zhanshi-leichui-pk":"战士雷锤PK","zhanshi-diandao":"战士电刀","zhanshi-leixuan":"战士雷旋"};
 var currentSortOrder=[],dragSrcEl=null,currentBuildPage=null;
 
 function getToken(){return localStorage.getItem("yxmysbd_admin_token")||""}
