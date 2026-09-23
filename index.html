@@ -772,6 +772,18 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+// 从配装页跳转过来时自动打开搜索框
+(function() {
+  if (location.hash === '#search') {
+    setTimeout(function() {
+      if (typeof toggleFullscreenSearch === 'function') {
+        toggleFullscreenSearch();
+      }
+    }, 100);
+  }
+})();
+
 </script>
 
 
