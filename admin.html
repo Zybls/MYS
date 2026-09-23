@@ -195,6 +195,7 @@ body.light-theme .action-btn:hover {
 .nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; }
 .nav-theme-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -230,23 +231,17 @@ body.light-theme .action-btn:hover {
 
     <!-- 数据中心 -->
     <div class="tab-content active" id="tab-data">
-      <div class="panel"><div class="panel-title">📈 近30天访问趋势</div><div class="chart-wrap"><canvas id="visitChart"></canvas></div></div>
+      <div class="panel"><div class="panel-title">📈 近30天访问趋势</div><div class="chart-wrap"><div id="visitChart" style="width:100%;height:300px"></div></div></div>
       <div class="two-col">
-        <div class="panel"><div class="panel-title">👀 页面访问排行 TOP10</div><div class="rank-list" id="visitRank"><div class="empty">加载中...</div></div></div>
+        <div class="panel"><div class="panel-title">👀 页面访问排行 TOP10</div><div id="visitRankChart" style="width:100%;height:340px;padding-top:10px"></div></div>
         <div class="panel"><div class="panel-title">🔥 点赞数据排行</div><div class="rank-list" id="rankList"><div class="empty">加载中...</div></div></div>
       </div>
       <div class="panel" style="margin-top:24px">
         <div class="panel-title">🌍 访客地域分布</div>
-        <div class="two-col">
-          <div>
-            <div class="section-subtitle" style="margin-bottom:12px">🏙️ 城市 TOP15</div>
-            <div class="rank-list" id="cityRank"><div class="empty">加载中...</div></div>
-          </div>
-          <div>
-            <div class="section-subtitle" style="margin-bottom:12px">🗺️ 省份 TOP15</div>
-            <div class="rank-list" id="provinceRank"><div class="empty">加载中...</div></div>
-          </div>
-        </div>
+        <div class="section-subtitle" style="margin:16px 0 4px">🗺️ 省份 / 地区 TOP15</div>
+        <div id="provinceChart" style="width:100%;height:420px"></div>
+        <div class="section-subtitle" style="margin:24px 0 12px">🏙️ 城市 TOP15</div>
+        <div class="rank-list" id="cityRank"><div class="empty">加载中...</div></div>
       </div>
     </div>
 
@@ -383,21 +378,14 @@ function showAdmin(){document.getElementById("loginPage").style.display="none";d
 
 /* ===== 数据中心 ===== */
 function loadStats(){
+  showChartLoading();
   fetch(API_BASE+"/api/stats").then(function(r){return r.json()}).then(function(data){
     document.getElementById("totalVisits").textContent=data.total;
     document.getElementById("totalBuilds").textContent=data.pageStats.length;
     var today=data.daily[data.daily.length-1];
     document.getElementById("todayVisits").textContent=today?today.total:0;
-    drawChart(data.daily);
-    var maxVisit=0;
-    data.pageStats.forEach(function(item){if(item.count>maxVisit)maxVisit=item.count});
-    var html="";
-    data.pageStats.slice().sort(function(a,b){return b.count-a.count}).slice(0,10).forEach(function(item,idx){
-      var name=PAGE_NAMES[item.page]||item.page;
-      var pct=maxVisit>0?(item.count/maxVisit*100):0;
-      html+='<div class="rank-item"><div class="num">'+(idx+1)+'</div><div class="name">'+name+'</div><div class="bar-wrap"><div class="bar blue" style="width:'+pct+'%"></div></div><div class="count">'+item.count+'</div></div>';
-    });
-    document.getElementById("visitRank").innerHTML=html||'<div class="empty">暂无数据</div>';
+    renderVisitChart(data.daily);
+    renderVisitRank(data.pageStats);
   }).catch(function(){document.getElementById("visitRank").innerHTML='<div class="empty">加载失败</div>'});
   fetch(API_BASE+"/api/likes/all").then(function(r){return r.json()}).then(function(data){
     var total=0,maxCount=0;
@@ -422,35 +410,93 @@ function loadStats(){
       cityHtml+='<div class="rank-item"><div class="num">'+(idx+1)+'</div><div class="name">'+label+'</div><div class="bar-wrap"><div class="bar" style="width:'+pct+'%"></div></div><div class="count">'+item.count+'</div></div>';
     });
     document.getElementById("cityRank").innerHTML=cityHtml||'<div class="empty">暂无数据</div>';
-    var maxProv=0;data.provinces.forEach(function(p){if(p.count>maxProv)maxProv=p.count});
-    var provHtml="";
-    data.provinces.forEach(function(item,idx){
-      var pct=maxProv>0?(item.count/maxProv*100):0;
-      var label=item.region;
-      if(item.country!=="CN"&&item.country!=="Unknown")label=item.country+" "+item.region;
-      provHtml+='<div class="rank-item"><div class="num">'+(idx+1)+'</div><div class="name">'+label+'</div><div class="bar-wrap"><div class="bar blue" style="width:'+pct+'%"></div></div><div class="count">'+item.count+'</div></div>';
-    });
-    document.getElementById("provinceRank").innerHTML=provHtml||'<div class="empty">暂无数据</div>';
+    renderProvinceChart(data.provinces);
   }).catch(function(){});
 }
-function drawChart(daily){
-  var canvas=document.getElementById("visitChart");if(!canvas)return;
-  var ctx=canvas.getContext("2d");var dpr=window.devicePixelRatio||1;
-  var rect=canvas.parentElement.getBoundingClientRect();
-  canvas.width=rect.width*dpr;canvas.height=260*dpr;ctx.scale(dpr,dpr);
-  var W=rect.width,H=260,pad=40;ctx.clearRect(0,0,W,H);
-  var maxVal=Math.max.apply(null,daily.map(function(d){return d.total}).concat([1]));
-  var barW=(W-pad*2)/daily.length*0.6;var gap=(W-pad*2)/daily.length*0.4;
-  ctx.strokeStyle="#334155";ctx.lineWidth=1;
-  for(var i=0;i<=4;i++){var y=pad+(H-pad*2)*i/4;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(W-pad,y);ctx.stroke();ctx.fillStyle="#64748b";ctx.font="11px sans-serif";ctx.textAlign="right";ctx.fillText(Math.round(maxVal*(4-i)/4),pad-6,y+4)}
-  daily.forEach(function(d,i){
-    var x=pad+i*(barW+gap)+gap/2;var h=(d.total/maxVal)*(H-pad*2);var y=H-pad-h;
-    var grad=ctx.createLinearGradient(0,y,0,H-pad);grad.addColorStop(0,"#f59e0b");grad.addColorStop(1,"#fbbf24");
-    ctx.fillStyle=grad;ctx.fillRect(x,y,barW,h);
-    if(d.total>0&&i%3===0){ctx.fillStyle="#e2e8f0";ctx.font="bold 10px sans-serif";ctx.textAlign="center";ctx.fillText(d.total,x+barW/2,y-4)}
-    if(i%5===0){ctx.fillStyle="#64748b";ctx.font="10px sans-serif";ctx.textAlign="center";ctx.fillText(d.date.slice(5),x+barW/2,H-pad+16)}
+/* ===== ECharts 图表实例 ===== */
+var charts={};
+var AXIS_DIM="#64748b", SPLIT="#263449", TOOLTIP_BG="#1e293b";
+
+/* 所有图表显示"加载中"（冷启动慢时给用户反馈） */
+function showChartLoading(){
+  if(typeof echarts==="undefined")return;
+  var map=[["visitChart","visit"],["visitRankChart","visitRank"],["provinceChart","province"]];
+  map.forEach(function(pair){
+    var el=document.getElementById(pair[0]);
+    if(!el)return;
+    if(el.offsetWidth===0)return;
+    if(!charts[pair[1]])charts[pair[1]]=echarts.init(el);
+    charts[pair[1]].showLoading("default",{
+      text:"加载中...",color:"#f59e0b",textColor:"#94a3b8",
+      maskColor:"rgba(30,41,59,0.25)",fontSize:13
+    });
   });
 }
+
+/* 近30天访问趋势（渐变柱状图） */
+function renderVisitChart(daily){
+  var el=document.getElementById("visitChart");if(!el||typeof echarts==="undefined")return;
+  if(!charts.visit)charts.visit=echarts.init(el);
+  var dates=daily.map(function(d){return d.date.slice(5)});
+  var vals=daily.map(function(d){return d.total});
+  charts.visit.hideLoading();
+  charts.visit.setOption({
+    grid:{left:48,right:20,top:24,bottom:50},
+    tooltip:{trigger:"axis",backgroundColor:TOOLTIP_BG,borderColor:"#334155",textStyle:{color:"#e2e8f0"},axisPointer:{type:"shadow"}},
+    xAxis:{type:"category",data:dates,axisLabel:{color:AXIS_DIM,interval:2,fontSize:10},axisLine:{lineStyle:{color:SPLIT}},axisTick:{show:false}},
+    yAxis:{type:"value",minInterval:1,axisLabel:{color:AXIS_DIM},splitLine:{lineStyle:{color:SPLIT}}},
+    dataZoom:[{type:"slider",height:14,bottom:18,backgroundColor:"#1e293b",fillerColor:"rgba(245,158,11,0.18)",borderColor:"#334155",textStyle:{color:AXIS_DIM}},
+              {type:"inside"}],
+    series:[{type:"bar",data:vals,barMaxWidth:18,itemStyle:{borderRadius:[3,3,0,0],color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:"#f59e0b"},{offset:1,color:"#fbbf24"}])}}]
+  });
+}
+
+/* 页面访问排行TOP10（横向条形图） */
+function renderVisitRank(pageStats){
+  var el=document.getElementById("visitRankChart");if(!el||typeof echarts==="undefined")return;
+  if(!charts.visitRank)charts.visitRank=echarts.init(el);
+  var top=pageStats.slice().sort(function(a,b){return b.count-a.count}).slice(0,10);
+  var names=top.map(function(i){return PAGE_NAMES[i.page]||i.page});
+  var vals=top.map(function(i){return i.count});
+  charts.visitRank.hideLoading();
+  charts.visitRank.setOption({
+    grid:{left:8,right:36,top:10,bottom:10,containLabel:true},
+    tooltip:{trigger:"axis",backgroundColor:TOOLTIP_BG,borderColor:"#334155",textStyle:{color:"#e2e8f0"},axisPointer:{type:"shadow"}},
+    xAxis:{type:"value",minInterval:1,axisLabel:{color:AXIS_DIM},splitLine:{lineStyle:{color:SPLIT}}},
+    yAxis:{type:"category",data:names.slice().reverse(),axisLabel:{color:"#cbd5e1",fontSize:11},axisLine:{show:false},axisTick:{show:false}},
+    series:[{type:"bar",data:vals.slice().reverse(),barMaxWidth:16,
+      label:{show:true,position:"right",color:"#fbbf24",fontSize:11},
+      itemStyle:{borderRadius:[0,3,3,0],color:new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:"#3b82f6"},{offset:1,color:"#60a5fa"}])}}]
+  });
+}
+
+/* 省份/地区分布TOP15（横向条形图） */
+function renderProvinceChart(provinces){
+  var el=document.getElementById("provinceChart");if(!el||typeof echarts==="undefined")return;
+  if(!charts.province)charts.province=echarts.init(el);
+  var top=provinces.slice().sort(function(a,b){return b.count-a.count}).slice(0,15);
+  var labels=top.map(function(i){
+    var l=i.region||"未知";
+    if(i.country&&i.country!=="CN"&&i.country!=="Unknown")l=i.country+" "+l;
+    return l;
+  });
+  var vals=top.map(function(i){return i.count});
+  charts.province.hideLoading();
+  charts.province.setOption({
+    grid:{left:8,right:40,top:10,bottom:10,containLabel:true},
+    tooltip:{trigger:"axis",backgroundColor:TOOLTIP_BG,borderColor:"#334155",textStyle:{color:"#e2e8f0"},axisPointer:{type:"shadow"}},
+    xAxis:{type:"value",minInterval:1,axisLabel:{color:AXIS_DIM},splitLine:{lineStyle:{color:SPLIT}}},
+    yAxis:{type:"category",data:labels.slice().reverse(),axisLabel:{color:"#cbd5e1",fontSize:11},axisLine:{show:false},axisTick:{show:false}},
+    series:[{type:"bar",data:vals.slice().reverse(),barMaxWidth:16,
+      label:{show:true,position:"right",color:"#a78bfa",fontSize:11},
+      itemStyle:{borderRadius:[0,3,3,0],color:new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:"#7c3aed"},{offset:1,color:"#a78bfa"}])}}]
+  });
+}
+
+/* 图表响应式 */
+window.addEventListener("resize",function(){
+  Object.keys(charts).forEach(function(k){if(charts[k])charts[k].resize()});
+});
 function resetLikes(page){
   if(!confirm("确定重置「"+(PAGE_NAMES[page]||page)+"」的点赞数吗？"))return;
   fetch(API_BASE+"/api/admin/reset-likes",{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify({page:page})})
