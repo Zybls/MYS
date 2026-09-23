@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'yxmysbd-v4';
+﻿const CACHE_NAME = 'yxmysbd-v5';
 const urlsToCache = [
   './',
   './index.html',
@@ -15,6 +15,7 @@ const urlsToCache = [
   './shadow-dian.html',
   './youxia-jingji-pk.html',
   './youxia-jingji-pve.html',
+  './youxia-shengyin-jingji.html',
   './zhuling-huoyan.html',
   './zhanshi-leichui-pve.html',
   './zhanshi-leichui-pk.html',
@@ -36,23 +37,36 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      if (response) return response;
-      return fetch(event.request).then(function(response) {
-        if (response && response.status === 200 && response.type === 'basic') {
-          var responseClone = response.clone();
-          caches.open(CACHE_NAME).then(function(cache) {
-            cache.put(event.request, responseClone);
-          });
+  var req = event.request;
+  if (req.method !== 'GET') return;
+
+  // 页面导航请求：network-first，保证用户看到最新内容；离线时回退缓存
+  if (req.mode === 'navigate') {
+    event.respondWith(
+      fetch(req).then(function(response) {
+        if (response && response.status === 200) {
+          var clone = response.clone();
+          caches.open(CACHE_NAME).then(function(cache) { cache.put(req, clone); });
         }
         return response;
       }).catch(function() {
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
+        return caches.match(req).then(function(r) { return r || caches.match('./index.html'); });
+      })
+    );
+    return;
+  }
+
+  // 静态资源（图片/CSS/JS/字体）：cache-first，加快二次访问
+  event.respondWith(
+    caches.match(req).then(function(cached) {
+      if (cached) return cached;
+      return fetch(req).then(function(response) {
+        if (response && response.status === 200 && (response.type === 'basic' || response.type === 'cors')) {
+          var respClone = response.clone();
+          caches.open(CACHE_NAME).then(function(cache) { cache.put(req, respClone); });
         }
-        return new Response('', { status: 504 });
-      });
+        return response;
+      }).catch(function() { return new Response('', { status: 504 }); });
     })
   );
 });

@@ -141,18 +141,18 @@ body { background: var(--bg); color: var(--text); font-family: "Microsoft YaHei"
 
 .footer { text-align: center; padding: 24px 16px; color: var(--text-dim); font-size: 11px; border-top: 1px solid var(--border); margin-top: 24px; line-height: 1.8; }
 
-/* ===== 平板 (≥480px)：2列 ===== */
-@media (min-width: 480px) {
+/* ===== 平板 (≥640px)：卡片2列；热门/更新仍上下堆叠 ===== */
+@media (min-width: 640px) {
   body { padding: 0 16px; padding-top: 60px !important; }
   .build-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .hero h1 { font-size: 30px; }
-  .two-col-layout { grid-template-columns: 1fr 1fr; gap: 20px; }
 }
 
-/* ===== PC (≥768px)：3列 ===== */
-@media (min-width: 768px) {
+/* ===== PC (≥960px)：卡片统一3列(5套=3+2 / 6套=3+3，无落单)；热门+更新并排 ===== */
+@media (min-width: 960px) {
   body { padding: 0 20px; padding-top: 60px !important; }
-  .build-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .build-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .two-col-layout { grid-template-columns: 1fr 1fr; gap: 24px; }
   .hero h1 { font-size: 34px; letter-spacing: 5px; }
   .hero .meta span { font-size: 13px; padding: 5px 14px; }
   .filter-btn { padding: 7px 18px; font-size: 13px; }
@@ -160,9 +160,18 @@ body { background: var(--bg); color: var(--text); font-family: "Microsoft YaHei"
   .changelog-list { max-height: 350px; }
 }
 
-/* ===== 宽屏 (≥1200px)：4列 ===== */
-@media (min-width: 1200px) {
-  .build-grid { grid-template-columns: repeat(4, 1fr); }
+/* ===== 手机导航简化 (<640px)：避免文字折行 ===== */
+@media (max-width: 639px) {
+  .nav-inner { padding: 0 12px; height: 48px; }
+  .nav-left { gap: 10px; }
+  .nav-logo { font-size: 15px; white-space: nowrap; }
+  .nav-contact { font-size: 13px; white-space: nowrap; }
+  .nav-game-name { display: none; }
+  .nav-divider { display: none; }
+  .nav-right { gap: 2px; }
+  .nav-theme-btn, .nav-search-btn { font-size: 16px; padding: 6px 8px; }
+  .hero { padding: 22px 12px 20px; }
+  .hero h1 { font-size: 23px; letter-spacing: 2px; }
 }
 
 /* ===== 亮色主题 ===== */

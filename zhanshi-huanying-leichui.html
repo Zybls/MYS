@@ -246,28 +246,28 @@
   }
   @media (max-width: 480px) {
     body { font-size: 14px; padding: 10px; }
-    .skill-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    /* 网格列数沿用≤768：主动3列(3+2)、被动2列、装备2列、刻印5列(十字方位)、侍从/书籍3列 */
+    .skill-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .passive-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-    .engrave-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-    .equip-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .engrave-grid { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+    .equip-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
     .follower-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-    .book-grid { grid-template-columns: repeat(1, 1fr); gap: 6px; }
-    .hero h1 { font-size: 22px; }
+    .book-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .hero h1 { font-size: 21px; }
     .hero .subtitle { font-size: 13px; }
     .section-title { font-size: 17px; }
     .skill-name { font-size: 13px; }
     .equip-name { font-size: 13px; }
     .equip-stats { font-size: 11px; }
-    .engrave-name { font-size: 13px; }
-    .follower-name { font-size: 14px; }
-    .book-name { font-size: 13px; }
+    .engrave-name { font-size: 12px; }
+    .follower-name { font-size: 13px; }
+    .book-name { font-size: 12px; }
     .tip-box .tip-content { font-size: 13px; }
     .action-btn { padding: 8px 14px; font-size: 14px; }
     .badge { font-size: 12px; padding: 4px 10px; }
   }
   @media (min-width: 1400px) {
     body { max-width: 1300px; }
-    .equip-grid { grid-template-columns: repeat(5, 1fr); }
   }
 
 /* 亮色主题 */
