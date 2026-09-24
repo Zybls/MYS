@@ -73,10 +73,12 @@ export async function onRequest(context) {
     response.headers.set("X-Cache", "MISS");
   }
 
-  // 写操作：主动清除热门排行缓存，避免点赞后排行不刷新
+  // 写操作：主动清除相关缓存，避免数据不刷新
   if (!isGet && resp.status < 400) {
     const hotUrl = new URL("/api/likes/all", request.url).toString();
+    const changelogUrl = new URL("/api/changelog", request.url).toString();
     context.waitUntil(cache.delete(hotUrl));
+    context.waitUntil(cache.delete(changelogUrl));
   }
 
   return response;
