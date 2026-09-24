@@ -899,7 +899,7 @@ function loadHotRank() {
       var list = document.getElementById("hotRankList");
       if (!list) return;
       if (!data || !data.length) {
-        list.innerHTML = '<div class="rank-loading">暂无数据</div>';
+        list.innerHTML = '<div class="rank-loading" style="line-height:1.7;">还没有点赞数据<br><span style="font-size:12px;color:var(--gold);">去配装页为你喜欢的流派点个赞吧</span></div>';
         return;
       }
       var top5 = data.slice(0, 5);
