@@ -2,3 +2,38 @@ _shots/
 *.tmp
 .DS_Store
 Thumbs.db
+
+# 敏感文件（绝对不能提交）
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+id_rsa
+id_rsa.pub
+credentials
+service-account.json
+
+# 配置文件（含密钥）
+wrangler.toml
+schema.sql
+worker.js
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统
+desktop.ini
