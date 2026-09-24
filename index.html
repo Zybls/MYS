@@ -858,15 +858,22 @@ document.addEventListener("keydown", function(e) {
 });
 
 /* ===== 公告栏 ===== */
+var currentAnnId = null;
+function getClosedAnns() {
+  try { return JSON.parse(localStorage.getItem("yxmysbd_closed_anns") || "[]"); }
+  catch (e) { return []; }
+}
 function loadAnnouncement() {
   fetch(API + "/api/announcements")
     .then(function(r) { return r.json(); })
     .then(function(data) {
       if (!data || !data.length) return;
       var ann = data[0];
+      if (getClosedAnns().indexOf(ann.id) !== -1) return;
       var bar = document.getElementById("announcementBar");
       var box = document.getElementById("announcementBox");
       if (!bar || !box) return;
+      currentAnnId = ann.id;
       box.className = "announcement-box " + ann.type;
       document.getElementById("annIcon").textContent = ann.type === "important" ? "🔴" : ann.type === "update" ? "🟡" : "📘";
       document.getElementById("annTitle").textContent = ann.title;
@@ -877,6 +884,10 @@ function loadAnnouncement() {
     .catch(function() {});
 }
 function closeAnnouncement() {
+  if (currentAnnId) {
+    var closed = getClosedAnns();
+    if (closed.indexOf(currentAnnId) === -1) { closed.push(currentAnnId); try { localStorage.setItem("yxmysbd_closed_anns", JSON.stringify(closed)); } catch (e) {} }
+  }
   document.getElementById("announcementBar").style.display = "none";
 }
 

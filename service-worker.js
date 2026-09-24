@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'yxmysbd-v5';
+﻿const CACHE_NAME = 'yxmysbd-v6';
 const urlsToCache = [
   './',
   './index.html',
@@ -40,7 +40,16 @@ self.addEventListener('fetch', function(event) {
   var req = event.request;
   if (req.method !== 'GET') return;
 
-  // 页面导航请求：network-first，保证用户看到最新内容；离线时回退缓存
+  var sameOrigin = new URL(req.url).origin === self.location.origin;
+
+  // 跨域请求（后端 API、第三方 CDN 等）：只走网络、不查不写缓存。
+  // 动态数据（公告/点赞/统计/日志/首页配置）必须实时，绝不能被旧缓存卡住。
+  if (!sameOrigin) {
+    event.respondWith(fetch(req).catch(function() { return new Response('', { status: 504 }); }));
+    return;
+  }
+
+  // 同源页面导航请求：network-first，保证用户看到最新内容；离线时回退缓存
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req).then(function(response) {
@@ -56,12 +65,12 @@ self.addEventListener('fetch', function(event) {
     return;
   }
 
-  // 静态资源（图片/CSS/JS/字体）：cache-first，加快二次访问
+  // 同源静态资源（图片/CSS/JS/字体）：cache-first，加快二次访问
   event.respondWith(
     caches.match(req).then(function(cached) {
       if (cached) return cached;
       return fetch(req).then(function(response) {
-        if (response && response.status === 200 && (response.type === 'basic' || response.type === 'cors')) {
+        if (response && response.status === 200 && response.type === 'basic') {
           var respClone = response.clone();
           caches.open(CACHE_NAME).then(function(cache) { cache.put(req, respClone); });
         }
