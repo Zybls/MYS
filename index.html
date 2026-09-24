@@ -301,7 +301,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="nav-left">
         <a href="index.html" class="nav-logo"><span class="logo-icon">🌐</span>天涯若比邻</a>
         <div class="nav-divider"></div>
-        <button type="button" onclick="openContactModal()" class="nav-contact">💬 联系站长</button>
+        <button type="button" onclick="openContactModal()" class="nav-contact">💡 请求新功能</button>
         <div class="nav-divider"></div>
         <span class="nav-game-name">《英雄没有闪》</span>
         </div>
@@ -960,7 +960,7 @@ function loadChangelog() {
     });
 }
 
-/* ===== 联系站长 ===== */
+/* ===== 请求新功能 ===== */
 function openContactModal() {
   document.getElementById("contactModal").style.display = "flex";
   document.body.style.overflow = "hidden";
@@ -979,7 +979,7 @@ function submitContact() {
   if (!content) {
     resultEl.style.display = "block";
     resultEl.style.color = "#ef4444";
-    resultEl.textContent = "请填写留言内容";
+    resultEl.textContent = "请填写功能需求";
     return;
   }
   btn.disabled = true;
@@ -1009,7 +1009,7 @@ function submitContact() {
       resultEl.textContent = "网络错误，请稍后重试";
     }).finally(function() {
       btn.disabled = false;
-      btn.textContent = "发送私信";
+      btn.textContent = "提交需求";
     });
 }
 
@@ -1069,12 +1069,12 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 
-<!-- 联系站长弹窗 -->
+<!-- 请求新功能弹窗 -->
         <div id="contactModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,10,0.92);z-index:9999;align-items:center;justify-content:center;">
         <div style="background:#16161f;border:1px solid #2e2e44;border-radius:16px;padding:28px;width:90%;max-width:440px;position:relative;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
         <div onclick="closeContactModal()" style="position:absolute;top:14px;right:18px;font-size:22px;color:var(--text-dim);cursor:pointer;line-height:1;">×</div>
-        <h3 style="font-size:20px;margin-bottom:6px;color:var(--text);">💬 联系站长</h3>
-        <p style="font-size:13px;color:var(--text-dim);margin-bottom:20px;">有问题、建议或合作需求，欢迎留言</p>
+        <h3 style="font-size:20px;margin-bottom:6px;color:var(--text);">💡 请求新功能</h3>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:20px;">想要什么新功能？告诉站长，说不定下一个版本就安排上了！</p>
         <div style="margin-bottom:14px;">
         <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;">昵称（选填）</label>
         <input type="text" id="contactName" placeholder="怎么称呼你？" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;">
@@ -1084,10 +1084,10 @@ document.addEventListener("DOMContentLoaded", function() {
         <input type="text" id="contactContact" placeholder="微信/QQ/邮箱，方便回复你" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;">
         </div>
         <div style="margin-bottom:20px;">
-        <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;">留言内容 <span style="color:var(--red);">*</span></label>
-        <textarea id="contactContent" rows="4" placeholder="想说点什么..." style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;resize:vertical;box-sizing:border-box;font-family:inherit;"></textarea>
+        <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;">功能需求 <span style="color:var(--red);">*</span></label>
+        <textarea id="contactContent" rows="4" placeholder="描述一下你想要的功能..." style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;resize:vertical;box-sizing:border-box;font-family:inherit;"></textarea>
         </div>
-        <button onclick="submitContact()" id="contactSubmitBtn" style="width:100%;padding:12px;background:#f59e0b;color:#1a1a2e;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">发送私信</button>
+        <button onclick="submitContact()" id="contactSubmitBtn" style="width:100%;padding:12px;background:#f59e0b;color:#1a1a2e;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">提交需求</button>
         <div id="contactResult" style="text-align:center;margin-top:12px;font-size:13px;display:none;"></div>
         </div>
         </div>
