@@ -107,6 +107,76 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
     transition: all 0.2s; min-width: 28px; text-align: center; }
   .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
   .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
+
+/* ===== 公会导航（统一） ===== */
+.guild-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(11,11,18,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(245,158,11,0.15);
+}
+.guild-nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; gap: 12px;
+}
+.guild-nav-left { display: flex; align-items: center; gap: 12px; }
+.guild-logo-wrap { display: flex; align-items: center; }
+.guild-logo {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid rgba(245,158,11,0.4);
+  box-shadow: 0 0 10px rgba(245,158,11,0.2);
+  object-fit: cover;
+}
+.guild-nav-info { display: flex; flex-direction: column; }
+.guild-nav-name {
+  font-size: 15px; font-weight: 800; color: var(--gold);
+  letter-spacing: 0.5px; line-height: 1.2;
+}
+.guild-nav-slogan { font-size: 10px; color: var(--text-dim); }
+.guild-back-btn {
+  color: var(--text-dim); font-size: 12px; text-decoration: none;
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+  transition: all 0.2s; margin-left: 4px;
+}
+.guild-back-btn:hover { color: var(--gold); border-color: var(--gold); background: rgba(245,158,11,0.08); }
+.guild-nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.recruit-status {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+  padding: 3px 9px; border-radius: 20px;
+}
+.recruit-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.recruit-text { font-size: 10px; color: #4ade80; font-weight: 600; }
+.nav-icon-btn {
+  background: none; border: none; color: var(--text); font-size: 15px; cursor: pointer;
+  padding: 6px 8px; border-radius: 6px; transition: all 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+.lang-switch { display: flex; gap: 2px; background: var(--bg-card2); border-radius: 6px; padding: 2px; }
+.lang-switch .lang-btn {
+  background: none; border: none; color: var(--text-dim);
+  font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 4px;
+  transition: all 0.2s; min-width: 26px; text-align: center; font-weight: 600;
+}
+.lang-switch .lang-btn:hover { color: var(--gold); }
+.lang-switch .lang-btn.active { background: var(--gold); color: #1a1a2e; }
+@media (max-width: 639px) {
+  .guild-nav-inner { padding: 6px 12px; gap: 8px; }
+  .guild-logo { width: 34px; height: 34px; }
+  .guild-nav-name { font-size: 13px; }
+  .guild-nav-slogan { display: none; }
+  .guild-back-btn { font-size: 11px; padding: 4px 8px; }
+  .recruit-text { display: none; }
+  .nav-icon-btn { font-size: 14px; padding: 5px 6px; }
+}
+
 </style>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/recommend.html" />
   <link rel="alternate" hreflang="en" href="https://ykmys.com/recommend.html?lang=en" />
@@ -114,20 +184,29 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
 </head>
 <body>
 
-<nav class="site-nav">
-  <div class="nav-inner">
-    <div class="nav-left">
-      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
-      <a href="index.html" class="nav-home-btn">🏠 首页</a>
-      <span style="color:var(--gold);font-size:15px;font-weight:bold;">🎯 配装推荐</span>
+<div class="guild-nav">
+  <div class="guild-nav-inner">
+    <div class="guild-nav-left">
+      <a href="index.html" class="guild-logo-wrap">
+        <img src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+      </a>
+      <div class="guild-nav-info">
+        <div class="guild-nav-name">天涯若比邻</div>
+        <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+      </div>
+      <a href="index.html" class="guild-back-btn">← 首页</a>
     </div>
-    <div class="nav-right">
-      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
-      <button class="theme-toggle lang-btn" data-lang="zh" title="中文" style="margin-left:4px;font-size:13px;padding:6px 8px;">中</button>
-    <button class="theme-toggle lang-btn" data-lang="en" title="English" style="margin-left:2px;font-size:13px;padding:6px 8px;">EN</button>
+    <div class="guild-nav-right">
+      <div class="recruit-status"><span class="recruit-dot"></span><span class="recruit-text">招募中</span></div>
+      <button class="nav-icon-btn" onclick="toggleSearch()" title="搜索">🔍</button>
+      <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="zh" title="中文">中</button>
+        <button class="lang-btn" data-lang="en" title="English">EN</button>
+      </div>
     </div>
   </div>
-</nav>
+</div>
 
 <div class="breadcrumb">
   <a href="index.html">🏠 首页</a>
