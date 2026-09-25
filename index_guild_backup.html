@@ -485,199 +485,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .contact-form-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
 .contact-form-submit:active { transform: none; }
 
-
-/* ===== 公会导航 ===== */
-.guild-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-  background: rgba(11,11,18,0.92);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(245,158,11,0.15);
-}
-.guild-nav-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 20px; gap: 16px;
-}
-.guild-nav-left { display: flex; align-items: center; gap: 12px; }
-.guild-logo-wrap { display: flex; align-items: center; }
-.guild-logo {
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 2px solid rgba(245,158,11,0.4);
-  box-shadow: 0 0 12px rgba(245,158,11,0.2);
-  object-fit: cover;
-}
-.guild-nav-info { display: flex; flex-direction: column; }
-.guild-nav-name {
-  font-size: 17px; font-weight: 800; color: var(--gold);
-  letter-spacing: 1px; line-height: 1.2;
-}
-.guild-nav-slogan { font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; }
-.guild-nav-links { display: flex; gap: 4px; flex: 1; justify-content: center; }
-.guild-nav-link {
-  color: var(--text-dim); font-size: 13px; text-decoration: none;
-  padding: 7px 14px; border-radius: 8px; transition: all 0.2s;
-  font-weight: 500; white-space: nowrap;
-}
-.guild-nav-link:hover { color: var(--gold); background: rgba(245,158,11,0.08); }
-.guild-nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.recruit-status {
-  display: flex; align-items: center; gap: 6px;
-  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
-  padding: 4px 10px; border-radius: 20px;
-}
-.recruit-dot {
-  width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-.recruit-text { font-size: 11px; color: #4ade80; font-weight: 600; }
-.guild-login-btn {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-  border: none; color: #1a1a2e; font-size: 13px; font-weight: 700;
-  padding: 7px 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
-}
-.guild-login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
-
-/* ===== 公会Hero公告 ===== */
-.guild-hero {
-  position: relative; padding: 80px 20px 30px; overflow: hidden;
-}
-.guild-hero-bg {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(245,158,11,0.08), transparent),
-    radial-gradient(ellipse 50% 70% at 80% 30%, rgba(168,85,247,0.06), transparent);
-  pointer-events: none;
-}
-.guild-hero-content {
-  max-width: 1280px; margin: 0 auto; position: relative;
-  display: flex; gap: 20px; align-items: stretch;
-}
-.guild-announcement {
-  flex: 1; background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 18px 20px;
-  border-left: 3px solid var(--gold);
-}
-.announcement-label {
-  font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 12px;
-  display: flex; align-items: center; gap: 6px;
-}
-.announcement-scroll { display: flex; flex-direction: column; gap: 10px; }
-.announcement-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 12px; background: var(--bg); border-radius: 8px;
-}
-.ann-tag {
-  font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 700;
-  background: rgba(239,68,68,0.15); color: #f87171; flex-shrink: 0;
-}
-.ann-tag:nth-child(1) { }
-.announcement-item:nth-child(2) .ann-tag { background: rgba(59,130,246,0.15); color: #60a5fa; }
-.announcement-item:nth-child(3) .ann-tag { background: rgba(34,197,94,0.15); color: #4ade80; }
-.ann-text { font-size: 13px; color: var(--text); flex: 1; }
-.ann-date { font-size: 11px; color: var(--text-dim); flex-shrink: 0; }
-.guild-stats {
-  display: flex; gap: 16px; align-items: center;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 18px 24px;
-}
-.guild-stat { text-align: center; }
-.stat-num {
-  font-size: 28px; font-weight: 800; color: var(--gold);
-  background: linear-gradient(135deg, var(--gold), #fde68a);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.stat-label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-
-/* ===== 公会活动区 ===== */
-.guild-activities { max-width: 1280px; margin: 0 auto; padding: 10px 20px 20px; }
-.section-title-row {
-  display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
-}
-.section-title { font-size: 19px; font-weight: 700; color: var(--text); margin: 0; }
-.section-more { font-size: 12px; color: var(--text-dim); cursor: pointer; }
-.section-more:hover { color: var(--gold); }
-.activity-grid {
-  display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 16px;
-}
-.activity-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 16px;
-}
-.activity-card-header {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
-  padding-bottom: 10px; border-bottom: 1px solid var(--border);
-}
-.activity-icon { font-size: 18px; }
-.activity-card-title { font-size: 15px; font-weight: 700; color: var(--text); }
-.activity-list { display: flex; flex-direction: column; gap: 10px; }
-.activity-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px; background: var(--bg); border-radius: 8px;
-  transition: all 0.2s;
-}
-.activity-item:hover { background: var(--bg-card2); }
-.activity-date {
-  text-align: center; flex-shrink: 0; width: 42px;
-  background: var(--bg-card2); border-radius: 6px; padding: 4px 0;
-}
-.activity-day { font-size: 18px; font-weight: 800; color: var(--gold); line-height: 1; }
-.activity-month { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
-.activity-info { flex: 1; min-width: 0; }
-.activity-name { font-size: 13px; font-weight: 600; color: var(--text); }
-.activity-meta { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-.activity-status {
-  font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 600;
-  flex-shrink: 0;
-}
-.activity-status.upcoming { background: rgba(59,130,246,0.15); color: #60a5fa; }
-.activity-status.signup { background: rgba(34,197,94,0.15); color: #4ade80; }
-.activity-status.planned { background: rgba(148,163,184,0.15); color: #94a3b8; }
-
-/* 考勤榜 */
-.attendance-list { display: flex; flex-direction: column; gap: 8px; }
-.attendance-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px; background: var(--bg); border-radius: 6px;
-}
-.attendance-rank {
-  width: 22px; height: 22px; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
-  background: var(--bg-card2); color: var(--text-dim); flex-shrink: 0;
-}
-.attendance-rank.gold { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1a2e; }
-.attendance-rank.silver { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #1a1a2e; }
-.attendance-rank.bronze { background: linear-gradient(135deg, #fb923c, #ea580c); color: #1a1a2e; }
-.attendance-name { flex: 1; font-size: 13px; color: var(--text); }
-.attendance-count { font-size: 12px; color: var(--gold); font-weight: 600; }
-
-/* 报名表单 */
-.signup-form { display: flex; flex-direction: column; gap: 10px; }
-.signup-field { display: flex; flex-direction: column; gap: 4px; }
-.signup-field label { font-size: 12px; color: var(--text-dim); font-weight: 500; }
-.signup-input, .signup-select {
-  padding: 8px 10px; background: var(--bg); border: 1px solid var(--border);
-  border-radius: 6px; color: var(--text); font-size: 13px; font-family: inherit;
-}
-.signup-input:focus, .signup-select:focus { outline: none; border-color: var(--gold); }
-.signup-submit {
-  margin-top: 4px; padding: 10px; background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-  border: none; border-radius: 8px; color: #1a1a2e; font-size: 14px;
-  font-weight: 700; cursor: pointer; transition: all 0.2s;
-}
-.signup-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
-
-/* ===== 战术库标题 ===== */
-.tactics-header {
-  max-width: 1280px; margin: 0 auto; padding: 20px 20px 10px;
-  text-align: center;
-}
-.tactics-title {
-  font-size: 22px; font-weight: 800; color: var(--text); margin: 0;
-}
-.tactics-subtitle { font-size: 13px; color: var(--text-dim); margin: 6px 0 0; }
-
 </style>
         <link rel="manifest" href="manifest.json">
         <meta name="theme-color" content="#f59e0b">
@@ -687,32 +494,30 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   <link rel="alternate" hreflang="x-default" href="https://ykmys.com/index.html" />
 </head>
         <body>
-        <nav class="guild-nav">
-        <div class="guild-nav-inner">
-          <div class="guild-nav-left">
-            <a href="index.html" class="guild-logo-wrap">
-              <img src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
-            </a>
-            <div class="guild-nav-info">
-              <div class="guild-nav-name">天涯若比邻</div>
-              <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
-            </div>
+        <nav class="site-nav">
+        <div class="nav-inner">
+          <div class="nav-brand">
+            <a href="index.html" class="nav-logo"><span class="logo-icon">⚔️</span>英雄没有闪</a>
           </div>
-          <div class="guild-nav-links">
-            <a href="#activities" class="guild-nav-link">公会活动</a>
-            <a href="#tactics" class="guild-nav-link">战术库</a>
-            <a href="runes-relics.html" class="guild-nav-link">图鉴</a>
-            <a href="guide.html" class="guild-nav-link">新手指南</a>
-            <a href="changelog.html" class="guild-nav-link">日志</a>
+          <div class="nav-links">
+            <a href="runes-relics.html" class="nav-link">符文遗物</a>
+            <a href="skills.html" class="nav-link">技能图鉴</a>
+            <a href="engravings.html" class="nav-link">刻印图鉴</a>
+            <a href="pets.html" class="nav-link">侍从图鉴</a>
+            <a href="dark-armor.html" class="nav-link">装备图鉴</a>
+            <a href="recommend.html" class="nav-link">配装推荐</a>
+            <a href="guide.html" class="nav-link">新手指南</a>
+            <a href="compare.html" class="nav-link">配装对比</a>
+            <a href="changelog.html" class="nav-link">更新日志</a>
+            <button type="button" onclick="openContactModal()" class="nav-link nav-link-btn">请求新功能</button>
           </div>
-          <div class="guild-nav-right">
-            <div class="recruit-status" title="招募中">
-              <span class="recruit-dot"></span>
-              <span class="recruit-text">招募中</span>
-            </div>
-            <button class="guild-login-btn" onclick="openLoginModal()">登录</button>
+          <div class="nav-actions">
             <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
-            <button class="nav-icon-btn" onclick="toggleFullscreenSearch()" title="搜索">🔍</button>
+            <div class="lang-switch">
+              <button class="lang-btn active" data-lang="zh" title="中文">中</button>
+              <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <button class="nav-icon-btn" onclick="toggleFullscreenSearch()" title="搜索 (Ctrl+K)">🔍</button>
           </div>
         </div>
         </nav>
@@ -727,46 +532,10 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
         <div class="search-hint">按 <kbd>ESC</kbd> 关闭 &nbsp;|&nbsp; 按 <kbd>Ctrl+K</kbd> 快速打开搜索</div>
         </div>
         </div>
-        <!-- 公会公告 Hero -->
-        <section class="guild-hero">
-          <div class="guild-hero-bg"></div>
-          <div class="guild-hero-content">
-            <div class="guild-announcement">
-              <div class="announcement-label">📢 公会公告</div>
-              <div class="announcement-scroll">
-                <div class="announcement-item">
-                  <span class="ann-tag">重要</span>
-                  <span class="ann-text">神殿纷争S2赛季开启，全员备战！本周六晚8点公会集结</span>
-                  <span class="ann-date">09-25</span>
-                </div>
-                <div class="announcement-item">
-                  <span class="ann-tag">活动</span>
-                  <span class="ann-text">公会BOSS首杀挑战，参与即有奖励，排名前10额外福利</span>
-                  <span class="ann-date">09-24</span>
-                </div>
-                <div class="announcement-item">
-                  <span class="ann-tag">招募</span>
-                  <span class="ann-text">招收活跃玩家，要求每日上线，战力不限，态度第一</span>
-                  <span class="ann-date">09-23</span>
-                </div>
-              </div>
-            </div>
-            <div class="guild-stats">
-              <div class="guild-stat">
-                <div class="stat-num">128</div>
-                <div class="stat-label">公会成员</div>
-              </div>
-              <div class="guild-stat">
-                <div class="stat-num">15</div>
-                <div class="stat-label">战术配装</div>
-              </div>
-              <div class="guild-stat">
-                <div class="stat-num">S2</div>
-                <div class="stat-label">当前赛季</div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <div class="hero">
+        <h1>全职业流派配装大全</h1>
+        <div class="subtitle">《英雄没有闪》S2赛季 · 全职业BD配装参考手册</div>
+        </div>
 <!-- 公告栏 -->
 <div class="announcement-bar" id="announcementBar" style="display:none;">
   <div class="announcement-box" id="announcementBox">
@@ -779,123 +548,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
     <button class="ann-close" onclick="closeAnnouncement()">&times;</button>
   </div>
 </div>
-<!-- 公会活动区 -->
-        <section class="guild-activities" id="activities">
-          <div class="section-title-row">
-            <h2 class="section-title">⚔️ 公会活动 · 神殿纷争</h2>
-            <span class="section-more">更多 ›</span>
-          </div>
-          <div class="activity-grid">
-            <!-- 活动日程 -->
-            <div class="activity-card">
-              <div class="activity-card-header">
-                <span class="activity-icon">📅</span>
-                <span class="activity-card-title">近期活动</span>
-              </div>
-              <div class="activity-list">
-                <div class="activity-item">
-                  <div class="activity-date">
-                    <div class="activity-day">27</div>
-                    <div class="activity-month">9月</div>
-                  </div>
-                  <div class="activity-info">
-                    <div class="activity-name">神殿纷争 · 周末团战</div>
-                    <div class="activity-meta">周六 20:00 · 全员参加</div>
-                  </div>
-                  <span class="activity-status upcoming">即将开始</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-date">
-                    <div class="activity-day">28</div>
-                    <div class="activity-month">9月</div>
-                  </div>
-                  <div class="activity-info">
-                    <div class="activity-name">公会BOSS首杀</div>
-                    <div class="activity-meta">周日 19:30 · 精英团</div>
-                  </div>
-                  <span class="activity-status signup">报名中</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-date">
-                    <div class="activity-day">30</div>
-                    <div class="activity-month">9月</div>
-                  </div>
-                  <div class="activity-info">
-                    <div class="activity-name">新人带练活动</div>
-                    <div class="activity-meta">周二 21:00 · 自愿参加</div>
-                  </div>
-                  <span class="activity-status planned">计划中</span>
-                </div>
-              </div>
-            </div>
-            <!-- 考勤排行 -->
-            <div class="activity-card">
-              <div class="activity-card-header">
-                <span class="activity-icon">🏆</span>
-                <span class="activity-card-title">本月考勤榜</span>
-              </div>
-              <div class="attendance-list">
-                <div class="attendance-item">
-                  <span class="attendance-rank gold">1</span>
-                  <span class="attendance-name">夜影无痕</span>
-                  <span class="attendance-count">28次</span>
-                </div>
-                <div class="attendance-item">
-                  <span class="attendance-rank silver">2</span>
-                  <span class="attendance-name">星辰大海</span>
-                  <span class="attendance-count">26次</span>
-                </div>
-                <div class="attendance-item">
-                  <span class="attendance-rank bronze">3</span>
-                  <span class="attendance-name">剑指苍穹</span>
-                  <span class="attendance-count">25次</span>
-                </div>
-                <div class="attendance-item">
-                  <span class="attendance-rank">4</span>
-                  <span class="attendance-name">风起云涌</span>
-                  <span class="attendance-count">23次</span>
-                </div>
-                <div class="attendance-item">
-                  <span class="attendance-rank">5</span>
-                  <span class="attendance-name">月下独酌</span>
-                  <span class="attendance-count">22次</span>
-                </div>
-              </div>
-            </div>
-            <!-- 快速报名 -->
-            <div class="activity-card signup-card">
-              <div class="activity-card-header">
-                <span class="activity-icon">✍️</span>
-                <span class="activity-card-title">快速报名</span>
-              </div>
-              <div class="signup-form">
-                <div class="signup-field">
-                  <label>游戏ID</label>
-                  <input type="text" placeholder="请输入游戏ID" class="signup-input">
-                </div>
-                <div class="signup-field">
-                  <label>参加活动</label>
-                  <select class="signup-select">
-                    <option>神殿纷争 · 周末团战</option>
-                    <option>公会BOSS首杀</option>
-                    <option>新人带练活动</option>
-                  </select>
-                </div>
-                <div class="signup-field">
-                  <label>职业</label>
-                  <select class="signup-select">
-                    <option>游侠</option>
-                    <option>秘法师</option>
-                    <option>野蛮人</option>
-                  </select>
-                </div>
-                <button class="signup-submit" onclick="alert('报名成功！请等待公会管理确认')">确认报名</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 职业筛选 -->
+<!-- 职业筛选 -->
         <div class="quick-filter">
         <button class="filter-btn active" onclick="filterByClass('all', this)">全部职业</button>
         <button class="filter-btn" onclick="filterByClass('ranger', this)">🏹 游侠</button>
@@ -906,10 +559,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
         <div class="search-result-info"></div>
         
 <main id="mainContent">
-<div class="tactics-header" id="tactics">
-  <h2 class="tactics-title">📖 公会战术库</h2>
-  <p class="tactics-subtitle">全职业流派配装 · 公会精英实战验证</p>
-</div>
 <div class="class-section">
         <div class="class-header">
         <div class="class-icon ranger">🏹</div>
@@ -1730,29 +1379,6 @@ if (document.readyState === 'loading') {
 
 
 <!-- 请求新功能弹窗 -->
-        <!-- 登录模态框 -->
-        <div id="loginModal" class="contact-modal-overlay" onclick="if(event.target===this)closeLoginModal()">
-        <div class="contact-modal-box">
-        <div onclick="closeLoginModal()" class="contact-modal-close">×</div>
-        <h3 class="contact-modal-title">⚔️ 公会成员登录</h3>
-        <p class="contact-modal-desc">登录后可参与活动报名、考勤打卡、查看公会专属内容</p>
-        <div class="contact-form-group">
-          <label class="contact-form-label">游戏ID</label>
-          <input type="text" class="contact-form-input" placeholder="请输入游戏ID">
-        </div>
-        <div class="contact-form-group">
-          <label class="contact-form-label">公会密码 <span class="optional">（向管理索取）</span></label>
-          <input type="password" class="contact-form-input" placeholder="请输入公会密码">
-        </div>
-        <button class="contact-form-submit" onclick="alert('登录功能开发中，敬请期待！')">登 录</button>
-        <p style="text-align:center;font-size:12px;color:var(--text-dim);margin:12px 0 0;">还没加入公会？<a href="#" style="color:var(--gold);">申请加入</a></p>
-        </div>
-        </div>
-        <script>
-        function openLoginModal(){document.getElementById("loginModal").classList.add("active");}
-        function closeLoginModal(){document.getElementById("loginModal").classList.remove("active");}
-        </script>
-
         <div id="contactModal" class="contact-modal-overlay">
         <div class="contact-modal-box">
         <div onclick="closeContactModal()" class="contact-modal-close">×</div>
