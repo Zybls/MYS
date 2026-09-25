@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技能图鉴 · 全收录 - 英雄没有闪S2赛季</title>
+<meta name="description" content="英雄没有闪S2赛季技能图鉴全收录，游侠与秘法师全部技能，含技能描述、冷却时间、能量消耗。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --blue: #3b82f6;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.7; padding: 16px; max-width: 1200px; margin: 0 auto; font-size: 16px;
+}
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn, .nav-link { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover, .nav-link:hover { color: var(--gold); }
+.nav-game-name { color: var(--text-dim); font-size: 15px; }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+body { padding-top: 68px; }
+
+.hero { text-align: center; padding: 28px 20px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 16px; }
+.hero h1 { font-size: 28px; color: var(--gold); margin-bottom: 8px; }
+.hero .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 12px; }
+.hero .stats { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.hero .stat-item { text-align: center; }
+.hero .stat-num { font-size: 24px; font-weight: bold; color: var(--green); }
+.hero .stat-label { font-size: 12px; color: var(--text-dim); }
+
+.class-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px; }
+.class-tab { padding: 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dim); cursor: pointer; font-size: 16px; font-weight: bold; text-align: center; transition: all 0.2s; font-family: inherit; }
+.class-tab.active { border-color: var(--green); color: var(--green); background: rgba(45,212,191,0.1); }
+.class-tab:hover { border-color: var(--green); }
+
+.skill-group { margin-bottom: 20px; }
+.skill-type-header { font-size: 16px; font-weight: bold; color: var(--gold); padding: 10px 16px; background: var(--bg-card); border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--gold); }
+.skill-count { font-size: 12px; color: var(--text-dim); font-weight: normal; margin-left: 8px; }
+.skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+.skill-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 10px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.skill-card:hover { border-color: var(--green); transform: translateY(-2px); }
+.skill-img-wrap { width: 56px; height: 56px; margin: 0 auto 6px; border-radius: 8px; overflow: hidden; background: var(--bg-card2); display: flex; align-items: center; justify-content: center; }
+.skill-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.skill-img-placeholder { font-size: 24px; }
+.skill-name { font-size: 13px; font-weight: bold; }
+
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; position: relative; }
+.modal-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 24px; cursor: pointer; min-width: 44px; min-height: 44px; }
+.detail-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.detail-img { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; }
+.detail-info { flex: 1; }
+.detail-name { font-size: 20px; font-weight: bold; margin-bottom: 4px; color: var(--gold); }
+.detail-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.detail-tag { font-size: 12px; color: var(--text-dim); background: var(--bg-card2); padding: 2px 10px; border-radius: 10px; }
+.detail-section { margin-bottom: 14px; }
+.detail-title { font-size: 14px; font-weight: bold; color: var(--green); margin-bottom: 4px; padding-left: 10px; border-left: 3px solid var(--green); }
+.detail-text { font-size: 14px; line-height: 1.8; }
+
+.disclaimer { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 14px 16px; margin-top: 20px; font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+.disclaimer strong { color: var(--gold); }
+
+@media (max-width: 768px) {
+  body { font-size: 15px; padding: 12px; }
+  .hero h1 { font-size: 22px; }
+  .skill-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 6px; }
+  .skill-img-wrap { width: 48px; height: 48px; }
+  .skill-name { font-size: 12px; }
+  .nav-game-name { display: none; }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <a href="engravings.html" class="nav-link">⚡ 刻印图鉴</a>
+      <a href="dark-armor.html" class="nav-link">📦 装备图鉴</a>
+      <a href="pets.html" class="nav-link">🐾 侍从图鉴</a>
+      <span class="nav-game-name">《英雄没有闪》</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>⚔️ 技能图鉴 · 全收录</h1>
+  <div class="subtitle">官方图鉴数据 · 游侠 & 秘法师 · 全部技能</div>
+  <div class="stats">
+    <div class="stat-item"><div class="stat-num">48</div><div class="stat-label">总技能</div></div>
+    <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">游侠</div></div>
+    <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">秘法师</div></div>
+  </div>
+</div>
+
+<div class="class-tabs">
+  <button class="class-tab active" data-class="ranger" onclick="switchClass(this)">🏹 游侠技能</button>
+  <button class="class-tab" data-class="mage" onclick="switchClass(this)">🔮 秘法师技能</button>
+</div>
+
+<div id="ranger-skills" class="class-section">
+      <div class="skill-group">
+        <div class="skill-type-header">普攻 <span class="skill-count">3个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_1", "name": "重砍", "class": "游侠", "type": "property_1", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9a592e4f38b4693d674def398072cbc5.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d70ab1cadbb84ac484d77a04d38119df.png", "desc": "对前方小范围敌人造成1次67.5％攻击的物理伤害。", "cooldown": "0秒", "energy": "12点", "other": {}, "sort_num": "1", "local_img": "assets/skills/content_1.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_1.png" alt="重砍" loading="lazy"></div>
+            <div class="skill-name">重砍</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_2", "name": "疯刃", "class": "游侠", "type": "property_1", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d6b583647ba4ecc9e93b9c040200c89b.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a9986b156661297bf73eca2ee5c91c29.png", "desc": "对前方小范围敌人造成1次50％攻击的物理伤害，同时获得1层疯刃效果。", "cooldown": "0秒", "energy": "8点", "other": {}, "sort_num": "2", "local_img": "assets/skills/content_2.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_2.png" alt="疯刃" loading="lazy"></div>
+            <div class="skill-name">疯刃</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_3", "name": "破伤", "class": "游侠", "type": "property_1", "sub_type": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/26bcd1713c9dd575494dbd9073c86e27.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/628dc65d988af99b4fedd1776e1daf14.png", "desc": "对前方小范围敌人造成1次16％攻击的物理伤害，同时施加攻击100％的创伤。", "cooldown": "0秒", "energy": "10点", "other": {}, "sort_num": "3", "local_img": "assets/skills/content_3.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_3.png" alt="破伤" loading="lazy"></div>
+            <div class="skill-name">破伤</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-type-header">主动技能 <span class="skill-count">9个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_4", "name": "旋风斩", "class": "游侠", "type": "property_2", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4f9fec951c820597b35e1ff4a24f2439.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/30543f6c2b60ad839e8661c3d0eb9557.png", "desc": "对周身小范围敌人造成6次共计180％攻击的物理伤害。", "cooldown": "0秒", "energy": "30点", "other": {}, "sort_num": "4", "local_img": "assets/skills/content_4.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_4.png" alt="旋风斩" loading="lazy"></div>
+            <div class="skill-name">旋风斩</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_5", "name": "无情收割", "class": "游侠", "type": "property_2", "sub_type": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/87f3d7267f48db9233f92fd5a2aa360e.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/035ddf850576521eea511cc57610f934.png", "desc": "对前方中等范围敌人造成1次36.5％攻击的物理伤害，同时施加攻击240％的创伤。", "cooldown": "0秒", "energy": "20点", "other": {}, "sort_num": "5", "local_img": "assets/skills/content_5.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_5.png" alt="无情收割" loading="lazy"></div>
+            <div class="skill-name">无情收割</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_6", "name": "原力锤", "class": "游侠", "type": "property_2", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d5e7b1677f756a4681f139584f085760.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f19ce8508d0a96efa8c6fefd56a3f1ef.png", "desc": "对前方中等范围敌人造成1次200％攻击的物理伤害。", "cooldown": "0秒", "energy": "40点", "other": {}, "sort_num": "6", "local_img": "assets/skills/content_6.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_6.png" alt="原力锤" loading="lazy"></div>
+            <div class="skill-name">原力锤</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_7", "name": "奋勇冲击", "class": "游侠", "type": "property_3", "sub_type": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/925df949d946564f97b3f05614176776.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6085ca92d3e57c2e2ac307ae3814e050.png", "desc": "向前方奋勇冲击一段距离，推动碰到的敌人并对其造成最多3次15％攻击的物理伤害。（奋勇冲击期间提升80%最终减伤）", "cooldown": "10秒", "energy": "", "other": {}, "sort_num": "7", "local_img": "assets/skills/content_7.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_7.png" alt="奋勇冲击" loading="lazy"></div>
+            <div class="skill-name">奋勇冲击</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_8", "name": "跃空击", "class": "游侠", "type": "property_3", "sub_type": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/730c198bfbdd1b976d2da977cefa02e1.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8b4b595e8c9ac3155f7364a74d253d05.png", "desc": "跳向远处目标另一侧，落地时对周围小范围敌人造成1次50％攻击的物理伤害。（跃空击期间提升100%闪避）", "cooldown": "10秒", "energy": "", "other": {}, "sort_num": "8", "local_img": "assets/skills/content_8.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_8.png" alt="跃空击" loading="lazy"></div>
+            <div class="skill-name">跃空击</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_9", "name": "踏平", "class": "游侠", "type": "property_3", "sub_type": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/be2d9ce820ea56a3c3576a14d15127af.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2a2e93be6c4ecede208d25a256330eae.png", "desc": "对周围敌人造成1次20％攻击的物理伤害，并使其眩晕1秒。", "cooldown": "10秒", "energy": "", "other": {}, "sort_num": "9", "local_img": "assets/skills/content_9.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_9.png" alt="踏平" loading="lazy"></div>
+            <div class="skill-name">踏平</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_10", "name": "坚不可摧", "class": "游侠", "type": "property_4", "sub_type": "property_4", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7fba4fab5963c18f7d6f92943a34b1b9.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/54bd8e175c18f59842031afc64ebcd38.png", "desc": "获得一个吸收30%最大生命值伤害的护盾，护盾存在期间提升5%格挡率和20%格挡值，最多持续6秒。", "cooldown": "20秒", "energy": "", "other": {}, "sort_num": "10", "local_img": "assets/skills/content_10.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_10.png" alt="坚不可摧" loading="lazy"></div>
+            <div class="skill-name">坚不可摧</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_11", "name": "决战咆哮", "class": "游侠", "type": "property_4", "sub_type": "property_5", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8554ff9fb7270707209e19f31ef6372b.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/64eec7f0e2162ac40b037d019446efdd.png", "desc": "对全场所有友方单位施加怒吼，使其伤害强化提升20%，移动速度提升10%，持续8秒。", "cooldown": "12秒", "energy": "", "other": {}, "sort_num": "11", "local_img": "assets/skills/content_11.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_11.png" alt="决战咆哮" loading="lazy"></div>
+            <div class="skill-name">决战咆哮</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_12", "name": "聚气咆哮", "class": "游侠", "type": "property_4", "sub_type": "property_6", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/73eea62e5528221cdb94210c987d232b.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/91516784528f317db27f742a9c255081.png", "desc": "对全场所有友方单位施加怒吼，使其能量恢复提升20%，持续8秒。", "cooldown": "15秒", "energy": "", "other": {}, "sort_num": "12", "local_img": "assets/skills/content_12.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_12.png" alt="聚气咆哮" loading="lazy"></div>
+            <div class="skill-name">聚气咆哮</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-type-header">终极技能 <span class="skill-count">3个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_13", "name": "破碎穿透", "class": "游侠", "type": "property_5", "sub_type": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/77acc5c38cae2ae5ce222a62b86eda3b.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6beae3fc202203b6f03d005d680408a5.png", "desc": "对前方大范围所有敌人造成3次150%攻击的物理伤害，同时施加3次攻击300%的创伤。", "cooldown": "16秒", "energy": "", "other": {}, "sort_num": "13", "local_img": "assets/skills/content_13.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_13.png" alt="破碎穿透" loading="lazy"></div>
+            <div class="skill-name">破碎穿透</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_14", "name": "蛮灵召唤", "class": "游侠", "type": "property_5", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9a1bd9e9de121c0746798d95295d95be.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/42d403f64fb2be3cef67dbcf18c1fd30.png", "desc": "召唤蛮灵协助作战，其继承自身70％战斗属性，持续15秒。（召唤时免疫控制）", "cooldown": "40秒", "energy": "", "other": {}, "sort_num": "14", "local_img": "assets/skills/content_14.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_14.png" alt="蛮灵召唤" loading="lazy"></div>
+            <div class="skill-name">蛮灵召唤</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_15", "name": "蛮魂觉醒", "class": "游侠", "type": "property_5", "sub_type": "property_5", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8ccab83019113dd6aa471d056e794972.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/82a49792bf0d41d30a07fe61a8fa21c7.png", "desc": "觉醒血脉之力，变身并获得12秒狂暴效果。（变身瞬间免疫控制）", "cooldown": "30秒", "energy": "", "other": {}, "sort_num": "15", "local_img": "assets/skills/content_15.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_15.png" alt="蛮魂觉醒" loading="lazy"></div>
+            <div class="skill-name">蛮魂觉醒</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-type-header">被动技能 <span class="skill-count">9个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_16", "name": "斩杀", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7fc56df6a943b5fbb289937ddecbe5c8.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/3d78e46086b5e9419ca9d02e43442733.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "31", "local_img": "assets/skills/content_16.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_16.png" alt="斩杀" loading="lazy"></div>
+            <div class="skill-name">斩杀</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_17", "name": "砍倒", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5b0c46fa3c2b75565e5dafb59117dcbe.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/28e0c7956d81a19e168429664666a9c1.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "32", "local_img": "assets/skills/content_17.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_17.png" alt="砍倒" loading="lazy"></div>
+            <div class="skill-name">砍倒</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_18", "name": "越战越勇", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8c8227fcaeac63f502345ff442122e44.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/85aa1fdf0707c88237ce9a133d36ae2e.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "33", "local_img": "assets/skills/content_18.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_18.png" alt="越战越勇" loading="lazy"></div>
+            <div class="skill-name">越战越勇</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_19", "name": "灵巧步伐", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f9da8799ca5c6e7b860367d438d49353.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7d2d2f0874067003558e69f27302dc28.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "34", "local_img": "assets/skills/content_19.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_19.png" alt="灵巧步伐" loading="lazy"></div>
+            <div class="skill-name">灵巧步伐</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_20", "name": "庇护之力", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ad0da522b995e5bc5e877e78471b4942.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1a0e628454f11fd4f369109cedaf0241.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "35", "local_img": "assets/skills/content_20.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_20.png" alt="庇护之力" loading="lazy"></div>
+            <div class="skill-name">庇护之力</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_21", "name": "痛楚反射", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/62ca51db9af31e75908582580fa72935.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/87bfa47e8f2cf4dfd63a4e80a453a122.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "36", "local_img": "assets/skills/content_21.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_21.png" alt="痛楚反射" loading="lazy"></div>
+            <div class="skill-name">痛楚反射</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_22", "name": "远古蛮灵之力", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6ba2af98de340c2453190a1e50f598df.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/fb116993541494a060fa76d4e1cf9ec5.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "37", "local_img": "assets/skills/content_22.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_22.png" alt="远古蛮灵之力" loading="lazy"></div>
+            <div class="skill-name">远古蛮灵之力</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_23", "name": "能量转化", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/971749313e0acb44c0369e4eb0be1cbe.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e655f7ecd82412e7898ce0235a26e97f.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "38", "local_img": "assets/skills/content_23.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_23.png" alt="能量转化" loading="lazy"></div>
+            <div class="skill-name">能量转化</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_24", "name": "怒意高涨", "class": "游侠", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/df89e398d21355fa96cc7ca3f1809c5c.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6f13bb0bd7a567bb310a43f424a1e458.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "39", "local_img": "assets/skills/content_24.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_24.png" alt="怒意高涨" loading="lazy"></div>
+            <div class="skill-name">怒意高涨</div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+<div id="mage-skills" class="class-section" style="display:none;">
+      <div class="skill-group">
+        <div class="skill-type-header">普攻 <span class="skill-count">3个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_25", "name": "寒冰弹", "class": "秘法师", "type": "property_1", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c1b06a528a0ca3eb3dd96b408b5f6449.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/29461c9b067efa4d1ac836c815b7329b.png", "desc": "向前发射一块寒冰弹对小范围敌人造成1次60%攻击的元素伤害，并施加持续5秒的寒冷。", "cooldown": "0秒", "energy": "10点", "other": {}, "sort_num": "16", "local_img": "assets/skills/content_25.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_25.png" alt="寒冰弹" loading="lazy"></div>
+            <div class="skill-name">寒冰弹</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_26", "name": "火焰波", "class": "秘法师", "type": "property_1", "sub_type": "property_9", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d504814ffc8be3cd4b9d10be900e7aef.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/40b7fd8ec0378ee507b7a4dd409be050.png", "desc": "向前发射火焰波对前方敌人造成1次30%攻击的元素伤害，并施加1层燃烧。", "cooldown": "0秒", "energy": "10点", "other": {}, "sort_num": "17", "local_img": "assets/skills/content_26.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_26.png" alt="火焰波" loading="lazy"></div>
+            <div class="skill-name">火焰波</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_27", "name": "闪电鞭", "class": "秘法师", "type": "property_1", "sub_type": "property_10", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ffb164fd19fcaf9b68e03e83a90280c9.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/11b8ea4bf5d550011e37145405a470aa.png", "desc": "挥舞闪电鞭对前方敌人造成1次50%攻击的元素伤害，并施加1层触电。", "cooldown": "0秒", "energy": "10点", "other": {}, "sort_num": "18", "local_img": "assets/skills/content_27.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_27.png" alt="闪电鞭" loading="lazy"></div>
+            <div class="skill-name">闪电鞭</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-type-header">主动技能 <span class="skill-count">9个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_28", "name": "火球术", "class": "秘法师", "type": "property_2", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d3b62110561522b76c0f271af9053b01.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4716282785b43659ebfaf6df877fd8a1.png", "desc": "发射一团巨大火球对前方大范围敌人造成1次70%攻击的元素伤害，并施加3层燃烧。", "cooldown": "0秒", "energy": "20点", "other": {}, "sort_num": "19", "local_img": "assets/skills/content_28.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_28.png" alt="火球术" loading="lazy"></div>
+            <div class="skill-name">火球术</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_29", "name": "闪电拳", "class": "秘法师", "type": "property_2", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/828f7d69b4162ea678354f9f4b705207.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6d80cd6cbca4f3e2f20c5ae101aa50d4.png", "desc": "轰出一道闪电对前方区域所有目标造成1次160%攻击的元素伤害，同时施加2层触电。", "cooldown": "0秒", "energy": "30点", "other": {}, "sort_num": "20", "local_img": "assets/skills/content_29.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_29.png" alt="闪电拳" loading="lazy"></div>
+            <div class="skill-name">闪电拳</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_30", "name": "寒冰光束", "class": "秘法师", "type": "property_2", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/95fc965c6b1948b5cecf9bd9689405b4.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9d7c9cde37cb78fa1a61feb6dd3bb0fd.png", "desc": "持续引导一道冰能量光束对前方小范围敌人每0.4秒造成一次70%攻击的元素伤害，并施加持续5秒的寒冷。", "cooldown": "0秒", "energy": "40点", "other": {}, "sort_num": "21", "local_img": "assets/skills/content_30.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_30.png" alt="寒冰光束" loading="lazy"></div>
+            <div class="skill-name">寒冰光束</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_31", "name": "震荡", "class": "秘法师", "type": "property_3", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4994bca17e1451a419e567ca10ae6af4.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/078ff30e97f57eaba5951df7ade587a9.png", "desc": "迸发能量击退周围敌人，对其造成1次50%攻击的元素伤害和短暂眩晕。", "cooldown": "12秒", "energy": "", "other": {}, "sort_num": "22", "local_img": "assets/skills/content_31.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_31.png" alt="震荡" loading="lazy"></div>
+            <div class="skill-name">震荡</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_32", "name": "闪现", "class": "秘法师", "type": "property_3", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7f64d0173249a6ae258563972ac9b5fd.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/37649b76df208351f2d42f3460f7e5bb.png", "desc": "敌人靠近时向后瞬间移动一段距离，并恢复15%已损失生命值。", "cooldown": "16秒", "energy": "", "other": {}, "sort_num": "23", "local_img": "assets/skills/content_32.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_32.png" alt="闪现" loading="lazy"></div>
+            <div class="skill-name">闪现</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_33", "name": "引力场", "class": "秘法师", "type": "property_3", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/807768ee7ff76c1d33b24dee2414c812.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/98ffddcbde7ea6654617bbf832b6267d.png", "desc": "在身前召唤一片持续5秒的引力场，降低场内敌人50%的急速和35%移动速度。", "cooldown": "20秒", "energy": "", "other": {}, "sort_num": "24", "local_img": "assets/skills/content_33.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_33.png" alt="引力场" loading="lazy"></div>
+            <div class="skill-name">引力场</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_34", "name": "闪电球", "class": "秘法师", "type": "property_4", "sub_type": "property_10", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/43a49143dcd6cf99e5b45254aabc7e2f.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/caa1b40057a05f524da9148171d98e38.png", "desc": "向前发射一个缓慢移动的闪电球，每0.3秒对周围造成1次35%攻击的元素伤害并施加1层触电。", "cooldown": "12秒", "energy": "", "other": {}, "sort_num": "25", "local_img": "assets/skills/content_34.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_34.png" alt="闪电球" loading="lazy"></div>
+            <div class="skill-name">闪电球</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_35", "name": "冰霜盾", "class": "秘法师", "type": "property_4", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/71ba73ffb71b7d6752eaa3c6058f5719.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/fcd8c66c05238028b9b490d3f3747b84.png", "desc": "获得一个吸收35%最大生命值伤害的冰霜盾，持续8秒。", "cooldown": "15秒", "energy": "", "other": {}, "sort_num": "26", "local_img": "assets/skills/content_35.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_35.png" alt="冰霜盾" loading="lazy"></div>
+            <div class="skill-name">冰霜盾</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_36", "name": "魔焰花", "class": "秘法师", "type": "property_4", "sub_type": "property_9", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/eef7772754ef5d5d32278415c0ca82d1.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9ae343a0cb99b0e3a1a178a0c6d9ecfe.png", "desc": "召唤一条持续8秒的魔焰花协助作战。（留在原地不可选中，最多同时存在2条）", "cooldown": "8秒", "energy": "", "other": {}, "sort_num": "27", "local_img": "assets/skills/content_36.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_36.png" alt="魔焰花" loading="lazy"></div>
+            <div class="skill-name">魔焰花</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-type-header">终极技能 <span class="skill-count">3个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_37", "name": "冰雹", "class": "秘法师", "type": "property_5", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7a41ade61d965202d8d2871eb9497a43.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c0718d1c24bbd4f20eaae548df88f287.png", "desc": "在前方区域召唤一片持续3秒的冰雹，区域内敌人移速降低20%。每秒对区域内敌人造成2次50%攻击的元素伤害并施加寒冷。", "cooldown": "20秒", "energy": "", "other": {}, "sort_num": "28", "local_img": "assets/skills/content_37.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_37.png" alt="冰雹" loading="lazy"></div>
+            <div class="skill-name">冰雹</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_38", "name": "分身术", "class": "秘法师", "type": "property_5", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/38376fea115f2603379c90921baec988.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8aacf17170726c3c33020a6fa8acc136.png", "desc": "召唤一个可以使用火焰波或寒冰弹的分身协助作战。分身继承本体70%血量，最多存在12秒。", "cooldown": "35秒", "energy": "", "other": {}, "sort_num": "29", "local_img": "assets/skills/content_38.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_38.png" alt="分身术" loading="lazy"></div>
+            <div class="skill-name">分身术</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_39", "name": "以太之躯", "class": "秘法师", "type": "property_5", "sub_type": "property_8", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/db6ce21ea6b3927a4d68b69ab7ca0ae6.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2c9e4ee13d70e5a47dc3b04e636c3fab.png", "desc": "化身能量体，每次释放技能时有15%概率额外施法释放一道能量波，持续15秒。", "cooldown": "40秒", "energy": "", "other": {}, "sort_num": "30", "local_img": "assets/skills/content_39.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_39.png" alt="以太之躯" loading="lazy"></div>
+            <div class="skill-name">以太之躯</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-type-header">被动技能 <span class="skill-count">9个</span></div>
+        <div class="skill-grid">
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_40", "name": "元素共鸣", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d061ac3a5609bebd59c0dd951f6d8541.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/65a4ae13c1deb1793dac84b412fe7701.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "40", "local_img": "assets/skills/content_40.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_40.png" alt="元素共鸣" loading="lazy"></div>
+            <div class="skill-name">元素共鸣</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_41", "name": "生命回溯", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/45a4a08788e8a41c254de8ccec12f10e.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6123df8ccc8cc5601648a963c2300e34.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "41", "local_img": "assets/skills/content_41.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_41.png" alt="生命回溯" loading="lazy"></div>
+            <div class="skill-name">生命回溯</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_42", "name": "能量亲和", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/79af5f71ad379f87430740c2e139244c.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/62b62e25a20ec0fc776da02e77629588.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "42", "local_img": "assets/skills/content_42.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_42.png" alt="能量亲和" loading="lazy"></div>
+            <div class="skill-name">能量亲和</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_43", "name": "不倒翁", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/aa4459529719a524c9a915e795625547.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9193aced57bff0ae606219469bb4486a.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "43", "local_img": "assets/skills/content_43.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_43.png" alt="不倒翁" loading="lazy"></div>
+            <div class="skill-name">不倒翁</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_44", "name": "强盛", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/280bb6dbb6af3ec3c36a80db1098e5b7.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/b966a27606df6e044ac3aee0f48fcece.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "44", "local_img": "assets/skills/content_44.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_44.png" alt="强盛" loading="lazy"></div>
+            <div class="skill-name">强盛</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_45", "name": "猎魂", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9559162ca308d6f6d1146e36f408a8ff.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/58d42a7bf44a6a7da873730d93604461.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "45", "local_img": "assets/skills/content_45.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_45.png" alt="猎魂" loading="lazy"></div>
+            <div class="skill-name">猎魂</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_46", "name": "恶魔契约", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4d2a5f222c2011908e94539340715c6e.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5700ab3498f132bb5093234246eedfb9.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "46", "local_img": "assets/skills/content_46.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_46.png" alt="恶魔契约" loading="lazy"></div>
+            <div class="skill-name">恶魔契约</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_47", "name": "秘术护体", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c7e449d25513589a3eddde5cbf8e31fd.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0eec1d8e3ce70f01579849b0406654e4.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "47", "local_img": "assets/skills/content_47.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_47.png" alt="秘术护体" loading="lazy"></div>
+            <div class="skill-name">秘术护体</div>
+          </div>
+          <div class="skill-card" onclick='showSkillDetail({"id": "content_48", "name": "唤法", "class": "秘法师", "type": "property_6", "sub_type": "property_7", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/42f7fe804f27078dd8c08e7de3aa43b6.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/bba3db0b58fce90c878da525a96ae9f5.png", "desc": "", "cooldown": "", "energy": "", "other": {}, "sort_num": "48", "local_img": "assets/skills/content_48.png"})'>
+            <div class="skill-img-wrap"><img src="assets/skills/content_48.png" alt="唤法" loading="lazy"></div>
+            <div class="skill-name">唤法</div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+<div class="disclaimer">
+  <strong>📌 数据来源：</strong>本页技能数据整理自《英雄没有闪》官方图鉴（activity.oiz611.com），共48个技能。点击技能卡片查看详细描述、冷却时间和能量消耗。<br><br>
+  <strong>⚠️ 说明：</strong>技能数据来自官方图鉴API，游戏版本更新后技能效果可能变化，请以游戏内实际为准。野蛮人技能暂未收录，待官方图鉴更新后补充。
+</div>
+
+<div class="modal-overlay" id="skillModal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+
+function switchClass(btn) {
+  document.querySelectorAll('.class-tab').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var cls = btn.dataset.class;
+  document.getElementById('ranger-skills').style.display = cls === 'ranger' ? '' : 'none';
+  document.getElementById('mage-skills').style.display = cls === 'mage' ? '' : 'none';
+}
+
+function showSkillDetail(skill) {
+  var typeMap = {"property_1": "普攻", "property_2": "主动技能", "property_3": "主动技能", "property_4": "主动技能", "property_5": "终极技能", "property_6": "被动技能"};
+  var typeName = typeMap[skill.type] || '其他';
+  var imgHtml = skill.local_img ? '<img src="' + skill.local_img + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚔️</div>';
+  
+  var html = '<div class="detail-header">' + imgHtml +
+    '<div class="detail-info">' +
+    '<div class="detail-name">' + skill.name + '</div>' +
+    '<div class="detail-meta">' +
+    '<span class="detail-tag">' + skill.class + '</span>' +
+    '<span class="detail-tag">' + typeName + '</span>' +
+    '</div></div></div>' +
+    '<div class="detail-section"><div class="detail-title">技能描述</div><div class="detail-text">' + (skill.desc || '无') + '</div></div>' +
+    '<div class="detail-section"><div class="detail-title">冷却时间</div><div class="detail-text">' + (skill.cooldown || '无') + '</div></div>' +
+    '<div class="detail-section"><div class="detail-title">能量消耗</div><div class="detail-text">' + (skill.energy || '无') + '</div></div>';
+  
+  if (skill.other && Object.keys(skill.other).length > 0) {
+    for (var k in skill.other) {
+      html += '<div class="detail-section"><div class="detail-title">' + k + '</div><div class="detail-text">' + skill.other[k] + '</div></div>';
+    }
+  }
+  
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('skillModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('skillModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
