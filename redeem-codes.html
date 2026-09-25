@@ -107,7 +107,7 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, Bl
   <div class="page-header">
     <h1 class="page-title">🎁 兑换码大全</h1>
     <p class="page-subtitle">英雄没有闪最新礼包码，实时更新，一键复制</p>
-    <span class="update-time">最后更新：2026-09-26</span>
+    <span class="update-time">最后更新：2026-09-26（官方码）</span>
   </div>
 
   <div class="tip-box">
@@ -144,17 +144,14 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, Bl
 </div>
 
 <script>
-// 兑换码数据
+// 兑换码数据（来源：官方论坛女王洛伊丝汇总帖）
 const CODES = [
-  { code: 'YXMYS666', reward: '钻石×666 + 金币×10000', expire: '长期有效', active: true },
-  { code: 'YXMYS888', reward: '钻石×888 + 高级召唤券×5', expire: '长期有效', active: true },
-  { code: 'HERO666', reward: '钻石×666 + 体力×100', expire: '长期有效', active: true },
-  { code: 'S2SEASON', reward: '赛季专属头像框 + 钻石×500', expire: 'S2赛季期间', active: true },
-  { code: 'GUILD666', reward: '公会贡献×500 + 钻石×300', expire: '长期有效', active: true },
-  { code: 'VIP888', reward: 'VIP经验×1000 + 钻石×888', expire: '2026-12-31', active: true },
-  { code: 'NEWYEAR2026', reward: '新年限定称号 + 钻石×2026', expire: '2026-02-28', active: false },
-  { code: 'S1LAUNCH', reward: 'S1赛季纪念头像框', expire: 'S1赛季结束', active: false },
-  { code: 'BETA666', reward: '测试专属称号 + 钻石×666', expire: '公测前', active: false },
+  { code: 'MYS1225', reward: '新手礼包（官方长期有效）', expire: '长期有效', active: true },
+  { code: 'MYS666', reward: '活跃礼包（官方长期有效）', expire: '长期有效', active: true },
+  { code: 'MYS888', reward: '福利礼包（官方长期有效）', expire: '长期有效', active: true },
+  { code: 'VIP666', reward: '惊喜礼包（官方长期有效）', expire: '长期有效', active: true },
+  { code: 'VIP777', reward: '惊喜礼包（官方长期有效）', expire: '长期有效', active: true },
+  { code: 'VIP888', reward: '惊喜礼包（官方长期有效）', expire: '长期有效', active: true },
 ];
 
 function renderCodes(filter = '') {
