@@ -1,9 +1,16 @@
-﻿const CACHE_NAME = 'yxmysbd-v7';
+﻿const CACHE_NAME = 'yxmysbd-v8';
 const urlsToCache = [
   './',
   './index.html',
+  './404.html',
+  './changelog.html',
   './all-builds.html',
   './admin.html',
+  './skills.html',
+  './engravings.html',
+  './dark-armor.html',
+  './pets.html',
+  './runes-relics.html',
   './tianfa-huodao.html',
   './huodao-shouling.html',
   './fashi-leidian-shaquan.html',

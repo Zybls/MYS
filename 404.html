@@ -42,6 +42,8 @@ body {
 .link-card:hover { border-color: #f59e0b; color: #f59e0b; transform: translateY(-2px); }
 .link-card .icon { font-size: 20px; display: block; margin-bottom: 6px; }
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
 </head>
 <body>
 <div class="container">
@@ -64,5 +66,13 @@ body {
     </div>
   </div>
 </div>
+<script>
+// PWA Service Worker 注册
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
+</script>
 </body>
 </html>

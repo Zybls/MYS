@@ -51,6 +51,8 @@
 .search-result-empty { text-align: center; color: var(--text-dim); padding: 30px; font-size: 14px; }
 
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
 </head>
 <body>
   <div class="spin"></div>
@@ -122,6 +124,14 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+</script>
+<script>
+// PWA Service Worker 注册
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
 </script>
 </body>
 </html>

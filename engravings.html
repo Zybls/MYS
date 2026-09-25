@@ -94,6 +94,8 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
 .breadcrumb .current { color: #f59e0b; }
 
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
 </head>
 <body>
 
@@ -454,6 +456,14 @@ function closeModal(e) {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+</script>
+<script>
+// PWA Service Worker 注册
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
 </script>
 </body>
 </html>

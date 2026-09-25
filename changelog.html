@@ -74,6 +74,8 @@ body { padding-top: 68px; }
 body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
 body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
 </head>
 <body>
 
@@ -242,6 +244,14 @@ function toggleTheme() {
 if (localStorage.getItem('yxmys_theme') === 'light') {
   document.body.classList.add('light-theme');
   document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+</script>
+<script>
+// PWA Service Worker 注册
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
 }
 </script>
 </body>
