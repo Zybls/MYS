@@ -62,49 +62,54 @@ body {
 /* ===== 导航栏 ===== */
 .site-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-  background: rgba(11,11,18,0.85);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(245,158,11,0.15);
+  background: rgba(11,11,18,0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(245,158,11,0.12);
 }
 .nav-inner {
   max-width: 1280px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px; height: 54px;
+  padding: 0 20px; height: 56px; gap: 16px;
 }
-.nav-left { display: flex; align-items: center; gap: 14px; overflow-x: auto; scrollbar-width: none; }
-.nav-left::-webkit-scrollbar { display: none; }
-.nav-right { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.nav-brand { flex-shrink: 0; }
 .nav-logo {
-  color: var(--gold); font-size: 17px; font-weight: 800; text-decoration: none;
-  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  color: var(--gold); font-size: 18px; font-weight: 800; text-decoration: none;
+  display: flex; align-items: center; gap: 7px;
   letter-spacing: 0.5px;
 }
-.nav-logo .logo-icon { font-size: 18px; }
-.nav-contact {
-  color: var(--text-dim); font-size: 13px; text-decoration: none; cursor: pointer;
-  display: flex; align-items: center; gap: 4px; background: none; border: none;
-  font-family: inherit; padding: 5px 10px; border-radius: 6px; transition: all 0.2s;
-  white-space: nowrap; flex-shrink: 0;
+.nav-logo .logo-icon { font-size: 19px; }
+.nav-links {
+  display: flex; align-items: center; gap: 2px;
+  overflow-x: auto; scrollbar-width: none; flex: 1; justify-content: center;
 }
-.nav-contact:hover { color: var(--gold); background: rgba(245,158,11,0.08); }
-.nav-game-name { color: var(--text-dim); font-size: 13px; flex-shrink: 0; opacity: 0.7; }
-.nav-divider { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
-.nav-search-btn, .nav-theme-btn {
-  background: none; border: none; color: var(--text); font-size: 17px; cursor: pointer;
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  color: var(--text-dim); font-size: 13px; text-decoration: none; cursor: pointer;
+  background: none; border: none; font-family: inherit;
+  padding: 6px 12px; border-radius: 8px; transition: all 0.2s;
+  white-space: nowrap; flex-shrink: 0; font-weight: 500;
+}
+.nav-link:hover { color: var(--gold); background: rgba(245,158,11,0.08); }
+.nav-link-btn { color: var(--cyan); }
+.nav-link-btn:hover { color: #22d3ee; background: rgba(6,182,212,0.08); }
+.nav-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.nav-icon-btn {
+  background: none; border: none; color: var(--text); font-size: 16px; cursor: pointer;
   padding: 7px 9px; border-radius: 8px; transition: all 0.2s;
   display: inline-flex; align-items: center; justify-content: center;
 }
-.nav-search-btn:hover, .nav-theme-btn:hover { background: var(--bg-card2); color: var(--gold); }
+.nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
 
-/* 语言按钮 */
+/* 语言切换 */
+.lang-switch { display: flex; gap: 2px; background: var(--bg-card2); border-radius: 8px; padding: 2px; }
 .lang-btn {
-  background: none; border: 1px solid var(--border); color: var(--text-dim);
-  font-size: 12px; cursor: pointer; padding: 5px 9px; border-radius: 6px;
-  transition: all 0.2s; min-width: 30px; text-align: center; font-weight: 600;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 12px; cursor: pointer; padding: 4px 10px; border-radius: 6px;
+  transition: all 0.2s; min-width: 32px; text-align: center; font-weight: 600;
 }
-.lang-btn:hover { background: var(--gold-glow); color: var(--gold); border-color: rgba(245,158,11,0.4); }
-.lang-btn.active { background: var(--gold); color: #1a1a2e; border-color: var(--gold); }
+.lang-btn:hover { color: var(--gold); }
+.lang-btn.active { background: var(--gold); color: #1a1a2e; }
 
 /* ===== Hero区域 ===== */
 .hero {
@@ -393,12 +398,12 @@ body {
 
 /* ===== 手机优化 (<640px) ===== */
 @media (max-width: 639px) {
-  .nav-inner { padding: 0 12px; height: 50px; }
-  .nav-left { gap: 8px; }
+  .nav-inner { padding: 0 12px; height: 52px; gap: 8px; }
   .nav-logo { font-size: 15px; }
-  .nav-contact { font-size: 12px; padding: 4px 7px; }
-  .nav-game-name { display: none; }
-  .nav-divider { display: none; }
+  .nav-logo .logo-icon { font-size: 16px; }
+  .nav-link { font-size: 12px; padding: 5px 9px; }
+  .nav-icon-btn { font-size: 15px; padding: 6px 7px; }
+  .lang-btn { font-size: 11px; padding: 3px 8px; min-width: 28px; }
   .hero { padding: 28px 14px 22px; }
   .hero h1 { font-size: 24px; letter-spacing: 2px; }
   .hero .subtitle { font-size: 13px; }
@@ -415,8 +420,12 @@ body.light-theme {
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,158,11,0.06), transparent),
     radial-gradient(ellipse 60% 40% at 80% 10%, rgba(168,85,247,0.03), transparent);
 }
-body.light-theme .site-nav { background: rgba(244,244,248,0.9); border-bottom-color: rgba(0,0,0,0.06); }
+body.light-theme .site-nav { background: rgba(244,244,248,0.92); border-bottom-color: rgba(0,0,0,0.06); }
 body.light-theme .nav-logo { color: #d97706; }
+body.light-theme .nav-link { color: #475569; }
+body.light-theme .nav-link:hover { color: #d97706; background: rgba(217,119,6,0.06); }
+body.light-theme .lang-switch { background: #e8e8f0; }
+body.light-theme .lang-btn.active { color: #fff; }
 body.light-theme .hero { background: linear-gradient(180deg, rgba(245,158,11,0.05), transparent); }
 body.light-theme .hero h1 { background: linear-gradient(135deg, #d97706, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 body.light-theme .build-card { box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
@@ -441,19 +450,29 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
         <body>
         <nav class="site-nav">
         <div class="nav-inner">
-        <div class="nav-left">
-        <a href="index.html" class="nav-logo"><span class="logo-icon">🌐</span>天涯若比邻</a>
-        <div class="nav-divider"></div>
-        <a href="runes-relics.html" class="nav-contact" style="text-decoration:none;">🔷 符文遗物</a><div class="nav-divider"></div><a href="skills.html" class="nav-contact" style="text-decoration:none;">⚔️ 技能图鉴</a><div class="nav-divider"></div><a href="engravings.html" class="nav-contact" style="text-decoration:none;">⚡ 刻印图鉴</a><div class="nav-divider"></div><a href="pets.html" class="nav-contact" style="text-decoration:none;">🐾 侍从图鉴</a><div class="nav-divider"></div><a href="dark-armor.html" class="nav-contact" style="text-decoration:none;">📦 装备图鉴</a><div class="nav-divider"></div><a href="recommend.html" class="nav-contact" style="text-decoration:none;">🎯 配装推荐</a><div class="nav-divider"></div><a href="guide.html" class="nav-contact" style="text-decoration:none;">📖 新手指南</a><div class="nav-divider"></div><a href="compare.html" class="nav-contact" style="text-decoration:none;">⚖️ 配装对比</a><div class="nav-divider"></div><a href="changelog.html" class="nav-contact" style="text-decoration:none;">📜 更新日志</a><div class="nav-divider"></div><button type="button" onclick="openContactModal()" class="nav-contact">💡 请求新功能</button>
-        <div class="nav-divider"></div>
-        <span class="nav-game-name">《英雄没有闪》</span>
-        </div>
-        <div class="nav-right">
-        <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
-      <button class="theme-toggle lang-btn" data-lang="zh" title="中文" style="margin-left:4px;font-size:13px;padding:6px 8px;">中</button>
-    <button class="theme-toggle lang-btn" data-lang="en" title="English" style="margin-left:2px;font-size:13px;padding:6px 8px;">EN</button>
-        <button class="nav-search-btn" onclick="toggleFullscreenSearch()" title="搜索 (Ctrl+K)">🔍</button>
-        </div>
+          <div class="nav-brand">
+            <a href="index.html" class="nav-logo"><span class="logo-icon">⚔️</span>英雄没有闪</a>
+          </div>
+          <div class="nav-links">
+            <a href="runes-relics.html" class="nav-link">符文遗物</a>
+            <a href="skills.html" class="nav-link">技能图鉴</a>
+            <a href="engravings.html" class="nav-link">刻印图鉴</a>
+            <a href="pets.html" class="nav-link">侍从图鉴</a>
+            <a href="dark-armor.html" class="nav-link">装备图鉴</a>
+            <a href="recommend.html" class="nav-link">配装推荐</a>
+            <a href="guide.html" class="nav-link">新手指南</a>
+            <a href="compare.html" class="nav-link">配装对比</a>
+            <a href="changelog.html" class="nav-link">更新日志</a>
+            <button type="button" onclick="openContactModal()" class="nav-link nav-link-btn">请求新功能</button>
+          </div>
+          <div class="nav-actions">
+            <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+            <div class="lang-switch">
+              <button class="lang-btn active" data-lang="zh" title="中文">中</button>
+              <button class="lang-btn" data-lang="en" title="English">EN</button>
+            </div>
+            <button class="nav-icon-btn" onclick="toggleFullscreenSearch()" title="搜索 (Ctrl+K)">🔍</button>
+          </div>
         </div>
         </nav>
         <!-- 全屏搜索框 -->
