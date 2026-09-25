@@ -788,10 +788,11 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .music-btn {
   width: 36px; height: 36px; border-radius: 50%; border: none;
   background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #000; font-size: 14px; cursor: pointer;
+  color: #1a1a2e; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s; flex-shrink: 0;
+  transition: all 0.2s; flex-shrink: 0; padding: 0;
 }
+.music-btn svg { display: block; }
 .music-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(245,158,11,0.5); }
 .music-btn.playing { animation: pulse 2s infinite; }
 @keyframes pulse {
@@ -2107,7 +2108,10 @@ if (document.readyState === 'loading') {
   <source src="home-bgm.mp3" type="audio/mpeg">
 </audio>
 <div class="music-player" id="musicPlayer">
-  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+    <svg class="play-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
   <div class="music-visualizer" id="musicViz">
     <div class="music-bar"></div><div class="music-bar"></div>
     <div class="music-bar"></div><div class="music-bar"></div>
@@ -2124,8 +2128,24 @@ var musicPlayer = document.getElementById('musicPlayer');
 var musicStatus = document.getElementById('musicStatus');
 var isPlaying = false;
 function toggleMusic() {
-  if (isPlaying) { bgm.pause(); musicBtn.textContent = '▶'; musicPlayer.classList.remove('playing'); musicStatus.textContent = '已暂停'; isPlaying = false; }
-  else { bgm.play().then(function(){ musicBtn.textContent = '⏸'; musicPlayer.classList.add('playing'); musicStatus.textContent = '播放中'; isPlaying = true; }).catch(function(e){ musicStatus.textContent = '加载失败'; }); }
+  var playIcon = musicBtn.querySelector('.play-icon');
+  var pauseIcon = musicBtn.querySelector('.pause-icon');
+  if (isPlaying) {
+    bgm.pause();
+    playIcon.style.display = 'block';
+    pauseIcon.style.display = 'none';
+    musicPlayer.classList.remove('playing');
+    musicStatus.textContent = '已暂停';
+    isPlaying = false;
+  } else {
+    bgm.play().then(function(){
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      musicPlayer.classList.add('playing');
+      musicStatus.textContent = '播放中';
+      isPlaying = true;
+    }).catch(function(e){ musicStatus.textContent = '加载失败'; });
+  }
 }
 </script>
 
