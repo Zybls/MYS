@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>刻印图鉴 · 全收录 - 英雄没有闪S2赛季</title>
+<meta property="og:title" content="刻印图鉴">
+<meta property="og:description" content="刻印图鉴 - 英雄没有闪全刻印效果一览">
+<meta property="og:image" content="https://ykmys.com/guild-badge.png">
+<meta property="og:url" content="https://ykmys.com/engravings.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="英雄没有闪S2赛季刻印图鉴全收录，野蛮人、秘法师及通用刻印，含刻印效果详解。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
 <style>
@@ -183,7 +189,7 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
   <div class="guild-nav-inner">
     <div class="guild-nav-left">
       <a href="index.html" class="guild-logo-wrap">
-        <img src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+        <img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
       </a>
       <div class="guild-nav-info">
         <div class="guild-nav-name">天涯若比邻</div>
@@ -522,7 +528,7 @@ var posMap = {"property_1": "主刻印", "property_2": "副刻印", "property_3"
 
 function showEngravingDetail(eng) {
   var posName = posMap[eng.position] || '通用';
-  var imgHtml = eng.local_img ? '<img src="' + eng.local_img + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚡</div>';
+  var imgHtml = eng.local_img ? '<img loading="lazy" src="' + eng.local_img + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚡</div>';
   
   var html = '<div class="detail-header">' + imgHtml +
     '<div class="detail-info">' +
