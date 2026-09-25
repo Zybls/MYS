@@ -454,6 +454,11 @@ body.light-theme .action-btn:hover {
 .search-result-meta { font-size: 12px; color: var(--text-dim); }
 .search-result-empty { text-align: center; color: var(--text-dim); padding: 30px; font-size: 14px; }
 
+
+.fav-nav-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+.fav-nav-btn:hover { background: rgba(240,176,64,0.15); }
+.fav-nav-btn.active { color: #ef4444; }
+
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "英雄没有闪 · S2赛季法师-炎爆PVE-燃烧暴击流", "description": "《英雄没有闪》S2赛季，法师炎爆PVE配装，专注于燃烧暴击流派，为你的推图之旅提供极致的伤害输出体验。", "articleSection": "法师", "url": "https://ykmys.com/fashi-yanbao.html", "publisher": {"@type": "Organization", "name": "英雄没有闪配装攻略站"}}</script>
 </head>
@@ -467,7 +472,8 @@ body.light-theme .action-btn:hover {
       <span class="nav-game-name">《英雄没有闪》</span>
     </div>
     <div class="nav-right">
-            <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+            <button class="fav-nav-btn" id="favNavBtn" title="收藏此配装">🤍</button>
+        <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
       <button class="nav-search-btn" onclick="toggleFullscreenSearch()" title="搜索配装 (Ctrl+K)">🔍</button>
     </div>
   </div>
@@ -1081,6 +1087,26 @@ document.addEventListener('keydown', function(e) {
     toggleFullscreenSearch();
   }
 });
+
+
+// 收藏功能
+(function() {
+  function getFavs() { try { return JSON.parse(localStorage.getItem('yxmys_favs') || '[]'); } catch(e) { return []; } }
+  function saveFavs(f) { localStorage.setItem('yxmys_favs', JSON.stringify(f)); }
+  var page = location.pathname.split('/').pop() || 'index.html';
+  var btn = document.getElementById('favNavBtn');
+  if (btn) {
+    var favs = getFavs();
+    if (favs.indexOf(page) >= 0) btn.classList.add('active');
+    btn.onclick = function() {
+      var favs = getFavs();
+      var idx = favs.indexOf(page);
+      if (idx >= 0) { favs.splice(idx, 1); btn.classList.remove('active'); }
+      else { favs.push(page); btn.classList.add('active'); }
+      saveFavs(favs);
+    };
+  }
+})();
 
 </script>
 

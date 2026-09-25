@@ -310,7 +310,20 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
 .contact-form-input { width: 100%; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; box-sizing: border-box; }
 .contact-form-textarea { width: 100%; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; resize: vertical; box-sizing: border-box; font-family: inherit; }
 .contact-submit-btn { width: 100%; padding: 12px; background: #f59e0b; color: #1a1a2e; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
-.contact-result { text-align: center; margin-top: 12px; font-size: 13px; display: none; }</style>
+.contact-result { text-align: center; margin-top: 12px; font-size: 13px; display: none; }
+/* ===== 收藏功能 ===== */
+.fav-btn {
+  background: none; border: none; cursor: pointer; font-size: 16px;
+  padding: 4px 6px; border-radius: 4px; transition: all 0.2s;
+  opacity: 0.5; min-width: 32px; min-height: 32px;
+}
+.fav-btn:hover { opacity: 1; transform: scale(1.2); }
+.fav-btn.active { opacity: 1; }
+.fav-btn.active::before { content: "❤️"; }
+.fav-btn:not(.active)::before { content: "🤍"; }
+.filter-btn.fav-filter.active { background: #ef4444; color: #fff; border-color: #ef4444; }
+
+</style>
         <link rel="manifest" href="manifest.json">
         <meta name="theme-color" content="#f59e0b">
           <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "英雄没有闪S2赛季配装攻略", "url": "https://ykmys.com", "description": "英雄没有闪S2赛季全职业配装攻略大全，含法师、游侠、蛮子的推图、首领、PK配装，技能装备刻印侍从完整搭配", "potentialAction": {"@type": "SearchAction", "target": "https://ykmys.com/?q={search_term_string}", "query-input": "required name=search_term_string"}}</script>
@@ -364,6 +377,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <button class="filter-btn" onclick="filterByClass('ranger', this)">🏹 游侠</button>
         <button class="filter-btn" onclick="filterByClass('mage', this)">🔮 法师</button>
         <button class="filter-btn" onclick="filterByClass('warrior', this)">⚔️ 蛮子</button>
+        <button class="filter-btn fav-filter" onclick="filterByFav(this)">❤️ 我的收藏</button>
         </div>
         <!-- 用途筛选 -->
         <div class="usage-filter">
@@ -386,6 +400,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">梦花感电</div>
         <div class="build-likes">👍 <span class="like-count" data-page="shadow-dian">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pve">PVE</span>
@@ -404,6 +419,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">圣银荆棘枪</div>
         <div class="build-likes">👍 <span class="like-count" data-page="youxia-shengyin-jingji">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pve">PVE</span>
@@ -423,6 +439,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">感电3.0</div>
         <div class="build-likes">👍 <span class="like-count" data-page="youxia-gandian">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pve">秘境</span>
@@ -441,6 +458,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">荆棘PK</div>
         <div class="build-likes">👍 <span class="like-count" data-page="youxia-jingji-pk">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pk">PK</span>
@@ -459,6 +477,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">荆棘PVE</div>
         <div class="build-likes">👍 <span class="like-count" data-page="youxia-jingji-pve">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-boss">首领打桩</span>
@@ -485,6 +504,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">咒灵火眼</div>
         <div class="build-likes">👍 <span class="like-count" data-page="zhuling-huoyan">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-boss">首领打桩</span>
@@ -503,6 +523,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">咒灵炎爆</div>
         <div class="build-likes">👍 <span class="like-count" data-page="fashi-yanling-yanbao">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pve">PVE</span>
@@ -521,6 +542,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">炎爆流</div>
         <div class="build-likes">👍 <span class="like-count" data-page="fashi-yanbao">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pve">PVE</span>
@@ -539,6 +561,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">幻影雷拳</div>
         <div class="build-likes">👍 <span class="like-count" data-page="fashi-leiquan">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-dual">PVE+PK</span>
@@ -557,6 +580,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">冰焰PK</div>
         <div class="build-likes">👍 <span class="like-count" data-page="fashi-bingyan-pk">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pk">PK</span>
@@ -575,6 +599,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">雷电秒杀拳</div>
         <div class="build-likes">👍 <span class="like-count" data-page="fashi-leidian-shaquan">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-boss">首领</span>
@@ -602,6 +627,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">天罚火刀</div>
         <div class="build-likes">👍 <span class="like-count" data-page="tianfa-huodao">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-boss">首领</span>
@@ -621,6 +647,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">幻影雷锤PVE</div>
         <div class="build-likes">👍 <span class="like-count" data-page="zhanshi-leichui-pve">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pve">PVE</span>
@@ -639,6 +666,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">幻影雷锤PK</div>
         <div class="build-likes">👍 <span class="like-count" data-page="zhanshi-leichui-pk">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-pk">PK</span>
@@ -657,6 +685,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">电刀流</div>
         <div class="build-likes">👍 <span class="like-count" data-page="zhanshi-diandao">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-dual">三修万金油</span>
@@ -674,6 +703,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">雷旋流</div>
         <div class="build-likes">👍 <span class="like-count" data-page="zhanshi-leixuan">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-boss">首领特化</span>
@@ -691,6 +721,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="card-header">
         <div class="build-name">火刀首领</div>
         <div class="build-likes">👍 <span class="like-count" data-page="huodao-shouling">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
         </div>
         <div class="card-tags">
         <span class="build-tag tag-boss">首领</span>
@@ -1094,6 +1125,64 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 })();
+
+
+// ===== 收藏功能 =====
+function getFavs() {
+  try { return JSON.parse(localStorage.getItem('yxmys_favs') || '[]'); }
+  catch(e) { return []; }
+}
+function saveFavs(favs) {
+  localStorage.setItem('yxmys_favs', JSON.stringify(favs));
+}
+function toggleFav(btn) {
+  var card = btn.closest('.build-card');
+  if (!card) return;
+  var url = card.getAttribute('href');
+  var favs = getFavs();
+  var idx = favs.indexOf(url);
+  if (idx >= 0) {
+    favs.splice(idx, 1);
+    btn.classList.remove('active');
+  } else {
+    favs.push(url);
+    btn.classList.add('active');
+  }
+  saveFavs(favs);
+  // 如果当前在收藏筛选模式，更新显示
+  var favFilter = document.querySelector('.fav-filter.active');
+  if (favFilter) filterByFav(favFilter);
+}
+function initFavButtons() {
+  var favs = getFavs();
+  document.querySelectorAll('.build-card').forEach(function(card) {
+    var url = card.getAttribute('href');
+    var btn = card.querySelector('.fav-btn');
+    if (btn && favs.indexOf(url) >= 0) {
+      btn.classList.add('active');
+    }
+  });
+}
+function filterByFav(btn) {
+  btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var favs = getFavs();
+  document.querySelectorAll('.build-card').forEach(function(card) {
+    var url = card.getAttribute('href');
+    if (favs.indexOf(url) >= 0) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  updateBuildCounts();
+}
+// 页面加载后初始化收藏按钮
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFavButtons);
+} else {
+  initFavButtons();
+}
 
 </script>
 
