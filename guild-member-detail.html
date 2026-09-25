@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成员详情 - 天涯若比邻</title>
+<meta name="description" content="天涯若比邻公会成员详细战绩">
+<link rel="manifest" href="manifest.json">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --bg: #0b0b12; --bg-card: #15151f; --bg-card2: #1c1c2a;
+    --border: #2a2a3e; --gold: #f59e0b; --gold-dim: #b45309;
+    --text: #d8d8e8; --text-dim: #8892a8; --text-bright: #f1f5f9;
+    --radius: 14px;
+}
+[data-theme="light"] { --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa; --border:#e0e0e8; --gold:#d97706; --text:#1a1a2e; --text-dim:#5a5a6e; --text-bright:#0a0a15; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+/* 导航 */
+.guild-nav { position: sticky; top: 0; z-index: 100; background: rgba(11,11,18,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 20px; }
+.guild-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.guild-nav-left { display: flex; align-items: center; gap: 12px; }
+.guild-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); }
+.guild-nav-name { font-size: 16px; font-weight: 700; color: var(--gold); }
+.guild-nav-slogan { font-size: 11px; color: var(--text-dim); }
+.guild-nav-links { display: flex; gap: 20px; }
+.guild-nav-link { color: var(--text); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+.guild-nav-link:hover { color: var(--gold); }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-icon-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--border); color: var(--text); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.nav-icon-btn:hover { border-color: var(--gold); transform: scale(1.1); }
+.back-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.back-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* 主内容 */
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+
+/* 成员头部 */
+.member-header { display: flex; align-items: center; gap: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; margin-bottom: 24px; position: relative; overflow: hidden; }
+.member-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); }
+.member-avatar-lg { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dim)); display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; color: #1a1a2e; flex-shrink: 0; border: 3px solid var(--gold); box-shadow: 0 0 30px rgba(245,158,11,0.3); }
+.member-header-info { flex: 1; }
+.member-name-lg { font-size: 28px; font-weight: 800; color: var(--text-bright); margin-bottom: 6px; }
+.member-title-lg { font-size: 14px; color: var(--gold); margin-bottom: 10px; }
+.member-badges-lg { display: flex; gap: 8px; flex-wrap: wrap; }
+.member-badge-lg { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+.badge-crown { background: linear-gradient(135deg,#fbbf24,#f59e0b); color: #78350f; }
+.badge-s { background: linear-gradient(135deg,#a855f7,#7c3aed); color: #fff; }
+.badge-mvp { background: linear-gradient(135deg,#ef4444,#dc2626); color: #fff; }
+.badge-king { background: linear-gradient(135deg,#06b6d4,#0891b2); color: #fff; }
+.badge-shield { background: linear-gradient(135deg,#3b82f6,#2563eb); color: #fff; }
+.badge-war { background: linear-gradient(135deg,#f97316,#ea580c); color: #fff; }
+
+/* 数据卡片 */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; transition: all 0.2s; }
+.stat-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.stat-value-lg { font-size: 28px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
+.stat-label-lg { font-size: 12px; color: var(--text-dim); }
+
+/* 详情区块 */
+.detail-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.detail-title { font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: var(--text-dim); }
+.detail-value { color: var(--text-bright); font-weight: 600; }
+
+/* 战绩时间线 */
+.battle-timeline { position: relative; padding-left: 24px; }
+.battle-timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.battle-item { position: relative; padding-bottom: 20px; }
+.battle-item::before { content: ''; position: absolute; left: -22px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--bg); }
+.battle-item.win::before { background: #22c55e; }
+.battle-item.lose::before { background: #ef4444; }
+.battle-date { font-size: 12px; color: var(--text-dim); margin-bottom: 4px; }
+.battle-title { font-size: 14px; font-weight: 600; color: var(--text-bright); margin-bottom: 2px; }
+.battle-desc { font-size: 13px; color: var(--text-dim); }
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .guild-nav-links { display: none; }
+    .member-header { flex-direction: column; text-align: center; padding: 20px; }
+    .member-badges-lg { justify-content: center; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .member-name-lg { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="guild-nav">
+  <div class="guild-nav-inner">
+    <div class="guild-nav-left">
+      <a href="index.html"><img src="guild-badge.png" alt="天涯若比邻" class="guild-logo"></a>
+      <div>
+        <div class="guild-nav-name">天涯若比邻</div>
+        <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+      </div>
+    </div>
+    <div class="guild-nav-links">
+      <a href="index.html" class="guild-nav-link">首页</a>
+      <a href="guild-history.html" class="guild-nav-link">战报</a>
+      <a href="guild-members.html" class="guild-nav-link">成员</a>
+      <a href="runes-relics.html" class="guild-nav-link">图鉴</a>
+    </div>
+    <div class="nav-right">
+      <a href="guild-members.html" class="back-btn">← 返回列表</a>
+      <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div id="memberContent">
+    <!-- JS动态渲染 -->
+  </div>
+</div>
+
+<script>
+// 成员数据库
+const MEMBER_DB = {
+  '天涯丶醉摇摆': {
+    avatar: '醉', title: '公会核心 · 三冠王',
+    badges: [['badge-crown','👑 三冠王'],['badge-s','⭐ S级'],['badge-king','🏔️ 秘境之王'],['badge-mvp','🔥 联赛MVP']],
+    stats: [['113.08万兆','最高战力'],['670层','赛季秘境'],['92,150','联赛MVP功勋'],['全服第1','战力排名']],
+    info: [['游戏ID','天涯丶醉摇摆'],['公会职位','核心成员'],['综合评级','S级'],['最高战力','113.08万兆'],['赛季秘境','670层（全服第1）'],['穹顶之战','主力输出'],['研读大会','高分上榜'],['参战状态','活跃']],
+    battles: [
+      {date:'8.22 神殿纷争',type:'win',title:'15000:60 大胜暗影军团',desc:'主力输出，带队碾压取胜'},
+      {date:'神殿联赛',type:'lose',title:'5195:15000 负于巅峰+震爷',desc:'个人92,150功勋，全场MVP'},
+      {date:'第六届联赛第1周',type:'win',title:'战胜刀剑神域',desc:'稳定发挥，帮助公会取胜'},
+      {date:'悬赏大赛',type:'win',title:'全服第1',desc:'总积分275,020，公会集体荣誉'}
+    ]
+  },
+  '天涯丶傲慢': {
+    avatar: '傲', title: '公会核心 · S级战士',
+    badges: [['badge-s','⭐ S级'],['badge-shield','🛡️ 穹顶精英']],
+    stats: [['S级','综合评级'],['592层','赛季秘境'],['23,710','穹顶之战积分'],['全服第3','穹顶排名']],
+    info: [['游戏ID','天涯丶傲慢'],['公会职位','核心成员'],['综合评级','S级'],['赛季秘境','592层（全服第6）'],['穹顶之战','23,710分（全服第3）'],['研读大会','高分上榜'],['参战状态','活跃']],
+    battles: [
+      {date:'8.22 神殿纷争',type:'win',title:'15000:60 大胜',desc:'核心战力，稳定输出'},
+      {date:'穹顶之战',type:'win',title:'全服第3',desc:'个人23,710分，公会40人全员参与'},
+      {date:'赛季秘境',type:'win',title:'592层 全服第6',desc:'公会20人上榜TOP263'}
+    ]
+  },
+  '天涯丶本射': {
+    avatar: '本', title: '功勋王 · 全服第1',
+    badges: [['badge-mvp','🏆 功勋王'],['badge-war','⚔️ 全服第1']],
+    stats: [['28,500','8.22功勋'],['全服第1','功勋排名'],['MVP','单场最佳'],['参战','8.22神殿']],
+    info: [['游戏ID','天涯丶本射'],['公会职位','主力输出'],['8.22功勋','28,500（全服第1）'],['参战状态','活跃']],
+    battles: [
+      {date:'8.22 神殿纷争',type:'win',title:'15000:60 大胜',desc:'个人28,500功勋，全服第1，全场MVP'}
+    ]
+  },
+  '天涯丶沦落人': {
+    avatar: '沦', title: '主力成员',
+    badges: [['badge-war','⚔️ 参战勇士']],
+    stats: [['22,800','8.22功勋'],['全服第7','功勋排名'],['TOP10','公会排名'],['参战','8.22神殿']],
+    info: [['游戏ID','天涯丶沦落人'],['8.22功勋','22,800（全服第7）'],['参战状态','活跃']],
+    battles: [{date:'8.22 神殿纷争',type:'win',title:'15000:60 大胜',desc:'个人22,800功勋，全服第7'}]
+  },
+  '天涯丶白将': {
+    avatar: '白', title: '主力成员',
+    badges: [['badge-war','⚔️ 参战勇士']],
+    stats: [['20,950','8.22功勋'],['TOP5','公会排名'],['参战','8.22神殿']],
+    info: [['游戏ID','天涯丶白将'],['8.22功勋','20,950'],['参战状态','活跃']],
+    battles: [{date:'8.22 神殿纷争',type:'win',title:'15000:60 大胜',desc:'个人20,950功勋'}]
+  },
+  '天涯丶唱K': {
+    avatar: '唱', title: '主力成员',
+    badges: [['badge-war','⚔️ 参战勇士']],
+    stats: [['20,900','8.22功勋'],['TOP5','公会排名'],['参战','8.22神殿']],
+    info: [['游戏ID','天涯丶唱K'],['8.22功勋','20,900'],['参战状态','活跃']],
+    battles: [{date:'8.22 神殿纷争',type:'win',title:'15000:60 大胜',desc:'个人20,900功勋'}]
+  }
+};
+
+// 默认成员
+const DEFAULT_MEMBER = '天涯丶醉摇摆';
+
+function getMemberName() {
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name');
+  return name && MEMBER_DB[name] ? name : DEFAULT_MEMBER;
+}
+
+function renderMember(name) {
+  const m = MEMBER_DB[name];
+  if (!m) return;
+  
+  let html = `
+    <div class="member-header">
+      <div class="member-avatar-lg">${m.avatar}</div>
+      <div class="member-header-info">
+        <div class="member-name-lg">${name}</div>
+        <div class="member-title-lg">${m.title}</div>
+        <div class="member-badges-lg">
+          ${m.badges.map(b => `<span class="member-badge-lg ${b[0]}">${b[1]}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+    
+    <div class="stats-grid">
+      ${m.stats.map(s => `<div class="stat-card"><div class="stat-value-lg">${s[0]}</div><div class="stat-label-lg">${s[1]}</div></div>`).join('')}
+    </div>
+    
+    <div class="detail-section">
+      <div class="detail-title">📋 基本信息</div>
+      ${m.info.map(i => `<div class="detail-row"><span class="detail-label">${i[0]}</span><span class="detail-value">${i[1]}</span></div>`).join('')}
+    </div>
+    
+    <div class="detail-section">
+      <div class="detail-title">⚔️ 战绩记录</div>
+      <div class="battle-timeline">
+        ${m.battles.map(b => `
+          <div class="battle-item ${b.type}">
+            <div class="battle-date">${b.date}</div>
+            <div class="battle-title">${b.title}</div>
+            <div class="battle-desc">${b.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('memberContent').innerHTML = html;
+  document.title = name + ' - 天涯若比邻';
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme') || 'dark';
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.querySelector('.nav-icon-btn').textContent = next === 'dark' ? '🌙' : '☀️';
+}
+
+// 初始化
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('.nav-icon-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+  renderMember(getMemberName());
+});
+
+// 注册Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(() => {});
+}
+</script>
+</body>
+</html>

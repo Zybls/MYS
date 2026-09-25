@@ -66,6 +66,7 @@
       background: var(--bg-card); border: 1px solid var(--border);
       border-radius: 10px; padding: 10px 12px; transition: all 0.2s;
     }
+    .member-card { cursor: pointer; }
     .member-card:hover { border-color: var(--gold); transform: translateY(-1px); }
     .member-card.absent { opacity: 0.5; }
     .member-rank {
@@ -98,7 +99,60 @@
       .member-grid { grid-template-columns: 1fr; }
       .guild-nav-slogan { display: none; }
     }
-  </style>
+  
+/* ===== 亮色主题 ===== */
+[data-theme="light"] { --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa; --bg-card-hover:#f0f0f5; --border:#e0e0e8; --border-hover:#c8c8d0; --gold:#d97706; --gold-dim:#b45309; --gold-glow:rgba(217,119,6,.1); --text:#1a1a2e; --text-dim:#5a5a6e; --text-bright:#0a0a15; }
+[data-theme="light"] body { background:var(--bg) !important; color:var(--text) !important; }
+[data-theme="light"] .guild-nav { background:rgba(255,255,255,.95) !important; backdrop-filter:blur(12px); border-bottom:1px solid #e0e0e8 !important; }
+[data-theme="light"] .guild-nav-name, [data-theme="light"] .guild-name { color:#78350f !important; }
+[data-theme="light"] .guild-nav-slogan, [data-theme="light"] .guild-slogan { color:#92400e !important; }
+[data-theme="light"] .guild-nav-link, [data-theme="light"] .nav-link { color:#1a1a2e !important; }
+[data-theme="light"] .guild-nav-link:hover, [data-theme="light"] .nav-link:hover { color:#d97706 !important; }
+[data-theme="light"] .hero-section, [data-theme="light"] .hero { background:linear-gradient(135deg,#fef3c7,#fde68a 50%,#fcd34d) !important; }
+[data-theme="light"] .hero-title, [data-theme="light"] .hero h1 { color:#78350f !important; }
+[data-theme="light"] .hero-subtitle, [data-theme="light"] .hero p { color:#92400e !important; }
+[data-theme="light"] .section-title, [data-theme="light"] h2 { color:#1a1a2e !important; }
+[data-theme="light"] .card, [data-theme="light"] .build-card, [data-theme="light"] .member-card, [data-theme="light"] .timeline-item { background:#fff !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .card:hover, [data-theme="light"] .build-card:hover { border-color:#d97706 !important; box-shadow:0 4px 20px rgba(217,119,6,.15) !important; }
+[data-theme="light"] .stat-value { color:#d97706 !important; }
+[data-theme="light"] .music-player { background:rgba(255,255,255,.95) !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .music-player .song-name { color:#1a1a2e !important; }
+[data-theme="light"] .announcement-bar { background:linear-gradient(90deg,#fef3c7,#fde68a) !important; color:#78350f !important; }
+[data-theme="light"] .progress-bar { background:#e0e0e8 !important; }
+[data-theme="light"] .progress-fill { background:linear-gradient(90deg,#fbbf24,#f59e0b) !important; }
+[data-theme="light"] .guild-login-btn, [data-theme="light"] .login-btn { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .nav-icon-btn, [data-theme="light"] .theme-toggle { background:#f0f0f5 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a { background:#fff !important; border:1px solid #e0e0e8 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a:hover { border-color:#d97706 !important; color:#d97706 !important; }
+[data-theme="light"] .badge-gold { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .badge-silver { background:linear-gradient(135deg,#e5e7eb,#d1d5db) !important; color:#374151 !important; }
+[data-theme="light"] .badge-bronze { background:linear-gradient(135deg,#fdba74,#fb923c) !important; color:#7c2d12 !important; }
+[data-theme="light"] .recruit-text { color:#16a34a !important; }
+[data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
+
+
+/* ===== 公会勋章体系 ===== */
+.member-badges { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+.member-badge {
+  display: inline-flex; align-items: center; gap: 2px;
+  padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 600;
+  background: var(--bg-card2); border: 1px solid var(--border);
+}
+.member-badge.crown { background: linear-gradient(135deg,#fbbf24,#f59e0b); color:#78350f; border:none; }
+.member-badge.s-tier { background: linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; border:none; }
+.member-badge.mvp { background: linear-gradient(135deg,#ef4444,#dc2626); color:#fff; border:none; }
+.member-badge.king { background: linear-gradient(135deg,#06b6d4,#0891b2); color:#fff; border:none; }
+.member-badge.shield { background: linear-gradient(135deg,#3b82f6,#2563eb); color:#fff; border:none; }
+.member-badge.book { background: linear-gradient(135deg,#22c55e,#16a34a); color:#fff; border:none; }
+.member-badge.war { background: linear-gradient(135deg,#f97316,#ea580c); color:#fff; border:none; }
+.member-badge.legend { background: linear-gradient(135deg,#fbbf24,#f59e0b,#ef4444); color:#fff; border:none; animation: badgeGlow 2s ease-in-out infinite; }
+@keyframes badgeGlow { 0%,100% { box-shadow: 0 0 4px rgba(251,191,36,.5); } 50% { box-shadow: 0 0 12px rgba(251,191,36,.8); } }
+.badge-legend-section { margin-top: 30px; padding: 20px; background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border); }
+.badge-legend-title { font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 12px; }
+.badge-legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.badge-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-dim); }
+
+</style>
 </head>
 <body>
   <div class="guild-nav">
@@ -132,27 +186,29 @@
 
     <div class="section-title">🏆 参战成员（35人）</div>
     <div class="member-grid">
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E6%9C%AC%E5%B0%84'" style="cursor:pointer">
           <div class="member-rank gold">1</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
             <div class="member-name">天涯丶本射</div>
             <div class="member-meta">全服#1 · 28,500功勋</div>
             <span class="member-title mvp">MVP·全服第1</span>
+            <div class="member-badges"><span class="member-badge mvp">🏆 功勋王</span><span class="member-badge war">⚔️ 全服第1</span></div>
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E9%86%89%E6%91%87%E6%91%86'" style="cursor:pointer">
           <div class="member-rank silver">2</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
             <div class="member-name">天涯丶醉摇摆</div>
             <div class="member-meta">全服#5 · 24,200功勋</div>
             <span class="member-title ">战神稳定</span>
+            <div class="member-badges"><span class="member-badge legend">👑 三冠王</span><span class="member-badge s-tier">⭐ S级</span><span class="member-badge king">🏔️ 秘境670层</span><span class="member-badge mvp">🔥 联赛MVP</span></div>
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E6%B2%A6%E8%90%BD%E4%BA%BA'" style="cursor:pointer">
           <div class="member-rank bronze">3</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -162,7 +218,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E7%99%BD%E5%B0%86'" style="cursor:pointer">
           <div class="member-rank ">4</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -172,7 +228,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%94%B1K'" style="cursor:pointer">
           <div class="member-rank ">5</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -182,17 +238,18 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%82%B2%E6%85%A2'" style="cursor:pointer">
           <div class="member-rank ">6</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
             <div class="member-name">天涯丶傲慢</div>
             <div class="member-meta">全服#17 · 20,250功勋</div>
             <span class="member-title ">先锋担当</span>
+            <div class="member-badges"><span class="member-badge s-tier">⭐ S级</span><span class="member-badge shield">🛡️ 穹顶第3</span></div>
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6Deeven'" style="cursor:pointer">
           <div class="member-rank ">7</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -202,7 +259,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E8%8A%B3%E8%8D%89'" style="cursor:pointer">
           <div class="member-rank ">8</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -212,7 +269,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%BC%80%E5%BF%83'" style="cursor:pointer">
           <div class="member-rank ">9</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -222,7 +279,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%9C%A3%E9%AA%91'" style="cursor:pointer">
           <div class="member-rank ">10</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -232,7 +289,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E7%83%AC'" style="cursor:pointer">
           <div class="member-rank ">11</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -242,7 +299,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%BC%93%E8%99%BD'" style="cursor:pointer">
           <div class="member-rank ">12</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -252,7 +309,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%A4%A7%E5%AE%9D%E5%89%91'" style="cursor:pointer">
           <div class="member-rank ">13</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -262,7 +319,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%A5%88%E7%99%BD'" style="cursor:pointer">
           <div class="member-rank ">14</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -272,7 +329,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E6%B4%9B'" style="cursor:pointer">
           <div class="member-rank ">15</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -282,7 +339,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%A4%A7%E6%A0%91'" style="cursor:pointer">
           <div class="member-rank ">16</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -292,7 +349,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E6%89%8B%E6%8F%92%E5%85%9C'" style="cursor:pointer">
           <div class="member-rank ">17</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -302,7 +359,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E6%9D%A8%E5%A4%A7%E9%94%A4'" style="cursor:pointer">
           <div class="member-rank ">18</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -312,7 +369,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E8%B6%B3%E9%81%93'" style="cursor:pointer">
           <div class="member-rank ">19</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -322,7 +379,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%B7%A6%E5%B2%B8'" style="cursor:pointer">
           <div class="member-rank ">20</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -332,7 +389,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%AD%A4%E6%98%9F%E5%A4%9C'" style="cursor:pointer">
           <div class="member-rank ">21</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -342,7 +399,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E9%87%91%E9%B3%9E'" style="cursor:pointer">
           <div class="member-rank ">22</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -352,7 +409,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E8%B5%B7%E9%A3%8E%E4%BA%86'" style="cursor:pointer">
           <div class="member-rank ">23</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -362,7 +419,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%AF%BB%E7%8E%96'" style="cursor:pointer">
           <div class="member-rank ">24</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -372,7 +429,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%85%AE%E9%A2%9C'" style="cursor:pointer">
           <div class="member-rank ">25</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -382,7 +439,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E4%BA%94%E8%8A%B1%E8%82%89'" style="cursor:pointer">
           <div class="member-rank ">26</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -392,7 +449,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%B0%8F%E5%9B%9B'" style="cursor:pointer">
           <div class="member-rank ">27</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -402,7 +459,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%AD%A4%E9%AD%82'" style="cursor:pointer">
           <div class="member-rank ">28</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -412,7 +469,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E8%B1%86%E8%85%90'" style="cursor:pointer">
           <div class="member-rank ">29</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -422,7 +479,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E8%8D%86%E6%A3%98'" style="cursor:pointer">
           <div class="member-rank ">30</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -432,7 +489,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E8%A3%B9%E5%B0%B8%E5%B8%83'" style="cursor:pointer">
           <div class="member-rank ">31</div>
           <div class="member-avatar">裹</div>
           <div class="member-info">
@@ -442,7 +499,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E8%B4%BC%E7%A5%9E'" style="cursor:pointer">
           <div class="member-rank ">32</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -452,7 +509,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E5%B1%A0%E7%8B%97%E8%BE%88'" style="cursor:pointer">
           <div class="member-rank ">33</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -462,7 +519,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E5%A4%A9%E6%B6%AF%E4%B8%B6%E8%8A%B1%E5%8D%83%E6%A0%91'" style="cursor:pointer">
           <div class="member-rank ">34</div>
           <div class="member-avatar">天</div>
           <div class="member-info">
@@ -472,7 +529,7 @@
           </div>
           <div class="member-status active">参战</div>
         </div>
-        <div class="member-card">
+        <div class="member-card" onclick="window.location.href='guild-member-detail.html?name=%E6%B0%AA%E4%B8%8D%E6%94%B9%E9%9D%9E'" style="cursor:pointer">
           <div class="member-rank ">35</div>
           <div class="member-avatar">氪</div>
           <div class="member-info">

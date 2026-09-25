@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'yxmysbd-v8';
+﻿const CACHE_NAME = 'yxmysbd-v9-guild';
 const urlsToCache = [
   './',
   './index.html',
@@ -11,25 +11,13 @@ const urlsToCache = [
   './dark-armor.html',
   './pets.html',
   './runes-relics.html',
-  './tianfa-huodao.html',
-  './huodao-shouling.html',
-  './fashi-leidian-shaquan.html',
-  './fashi-yanbao.html',
-  './fashi-yanling-yanbao.html',
-  './fashi-leiquan.html',
-  './fashi-bingyan-pk.html',
-  './youxia-gandian.html',
-  './shadow-dian.html',
-  './youxia-jingji-pk.html',
-  './youxia-jingji-pve.html',
-  './youxia-shengyin-jingji.html',
-  './zhuling-huoyan.html',
-  './zhanshi-leichui-pve.html',
-  './zhanshi-leichui-pk.html',
-  './zhanshi-diandao.html',
-  './zhanshi-leixuan.html',
+  './guild-history.html',
+  './guild-members.html',
+  './guide.html',
+  './compare.html',
+  './recommend.html',
   './manifest.json',
-  './icon.svg'
+  './guild-badge.png'
 ];
 
 self.addEventListener('install', function(event) {
