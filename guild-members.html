@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天涯若比邻 · 公会成员</title>
+  <meta name="description" content="天涯若比邻公会成员列表，8.22神殿纷争参战名单，总功勋522,750">
+  <link rel="icon" href="guild-badge.png" type="image/png">
+  <style>
+    :root {
+      --bg: #0b0b12; --bg-card: #16161f; --bg-card2: #1e1e2a;
+      --border: #2a2a3a; --text: #e8e8f0; --text-dim: #8888a0;
+      --gold: #f59e0b; --gold-dim: #d97706;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+      padding-top: 64px;
+    }
+    /* 公会导航 */
+    .guild-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(11,11,18,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245,158,11,0.15);
+    }
+    .guild-nav-inner {
+      max-width: 1280px; margin: 0 auto; display: flex; align-items: center;
+      justify-content: space-between; padding: 8px 20px; gap: 12px;
+    }
+    .guild-nav-left { display: flex; align-items: center; gap: 12px; }
+    .guild-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(245,158,11,0.4); }
+    .guild-nav-name { font-size: 15px; font-weight: 800; color: var(--gold); }
+    .guild-nav-slogan { font-size: 10px; color: var(--text-dim); }
+    .guild-back-btn { color: var(--text-dim); font-size: 12px; text-decoration: none; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); }
+    .guild-back-btn:hover { color: var(--gold); border-color: var(--gold); }
+    .nav-icon-btn { background: none; border: none; color: var(--text); font-size: 15px; cursor: pointer; padding: 6px 8px; border-radius: 6px; }
+    .nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+    /* 页面头部 */
+    .page-header { text-align: center; margin-bottom: 24px; }
+    .page-title { font-size: 28px; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+    .page-subtitle { font-size: 14px; color: var(--text-dim); }
+
+    /* 统计卡片 */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+    .stat-num { font-size: 24px; font-weight: 800; color: var(--gold); }
+    .stat-label { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+    /* 成员列表 */
+    .section-title { font-size: 18px; font-weight: 700; margin: 24px 0 12px; display: flex; align-items: center; gap: 8px; }
+    .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+    .member-card {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; transition: all 0.2s;
+    }
+    .member-card:hover { border-color: var(--gold); transform: translateY(-1px); }
+    .member-card.absent { opacity: 0.5; }
+    .member-rank {
+      width: 28px; height: 28px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+      background: var(--bg-card2); color: var(--text-dim); flex-shrink: 0;
+    }
+    .member-rank.gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #1a1a2e; }
+    .member-rank.silver { background: linear-gradient(135deg, #94a3b8, #64748b); color: #1a1a2e; }
+    .member-rank.bronze { background: linear-gradient(135deg, #cd7f32, #8b5a2b); color: #1a1a2e; }
+    .member-avatar {
+      width: 36px; height: 36px; border-radius: 8px; display: flex;
+      align-items: center; justify-content: center; font-size: 16px; font-weight: 700;
+      background: linear-gradient(135deg, #7c3aed, #5b21b6); color: white; flex-shrink: 0;
+    }
+    .member-info { flex: 1; min-width: 0; }
+    .member-name { font-size: 14px; font-weight: 600; }
+    .member-meta { font-size: 11px; color: var(--text-dim); }
+    .member-title { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 4px; margin-top: 2px; }
+    .member-title.mvp { background: rgba(245,158,11,0.2); color: var(--gold); }
+    .member-title.leader { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .member-title.new { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .member-title.low { background: rgba(239,68,68,0.1); color: #f87171; }
+    .member-status { font-size: 10px; padding: 3px 8px; border-radius: 10px; flex-shrink: 0; }
+    .member-status.active { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .member-status.absent { background: rgba(239,68,68,0.15); color: #f87171; }
+
+    @media (max-width: 639px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .member-grid { grid-template-columns: 1fr; }
+      .guild-nav-slogan { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="guild-nav">
+    <div class="guild-nav-inner">
+      <div class="guild-nav-left">
+        <a href="index.html"><img src="guild-badge.png" alt="天涯若比邻" class="guild-logo"></a>
+        <div>
+          <div class="guild-nav-name">天涯若比邻</div>
+          <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+        </div>
+        <a href="index.html" class="guild-back-btn">← 首页</a>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="nav-icon-btn" onclick="toggleTheme()">🌙</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">⚔️ 公会成员</h1>
+      <p class="page-subtitle">8.22神殿纷争参战名单 · 圣光军团 15000:60 暗影军团（大胜）</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">40</div><div class="stat-label">公会成员</div></div>
+      <div class="stat-card"><div class="stat-num">35</div><div class="stat-label">参战人数</div></div>
+      <div class="stat-card"><div class="stat-num">522,750</div><div class="stat-label">总功勋</div></div>
+      <div class="stat-card"><div class="stat-num">14,936</div><div class="stat-label">人均功勋</div></div>
+    </div>
+
+    <div class="section-title">🏆 参战成员（35人）</div>
+    <div class="member-grid">
+        <div class="member-card">
+          <div class="member-rank gold">1</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶本射</div>
+            <div class="member-meta">全服#1 · 28,500功勋</div>
+            <span class="member-title mvp">MVP·全服第1</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank silver">2</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶醉摇摆</div>
+            <div class="member-meta">全服#5 · 24,200功勋</div>
+            <span class="member-title ">战神稳定</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank bronze">3</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶沦落人</div>
+            <div class="member-meta">全服#7 · 22,800功勋</div>
+            <span class="member-title ">突击主力</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">4</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶白将</div>
+            <div class="member-meta">全服#12 · 20,950功勋</div>
+            <span class="member-title ">稳定贡献</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">5</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶唱K</div>
+            <div class="member-meta">全服#14 · 20,900功勋</div>
+            <span class="member-title ">进步显著</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">6</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶傲慢</div>
+            <div class="member-meta">全服#17 · 20,250功勋</div>
+            <span class="member-title ">先锋担当</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">7</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶Deeven</div>
+            <div class="member-meta">全服#18 · 19,950功勋</div>
+            <span class="member-title ">稳定输出</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">8</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶芳草</div>
+            <div class="member-meta">全服#19 · 19,450功勋</div>
+            <span class="member-title ">稳定贡献</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">9</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶开心</div>
+            <div class="member-meta">全服#20 · 19,400功勋</div>
+            <span class="member-title ">稳定贡献</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">10</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶圣骑</div>
+            <div class="member-meta">全服#21 · 19,050功勋</div>
+            <span class="member-title ">稳定贡献</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">11</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶烬</div>
+            <div class="member-meta">全服#22 · 18,750功勋</div>
+            <span class="member-title ">突击主力</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">12</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶弓虽</div>
+            <div class="member-meta">全服#25 · 18,300功勋</div>
+            <span class="member-title ">稳定贡献</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">13</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶大宝剑</div>
+            <div class="member-meta">全服#26 · 18,200功勋</div>
+            <span class="member-title ">稳定贡献</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">14</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶奈白</div>
+            <div class="member-meta">全服#30 · 17,850功勋</div>
+            <span class="member-title leader">会长亲征</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">15</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶洛</div>
+            <div class="member-meta">全服#38 · 15,800功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">16</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶大树</div>
+            <div class="member-meta">全服#41 · 14,900功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">17</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶手插兜</div>
+            <div class="member-meta">全服#42 · 14,700功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">18</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶杨大锤</div>
+            <div class="member-meta">全服#44 · 14,150功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">19</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶足道</div>
+            <div class="member-meta">全服#45 · 13,700功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">20</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶左岸</div>
+            <div class="member-meta">全服#47 · 13,350功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">21</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶孤星夜</div>
+            <div class="member-meta">全服#52 · 12,250功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">22</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶金鳞</div>
+            <div class="member-meta">全服#53 · 11,950功勋</div>
+            <span class="member-title new">新成员首战</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">23</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶起风了</div>
+            <div class="member-meta">全服#54 · 11,900功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">24</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶寻玖</div>
+            <div class="member-meta">全服#55 · 11,350功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">25</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶兮颜</div>
+            <div class="member-meta">全服#56 · 11,050功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">26</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶五花肉</div>
+            <div class="member-meta">全服#57 · 10,850功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">27</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶小四</div>
+            <div class="member-meta">全服#58 · 10,800功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">28</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶孤魂</div>
+            <div class="member-meta">全服#59 · 10,400功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">29</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶豆腐</div>
+            <div class="member-meta">全服#60 · 10,150功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">30</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶荆棘</div>
+            <div class="member-meta">全服#63 · 9,750功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">31</div>
+          <div class="member-avatar">裹</div>
+          <div class="member-info">
+            <div class="member-name">裹尸布</div>
+            <div class="member-meta">全服#64 · 9,650功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">32</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶贼神</div>
+            <div class="member-meta">全服#65 · 9,600功勋</div>
+            
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">33</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶屠狗辈</div>
+            <div class="member-meta">全服#75 · 6,600功勋</div>
+            <span class="member-title low">功勋偏低</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">34</div>
+          <div class="member-avatar">天</div>
+          <div class="member-info">
+            <div class="member-name">天涯丶花千树</div>
+            <div class="member-meta">全服#77 · 5,950功勋</div>
+            <span class="member-title low">功勋偏低</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+        <div class="member-card">
+          <div class="member-rank ">35</div>
+          <div class="member-avatar">氪</div>
+          <div class="member-info">
+            <div class="member-name">氪不改非</div>
+            <div class="member-meta">全服#79 · 5,350功勋</div>
+            <span class="member-title low">功勋偏低</span>
+          </div>
+          <div class="member-status active">参战</div>
+        </div>
+    </div>
+
+    <div class="section-title">❌ 未参战（5人）</div>
+    <div class="member-grid">
+        <div class="member-card absent">
+          <div class="member-rank">—</div>
+          <div class="member-avatar">V</div>
+          <div class="member-info">
+            <div class="member-name">Vic</div>
+            <div class="member-meta">未参战</div>
+          </div>
+          <div class="member-status absent">缺席</div>
+        </div>
+        <div class="member-card absent">
+          <div class="member-rank">—</div>
+          <div class="member-avatar">舒</div>
+          <div class="member-info">
+            <div class="member-name">舒畅</div>
+            <div class="member-meta">未参战</div>
+          </div>
+          <div class="member-status absent">缺席</div>
+        </div>
+        <div class="member-card absent">
+          <div class="member-rank">—</div>
+          <div class="member-avatar">李</div>
+          <div class="member-info">
+            <div class="member-name">李洛溪</div>
+            <div class="member-meta">未参战</div>
+          </div>
+          <div class="member-status absent">缺席</div>
+        </div>
+        <div class="member-card absent">
+          <div class="member-rank">—</div>
+          <div class="member-avatar">狼</div>
+          <div class="member-info">
+            <div class="member-name">狼巴子</div>
+            <div class="member-meta">未参战</div>
+          </div>
+          <div class="member-status absent">缺席</div>
+        </div>
+        <div class="member-card absent">
+          <div class="member-rank">—</div>
+          <div class="member-avatar">刀</div>
+          <div class="member-info">
+            <div class="member-name">刀剑神</div>
+            <div class="member-meta">未参战</div>
+          </div>
+          <div class="member-status absent">缺席</div>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+    }
+  </script>
+</body>
+</html>
