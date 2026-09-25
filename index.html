@@ -323,10 +323,20 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
 .fav-btn:not(.active)::before { content: "🤍"; }
 .filter-btn.fav-filter.active { background: #ef4444; color: #fff; border-color: #ef4444; }
 
+
+  /* 语言切换按钮 */
+  .lang-btn { background: none; border: 1px solid rgba(240,176,64,0.3); color: var(--text-dim); 
+    font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; 
+    transition: all 0.2s; min-width: 28px; text-align: center; }
+  .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
+  .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
 </style>
         <link rel="manifest" href="manifest.json">
         <meta name="theme-color" content="#f59e0b">
           <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "英雄没有闪S2赛季配装攻略", "url": "https://ykmys.com", "description": "英雄没有闪S2赛季全职业配装攻略大全，含法师、游侠、蛮子的推图、首领、PK配装，技能装备刻印侍从完整搭配", "potentialAction": {"@type": "SearchAction", "target": "https://ykmys.com/?q={search_term_string}", "query-input": "required name=search_term_string"}}</script>
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/index.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/index.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/index.html" />
 </head>
         <body>
         <nav class="site-nav">
@@ -340,6 +350,8 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         </div>
         <div class="nav-right">
         <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <button class="theme-toggle lang-btn" data-lang="zh" title="中文" style="margin-left:4px;font-size:13px;padding:6px 8px;">中</button>
+    <button class="theme-toggle lang-btn" data-lang="en" title="English" style="margin-left:2px;font-size:13px;padding:6px 8px;">EN</button>
         <button class="nav-search-btn" onclick="toggleFullscreenSearch()" title="搜索 (Ctrl+K)">🔍</button>
         </div>
         </div>
@@ -615,6 +627,27 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <div class="build-source"><span class="source-icon">📝</span>出处：抖音小渡</div>
         </div>
         </a>
+<a href="fashi-zhouling-huoyan.html" class="build-card mage">
+        <div class="card-header">
+        <div class="build-name">咒灵火眼</div>
+        <div class="build-likes">👍 <span class="like-count" data-page="fashi-zhouling-huoyan">0</span></div>
+        <button class="fav-btn" onclick="event.preventDefault();event.stopPropagation();toggleFav(this)" title="收藏"></button>
+        </div>
+        <div class="card-tags">
+        <span class="build-tag tag-boss">首领</span>
+<span class="build-tag tag-pve">PVE</span>
+<span class="build-tag tag-t0">PVE第一</span>
+        </div>
+        <div class="card-recommend">🔥 爬塔首领双T0</div>
+        <div class="card-core">
+        <span class="core-tag weapon">⚔️ 咒灵</span>
+<span class="core-tag engrave">🔮 雷霆领主</span>
+        </div>
+        <div class="card-footer">
+        <div class="build-source"><span class="source-icon">📝</span>出处：邪神攻略站小邪邪</div>
+        </div>
+        </a>
+
         </div>
         </div><div class="class-section">
         <div class="class-header">
@@ -1209,5 +1242,6 @@ if (document.readyState === 'loading') {
         <div id="contactResult" class="contact-result"></div>
         </div>
         </div>
-        </body>
+          <script src="js/i18n.js"></script>
+</body>
         </html> 

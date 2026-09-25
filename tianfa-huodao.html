@@ -464,8 +464,18 @@ body.light-theme .action-btn:hover {
 .fav-nav-btn:hover { background: rgba(240,176,64,0.15); }
 .fav-nav-btn.active { color: #ef4444; }
 
+
+  /* 语言切换按钮 */
+  .lang-btn { background: none; border: 1px solid rgba(240,176,64,0.3); color: var(--text-dim); 
+    font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; 
+    transition: all 0.2s; min-width: 28px; text-align: center; }
+  .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
+  .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "英雄没有闪 · S2野蛮人天罚火刀BD配装", "description": "《英雄没有闪》S2赛季，野蛮人天罚火刀BD配装，专为PVE设计，助你在推图过程中无坚不摧。", "articleSection": "野蛮人", "url": "https://ykmys.com/tianfa-huodao.html", "publisher": {"@type": "Organization", "name": "英雄没有闪配装攻略站"}}</script>
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/tianfa-huodao.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/tianfa-huodao.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/tianfa-huodao.html" />
 </head>
 <body>
 
@@ -479,6 +489,8 @@ body.light-theme .action-btn:hover {
     <div class="nav-right">
             <button class="fav-nav-btn" id="favNavBtn" title="收藏此配装">🤍</button>
         <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <button class="theme-toggle lang-btn" data-lang="zh" title="中文" style="margin-left:4px;font-size:13px;padding:6px 8px;">中</button>
+    <button class="theme-toggle lang-btn" data-lang="en" title="English" style="margin-left:2px;font-size:13px;padding:6px 8px;">EN</button>
       <button class="nav-search-btn" onclick="toggleFullscreenSearch()" title="搜索配装 (Ctrl+K)">🔍</button>
     </div>
   </div>
@@ -1100,5 +1112,6 @@ document.addEventListener('keydown', function(e) {
 
 </script>
 
+  <script src="js/i18n.js"></script>
 </body>
 </html>

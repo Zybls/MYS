@@ -97,7 +97,17 @@ body { padding-top: 68px; }
 }
 body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
 body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+
+  /* 语言切换按钮 */
+  .lang-btn { background: none; border: 1px solid rgba(240,176,64,0.3); color: var(--text-dim); 
+    font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; 
+    transition: all 0.2s; min-width: 28px; text-align: center; }
+  .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
+  .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
 </style>
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/guide.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/guide.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/guide.html" />
 </head>
 <body>
 
@@ -113,6 +123,8 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
     </div>
     <div class="nav-right">
       <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <button class="theme-toggle lang-btn" data-lang="zh" title="中文" style="margin-left:4px;font-size:13px;padding:6px 8px;">中</button>
+    <button class="theme-toggle lang-btn" data-lang="en" title="English" style="margin-left:2px;font-size:13px;padding:6px 8px;">EN</button>
     </div>
   </div>
 </nav>
@@ -282,5 +294,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

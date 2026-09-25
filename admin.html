@@ -194,10 +194,20 @@ body.light-theme .action-btn:hover {
 
 .nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; }
 .nav-theme-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); }
+
+  /* 语言切换按钮 */
+  .lang-btn { background: none; border: 1px solid rgba(240,176,64,0.3); color: var(--text-dim); 
+    font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; 
+    transition: all 0.2s; min-width: 28px; text-align: center; }
+  .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
+  .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#f59e0b">
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/admin.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/admin.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/admin.html" />
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -694,5 +704,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>
