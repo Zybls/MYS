@@ -71,7 +71,7 @@
     text-align: center;
     padding: 32px 20px 24px;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border-radius: 12px;
+    border-radius: var(--radius);
     border: 1px solid var(--border);
     margin-bottom: 20px;
   }
@@ -99,16 +99,15 @@
   .action-btn:hover { border-color: var(--gold); color: var(--gold); }
   .action-btn.active { background: rgba(245,158,11,0.15); border-color: var(--gold); color: var(--gold); }
   .action-icon { font-size: 18px; }
-  .action-count { background: var(--bg); padding: 3px 10px; border-radius: 12px; font-size: 14px; min-width: 24px; text-align: center; }
+  .action-count { background: var(--bg); padding: 3px 10px; border-radius: var(--radius); font-size: 14px; min-width: 24px; text-align: center; }
   .section {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: var(--radius);
     padding: 20px;
     margin-bottom: 16px;
   }
-  .section-title {
-    font-size: 20px; color: var(--gold);
+  .section-title { font-size: 19px; color: var(--gold); font-weight: 700;
     border-left: 4px solid var(--orange);
     padding-left: 14px; margin-bottom: 18px;
     display: flex; align-items: center; gap: 10px;
@@ -207,7 +206,7 @@
   .tip-box .red { color: var(--red); font-weight: bold; }
   .comment-section {
     background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 10px; padding: 20px; margin-bottom: 16px;
+    border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
   }
   .disclaimer {
     background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
@@ -430,7 +429,7 @@ body.light-theme .action-btn:hover {
 .search-icon { position: absolute; left: 16px; font-size: 18px; z-index: 1; }
 .search-input {
   width: 100%; padding: 16px 50px 16px 48px; font-size: 16px;
-  background: var(--bg-card); border: 2px solid var(--gold); border-radius: 12px;
+  background: var(--bg-card); border: 2px solid var(--gold); border-radius: var(--radius);
   color: var(--text); outline: none; font-family: inherit;
 }
 .search-input::placeholder { color: var(--text-dim); }
