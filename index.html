@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 ﻿<!DOCTYPE html>
         <html lang="zh-CN">
         <head>
@@ -1036,7 +1037,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
               </div>
             </div>
             <!-- 快速报名 -->
-            <div class="activity-card signup-card">
+            <div class="activity-card signup-card" id="signupSection">
               <div class="activity-card-header">
                 <span class="activity-icon">✍️</span>
                 <span class="activity-card-title">快速报名</span>
@@ -2005,7 +2006,7 @@ if (document.readyState === 'loading') {
           <input type="password" class="contact-form-input" placeholder="请输入公会密码">
         </div>
         <button class="contact-form-submit" onclick="alert('登录功能开发中，敬请期待！')">登 录</button>
-        <p style="text-align:center;font-size:12px;color:var(--text-dim);margin:12px 0 0;">还没加入公会？<a href="#" style="color:var(--gold);">申请加入</a></p>
+        <p style="text-align:center;font-size:12px;color:var(--text-dim);margin:12px 0 0;">还没加入公会？<a href="javascript:void(0)" onclick="closeLoginModal();document.getElementById('signupSection').scrollIntoView({behavior:'smooth'});" style="color:var(--gold);">申请加入</a></p>
         </div>
         </div>
         <script>

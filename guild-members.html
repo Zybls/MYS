@@ -153,6 +153,7 @@
 .badge-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-dim); }
 
 </style>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <div class="guild-nav">
@@ -596,5 +597,11 @@
       document.body.classList.toggle('light-theme');
     }
   </script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(() => {});
+}
+</script>
 </body>
 </html>

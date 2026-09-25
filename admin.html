@@ -671,9 +671,11 @@ function toggleAnn(id){
 }
 function delAnn(id){
   if(!confirm("确定删除这条公告吗？"))return;
-  fetch(API_BASE+"/api/announcements/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}})
-    .then(function(r){return r.json()}).then(function(data){if(data.ok){showToast("已删除");loadAnnouncements()}})
-    .catch(function(){showToast("删除失败","error")});
+  fetch(API_BASE+"/api/announcements/"+encodeURIComponent(id),{method:"DELETE",headers:{"X-Admin-Token":getToken()}})
+    .then(function(r){return r.json()}).then(function(data){
+      if(data.ok){showToast("已删除");loadAnnouncements()}
+      else{showToast(data.error||"删除失败","error")}
+    }).catch(function(e){showToast("网络错误："+e.message,"error")});
 }
 
 /* ===== 更新日志 ===== */
@@ -701,9 +703,11 @@ function addChangelog(){
 }
 function delChangelog(id){
   if(!confirm("确定删除这条日志吗？"))return;
-  fetch(API_BASE+"/api/changelog/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}})
-    .then(function(r){return r.json()}).then(function(data){if(data.ok){showToast("已删除");loadChangelog()}})
-    .catch(function(){showToast("删除失败","error")});
+  fetch(API_BASE+"/api/changelog/"+encodeURIComponent(id),{method:"DELETE",headers:{"X-Admin-Token":getToken()}})
+    .then(function(r){return r.json()}).then(function(data){
+      if(data.ok){showToast("已删除");loadChangelog()}
+      else{showToast(data.error||"删除失败","error")}
+    }).catch(function(e){showToast("网络错误："+e.message,"error")});
 }
 
 /* ===== 私信管理 ===== */
@@ -724,9 +728,11 @@ function loadMessages(){
 }
 function delMessage(id){
   if(!confirm("确定删除这条私信吗？"))return;
-  fetch(API_BASE+"/api/messages/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}})
-    .then(function(r){return r.json()}).then(function(data){if(data.ok){showToast("已删除");loadMessages()}})
-    .catch(function(){showToast("删除失败","error")});
+  fetch(API_BASE+"/api/messages/"+encodeURIComponent(id),{method:"DELETE",headers:{"X-Admin-Token":getToken()}})
+    .then(function(r){return r.json()}).then(function(data){
+      if(data.ok){showToast("已删除");loadMessages()}
+      else{showToast(data.error||"删除失败","error")}
+    }).catch(function(e){showToast("网络错误："+e.message,"error")});
 }
 
 if(getToken()){
