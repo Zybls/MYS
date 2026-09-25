@@ -128,4 +128,6 @@
   </url>
 
   <url><loc>https://ykmys.com/skills.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://ykmys.com/runes-relics.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>
