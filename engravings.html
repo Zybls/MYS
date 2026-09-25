@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刻印图鉴 · 主流刻印强度分析 - 英雄没有闪S2赛季</title>
+  <meta name="description" content="英雄没有闪S2赛季主流刻印强度分析，霜冻突袭、凛冽寒冬、狂风疾斩、根须缠绕、雷霆领主等刻印效果倍率与适配职业全解析。">
+  <meta name="keywords" content="英雄没有闪,刻印,刻印分析,霜冻突袭,凛冽寒冬,狂风疾斩,根须缠绕,雷霆领主,幻影突袭">
+  <meta property="og:title" content="刻印图鉴 · 主流刻印强度分析 - 英雄没有闪S2赛季">
+  <meta property="og:description" content="第三期刻印强度全解析，双乘区刻印2.25倍，荆棘1.75倍+1200%伤害，各职业刻印推荐一览">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="刻印图鉴 · 主流刻印强度分析">
+  <meta name="twitter:description" content="英雄没有闪S2赛季主流刻印强度分析与各职业推荐">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: #14141e;
+    --bg-card2: #1e293b;
+    --border: #2e2e44;
+    --gold: #f59e0b;
+    --gold-dim: #b45309;
+    --red: #ef4444;
+    --orange: #f97316;
+    --green: #22c55e;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --cyan: #06b6d4;
+    --text: #d8d8e8;
+    --text-dim: #94a3b8;
+    --text-bright: #f1f5f9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.7;
+    padding: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 16px;
+  }
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(240,176,64,0.3);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 52px;
+  }
+  .nav-left { display: flex; align-items: center; gap: 16px; }
+  .nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+  .nav-home-btn { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+  .nav-home-btn:hover { color: var(--gold); }
+  .nav-game-name { color: var(--text-dim); font-size: 15px; }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-search-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; text-decoration: none; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .nav-search-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); }
+  .nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; transition: all 0.2s; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .nav-theme-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); }
+
+  body { padding-top: 68px; }
+  .hero {
+    text-align: center;
+    padding: 32px 20px 24px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 30px; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+  .hero .subtitle { color: var(--text-dim); font-size: 15px; margin-bottom: 16px; }
+  .hero .badge-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+  .hero .badge {
+    display: inline-block; padding: 5px 14px; border-radius: 20px;
+    font-size: 14px; font-weight: bold;
+  }
+  .badge.t0 { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+  .badge.pve { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
+  .badge.ranger { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; }
+  .badge.gold { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #fff; }
+  .badge.mage { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; }
+  .badge.warrior { background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; }
+
+  .action-bar {
+    display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;
+  }
+  .action-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 24px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg-card);
+    color: var(--text); cursor: pointer; font-size: 16px;
+    transition: all 0.2s; font-family: inherit; min-height: 44px;
+  }
+  .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .action-btn.active { background: rgba(245,158,11,0.15); border-color: var(--gold); color: var(--gold); }
+  .action-icon { font-size: 18px; }
+  .action-count { background: var(--bg); padding: 3px 10px; border-radius: 12px; font-size: 14px; min-width: 24px; text-align: center; }
+
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 20px; color: var(--gold);
+    border-left: 4px solid var(--orange);
+    padding-left: 14px; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title .icon { font-size: 22px; }
+
+  /* 刻印强度分级 */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .tier-box { border-radius: 10px; padding: 16px; text-align: center; }
+  .tier-box.t0-tier { background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(220,38,38,0.05)); border: 1px solid rgba(239,68,68,0.4); }
+  .tier-box.t1-tier { background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(180,83,9,0.05)); border: 1px solid rgba(245,158,11,0.4); }
+  .tier-box.t2-tier { background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(29,78,216,0.05)); border: 1px solid rgba(59,130,246,0.4); }
+  .tier-label { font-size: 28px; font-weight: bold; margin-bottom: 6px; }
+  .t0-tier .tier-label { color: var(--red); }
+  .t1-tier .tier-label { color: var(--gold); }
+  .t2-tier .tier-label { color: var(--blue); }
+  .tier-desc { font-size: 13px; color: var(--text-dim); }
+  .tier-list { font-size: 14px; color: var(--text-bright); margin-top: 8px; line-height: 1.8; }
+
+  /* 职业推荐标签 */
+  .class-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .class-tab {
+    padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--bg-card2); color: var(--text-dim); cursor: pointer;
+    font-size: 14px; transition: all 0.2s; min-height: 40px;
+  }
+  .class-tab:hover { border-color: var(--gold); color: var(--gold); }
+  .class-tab.active { background: rgba(245,158,11,0.15); border-color: var(--gold); color: var(--gold); font-weight: bold; }
+
+  .class-recommend { display: none; }
+  .class-recommend.active { display: block; }
+  .recommend-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; background: var(--bg-card2);
+    border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border);
+  }
+  .recommend-build { font-weight: bold; color: var(--text-bright); min-width: 100px; }
+  .recommend-arrow { color: var(--gold); font-size: 18px; }
+  .recommend-engrave { color: var(--cyan); font-weight: bold; }
+  .recommend-note { font-size: 12px; color: var(--text-dim); margin-left: auto; }
+
+  /* 刻印卡片 */
+  .engrave-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .engrave-card {
+    background: var(--bg-card2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .engrave-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .engrave-card.t0-card { border-top: 3px solid var(--red); }
+  .engrave-card.t1-card { border-top: 3px solid var(--gold); }
+  .engrave-card.t2-card { border-top: 3px solid var(--blue); }
+  .engrave-card.obsolete { opacity: 0.5; border-top: 3px solid var(--text-dim); }
+
+  .engrave-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .engrave-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+  .engrave-icon.ice { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+  .engrave-icon.fire { background: linear-gradient(135deg, #ef4444, #dc2626); }
+  .engrave-icon.thunder { background: linear-gradient(135deg, #f59e0b, #b45309); }
+  .engrave-icon.physical { background: linear-gradient(135deg, #22c55e, #15803d); }
+  .engrave-icon.thorn { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+  .engrave-icon.general { background: linear-gradient(135deg, #6b7280, #4b5563); }
+
+  .engrave-info { flex: 1; min-width: 0; }
+  .engrave-name { font-size: 17px; font-weight: bold; color: var(--text-bright); }
+  .engrave-type { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  .engrave-rating {
+    position: absolute; top: 12px; right: 12px;
+    font-size: 12px; font-weight: bold; padding: 3px 10px; border-radius: 12px;
+  }
+  .rating-t0 { background: rgba(239,68,68,0.2); color: var(--red); }
+  .rating-t1 { background: rgba(245,158,11,0.2); color: var(--gold); }
+  .rating-t2 { background: rgba(59,130,246,0.2); color: var(--blue); }
+  .rating-obsolete { background: rgba(107,114,128,0.2); color: var(--text-dim); }
+
+  .engrave-multiplier {
+    display: inline-block; padding: 4px 12px; border-radius: 6px;
+    font-size: 15px; font-weight: bold; margin-bottom: 10px;
+    background: rgba(245,158,11,0.15); color: var(--gold);
+  }
+  .engrave-desc { font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 10px; }
+  .engrave-fits { font-size: 13px; color: var(--text-dim); }
+  .engrave-fits strong { color: var(--cyan); }
+
+  .tip-box {
+    background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(249,115,22,0.05));
+    border: 1px solid var(--gold-dim); border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 10px;
+  }
+  .tip-box .tip-title { font-size: 16px; font-weight: bold; color: var(--gold); margin-bottom: 8px; }
+  .tip-box .tip-content { font-size: 15px; color: var(--text); line-height: 1.8; }
+  .tip-box .highlight { color: var(--orange); font-weight: bold; }
+  .tip-box .red { color: var(--red); font-weight: bold; }
+
+  .disclaimer {
+    background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 8px; padding: 16px 18px; margin-bottom: 20px;
+    font-size: 14px; color: var(--text-dim); line-height: 1.8;
+  }
+  .disclaimer strong { color: var(--gold); }
+  .source-link { color: var(--cyan); text-decoration: none; }
+  .source-link:hover { text-decoration: underline; }
+
+  .comment-section {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px; margin-bottom: 16px;
+  }
+
+  @media (max-width: 768px) {
+    body { font-size: 15px; padding: 12px; }
+    .hero h1 { font-size: 24px; }
+    .hero .subtitle { font-size: 14px; }
+    .section-title { font-size: 18px; }
+    .engrave-grid { grid-template-columns: 1fr; gap: 10px; }
+    .tier-grid { grid-template-columns: 1fr; gap: 10px; }
+    .engrave-name { font-size: 16px; }
+    .engrave-desc { font-size: 13px; }
+    .action-btn { padding: 8px 16px; font-size: 15px; }
+    .nav-game-name { display: none; }
+    .nav-logo { font-size: 16px; }
+    .recommend-item { flex-wrap: wrap; }
+    .recommend-note { width: 100%; margin-left: 0; margin-top: 4px; }
+  }
+  @media (max-width: 480px) {
+    body { font-size: 14px; padding: 10px; }
+    .hero h1 { font-size: 21px; }
+    .hero .subtitle { font-size: 13px; }
+    .section-title { font-size: 17px; }
+    .engrave-name { font-size: 15px; }
+    .engrave-desc { font-size: 13px; }
+    .action-btn { padding: 8px 14px; font-size: 14px; }
+    .badge { font-size: 12px; padding: 4px 10px; }
+    .class-tab { padding: 6px 14px; font-size: 13px; }
+  }
+  @media (min-width: 1400px) {
+    body { max-width: 1300px; }
+  }
+
+  body.light-theme {
+    --bg: #f5f5f7;
+    --bg-card: #ffffff;
+    --bg-card2: #f8f9fa;
+    --text: #1a1a2e;
+    --text-dim: #666;
+    --border: #e0e0e0;
+  }
+  body.light-theme .site-nav { background: rgba(255,255,255,0.95); border-bottom: 1px solid #e0e0e0; }
+  body.light-theme .nav-home-btn, body.light-theme .nav-game-name { color: #666; }
+  body.light-theme .nav-theme-btn, body.light-theme .nav-search-btn { color: #1a1a2e; }
+  body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { background: rgba(0,0,0,0.05); }
+  body.light-theme .engrave-card { background: #f8f9fa; }
+  body.light-theme .recommend-item { background: #f0f0f0; }
+  body.light-theme .class-tab { background: #f0f0f0; }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <span class="nav-game-name">《英雄没有闪》</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <a href="index.html#search" class="nav-search-btn" title="搜索配装">🔍</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>⚡ 刻印图鉴 · 主流刻印强度分析</h1>
+  <div class="subtitle">第三期刻印全解析 · 双乘区刻印2.25倍 · 荆棘1.75倍+1200%伤害 · 邪神攻略站</div>
+  <div class="badge-row">
+    <span class="badge t0">🔥 T0刻印一览</span>
+    <span class="badge pve">⚔️ PVE+PK全覆盖</span>
+    <span class="badge gold">📖 全职业推荐</span>
+    <span class="badge mage">🔮 法师</span>
+    <span class="badge ranger">🏹 游侠</span>
+    <span class="badge warrior">⚔️ 战士</span>
+  </div>
+</div>
+
+<div class="action-bar">
+  <button class="action-btn like-btn" onclick="toggleLike(this)">
+    <span class="action-icon">👍</span>
+    <span class="action-text">点赞</span>
+    <span class="action-count">0</span>
+  </button>
+  <button class="action-btn fav-btn" onclick="toggleFav(this)">
+    <span class="action-icon">⭐</span>
+    <span class="action-text">收藏</span>
+  </button>
+  <button class="action-btn comment-btn" onclick="scrollToComment()">
+    <span class="action-icon">💬</span>
+    <span class="action-text">评论</span>
+  </button>
+</div>
+
+<!-- 刻印强度总览 -->
+<div class="section">
+  <div class="section-title"><span class="icon">📊</span>刻印强度总览</div>
+  <div class="tier-grid">
+    <div class="tier-box t0-tier">
+      <div class="tier-label">T0</div>
+      <div class="tier-desc">版本答案，必带</div>
+      <div class="tier-list">霜冻突袭<br>凛冽寒冬<br>狂风疾斩<br>根须缠绕<br>雷霆领主</div>
+    </div>
+    <div class="tier-box t1-tier">
+      <div class="tier-label">T1</div>
+      <div class="tier-desc">强力推荐，适配特定流派</div>
+      <div class="tier-list">幻影突袭<br>野火烈焰<br>吞食天地(PK)</div>
+    </div>
+    <div class="tier-box t2-tier">
+      <div class="tier-label">T2</div>
+      <div class="tier-desc">过渡使用，有更好选择</div>
+      <div class="tier-list">武器大师<br>诅咒之雨(已淘汰)</div>
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">💡 第三期刻印为什么超标？</div>
+    <div class="tip-content">
+      第三期出的刻印强度都太超标了！<span class="highlight">三个是双乘区</span>（冰+持续、冰+暴伤、物理+持续），倍率高达<span class="red">2.25倍</span>；唯一的荆棘增幅数值<span class="highlight">1.75倍</span>也是碾压往期刻印，并且给了<span class="red">1200%超高伤害百分比</span>。
+    </div>
+  </div>
+</div>
+
+<!-- 各职业刻印推荐 -->
+<div class="section">
+  <div class="section-title"><span class="icon">🎯</span>各职业刻印推荐</div>
+  <div class="class-tabs">
+    <div class="class-tab active" onclick="switchClass('ranger')">🏹 游侠</div>
+    <div class="class-tab" onclick="switchClass('warrior')">⚔️ 战士</div>
+    <div class="class-tab" onclick="switchClass('mage')">🔮 法师</div>
+    <div class="class-tab" onclick="switchClass('pk')">⚡ PK通用</div>
+  </div>
+
+  <div class="class-recommend active" id="ranger">
+    <div class="recommend-item">
+      <span class="recommend-build">感电流</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">雷霆领主</span>
+      <span class="recommend-note">感电唯一选择</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">荆棘流</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">根须缠绕</span>
+      <span class="recommend-note">强上加强，垄断地位</span>
+    </div>
+  </div>
+
+  <div class="class-recommend" id="warrior">
+    <div class="recommend-item">
+      <span class="recommend-build">雷锤</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">幻影突袭</span>
+      <span class="recommend-note">PK+PVE通用</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">冰锤</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">凛冽寒冬</span>
+      <span class="recommend-note">冰+暴伤双乘区</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">电刀</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">幻影突袭</span>
+      <span class="recommend-note">比灾厄预兆效果更好</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">雷旋</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">武器大师</span>
+      <span class="recommend-note">爆发期2倍增伤</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">荆棘</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">根须缠绕</span>
+      <span class="recommend-note">PK开局秒杀</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">炎刀</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">狂风疾斩</span>
+      <span class="recommend-note">物理+持续双乘区</span>
+    </div>
+  </div>
+
+  <div class="class-recommend" id="mage">
+    <div class="recommend-item">
+      <span class="recommend-build">炎爆</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">咒灵→雷霆领主 / 非咒灵→野火烈焰</span>
+      <span class="recommend-note">咒灵用雷霆领主更好</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">冰焰</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">霜冻突袭</span>
+      <span class="recommend-note">冰+持续双乘区2.25倍</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">电矛</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">幻影突袭</span>
+      <span class="recommend-note">PK首选</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">雷拳</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">幻影突袭</span>
+      <span class="recommend-note">PVE首选</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">冰剑</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">凛冽寒冬</span>
+      <span class="recommend-note">冰+暴伤双乘区</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">火眼</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">咒灵→雷霆领主 / 非咒灵→野火烈焰</span>
+      <span class="recommend-note">同炎爆选择</span>
+    </div>
+  </div>
+
+  <div class="class-recommend" id="pk">
+    <div class="recommend-item">
+      <span class="recommend-build">法术反制版本</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">吞食天地</span>
+      <span class="recommend-note">1.4倍增伤，PK最好用</span>
+    </div>
+    <div class="recommend-item">
+      <span class="recommend-build">荆棘流PK</span>
+      <span class="recommend-arrow">→</span>
+      <span class="recommend-engrave">根须缠绕</span>
+      <span class="recommend-note">开局直接秒杀</span>
+    </div>
+  </div>
+</div>
+
+<!-- 刻印详情 -->
+<div class="section">
+  <div class="section-title"><span class="icon">📜</span>刻印详情解析</div>
+
+  <div class="engrave-grid">
+
+    <!-- 霜冻突袭 -->
+    <div class="engrave-card t0-card">
+      <span class="engrave-rating rating-t0">T0</span>
+      <div class="engrave-header">
+        <div class="engrave-icon ice">❄️</div>
+        <div class="engrave-info">
+          <div class="engrave-name">霜冻突袭</div>
+          <div class="engrave-type">冰 + 持续伤害 · 双乘区</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">×2.25 倍</div>
+      <div class="engrave-desc">第三期双乘区刻印之一，冰属性+持续伤害双加成，倍率高达2.25倍，直接碾压往期刻印。</div>
+      <div class="engrave-fits">适配：<strong>冰焰</strong></div>
+    </div>
+
+    <!-- 凛冽寒冬 -->
+    <div class="engrave-card t0-card">
+      <span class="engrave-rating rating-t0">T0</span>
+      <div class="engrave-header">
+        <div class="engrave-icon ice">🧊</div>
+        <div class="engrave-info">
+          <div class="engrave-name">凛冽寒冬</div>
+          <div class="engrave-type">冰 + 暴伤 · 双乘区</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">×2.25 倍</div>
+      <div class="engrave-desc">冰属性+暴击伤害双乘区，2.25倍加成，暴伤流的核心刻印，爆发伤害极高。</div>
+      <div class="engrave-fits">适配：<strong>冰锤、冰剑</strong></div>
+    </div>
+
+    <!-- 狂风疾斩 -->
+    <div class="engrave-card t0-card">
+      <span class="engrave-rating rating-t0">T0</span>
+      <div class="engrave-header">
+        <div class="engrave-icon physical">🌀</div>
+        <div class="engrave-info">
+          <div class="engrave-name">狂风疾斩</div>
+          <div class="engrave-type">物理 + 持续伤害 · 双乘区</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">×2.25 倍</div>
+      <div class="engrave-desc">物理+持续伤害双乘区，2.25倍加成，这个直接让原来的<span style="color:var(--text-dim);text-decoration:line-through;">诅咒之雨</span>变成笑话！</div>
+      <div class="engrave-fits">适配：<strong>炎刀</strong></div>
+    </div>
+
+    <!-- 根须缠绕 -->
+    <div class="engrave-card t0-card">
+      <span class="engrave-rating rating-t0">T0</span>
+      <div class="engrave-header">
+        <div class="engrave-icon thorn">🌿</div>
+        <div class="engrave-info">
+          <div class="engrave-name">根须缠绕</div>
+          <div class="engrave-type">荆棘增伤 · 超高伤害百分比</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">×1.75 倍 + 1200%</div>
+      <div class="engrave-desc">荆棘增幅1.75倍碾压往期，1200%伤害百分比等于多一个乘区！荆棘伤乘区500%=6000%伤害，1000%=1.2万伤害。<strong style="color:var(--red);">PK开局直接秒杀，PVE刻印出来打一下马撞直接死。</strong></div>
+      <div class="engrave-fits">适配：<strong>荆棘流（全职业）</strong></div>
+    </div>
+
+    <!-- 雷霆领主 -->
+    <div class="engrave-card t0-card">
+      <span class="engrave-rating rating-t0">T0</span>
+      <div class="engrave-header">
+        <div class="engrave-icon thunder">⚡</div>
+        <div class="engrave-info">
+          <div class="engrave-name">雷霆领主</div>
+          <div class="engrave-type">电系核心 · 目前热度最高</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">电系核心刻印</div>
+      <div class="engrave-desc">目前热度最高的刻印之一！洗练都要围绕这个刻印来弄，符文本身的核心技可以抛弃了。<strong style="color:var(--gold);">大部分平民用电刀带灾厄预兆，但电刀换幻影突袭效果更好，谁用谁知道！</strong></div>
+      <div class="engrave-fits">适配：<strong>雷锤(PK+PVE)、雷拳(PVE)、电矛(PK)</strong></div>
+    </div>
+
+    <!-- 幻影突袭 -->
+    <div class="engrave-card t1-card">
+      <span class="engrave-rating rating-t1">T1</span>
+      <div class="engrave-header">
+        <div class="engrave-icon thunder">💨</div>
+        <div class="engrave-info">
+          <div class="engrave-name">幻影突袭</div>
+          <div class="engrave-type">电系 · 多流派适配</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">电系强力刻印</div>
+      <div class="engrave-desc">电系多流派通用刻印，电刀带幻影突袭比灾厄预兆效果更好，雷锤、电矛、雷拳也都可以带。</div>
+      <div class="engrave-fits">适配：<strong>电刀、雷锤、电矛、雷拳</strong></div>
+    </div>
+
+    <!-- 野火烈焰 -->
+    <div class="engrave-card t1-card">
+      <span class="engrave-rating rating-t1">T1</span>
+      <div class="engrave-header">
+        <div class="engrave-icon fire">🔥</div>
+        <div class="engrave-info">
+          <div class="engrave-name">野火烈焰</div>
+          <div class="engrave-type">感电 / 炎爆 · 最佳选择</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">感电唯一选择</div>
+      <div class="engrave-desc">感电的唯一选择，也是咒灵炎爆的最佳选择。咒灵炎爆出的电持续伤害都可以带出闪电打击，电持续相互独立——99层触电可触发几十层电持续伤害，每秒伤害都能触发闪电打击，直伤+附伤总伤害百分比非常可观。</div>
+      <div class="engrave-fits">适配：<strong>感电流、咒灵炎爆</strong></div>
+    </div>
+
+    <!-- 吞食天地 -->
+    <div class="engrave-card t1-card">
+      <span class="engrave-rating rating-t1">T1</span>
+      <div class="engrave-header">
+        <div class="engrave-icon general">🌀</div>
+        <div class="engrave-info">
+          <div class="engrave-name">吞食天地</div>
+          <div class="engrave-type">PK增伤 · 法术反制版本首选</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">×1.4 倍（半时间）</div>
+      <div class="engrave-desc">1.4倍增伤已实装，等于一半时间增伤1.4倍。PVE不行，但<strong style="color:var(--gold);">PK很好用，法术反制版本下这是最好的选择。</strong></div>
+      <div class="engrave-fits">适配：<strong>PK通用（法术反制版本）</strong></div>
+    </div>
+
+    <!-- 武器大师 -->
+    <div class="engrave-card t2-card">
+      <span class="engrave-rating rating-t2">T2</span>
+      <div class="engrave-header">
+        <div class="engrave-icon physical">⚔️</div>
+        <div class="engrave-info">
+          <div class="engrave-name">武器大师</div>
+          <div class="engrave-type">爆发暴伤 · 雷旋适配</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">暴伤 ×2（爆发期）</div>
+      <div class="engrave-desc">动画延迟1秒，实际5秒多时间生效，暴伤×2。价值在于爆发期间2倍增伤，然后进入马撞的伤害池放大，可以突破伤害上限。原先适配雷旋，但现在各种新流派出来，雷旋越来越边缘化。</div>
+      <div class="engrave-fits">适配：<strong>雷旋（过渡）</strong></div>
+    </div>
+
+    <!-- 诅咒之雨 -->
+    <div class="engrave-card obsolete">
+      <span class="engrave-rating rating-obsolete">已淘汰</span>
+      <div class="engrave-header">
+        <div class="engrave-icon general">🌧️</div>
+        <div class="engrave-info">
+          <div class="engrave-name">诅咒之雨</div>
+          <div class="engrave-type">物理+持续 · 被狂风疾斩取代</div>
+        </div>
+      </div>
+      <div class="engrave-multiplier">已淘汰</div>
+      <div class="engrave-desc">原先适配雷旋，但现在各种新流派出来太刮痧了。狂风疾斩2.25倍直接让诅咒之雨变成笑话，雷旋后期也越来越边缘化。</div>
+      <div class="engrave-fits">适配：<strong>无（不推荐）</strong></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 洗练建议 -->
+<div class="section">
+  <div class="section-title"><span class="icon">💎</span>刻印洗练建议</div>
+  <div class="tip-box">
+    <div class="tip-title">⚡ 雷霆领主体系洗练</div>
+    <div class="tip-content">
+      洗<span class="highlight">元素伤害</span>、<span class="highlight">基础技增伤</span>、<span class="highlight">暴击</span>、<span class="highlight">暴伤</span>。洗练都要围绕这个刻印来弄，符文本身的核心技可以抛弃了！
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">🔥 电刀选择建议</div>
+    <div class="tip-content">
+      大部分平民可能都是用电刀带<span style="color:var(--text-dim);text-decoration:line-through;">灾厄预兆</span>，但是电刀换<span class="highlight">幻影突袭</span>效果更好，谁用谁知道！
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">🌿 荆棘刻印注意</div>
+    <div class="tip-content">
+      根须缠绕效果已实装，但实战并没有很惊艳。<span class="red">如果有咒灵，还不如带雷霆领主！</span>
+    </div>
+  </div>
+</div>
+
+<div class="disclaimer">
+  <strong>📌 数据来源：</strong>本页刻印分析整理自 <a href="https://mp.weixin.qq.com/s/zbMeLC2-zmsGBcW4DQ8M9w" class="source-link" target="_blank">邪神攻略站 · 小邪邪小邪邪</a> 的《英雄没有闪主流刻印分析！》，数据截至2026年9月25日。游戏版本更新后刻印效果可能变化，请以游戏内实际为准。<br><br>
+  <strong>⚠️ 免责声明：</strong>本站仅为攻略整理分享，不构成任何游戏内消费建议。刻印强度随版本变动，请结合自身实际情况选择。
+</div>
+
+<!-- 评论区 -->
+<div class="comment-section" id="commentSection">
+  <div class="section-title"><span class="icon">💬</span>评论区</div>
+  <livere-comment client-id="9Xb93o4GKHetNel7Yjv3"></livere-comment>
+  <script type="module" src="https://www.livere.org/livere-widget.js"></script>
+</div>
+
+<script>
+// 主题切换
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  if (document.body.classList.contains('light-theme')) {
+    btn.textContent = '☀️';
+    localStorage.setItem('yxmys_theme', 'light');
+  } else {
+    btn.textContent = '🌙';
+    localStorage.setItem('yxmys_theme', 'dark');
+  }
+}
+(function() {
+  if (localStorage.getItem('yxmys_theme') === 'light') {
+    document.body.classList.add('light-theme');
+    document.querySelector('.nav-theme-btn').textContent = '☀️';
+  }
+})();
+
+// 职业切换
+function switchClass(cls) {
+  document.querySelectorAll('.class-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.class-recommend').forEach(function(r) { r.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.getElementById(cls).classList.add('active');
+}
+
+// 点赞
+function toggleLike(btn) {
+  var countEl = btn.querySelector('.action-count');
+  var page = 'engravings';
+  var liked = localStorage.getItem('yxmys_liked_' + page);
+  if (liked) {
+    btn.classList.remove('active');
+    countEl.textContent = parseInt(countEl.textContent) - 1;
+    localStorage.removeItem('yxmys_liked_' + page);
+  } else {
+    btn.classList.add('active');
+    countEl.textContent = parseInt(countEl.textContent) + 1;
+    localStorage.setItem('yxmys_liked_' + page, '1');
+  }
+}
+
+// 收藏
+function toggleFav(btn) {
+  var page = 'engravings';
+  var faved = localStorage.getItem('yxmys_faved_' + page);
+  if (faved) {
+    btn.classList.remove('active');
+    btn.querySelector('.action-text').textContent = '收藏';
+    localStorage.removeItem('yxmys_faved_' + page);
+  } else {
+    btn.classList.add('active');
+    btn.querySelector('.action-text').textContent = '已收藏';
+    localStorage.setItem('yxmys_faved_' + page, '1');
+  }
+}
+
+// 滚动到评论
+function scrollToComment() {
+  document.getElementById('commentSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// 从配装页跳转过来时自动打开搜索框
+(function() {
+  if (location.hash === '#search') {
+    setTimeout(function() {
+      window.location.href = 'index.html#search';
+    }, 100);
+  }
+})();
+</script>
+
+</body>
+</html>
