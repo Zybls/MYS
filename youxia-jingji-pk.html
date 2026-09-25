@@ -417,6 +417,43 @@ body.light-theme .action-btn:hover {
   }
 }
 
+
+/* ===== 全屏搜索 ===== */
+.fullscreen-search {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.9); z-index: 99999; justify-content: flex-start;
+  align-items: center; flex-direction: column; padding-top: 15vh;
+}
+.fullscreen-search.active { display: flex; }
+.search-container { width: 90%; max-width: 600px; }
+.search-box { position: relative; display: flex; align-items: center; }
+.search-icon { position: absolute; left: 16px; font-size: 18px; z-index: 1; }
+.search-input {
+  width: 100%; padding: 16px 50px 16px 48px; font-size: 16px;
+  background: var(--bg-card); border: 2px solid var(--gold); border-radius: 12px;
+  color: var(--text); outline: none; font-family: inherit;
+}
+.search-input::placeholder { color: var(--text-dim); }
+.search-close-btn {
+  position: absolute; right: 12px; background: none; border: none;
+  color: var(--text-dim); font-size: 24px; cursor: pointer; padding: 8px 12px;
+}
+.search-close-btn:hover { color: var(--text); }
+.search-hint { text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 16px; }
+.search-hint kbd {
+  background: var(--bg-card2); padding: 2px 8px; border-radius: 4px;
+  font-size: 12px; border: 1px solid var(--border);
+}
+.search-results { margin-top: 20px; max-height: 50vh; overflow-y: auto; }
+.search-result-item {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 14px 18px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s;
+}
+.search-result-item:hover { border-color: var(--gold); transform: translateX(4px); }
+.search-result-title { font-size: 15px; font-weight: bold; color: var(--gold); margin-bottom: 4px; }
+.search-result-meta { font-size: 12px; color: var(--text-dim); }
+.search-result-empty { text-align: center; color: var(--text-dim); padding: 30px; font-size: 14px; }
+
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "英雄没有闪 · S2赛季游侠-荆棘PK-减速反制流", "description": "《英雄没有闪》S2赛季，游侠荆棘PK配装，专为PK设计的减速反制流，助你在对抗中占据上风。", "articleSection": "游侠", "url": "https://ykmys.com/youxia-jingji-pk.html", "publisher": {"@type": "Organization", "name": "英雄没有闪配装攻略站"}}</script>
 </head>
@@ -431,10 +468,24 @@ body.light-theme .action-btn:hover {
     </div>
     <div class="nav-right">
             <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
-      <a href="index.html#search" class="nav-search-btn" title="搜索配装">🔍</a>
+      <button class="nav-search-btn" onclick="toggleFullscreenSearch()" title="搜索配装 (Ctrl+K)">🔍</button>
     </div>
   </div>
 </nav>
+
+    <!-- 全屏搜索框 -->
+    <div class="fullscreen-search" id="fullscreenSearch">
+      <div class="search-container">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="fullscreenSearchInput" placeholder="搜索配装名称、职业、出处..." oninput="filterBuilds(this.value)">
+          <button class="search-close-btn" onclick="toggleFullscreenSearch()">&times;</button>
+        </div>
+        <div class="search-hint">按 <kbd>ESC</kbd> 关闭 &nbsp;|&nbsp; 按 <kbd>Ctrl+K</kbd> 快速打开搜索</div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+
 
 <div class="hero">
   <h1>🏹 S2赛季游侠 · 荆棘PK · 减速反制流</h1>
@@ -977,6 +1028,72 @@ loadLikes();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js').catch(() => {});
 }
+
+// ===== 全屏搜索 =====
+var ALL_BUILDS = [
+  {title:"天罚火刀", url:"tianfa-huodao.html", class:"法师", tags:["火刀","首领","推图"], source:"卡皮拉巴"},
+  {title:"感电流派", url:"gandian.html", class:"游侠", tags:["感电","推图","首领"], source:"卡皮拉巴"},
+  {title:"圣音荆棘", url:"shengyin-jingji.html", class:"游侠", tags:["荆棘","经济","PVE"], source:"卡皮拉巴"},
+  {title:"幻影雷锤", url:"huanying-leichui.html", class:"野蛮人", tags:["雷锤","PK","幻影"], source:"卡皮拉巴"},
+  {title:"雷锤PK", url:"leichui-pk.html", class:"野蛮人", tags:["雷锤","PK"], source:"卡皮拉巴"},
+  {title:"荆棘PVE", url:"jingji-pve.html", class:"游侠", tags:["荆棘","PVE","推图"], source:"卡皮拉巴"},
+  {title:"感电3.0", url:"shadow-dian.html", class:"游侠", tags:["感电","3.0","修正版"], source:"抖音卡皮拉巴"},
+  {title:"火刀首领", url:"huodao-shouling.html", class:"法师", tags:["火刀","首领"], source:"小冬瓜"},
+  {title:"雷电秒杀", url:"leidian-miaosha.html", class:"法师", tags:["雷电","秒杀","首领"], source:"小渡"},
+  {title:"游侠感电", url:"youxia-gandian.html", class:"游侠", tags:["感电","游侠"], source:"卡皮拉巴"},
+  {title:"游侠圣音经济", url:"youxia-shengyin-jingji.html", class:"游侠", tags:["圣音","经济","荆棘"], source:"卡皮拉巴"},
+  {title:"野蛮人幻影雷锤", url:"zhanshi-huanying-leichui.html", class:"野蛮人", tags:["幻影","雷锤"], source:"卡皮拉巴"},
+  {title:"野蛮人雷锤PK", url:"zhanshi-leichui-pk.html", class:"野蛮人", tags:["雷锤","PK"], source:"卡皮拉巴"},
+  {title:"游侠荆棘PVE", url:"youxia-jingji-pve.html", class:"游侠", tags:["荆棘","PVE"], source:"卡皮拉巴"},
+  {title:"暗影感电", url:"youxia-gandian.html", class:"游侠", tags:["暗影","感电"], source:"卡皮拉巴"},
+  {title:"火刀天罚", url:"tianfa-huodao.html", class:"法师", tags:["天罚","火刀"], source:"卡皮拉巴"},
+  {title:"法师雷电", url:"fashi-leidian.html", class:"法师", tags:["雷电","秒杀"], source:"小渡"},
+];
+
+function toggleFullscreenSearch() {
+  var el = document.getElementById('fullscreenSearch');
+  el.classList.toggle('active');
+  if (el.classList.contains('active')) {
+    document.getElementById('fullscreenSearchInput').focus();
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+
+function filterBuilds(query) {
+  var results = document.getElementById('searchResults');
+  if (!query.trim()) { results.innerHTML = ''; return; }
+  var q = query.toLowerCase();
+  var matched = ALL_BUILDS.filter(function(b) {
+    return b.title.toLowerCase().indexOf(q) >= 0 ||
+           b.class.toLowerCase().indexOf(q) >= 0 ||
+           b.source.toLowerCase().indexOf(q) >= 0 ||
+           b.tags.some(function(t) { return t.toLowerCase().indexOf(q) >= 0; });
+  });
+  if (matched.length === 0) {
+    results.innerHTML = '<div class="search-result-empty">没有找到相关配装</div>';
+    return;
+  }
+  results.innerHTML = matched.map(function(b) {
+    return '<div class="search-result-item" onclick="location.href=\'' + b.url + '\'">' +
+      '<div class="search-result-title">' + b.title + '</div>' +
+      '<div class="search-result-meta">' + b.class + ' · ' + b.tags.join(' / ') + ' · 出处：' + b.source + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var el = document.getElementById('fullscreenSearch');
+    if (el && el.classList.contains('active')) toggleFullscreenSearch();
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    toggleFullscreenSearch();
+  }
+});
+
 </script>
 
 </body>
