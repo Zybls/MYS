@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>侍从图鉴 · 全侍从技能属性一览 - 英雄没有闪S2赛季</title>
+<meta name="description" content="英雄没有闪S2赛季全侍从图鉴，45个侍从完整技能属性，光环、技能、普攻、被动效果一览，品质与羁绊筛选。">
+<meta name="keywords" content="英雄没有闪,侍从图鉴,侍从技能,泰拉勒,奶牛之王,霸迭,玛瑟尔">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #14141e;
+  --bg-card2: #1e293b;
+  --border: #2e2e44;
+  --gold: #f59e0b;
+  --text: #d8d8e8;
+  --text-dim: #94a3b8;
+  --text-bright: #f1f5f9;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.7;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 16px;
+}
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 52px;
+}
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover { color: var(--gold); }
+.nav-game-name { color: var(--text-dim); font-size: 15px; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.nav-theme-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); }
+body { padding-top: 68px; }
+
+.hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.hero h1 { font-size: 30px; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+.hero .subtitle { color: var(--text-dim); font-size: 15px; margin-bottom: 16px; }
+.hero .stats { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.hero .stat-item { text-align: center; }
+.hero .stat-num { font-size: 28px; font-weight: bold; color: var(--gold); }
+.hero .stat-label { font-size: 13px; color: var(--text-dim); }
+
+.filter-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.filter-group { margin-bottom: 12px; }
+.filter-group:last-child { margin-bottom: 0; }
+.filter-label { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; font-weight: bold; }
+.filter-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-btn {
+  padding: 6px 14px; border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-card2);
+  color: var(--text-dim);
+  cursor: pointer; font-size: 13px;
+  transition: all 0.2s; min-height: 32px;
+  font-family: inherit;
+}
+.filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+.filter-btn.active { background: rgba(245,158,11,0.2); border-color: var(--gold); color: var(--gold); font-weight: bold; }
+.filter-reset {
+  padding: 6px 14px; border-radius: 16px;
+  border: 1px solid var(--red);
+  background: transparent;
+  color: #ef4444;
+  cursor: pointer; font-size: 13px;
+  transition: all 0.2s; min-height: 32px;
+  font-family: inherit;
+}
+.filter-reset:hover { background: rgba(239,68,68,0.1); }
+
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.pet-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.pet-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.pet-img-wrap {
+  width: 80px; height: 80px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  border: 3px solid;
+  overflow: hidden;
+  background: var(--bg-card2);
+  display: flex; align-items: center; justify-content: center;
+}
+.pet-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.pet-img-placeholder { font-size: 32px; font-weight: bold; color: var(--text-dim); }
+.pet-name { font-size: 15px; font-weight: bold; margin-bottom: 4px; }
+.pet-quality {
+  display: inline-block;
+  padding: 2px 8px; border-radius: 10px;
+  font-size: 11px; color: #fff;
+  margin-bottom: 6px;
+}
+.pet-bonds { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+.pet-bond {
+  font-size: 11px; padding: 2px 6px;
+  background: var(--bg-card2);
+  border-radius: 8px;
+  color: var(--text-dim);
+}
+
+/* 详情弹窗 */
+.modal-overlay {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 10000;
+  justify-content: center; align-items: center;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: 12px; right: 16px;
+  background: none; border: none;
+  color: var(--text-dim); font-size: 24px;
+  cursor: pointer; min-width: 44px; min-height: 44px;
+}
+.modal-close:hover { color: var(--gold); }
+.detail-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.detail-img {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  object-fit: cover;
+}
+.detail-info { flex: 1; }
+.detail-name { font-size: 22px; font-weight: bold; margin-bottom: 6px; }
+.detail-quality {
+  display: inline-block;
+  padding: 3px 10px; border-radius: 12px;
+  font-size: 12px; color: #fff;
+  margin-bottom: 6px;
+}
+.detail-bonds { display: flex; flex-wrap: wrap; gap: 6px; }
+.detail-section { margin-bottom: 16px; }
+.detail-title {
+  font-size: 15px; font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 6px;
+  padding-left: 10px;
+  border-left: 3px solid var(--gold);
+}
+.detail-text { font-size: 14px; color: var(--text); line-height: 1.8; }
+
+.disclaimer {
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+.disclaimer strong { color: var(--gold); }
+
+@media (max-width: 768px) {
+  body { font-size: 15px; padding: 12px; }
+  .hero h1 { font-size: 24px; }
+  .pet-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+  .pet-img-wrap { width: 64px; height: 64px; }
+  .pet-name { font-size: 13px; }
+  .nav-game-name { display: none; }
+  .detail-header { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  body { font-size: 14px; padding: 10px; }
+  .hero h1 { font-size: 21px; }
+  .pet-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .pet-card { padding: 8px; }
+  .pet-img-wrap { width: 56px; height: 56px; }
+}
+
+body.light-theme {
+  --bg: #f5f5f7;
+  --bg-card: #ffffff;
+  --bg-card2: #f8f9fa;
+  --text: #1a1a2e;
+  --text-dim: #666;
+  --border: #e0e0e0;
+}
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); border-bottom: 1px solid #e0e0e0; }
+body.light-theme .nav-home-btn, body.light-theme .nav-game-name { color: #666; }
+body.light-theme .nav-theme-btn { color: #1a1a2e; }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <span class="nav-game-name">《英雄没有闪》</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>🐾 侍从图鉴 · 全侍从技能属性</h1>
+  <div class="subtitle">官方图鉴数据整理 · 45个侍从完整技能属性 · 光环/技能/普攻/被动一览</div>
+  <div class="stats">
+    <div class="stat-item"><div class="stat-num">45</div><div class="stat-label">侍从总数</div></div>
+    <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">品质分类</div></div>
+    <div class="stat-item"><div class="stat-num">13</div><div class="stat-label">图鉴羁绊</div></div>
+  </div>
+</div>
+
+<div class="filter-section">
+  <div class="filter-group">
+    <div class="filter-label">按品质筛选</div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="quality" data-value="all" onclick="filterPets(this)">全部</button>
+      <button class="filter-btn" data-filter="quality" data-value="觉醒·神话" onclick="filterPets(this)" style="border-color: #ef4444; color: #ef4444;">觉醒·神话 (12)</button><button class="filter-btn" data-filter="quality" data-value="神话" onclick="filterPets(this)" style="border-color: #f59e0b; color: #f59e0b;">神话 (13)</button><button class="filter-btn" data-filter="quality" data-value="传奇" onclick="filterPets(this)" style="border-color: #a855f7; color: #a855f7;">传奇 (5)</button><button class="filter-btn" data-filter="quality" data-value="史诗" onclick="filterPets(this)" style="border-color: #3b82f6; color: #3b82f6;">史诗 (5)</button><button class="filter-btn" data-filter="quality" data-value="稀有" onclick="filterPets(this)" style="border-color: #22c55e; color: #22c55e;">稀有 (5)</button><button class="filter-btn" data-filter="quality" data-value="精英" onclick="filterPets(this)" style="border-color: #94a3b8; color: #94a3b8;">精英 (4)</button><button class="filter-btn" data-filter="quality" data-value="未知" onclick="filterPets(this)" style="border-color: #6b7280; color: #6b7280;">未知 (1)</button>
+    </div>
+  </div>
+  <div class="filter-group">
+    <div class="filter-label">按羁绊筛选</div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="bond" data-value="all" onclick="filterPets(this)">全部</button>
+      <button class="filter-btn" data-filter="bond" data-value="天使降临" onclick="filterPets(this)">天使降临 (5)</button><button class="filter-btn" data-filter="bond" data-value="主仆关系" onclick="filterPets(this)">主仆关系 (3)</button><button class="filter-btn" data-filter="bond" data-value="类人组合" onclick="filterPets(this)">类人组合 (4)</button><button class="filter-btn" data-filter="bond" data-value="森林隐者" onclick="filterPets(this)">森林隐者 (3)</button><button class="filter-btn" data-filter="bond" data-value="三魔神" onclick="filterPets(this)">三魔神 (6)</button><button class="filter-btn" data-filter="bond" data-value="力量与美貌" onclick="filterPets(this)">力量与美貌 (4)</button><button class="filter-btn" data-filter="bond" data-value="剧毒与阴谋" onclick="filterPets(this)">剧毒与阴谋 (4)</button><button class="filter-btn" data-filter="bond" data-value="暂无" onclick="filterPets(this)">暂无 (2)</button><button class="filter-btn" data-filter="bond" data-value="大块头" onclick="filterPets(this)">大块头 (2)</button><button class="filter-btn" data-filter="bond" data-value="鬼怪" onclick="filterPets(this)">鬼怪 (3)</button><button class="filter-btn" data-filter="bond" data-value="野蛮部落" onclick="filterPets(this)">野蛮部落 (2)</button><button class="filter-btn" data-filter="bond" data-value="透明小分队" onclick="filterPets(this)">透明小分队 (3)</button><button class="filter-btn" data-filter="bond" data-value="疯狂动物城" onclick="filterPets(this)">疯狂动物城 (4)</button>
+    </div>
+  </div>
+</div>
+
+<div class="pet-grid" id="petGrid">
+  
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="天使降临" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_28.png" alt="觉醒·泰拉勒" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·泰拉勒</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">天使降临</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_28.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·泰拉勒</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">天使降临</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="主仆关系" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_29.png" alt="觉醒·奶牛之王" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·奶牛之王</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">主仆关系</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_29.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·奶牛之王</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">主仆关系</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="类人组合" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_30.png" alt="觉醒·面山" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·面山</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">类人组合</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_30.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·面山</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">类人组合</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="森林隐者" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_31.png" alt="觉醒·斗瓦尔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·斗瓦尔</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">森林隐者</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_31.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·斗瓦尔</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">森林隐者</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="天使降临" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_32.png" alt="觉醒·玛瑟尔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·玛瑟尔</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">天使降临</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_32.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·玛瑟尔</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">天使降临</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="三魔神" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_33.png" alt="觉醒·墨特" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·墨特</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">三魔神</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_33.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·墨特</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">三魔神</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="三魔神" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_34.png" alt="觉醒·莉娅布罗" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·莉娅布罗</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">三魔神</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_34.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·莉娅布罗</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">三魔神</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="三魔神" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_35.png" alt="觉醒·霸迭" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·霸迭</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">三魔神</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_35.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·霸迭</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">三魔神</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="力量与美貌" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_37.png" alt="觉醒·爱露" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·爱露</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">力量与美貌</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_37.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·爱露</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">力量与美貌</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="力量与美貌" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_39.png" alt="觉醒·魔蛋" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·魔蛋</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">力量与美貌</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_39.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·魔蛋</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">力量与美貌</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="剧毒与阴谋" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_42.png" alt="觉醒·安娜特" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·安娜特</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_42.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·安娜特</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="觉醒·神话" data-bonds="暂无" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #ef4444;">
+          <img src="assets/pets/content_45.png" alt="觉醒·奥黛丽" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #ef4444;">觉醒·奥黛丽</div>
+        <div class="pet-quality" style="background: #ef4444;">觉醒·神话</div>
+        <div class="pet-bonds"><span class="pet-bond">暂无</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_45.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #ef4444;">觉醒·奥黛丽</div>
+            <div class="detail-quality" style="background: #ef4444;">觉醒·神话</div>
+            <div class="detail-bonds"><span class="pet-bond">暂无</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="天使降临" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_6.png" alt="泰拉勒" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>泰</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">泰拉勒</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">天使降临</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_6.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">泰拉勒</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">天使降临</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">护盾·减伤
+提高自身和队友15%~30%护盾强度和15%~30%最终减伤。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">庇佑
+召唤圣剑对目标区域造成100%~180%元素伤害并为周围所有友方单位添加基于生命最大值60%~100%的护盾，持续6秒。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">斩击·突刺
+挥动武器向前斩击造成100%攻击的物理伤害。有20%概率释放突刺造成150%攻击的物理伤害并击退敌人，同时获得10%最大生命的护盾，持续2秒。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">泰拉勒被动
+身上存在护盾时荆棘概率提升20%~60%。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">正义天使·泰拉勒，他拥有强大的力量和崇高的地位。作为正义天使，泰拉勒始终保持着公平和公正，他的行为和决策都基于正义的原则，并且在面对各种艰难的选择时，他都坚守着自己的信念。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="主仆关系" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_1.png" alt="奶牛之王" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>奶</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">奶牛之王</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">主仆关系</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_1.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">奶牛之王</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">主仆关系</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">急速·治疗
+提高自身和队友15%~30%急速和15%~30%受到的治疗效果。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">女王的恩赐
+为所有友方角色恢复20%~40%最大生命和能量（自身不回能量）。同时使其在接下来6秒内受到的治疗效果提升20%，能量恢复效率提升10%。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">烈焰红唇
+对前方的敌人造成100%元素伤害并有50%概率对其施加1层易伤，持续5秒。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">奶牛之王被动
+自身血量每降低1%，急速和能量恢复效率提升0.6%~1%。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">欲戴王冠，必承其重。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="类人组合" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_2.png" alt="面山" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>面</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">面山</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">类人组合</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_2.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">面山</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">类人组合</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">增伤·减伤
+提高自身和队友10%~19%最终伤害和10%~19%最终减伤。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">陷阵之志
+鼓舞士气强化周围所有友方单位，当前生命值大于50%的增加15%~35%急速，小于50%的增加30%~70%击中恢复，持续8秒。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">长枪戳刺
+向前戳刺造成2次100%攻击的物理伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">面山被动
+附伤概率提升10%~20%且每次触发附加伤害时提升自身1%~1.8%攻击力。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">一名坚毅勇猛的沙漠佣兵。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="森林隐者" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_3.png" alt="斗瓦尔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>斗</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">斗瓦尔</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">森林隐者</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_3.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">斗瓦尔</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">森林隐者</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">荆棘光环
+提高自身和队友15%~30%荆棘概率和15%~30%荆棘伤害。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">击退
+向前冲锋造成50%~90%攻击的物理伤害并挥爪砸地造成100%攻击的物理伤害和击飞效果，随后获得15%~35%最终减伤，持续8秒。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">挥砍
+挥爪对前方范围敌人造成100%攻击的物理伤害，恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">斗瓦尔被动
+每次对敌人造成伤害时恢复自身1%~1.8%最大生命。（包含荆棘反伤）</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">腐蚀之王·斗瓦尔，他是地狱七魔王之一，统治着地狱的痛苦领域。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="天使降临" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_4.png" alt="玛瑟尔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>玛</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">玛瑟尔</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">天使降临</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_4.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">玛瑟尔</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">天使降临</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">伤害·恢复
+提高自身和队友15%~30%最终伤害和15%~30%击中恢复。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">冲击
+向前冲刺挥动镰刀对敌人造成150%~270%攻击的物理伤害并对其施加持续8秒的印记，自身对印记目标造成附加伤害时恢复10%~18%的已损失生命。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">回旋镰刀
+扔出手中的法镰，回旋飞行攻击前方直线上的敌人，造成100%攻击的物理伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">玛瑟尔被动
+每次释放普攻或技能后提升自身1%~1.8%附伤概率。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">智慧天使·玛瑟尔，他拥有强大力量、充满睿智、沉着冷静且理智思考。据泰拉勒说，他在天堂的战力仅次于英勇大天使英普瑞斯。他在议会中主要扮演着调停的角色，但在对恶魔的战争过程中丝毫不怠慢。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="三魔神" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_5.png" alt="墨特" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>墨</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">墨特</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">三魔神</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_5.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">墨特</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">三魔神</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">能量恢复·持续伤害
+提高自身和队友15%~30%能量恢复和15%~30%持续伤害。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">落雷
+召唤3道落雷对前方区域造成3次100%~180%攻击的元素伤害，目标身上每存在一种持续伤害则本次伤害暴击率提升30%。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">魔颅飞弹
+发射魔颅飞弹碰到敌人时爆炸造成100%攻击的物理伤害，并附带5秒的中毒效果（每秒造成30%攻击的元素伤害）。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">墨特被动
+攻击受到持续伤害的目标时额外获得能量，每有一种持续伤害额外获得6%~10%点能量。（创伤、燃烧、中毒）</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">憎恶领主·墨特，他是地狱七魔王之一，也是掌管烈焰地狱的三大主魔神之一，其特性是憎恨。他善于潜伏在事物背后使用各种阴谋诡计和散布仇恨的魔力。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="三魔神" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_7.png" alt="莉娅布罗" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>莉</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">莉娅布罗</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">三魔神</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_7.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">莉娅布罗</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">三魔神</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">暴击·暴伤
+提高自身和队友15%~30%暴击率和30%~60%暴击伤害。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">火焰践踏
+引导虚空中的力量，在目标区域引发爆炸对范围内的敌人造成100%~180%攻击的物理伤害并使其眩晕2秒，同时向两侧生成冲击波造成40%~80%攻击的元素伤害。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">爪击·十字斩
+挥爪对前方敌人造成2次100%攻击的物理伤害，恢复10点能量。造成暴击时充能，下次普攻额外释放一道火焰十字斩对目标造成120%攻击的元素伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">莉娅布罗被动
+普攻每次造成暴击时恢复自身10%~18%已损重伤量并提升3%~5%暴击伤害，最多叠加20层。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">恐惧领主·莉娅布罗，他是地狱的三大魔神之一，与墨特、霸迭是兄弟。他有着强壮的身躯、锋利的爪子和尖锐的角，身上散发着红色的光芒，代表着恐惧与毁灭的力量。眼睛闪烁着诡异的光芒，仿佛能看穿人的灵魂，给人带来强烈的压迫感。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="三魔神" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_8.png" alt="霸迭" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>霸</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">霸迭</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">三魔神</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_8.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">霸迭</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">三魔神</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">附伤
+提高自身和队友15%~30%附伤概率和30%~60%附加伤害。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">充能光束
+聚集能量向前发射造成150%~270%攻击的元素伤害，对生命值低于30%的目标伤害提升100%。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">死亡光束
+发射一道射线扫射前方区域造成100%攻击的元素伤害，恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">霸迭被动
+每命中一个目标额外获得1.5%~3.5%最大能量，每击杀一个目标额外获得60%~100%最大能量。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">残暴领主·霸迭，他是地狱的三大魔神之一，与莉娅布罗、墨特是兄弟。他们来自地狱世界，共同领导着地狱势力，企图入侵并征服庇护之地（人类世界）。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="力量与美貌" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_36.png" alt="爱露" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>爱</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">爱露</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">力量与美貌</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_36.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">爱露</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">力量与美貌</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">命中·闪避
+提高自身和队友15%~30%命中和15%~30%闪避。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">誓约守护
+用摄魂夺魄的美丽，跃向天空，进入不可选中状态并恢复60%~100%生命值。同时为周围其他友方单位添加基于生命最大值40%~60%的护盾和40%减伤(护盾存在期间)，最多持续8秒。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">汲魂抽击
+用摄魂夺魄的美丽，抽击前方中等范围内的所有敌人，造成100%元素伤害。恢复10点能量，并且有10%概率偷取能量30点。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">爱露被动
+提高自身10%~18%最大生命值；除此之外，在受到致命伤害时有25%概率不会立刻退场，自动释放技能誓约守护并清空能量，这个效果每30秒最多触发一次。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="力量与美貌" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_38.png" alt="魔蛋" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>魔</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">魔蛋</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">力量与美貌</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_38.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">魔蛋</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">力量与美貌</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">急速·能量
+提高自身和队友20%~35%极速和20%~35%能量回复。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">召唤
+向前投射火球造成100%~140%攻击的元素伤害，并对命中目标施加恶魔印记，随后在落点处召唤一个恶魔统领。100能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">突突突
+向前快速发射火焰造成10%攻击的元素伤害，命中是有5%的概率召唤一个恶魔士兵。恢复3点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">魔蛋被动
+击中恢复效果降低70%，每有一个友方单位阵亡活消失时，恢复自身10%~30%已损失生命。每召唤一个恶魔士兵提升自身15%生命上限，最多提升150%。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="剧毒与阴谋" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_40.png" alt="安娜特" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>安</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">安娜特</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_40.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">安娜特</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">减速光环
+对侍从周围敌人施加15%~30%急速降低和10%~19%冷却时间延长。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">毒雾
+施放一阵毒雾，对毒雾中的敌人造成1次150%~270%攻击的元素伤害并有40%的概率施加持续2秒的眩晕，消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">蛇击
+对前方目标造成100%攻击的物理伤害并施加僵硬，恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">安娜特被动
+普攻和技能有12%~20%概率重复施法1次，有6%~10%概率重复施法2次。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">痛苦之王·安娜特，她是地狱七魔王之一，在地狱中拥有较高的地位和强大的力量。她的出现给人类世界带来了巨大的痛苦和灾难。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="剧毒与阴谋" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_41.png" alt="贝利尔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>贝</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">贝利尔</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_41.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">贝利尔</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">双抗光环
+提高自身和队友15%~30%物理抗性和15%~30%元素抗性。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">附身
+幻化成灵体附到主人身上，提高其12%~20%的最终减伤自身进入附身状态。满能量100点时触发，随后缓慢消耗能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">急速投掷
+向身前最远目标投掷能量弹，造成100%攻击的范围元素伤害，每次施放提升自身15%急速，效果可叠加，附身时清空急速加成，恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">贝利尔被动
+任意技能命中目标时有50%概率额外恢复1~5点能量。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">狡诈之王·贝利尔，他是地狱七魔王中最难以捕捉的一位，并且是一位欺诈大师。他认为通过操纵别人的整体认知和欺骗，可以达到改写对方所认为的“真相”的目的。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="神话" data-bonds="暂无" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #f59e0b;">
+          <img src="assets/pets/content_44.png" alt="奥黛丽" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>奥</div>'">
+        </div>
+        <div class="pet-name" style="color: #f59e0b;">奥黛丽</div>
+        <div class="pet-quality" style="background: #f59e0b;">神话</div>
+        <div class="pet-bonds"><span class="pet-bond">暂无</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_44.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #f59e0b;">奥黛丽</div>
+            <div class="detail-quality" style="background: #f59e0b;">神话</div>
+            <div class="detail-bonds"><span class="pet-bond">暂无</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">能量夺取
+使所有敌人每2秒自动流失6-15点能量，同时提高队友的30%-60%核心技增伤。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">以太彗星
+召唤以太彗星轰击前方大范围内的所有敌人，造成5次总计150%-270%元素伤害并施加破法。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">魔能飞弹
+施放魔能飞弹，对命中的敌人造成100%元素伤害，恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">法师护甲
+造成伤害时有20%概率获得1层庇佑，同时最多拥有3层；此外，生命值低于40%时，立即恢复20%-60%最大生命并获得等量的护盾，最多持续5秒。冷却时间30秒。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="传奇" data-bonds="大块头" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #a855f7;">
+          <img src="assets/pets/content_9.png" alt="魔钩肥" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>魔</div>'">
+        </div>
+        <div class="pet-name" style="color: #a855f7;">魔钩肥</div>
+        <div class="pet-quality" style="background: #a855f7;">传奇</div>
+        <div class="pet-bonds"><span class="pet-bond">大块头</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_9.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #a855f7;">魔钩肥</div>
+            <div class="detail-quality" style="background: #a855f7;">传奇</div>
+            <div class="detail-bonds"><span class="pet-bond">大块头</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">降低输出
+降低侍从周围敌人15%~30%伤害。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">勾子
+将远处的敌人勾到身前并撕咬，造成2次120%~200%攻击的物理伤害和1秒眩晕。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">挥砍
+双手持刀，交叉挥舞，对面前的敌人造成100%攻击的物理伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">战斗力极其惊人并拥有强大的控制能力。原本是一个普通的人类，但在地狱之力的扭曲和腐化下，变成了如今这副残忍嗜杀的模样。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="传奇" data-bonds="鬼怪" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #a855f7;">
+          <img src="assets/pets/content_10.png" alt="枯骨王" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>枯</div>'">
+        </div>
+        <div class="pet-name" style="color: #a855f7;">枯骨王</div>
+        <div class="pet-quality" style="background: #a855f7;">传奇</div>
+        <div class="pet-bonds"><span class="pet-bond">鬼怪</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_10.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #a855f7;">枯骨王</div>
+            <div class="detail-quality" style="background: #a855f7;">传奇</div>
+            <div class="detail-bonds"><span class="pet-bond">鬼怪</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">物理抗性
+提高自身和队友15%~30%物理抗性。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">重生
+死亡时消耗100点能量重生，恢复60%~80%血量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">劈砍
+高举手中的武器，用力向下劈砍，对前方范围内的敌人造成100%物理伤害。（每秒自动恢复3点能量）</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">原是一位贤明的君主，受人蛊惑沦为暴君，死后被复活，成为了完全邪恶的存在 —— 枯骨王。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="传奇" data-bonds="主仆关系" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #a855f7;">
+          <img src="assets/pets/content_11.png" alt="幽灵法师" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>幽</div>'">
+        </div>
+        <div class="pet-name" style="color: #a855f7;">幽灵法师</div>
+        <div class="pet-quality" style="background: #a855f7;">传奇</div>
+        <div class="pet-bonds"><span class="pet-bond">主仆关系</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_11.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #a855f7;">幽灵法师</div>
+            <div class="detail-quality" style="background: #a855f7;">传奇</div>
+            <div class="detail-bonds"><span class="pet-bond">主仆关系</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">元素伤害
+提高自身和队友15%~30%元素伤害。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">竭心光环
+创造一个法力漩涡向中心牵引敌人，随后爆炸造成100%~180%攻击的元素伤害。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">发射法球
+发射法球对前方的敌人造成100%元素伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">一些法师在临死之际，由于对魔法的执着和不甘，他们的灵魂没有选择前往往生之地，而是留在了世间。随着时间的推移，这些法师的灵魂逐渐与周围的魔法能量相互融合，发生了变异，成为了幽灵法师。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="传奇" data-bonds="天使降临" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #a855f7;">
+          <img src="assets/pets/content_12.png" alt="魔刃" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>魔</div>'">
+        </div>
+        <div class="pet-name" style="color: #a855f7;">魔刃</div>
+        <div class="pet-quality" style="background: #a855f7;">传奇</div>
+        <div class="pet-bonds"><span class="pet-bond">天使降临</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_12.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #a855f7;">魔刃</div>
+            <div class="detail-quality" style="background: #a855f7;">传奇</div>
+            <div class="detail-bonds"><span class="pet-bond">天使降临</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">元素抗性
+提高自身和队友15%~30%元素抗性。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">伤害减免
+自身获得12%~20%伤害减免且物理抗性和元素抗性翻倍，持续6秒。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">挥砍
+举刀挥砍，对面前的敌人造成100%攻击的物理伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">魔刃曾经是大天使泰拉勒旗下的得力干将、第一大战力，在永恒之战中立下赫赫战功，让恶魔们对其十分忌惮。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="传奇" data-bonds="野蛮部落" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #a855f7;">
+          <img src="assets/pets/content_13.png" alt="狗头人萨满" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>狗</div>'">
+        </div>
+        <div class="pet-name" style="color: #a855f7;">狗头人萨满</div>
+        <div class="pet-quality" style="background: #a855f7;">传奇</div>
+        <div class="pet-bonds"><span class="pet-bond">野蛮部落</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_13.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #a855f7;">狗头人萨满</div>
+            <div class="detail-quality" style="background: #a855f7;">传奇</div>
+            <div class="detail-bonds"><span class="pet-bond">野蛮部落</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">光环</div><div class="detail-text">物理伤害
+提高自身和队友15%~30%物理伤害。</div></div><div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">狂热
+对所有友方角色释放狂热，使其提升10%~30%急速属性，持续6秒。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">萨满法球
+激活法杖中的魔法阵，发射出一枚法球，对接触到的敌人造成100%攻击的元素伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">作为施法者，狗头人萨满掌握一定的魔法力量。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="史诗" data-bonds="野蛮部落" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #3b82f6;">
+          <img src="assets/pets/content_14.png" alt="狗头人卫士" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>狗</div>'">
+        </div>
+        <div class="pet-name" style="color: #3b82f6;">狗头人卫士</div>
+        <div class="pet-quality" style="background: #3b82f6;">史诗</div>
+        <div class="pet-bonds"><span class="pet-bond">野蛮部落</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_14.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #3b82f6;">狗头人卫士</div>
+            <div class="detail-quality" style="background: #3b82f6;">史诗</div>
+            <div class="detail-bonds"><span class="pet-bond">野蛮部落</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">强壮
+发出一声怒吼，体型变大，为自身附加减伤10%~30%的护盾，持续6秒。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">利刃
+挥动利刃手臂，对面前小范围内的敌人造成100%攻击的物理伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">狗头人身材矮小，有着类似狗的头部和毛茸茸的身体，虽然体型上不占优势，但他们以顽强的生存能力在恶劣的环境中立足。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="史诗" data-bonds="透明小分队" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #3b82f6;">
+          <img src="assets/pets/content_15.png" alt="爆烈战士" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>爆</div>'">
+        </div>
+        <div class="pet-name" style="color: #3b82f6;">爆烈战士</div>
+        <div class="pet-quality" style="background: #3b82f6;">史诗</div>
+        <div class="pet-bonds"><span class="pet-bond">透明小分队</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_15.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #3b82f6;">爆烈战士</div>
+            <div class="detail-quality" style="background: #3b82f6;">史诗</div>
+            <div class="detail-bonds"><span class="pet-bond">透明小分队</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">死亡时自爆
+死亡时冲向敌人自爆对周围造成60%~100%攻击的元素伤害。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">投掷炸弹
+扔出炸弹，炸弹爆炸对接触到的敌人造成100%攻击的元素伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">追寻无尽的爆炸，探索着迷的爆炸物，包括自己。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="史诗" data-bonds="透明小分队" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #3b82f6;">
+          <img src="assets/pets/content_16.png" alt="咒蚀先知" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>咒</div>'">
+        </div>
+        <div class="pet-name" style="color: #3b82f6;">咒蚀先知</div>
+        <div class="pet-quality" style="background: #3b82f6;">史诗</div>
+        <div class="pet-bonds"><span class="pet-bond">透明小分队</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_16.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #3b82f6;">咒蚀先知</div>
+            <div class="detail-quality" style="background: #3b82f6;">史诗</div>
+            <div class="detail-bonds"><span class="pet-bond">透明小分队</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">炸裂法球
+投掷出头骨法球，在目标区域引发一场强烈的爆炸，对范围内的敌人造成60%~100%攻击的元素伤害。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">虚空法球
+挥动法杖，汇聚虚空能量，发射法球，对前方直线上的敌人造成100%攻击的元素伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">矮小、行动又缓慢，机敏但地位低下的怪物。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="史诗" data-bonds="森林隐者" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #3b82f6;">
+          <img src="assets/pets/content_17.png" alt="迷雾蛛后" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>迷</div>'">
+        </div>
+        <div class="pet-name" style="color: #3b82f6;">迷雾蛛后</div>
+        <div class="pet-quality" style="background: #3b82f6;">史诗</div>
+        <div class="pet-bonds"><span class="pet-bond">森林隐者</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_17.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #3b82f6;">迷雾蛛后</div>
+            <div class="detail-quality" style="background: #3b82f6;">史诗</div>
+            <div class="detail-bonds"><span class="pet-bond">森林隐者</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">毒镖
+从尾部发射多枚毒镖，对命中的敌人造成60%~100%攻击的元素伤害。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">毒液
+从自身出发，喷射出一道毒素广播，对前方范围内的敌人造成100%攻击的元素伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">生存在一片古老而神秘的森林深处，终年被诡异的迷雾所笼罩，同时她也维护着森林的安宁与神秘。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="史诗" data-bonds="鬼怪" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #3b82f6;">
+          <img src="assets/pets/content_18.png" alt="飘飘" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>飘</div>'">
+        </div>
+        <div class="pet-name" style="color: #3b82f6;">飘飘</div>
+        <div class="pet-quality" style="background: #3b82f6;">史诗</div>
+        <div class="pet-bonds"><span class="pet-bond">鬼怪</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_18.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #3b82f6;">飘飘</div>
+            <div class="detail-quality" style="background: #3b82f6;">史诗</div>
+            <div class="detail-bonds"><span class="pet-bond">鬼怪</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">技能</div><div class="detail-text">声波攻击
+发出尖叫，散出声波，对身前所有敌人造成60%~100%攻击的元素伤害，并降低其10%~18%急速，持续5秒。消耗100点能量。</div></div><div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">声波弹
+发射声波弹，对前方直线上的敌人造成100%攻击的元素伤害。恢复10点能量。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">身形弱小，但速度极快，行动敏捷，善于用声音攻击敌人。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="稀有" data-bonds="疯狂动物城" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #22c55e;">
+          <img src="assets/pets/content_19.png" alt="荒原狼" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>荒</div>'">
+        </div>
+        <div class="pet-name" style="color: #22c55e;">荒原狼</div>
+        <div class="pet-quality" style="background: #22c55e;">稀有</div>
+        <div class="pet-bonds"><span class="pet-bond">疯狂动物城</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_19.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #22c55e;">荒原狼</div>
+            <div class="detail-quality" style="background: #22c55e;">稀有</div>
+            <div class="detail-bonds"><span class="pet-bond">疯狂动物城</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">次元爆裂
+扑向敌人，产生次元爆裂，对面前的敌人造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">一只在荒野孤独生存的狼，他渴望独立和自由，不喜欢被束缚。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="稀有" data-bonds="透明小分队" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #22c55e;">
+          <img src="assets/pets/content_20.png" alt="吞噬怪" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>吞</div>'">
+        </div>
+        <div class="pet-name" style="color: #22c55e;">吞噬怪</div>
+        <div class="pet-quality" style="background: #22c55e;">稀有</div>
+        <div class="pet-bonds"><span class="pet-bond">透明小分队</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_20.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #22c55e;">吞噬怪</div>
+            <div class="detail-quality" style="background: #22c55e;">稀有</div>
+            <div class="detail-bonds"><span class="pet-bond">透明小分队</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">幻影爪击
+以极快的速度用爪子攻击目标，对目标造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">虽然长相丑陋，但具有一定的战斗能力。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="稀有" data-bonds="类人组合" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #22c55e;">
+          <img src="assets/pets/content_21.png" alt="堕落枪手" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>堕</div>'">
+        </div>
+        <div class="pet-name" style="color: #22c55e;">堕落枪手</div>
+        <div class="pet-quality" style="background: #22c55e;">稀有</div>
+        <div class="pet-bonds"><span class="pet-bond">类人组合</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_21.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #22c55e;">堕落枪手</div>
+            <div class="detail-quality" style="background: #22c55e;">稀有</div>
+            <div class="detail-bonds"><span class="pet-bond">类人组合</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">投掷长矛
+蓄力投掷出手中的长矛，对远处的敌人造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">虽然血量较少，但攻击较高，是重要远程火力输出。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="稀有" data-bonds="疯狂动物城" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #22c55e;">
+          <img src="assets/pets/content_22.png" alt="沙刺蜂" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>沙</div>'">
+        </div>
+        <div class="pet-name" style="color: #22c55e;">沙刺蜂</div>
+        <div class="pet-quality" style="background: #22c55e;">稀有</div>
+        <div class="pet-bonds"><span class="pet-bond">疯狂动物城</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_22.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #22c55e;">沙刺蜂</div>
+            <div class="detail-quality" style="background: #22c55e;">稀有</div>
+            <div class="detail-bonds"><span class="pet-bond">疯狂动物城</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">剧毒尾刺
+发射带有剧毒的尾刺，对命中的敌人造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">带有剧毒，如果不小心侵犯了沙蜂的领地，就有可能被蜇伤。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="稀有" data-bonds="大块头" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #22c55e;">
+          <img src="assets/pets/content_23.png" alt="巨石魔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>巨</div>'">
+        </div>
+        <div class="pet-name" style="color: #22c55e;">巨石魔</div>
+        <div class="pet-quality" style="background: #22c55e;">稀有</div>
+        <div class="pet-bonds"><span class="pet-bond">大块头</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_23.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #22c55e;">巨石魔</div>
+            <div class="detail-quality" style="background: #22c55e;">稀有</div>
+            <div class="detail-bonds"><span class="pet-bond">大块头</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">震地一击
+挥动巨大的手臂砸向地面，对范围内的敌人造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">一个巨大的岩石生物，生性单纯，与各种生灵都能和谐相处。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="精英" data-bonds="鬼怪" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #94a3b8;">
+          <img src="assets/pets/content_24.png" alt="小骨战士" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>小</div>'">
+        </div>
+        <div class="pet-name" style="color: #94a3b8;">小骨战士</div>
+        <div class="pet-quality" style="background: #94a3b8;">精英</div>
+        <div class="pet-bonds"><span class="pet-bond">鬼怪</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_24.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #94a3b8;">小骨战士</div>
+            <div class="detail-quality" style="background: #94a3b8;">精英</div>
+            <div class="detail-bonds"><span class="pet-bond">鬼怪</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">挥砍
+举起木剑向前挥砍，对前方小范围敌人造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从减伤
+提高自身15%~35%最终减伤。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">小骨战士是一个普通的骷髅士兵，但他有着不屈不挠的精神和坚定的信念。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="精英" data-bonds="疯狂动物城" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #94a3b8;">
+          <img src="assets/pets/content_25.png" alt="沙地幼虫" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>沙</div>'">
+        </div>
+        <div class="pet-name" style="color: #94a3b8;">沙地幼虫</div>
+        <div class="pet-quality" style="background: #94a3b8;">精英</div>
+        <div class="pet-bonds"><span class="pet-bond">疯狂动物城</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_25.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #94a3b8;">沙地幼虫</div>
+            <div class="detail-quality" style="background: #94a3b8;">精英</div>
+            <div class="detail-bonds"><span class="pet-bond">疯狂动物城</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">撕咬
+撕咬眼前的敌人，造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">极少数幸运逃脱被捕食的小沙虫会进一步发育成巨大的大沙虫。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="精英" data-bonds="类人组合" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #94a3b8;">
+          <img src="assets/pets/content_26.png" alt="堕落弓手" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>堕</div>'">
+        </div>
+        <div class="pet-name" style="color: #94a3b8;">堕落弓手</div>
+        <div class="pet-quality" style="background: #94a3b8;">精英</div>
+        <div class="pet-bonds"><span class="pet-bond">类人组合</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_26.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #94a3b8;">堕落弓手</div>
+            <div class="detail-quality" style="background: #94a3b8;">精英</div>
+            <div class="detail-bonds"><span class="pet-bond">类人组合</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">穿云箭
+发射一枚速度极快的羽箭，对接触到的敌人造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">她曾经也是一名英勇的弓手，以精湛的射术和敏捷的身手守护着一方土地。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="精英" data-bonds="疯狂动物城" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #94a3b8;">
+          <img src="assets/pets/content_27.png" alt="钉刺魔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>钉</div>'">
+        </div>
+        <div class="pet-name" style="color: #94a3b8;">钉刺魔</div>
+        <div class="pet-quality" style="background: #94a3b8;">精英</div>
+        <div class="pet-bonds"><span class="pet-bond">疯狂动物城</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_27.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #94a3b8;">钉刺魔</div>
+            <div class="detail-quality" style="background: #94a3b8;">精英</div>
+            <div class="detail-bonds"><span class="pet-bond">疯狂动物城</span></div>
+          </div>
+        </div>
+        <div class="detail-section"><div class="detail-title">普攻</div><div class="detail-text">尖刺
+拱起背脊，发射出多枚尖刺，从天而降对命中的敌人造成100%攻击的物理伤害。</div></div><div class="detail-section"><div class="detail-title">被动</div><div class="detail-text">侍从增伤
+提高自身15%~35%最终伤害。</div></div><div class="detail-section"><div class="detail-title">介绍</div><div class="detail-text">钉刺魔在遇到威胁或是发现猎物时，会拱起坚实的脊背向目标射出棘刺。</div></div>
+      </div>
+    </div>
+    <div class="pet-card" data-quality="未知" data-bonds="剧毒与阴谋" onclick="showPetDetail(this)">
+      <div class="pet-card-inner">
+        <div class="pet-img-wrap" style="border-color: #6b7280;">
+          <img src="assets/pets/content_43.png" alt="觉醒·贝利尔" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'pet-img-placeholder\'>觉</div>'">
+        </div>
+        <div class="pet-name" style="color: #6b7280;">觉醒·贝利尔</div>
+        <div class="pet-quality" style="background: #6b7280;">未知</div>
+        <div class="pet-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+      </div>
+      <div class="pet-detail-hidden" style="display:none;">
+        <div class="detail-header">
+          <img src="assets/pets/content_43.png" class="detail-img">
+          <div class="detail-info">
+            <div class="detail-name" style="color: #6b7280;">觉醒·贝利尔</div>
+            <div class="detail-quality" style="background: #6b7280;">未知</div>
+            <div class="detail-bonds"><span class="pet-bond">剧毒与阴谋</span></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+</div>
+
+<div class="disclaimer">
+  <strong>📌 数据来源：</strong>本页侍从数据整理自《英雄没有闪》官方图鉴（activity.oiz611.com），包含光环、技能、普攻、被动效果等完整信息。数据截至2026年9月25日，游戏版本更新后侍从效果可能变化，请以游戏内实际为准。<br><br>
+  <strong>⚠️ 免责声明：</strong>本站仅为攻略整理分享，不构成任何游戏内消费建议。侍从强度随版本变动，请结合自身实际情况选择。
+</div>
+
+<!-- 详情弹窗 -->
+<div class="modal-overlay" id="petModal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  if (document.body.classList.contains('light-theme')) {
+    btn.textContent = '☀️';
+    localStorage.setItem('yxmys_theme', 'light');
+  } else {
+    btn.textContent = '🌙';
+    localStorage.setItem('yxmys_theme', 'dark');
+  }
+}
+(function() {
+  if (localStorage.getItem('yxmys_theme') === 'light') {
+    document.body.classList.add('light-theme');
+    document.querySelector('.nav-theme-btn').textContent = '☀️';
+  }
+})();
+
+var currentQuality = 'all';
+var currentBond = 'all';
+
+function filterPets(btn) {
+  var filterType = btn.dataset.filter;
+  var value = btn.dataset.value;
+  
+  // 更新按钮状态
+  var group = btn.parentElement;
+  group.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  
+  if (filterType === 'quality') currentQuality = value;
+  if (filterType === 'bond') currentBond = value;
+  
+  // 筛选
+  document.querySelectorAll('.pet-card').forEach(function(card) {
+    var q = card.dataset.quality;
+    var bonds = card.dataset.bonds.split('|');
+    var show = true;
+    if (currentQuality !== 'all' && q !== currentQuality) show = false;
+    if (currentBond !== 'all' && bonds.indexOf(currentBond) === -1) show = false;
+    card.style.display = show ? '' : 'none';
+  });
+}
+
+function showPetDetail(card) {
+  var detail = card.querySelector('.pet-detail-hidden').innerHTML;
+  document.getElementById('modalContent').innerHTML = detail;
+  document.getElementById('petModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('petModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
+</body>
+</html>
