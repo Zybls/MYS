@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配装推荐 - 英雄没有闪S2赛季</title>
+<meta name="description" content="英雄没有闪S2赛季智能配装推荐，根据职业、玩法、偏好推荐最合适的配装。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8E%AF%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --blue: #3b82f6; --red: #ef4444; --purple: #a855f7; --orange: #f97316;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.7; padding: 16px; max-width: 900px; margin: 0 auto; font-size: 16px;
+}
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover { color: var(--gold); }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+body { padding-top: 68px; }
+
+.breadcrumb { margin-bottom: 12px; font-size: 13px; color: var(--text-dim); }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 8px; color: #4a5568; }
+.breadcrumb .current { color: var(--gold); }
+
+.hero { text-align: center; padding: 28px 20px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 24px; }
+.hero h1 { font-size: 26px; color: var(--gold); margin-bottom: 8px; }
+.hero .subtitle { color: var(--text-dim); font-size: 14px; }
+
+.step-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.step-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.step-num { background: var(--gold); color: #0a0a0f; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; flex-shrink: 0; }
+.step-title { font-size: 17px; font-weight: bold; }
+.options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.option-btn {
+  background: var(--bg-card2); border: 2px solid var(--border); border-radius: 8px;
+  padding: 14px 12px; cursor: pointer; text-align: center; transition: all 0.2s;
+  font-family: inherit; color: var(--text); font-size: 14px;
+}
+.option-btn:hover { border-color: var(--gold); transform: translateY(-2px); }
+.option-btn.selected { border-color: var(--gold); background: rgba(245,158,11,0.15); color: var(--gold); font-weight: bold; }
+.option-btn .icon { font-size: 24px; display: block; margin-bottom: 6px; }
+
+.recommend-btn {
+  width: 100%; padding: 16px; background: var(--gold); color: #0a0a0f;
+  border: none; border-radius: 10px; font-size: 17px; font-weight: bold;
+  cursor: pointer; font-family: inherit; margin: 20px 0; transition: all 0.2s;
+}
+.recommend-btn:hover { background: #fbbf24; transform: translateY(-2px); }
+.recommend-btn:disabled { background: var(--border); color: var(--text-dim); cursor: not-allowed; transform: none; }
+
+.result-section { display: none; }
+.result-section.show { display: block; }
+.result-title { font-size: 20px; font-weight: bold; color: var(--gold); margin-bottom: 16px; text-align: center; }
+.result-card {
+  background: var(--bg-card); border: 2px solid var(--gold); border-radius: 12px;
+  padding: 20px; margin-bottom: 14px; position: relative; overflow: hidden;
+}
+.result-card.best { border-color: var(--green); }
+.result-card.best::before {
+  content: "⭐ 最推荐"; position: absolute; top: 0; right: 0;
+  background: var(--green); color: #0a0a0f; padding: 4px 14px;
+  font-size: 12px; font-weight: bold; border-radius: 0 10px 0 10px;
+}
+.result-name { font-size: 18px; font-weight: bold; margin-bottom: 8px; padding-right: 80px; }
+.result-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.result-tag { font-size: 12px; padding: 2px 10px; border-radius: 10px; background: var(--bg-card2); color: var(--text-dim); }
+.result-desc { font-size: 14px; color: var(--text-dim); margin-bottom: 12px; }
+.result-reason { font-size: 13px; color: var(--green); background: rgba(45,212,191,0.08); padding: 10px 14px; border-radius: 6px; margin-bottom: 12px; }
+.result-link { display: inline-block; padding: 8px 20px; background: var(--gold); color: #0a0a0f; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: bold; }
+.result-link:hover { background: #fbbf24; }
+
+.reset-btn {
+  display: block; margin: 20px auto 0; padding: 10px 30px;
+  background: none; border: 1px solid var(--border); color: var(--text-dim);
+  border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 14px;
+}
+.reset-btn:hover { color: var(--red); border-color: var(--red); }
+
+@media (max-width: 768px) {
+  body { font-size: 15px; padding: 12px; }
+  .hero h1 { font-size: 22px; }
+  .options-grid { grid-template-columns: repeat(2, 1fr); }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <span style="color:var(--gold);font-size:15px;font-weight:bold;">🎯 配装推荐</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">🏠 首页</a>
+  <span class="sep">/</span>
+  <span class="current">🎯 配装推荐</span>
+</div>
+
+<div class="hero">
+  <h1>🎯 智能配装推荐</h1>
+  <div class="subtitle">回答3个问题，帮你找到最合适的配装</div>
+</div>
+
+<!-- 步骤1：职业 -->
+<div class="step-card">
+  <div class="step-header">
+    <div class="step-num">1</div>
+    <div class="step-title">选择你的职业</div>
+  </div>
+  <div class="options-grid" id="classOptions">
+    <button class="option-btn" data-value="warrior" onclick="selectOption('class', this)"><span class="icon">⚔️</span>野蛮人</button>
+    <button class="option-btn" data-value="mage" onclick="selectOption('class', this)"><span class="icon">🔮</span>秘法师</button>
+    <button class="option-btn" data-value="ranger" onclick="selectOption('class', this)"><span class="icon">🏹</span>游侠</button>
+  </div>
+</div>
+
+<!-- 步骤2：玩法 -->
+<div class="step-card">
+  <div class="step-header">
+    <div class="step-num">2</div>
+    <div class="step-title">主要玩什么内容</div>
+  </div>
+  <div class="options-grid" id="usageOptions">
+    <button class="option-btn" data-value="pve" onclick="selectOption('usage', this)"><span class="icon">🗺️</span>推图PVE</button>
+    <button class="option-btn" data-value="boss" onclick="selectOption('usage', this)"><span class="icon">👹</span>首领打桩</button>
+    <button class="option-btn" data-value="pk" onclick="selectOption('usage', this)"><span class="icon">⚔️</span>PK对战</button>
+    <button class="option-btn" data-value="all" onclick="selectOption('usage', this)"><span class="icon">🌟</span>全都要</button>
+  </div>
+</div>
+
+<!-- 步骤3：偏好 -->
+<div class="step-card">
+  <div class="step-header">
+    <div class="step-num">3</div>
+    <div class="step-title">你的偏好是</div>
+  </div>
+  <div class="options-grid" id="preferOptions">
+    <button class="option-btn" data-value="easy" onclick="selectOption('prefer', this)"><span class="icon">👍</span>简单易上手</button>
+    <button class="option-btn" data-value="dps" onclick="selectOption('prefer', this)"><span class="icon">💥</span>极限输出</button>
+    <button class="option-btn" data-value="safe" onclick="selectOption('prefer', this)"><span class="icon">🛡️</span>生存能力强</button>
+    <button class="option-btn" data-value="cheap" onclick="selectOption('prefer', this)"><span class="icon">💰</span>低成本易成型</button>
+  </div>
+</div>
+
+<button class="recommend-btn" id="recommendBtn" onclick="doRecommend()" disabled>请先完成以上选择</button>
+
+<!-- 推荐结果 -->
+<div class="result-section" id="resultSection">
+  <div class="result-title">🎉 为你推荐以下配装</div>
+  <div id="resultList"></div>
+  <button class="reset-btn" onclick="resetAll()">🔄 重新选择</button>
+</div>
+
+<script>
+var selections = { class: null, usage: null, prefer: null };
+
+// 配装数据库
+var BUILD_DB = [
+  // 野蛮人
+  {url:"tianfa-huodao.html", name:"天罚火刀", class:"warrior", usage:["boss","pve"], prefer:["dps","easy"], tags:["火刀","首领","推图"], desc:"火刀流经典配装，天罚套提供稳定输出，首领战表现优异。", reason:"操作简单，输出稳定，适合大多数玩家"},
+  {url:"huodao-shouling.html", name:"火刀首领", class:"warrior", usage:["boss"], prefer:["dps"], tags:["火刀","首领"], desc:"专门针对首领战优化的火刀配装，极限单体输出。", reason:"首领战特化，打桩伤害最高"},
+  {url:"zhanshi-leichui-pve.html", name:"雷锤PVE", class:"warrior", usage:["pve"], prefer:["easy","safe"], tags:["雷锤","推图"], desc:"雷锤流推图配装，范围伤害强，清怪效率高。", reason:"范围清怪快，生存能力不错"},
+  {url:"zhanshi-leichui-pk.html", name:"雷锤PK", class:"warrior", usage:["pk"], prefer:["dps","safe"], tags:["雷锤","PK"], desc:"雷锤流PK配装，控制与爆发兼备。", reason:"PK场强势，控制链完整"},
+  {url:"zhanshi-diandao.html", name:"电刀", class:"warrior", usage:["pve","boss"], prefer:["dps","cheap"], tags:["电刀","感电"], desc:"电刀流配装，感电机制输出，成本较低。", reason:"成型快，成本低，输出不错"},
+  {url:"zhanshi-leixuan.html", name:"雷旋", class:"warrior", usage:["pve"], prefer:["easy","safe"], tags:["雷旋","推图"], desc:"雷旋流配装，持续输出稳定，操作简单。", reason:"操作最简单，新手友好"},
+  // 秘法师
+  {url:"fashi-leidian-shaquan.html", name:"雷电杀拳", class:"mage", usage:["boss"], prefer:["dps"], tags:["雷电","秒杀","首领"], desc:"雷电秒杀流，极限爆发，首领战一击必杀。", reason:"爆发最高，秒杀首领"},
+  {url:"fashi-yanling-yanbao.html", name:"炎灵炎爆", class:"mage", usage:["pve","boss"], prefer:["dps","easy"], tags:["炎爆","推图","首领"], desc:"炎爆流经典配装，大范围伤害，推图打桩都强。", reason:"综合能力强，泛用性最高"},
+  {url:"fashi-yanbao.html", name:"炎爆流", class:"mage", usage:["pve"], prefer:["easy","cheap"], tags:["炎爆","推图"], desc:"基础炎爆配装，成本低，易成型。", reason:"成本最低，新手首选"},
+  {url:"fashi-leiquan.html", name:"雷拳", class:"mage", usage:["pve","pk"], prefer:["dps"], tags:["雷拳","推图","PK"], desc:"雷拳流配装，近战法师，爆发高。", reason:"爆发高，玩法独特"},
+  {url:"fashi-bingyan-pk.html", name:"冰焰PK", class:"mage", usage:["pk"], prefer:["safe","dps"], tags:["冰焰","PK"], desc:"冰焰双系PK配装，控制与输出兼备。", reason:"PK强势，控制多"},
+  {url:"zhuling-huoyan.html", name:"烛灵火焰", class:"mage", usage:["boss"], prefer:["dps"], tags:["烛灵","火焰","首领"], desc:"烛灵套火焰配装，持续伤害强。", reason:"持续输出高，首领战稳定"},
+  // 游侠
+  {url:"shadow-dian.html", name:"梦花感电3.0", class:"ranger", usage:["pve","boss"], prefer:["dps"], tags:["感电","3.0","修正版"], desc:"感电流最新修正版，御龙改动后优化，破甲+落井下石组合。", reason:"最新版本，输出最高"},
+  {url:"youxia-shengyin-jingji.html", name:"圣银荆棘枪", class:"ranger", usage:["pve","boss"], prefer:["safe","easy"], tags:["荆棘","圣银","经济"], desc:"荆棘流配装，生存能力强，经济实惠。", reason:"生存最强，成本低"},
+  {url:"youxia-gandian.html", name:"感电流派", class:"ranger", usage:["pve","boss"], prefer:["dps"], tags:["感电","推图","首领"], desc:"经典感电配装，感电机制输出，泛用性强。", reason:"经典流派，经过验证"},
+  {url:"youxia-jingji-pk.html", name:"荆棘PK", class:"ranger", usage:["pk"], prefer:["safe"], tags:["荆棘","PK"], desc:"荆棘流PK配装，反伤机制，肉度高。", reason:"PK生存最强，反伤恶心"},
+  {url:"youxia-jingji-pve.html", name:"荆棘PVE", class:"ranger", usage:["pve"], prefer:["safe","cheap"], tags:["荆棘","PVE","推图"], desc:"荆棘流推图配装，站撸一切，操作简单。", reason:"最省心，站撸就行"},
+];
+
+function selectOption(type, btn) {
+  selections[type] = btn.dataset.value;
+  // 更新按钮状态
+  var container = btn.parentElement;
+  container.querySelectorAll('.option-btn').forEach(function(b) { b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  // 检查是否全部选择
+  var allSelected = selections.class && selections.usage && selections.prefer;
+  var recBtn = document.getElementById('recommendBtn');
+  if (allSelected) {
+    recBtn.disabled = false;
+    recBtn.textContent = '🎯 开始推荐';
+  }
+}
+
+function doRecommend() {
+  var matched = BUILD_DB.filter(function(b) {
+    return b.class === selections.class;
+  });
+  
+  // 打分
+  matched.forEach(function(b) {
+    b.score = 0;
+    // 玩法匹配
+    if (b.usage.indexOf(selections.usage) >= 0) b.score += 3;
+    if (selections.usage === 'all') b.score += 2;
+    // 偏好匹配
+    if (b.prefer.indexOf(selections.prefer) >= 0) b.score += 2;
+    // 泛用性加分
+    if (b.usage.length >= 2) b.score += 1;
+  });
+  
+  // 排序
+  matched.sort(function(a, b) { return b.score - a.score; });
+  
+  // 取前3个
+  var top3 = matched.slice(0, 3);
+  
+  // 渲染结果
+  var html = '';
+  top3.forEach(function(b, i) {
+    var bestClass = i === 0 ? 'best' : '';
+    var tagsHtml = b.tags.map(function(t) { return '<span class="result-tag">' + t + '</span>'; }).join('');
+    html += '<div class="result-card ' + bestClass + '">' +
+      '<div class="result-name">' + b.name + '</div>' +
+      '<div class="result-meta">' + tagsHtml + '</div>' +
+      '<div class="result-desc">' + b.desc + '</div>' +
+      '<div class="result-reason">💡 推荐理由：' + b.reason + '</div>' +
+      '<a href="' + b.url + '" class="result-link">查看详细配装 →</a>' +
+      '</div>';
+  });
+  
+  document.getElementById('resultList').innerHTML = html;
+  document.getElementById('resultSection').classList.add('show');
+  document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAll() {
+  selections = { class: null, usage: null, prefer: null };
+  document.querySelectorAll('.option-btn').forEach(function(b) { b.classList.remove('selected'); });
+  document.getElementById('recommendBtn').disabled = true;
+  document.getElementById('recommendBtn').textContent = '请先完成以上选择';
+  document.getElementById('resultSection').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+// PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>
