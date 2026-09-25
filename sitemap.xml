@@ -132,4 +132,8 @@
   <url><loc>https://ykmys.com/runes-relics.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <url><loc>https://ykmys.com/changelog.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+
+  <url><loc>https://ykmys.com/compare.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://ykmys.com/guide.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

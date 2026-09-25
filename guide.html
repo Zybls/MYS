@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新手入门指南 - 英雄没有闪S2赛季</title>
+<meta name="description" content="英雄没有闪S2赛季新手入门指南，职业选择、核心机制、配装思路、常见误区一文搞懂。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8E%AF%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --blue: #3b82f6; --red: #ef4444; --purple: #a855f7; --orange: #f97316;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.8; padding: 16px; max-width: 900px; margin: 0 auto; font-size: 16px;
+}
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn, .nav-link { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover, .nav-link:hover { color: var(--gold); }
+.nav-game-name { color: var(--text-dim); font-size: 15px; }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+body { padding-top: 68px; }
+
+.breadcrumb { margin-bottom: 12px; font-size: 13px; color: var(--text-dim); }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 8px; color: #4a5568; }
+.breadcrumb .current { color: var(--gold); }
+
+.hero { text-align: center; padding: 32px 20px 24px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 24px; }
+.hero h1 { font-size: 28px; color: var(--gold); margin-bottom: 8px; }
+.hero .subtitle { color: var(--text-dim); font-size: 14px; }
+
+.toc { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; }
+.toc-title { font-size: 16px; font-weight: bold; color: var(--gold); margin-bottom: 12px; }
+.toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.toc-list a { color: var(--text-dim); text-decoration: none; font-size: 14px; padding: 6px 10px; border-radius: 6px; display: block; }
+.toc-list a:hover { color: var(--gold); background: var(--bg-card2); }
+.toc-list .num { color: var(--gold); font-weight: bold; margin-right: 6px; }
+
+.guide-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.section-icon { font-size: 28px; }
+.section-title { font-size: 20px; font-weight: bold; color: var(--text); }
+.section-num { font-size: 14px; color: var(--gold); background: rgba(245,158,11,0.15); padding: 4px 12px; border-radius: 12px; }
+.guide-section p { margin-bottom: 12px; color: var(--text-dim); font-size: 15px; }
+.guide-section p strong { color: var(--text); }
+.guide-section ul { padding-left: 24px; margin-bottom: 12px; }
+.guide-section li { margin-bottom: 6px; color: var(--text-dim); font-size: 15px; }
+.guide-section li strong { color: var(--text); }
+
+.class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 16px 0; }
+.class-card { background: var(--bg-card2); border-radius: 8px; padding: 16px; border-left: 4px solid; }
+.class-card.warrior { border-left-color: var(--orange); }
+.class-card.mage { border-left-color: var(--purple); }
+.class-card.ranger { border-left-color: var(--green); }
+.class-card h4 { font-size: 16px; margin-bottom: 8px; }
+.class-card.warrior h4 { color: var(--orange); }
+.class-card.mage h4 { color: var(--purple); }
+.class-card.ranger h4 { color: var(--green); }
+.class-card p { font-size: 13px; margin-bottom: 0; }
+
+.tip-box { background: rgba(45,212,191,0.08); border: 1px solid rgba(45,212,191,0.2); border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+.tip-box .tip-title { color: var(--green); font-weight: bold; font-size: 14px; margin-bottom: 6px; }
+.tip-box p { font-size: 14px; margin-bottom: 0; color: var(--text-dim); }
+.warn-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+.warn-box .warn-title { color: var(--red); font-weight: bold; font-size: 14px; margin-bottom: 6px; }
+.warn-box p { font-size: 14px; margin-bottom: 0; color: var(--text-dim); }
+
+.quick-links { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 24px; }
+.quick-links h3 { font-size: 18px; color: var(--gold); margin-bottom: 16px; }
+.links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.link-card { background: var(--bg-card2); border-radius: 8px; padding: 14px; text-align: center; text-decoration: none; color: var(--text); transition: all 0.2s; }
+.link-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.link-card .icon { font-size: 24px; display: block; margin-bottom: 6px; }
+.link-card .name { font-size: 13px; }
+
+@media (max-width: 768px) {
+  body { font-size: 15px; padding: 12px; }
+  .hero h1 { font-size: 22px; }
+  .guide-section { padding: 18px; }
+  .section-title { font-size: 18px; }
+  .nav-game-name { display: none; }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <a href="skills.html" class="nav-link">⚔️ 技能</a>
+      <a href="engravings.html" class="nav-link">⚡ 刻印</a>
+      <a href="dark-armor.html" class="nav-link">📦 装备</a>
+      <span class="nav-game-name">《英雄没有闪》</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">🏠 首页</a>
+  <span class="sep">/</span>
+  <span class="current">🎯 新手入门指南</span>
+</div>
+
+<div class="hero">
+  <h1>🎯 新手入门指南</h1>
+  <div class="subtitle">S2赛季从零开始，一文搞懂配装思路</div>
+</div>
+
+<div class="toc">
+  <div class="toc-title">📑 快速导航</div>
+  <ul class="toc-list">
+    <li><a href="#sec1"><span class="num">01</span>游戏简介</a></li>
+    <li><a href="#sec2"><span class="num">02</span>职业选择</a></li>
+    <li><a href="#sec3"><span class="num">03</span>核心机制</a></li>
+    <li><a href="#sec4"><span class="num">04</span>前期建议</a></li>
+    <li><a href="#sec5"><span class="num">05</span>配装思路</a></li>
+    <li><a href="#sec6"><span class="num">06</span>常见误区</a></li>
+  </ul>
+</div>
+
+<div class="guide-section" id="sec1">
+  <div class="section-header">
+    <span class="section-icon">🎮</span>
+    <span class="section-title">游戏简介</span>
+    <span class="section-num">01</span>
+  </div>
+  <p>《英雄没有闪》是一款<strong>暗黑类ARPG手游</strong>，核心玩法是刷装备、配技能、打首领。游戏有三个职业：野蛮人、秘法师、游侠，每个职业都有独特的技能体系和配装方向。</p>
+  <p>S2赛季引入了<strong>暗能装备、刻印、侍从、共鸣</strong>等系统，配装深度大幅提升。新手不需要全部搞懂，先跟着成熟配装抄作业，玩着玩着自然就理解了。</p>
+  <div class="tip-box">
+    <div class="tip-title">💡 新手建议</div>
+    <p>开局先选一个职业玩到底，不要频繁换职业。每个职业的装备和技能都是独立的，换职业等于从零开始。</p>
+  </div>
+</div>
+
+<div class="guide-section" id="sec2">
+  <div class="section-header">
+    <span class="section-icon">⚔️</span>
+    <span class="section-title">职业选择</span>
+    <span class="section-num">02</span>
+  </div>
+  <div class="class-grid">
+    <div class="class-card warrior">
+      <h4>⚔️ 野蛮人</h4>
+      <p>近战物理输出，血厚防高，操作简单。代表流派：火刀、雷锤、电刀。适合喜欢贴脸输出、手感扎实的玩家。新手友好度最高。</p>
+    </div>
+    <div class="class-card mage">
+      <h4>🔮 秘法师</h4>
+      <p>远程法术输出，伤害爆炸，身板较脆。代表流派：炎爆、雷拳、冰焰。适合喜欢远程施法、大范围清怪的玩家。需要一定走位。</p>
+    </div>
+    <div class="class-card ranger">
+      <h4>🏹 游侠</h4>
+      <p>远程物理输出，灵活多变，机制复杂。代表流派：感电、荆棘。适合喜欢研究机制、追求极限输出的玩家。新手建议后期再尝试。</p>
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">💡 推荐顺序</div>
+    <p>新手推荐：<strong>野蛮人 → 秘法师 → 游侠</strong>。野蛮人最容易上手，等理解游戏机制后再尝试其他职业。</p>
+  </div>
+</div>
+
+<div class="guide-section" id="sec3">
+  <div class="section-header">
+    <span class="section-icon">⚙️</span>
+    <span class="section-title">核心机制</span>
+    <span class="section-num">03</span>
+  </div>
+  <p><strong>暗能装备</strong>：游戏的核心装备系统，每件装备有固定词条和洗炼词条。套装效果强大，散件词条灵活。新手前期优先凑套装，后期再追求极品散件。</p>
+  <p><strong>刻印</strong>：装备上的特殊增益，分为主刻印和副刻印。主刻印影响核心玩法，副刻印提供数值加成。一套配装通常围绕1-2个核心刻印构建。</p>
+  <p><strong>侍从</strong>：跟随角色的宠物，提供光环加成和自动技能。主战侍从放在中间，提供主要增益；其他侍从提供羁绊加成。</p>
+  <p><strong>共鸣</strong>：通过装备特定组合触发的额外效果，如"共鸣12电12火"。共鸣能大幅提升伤害，是配装的重要组成部分。</p>
+</div>
+
+<div class="guide-section" id="sec4">
+  <div class="section-header">
+    <span class="section-icon">🚀</span>
+    <span class="section-title">前期建议</span>
+    <span class="section-num">04</span>
+  </div>
+  <ul>
+    <li><strong>先推图</strong>：前期优先推主线，解锁更多玩法和资源。打不过了就回来刷装备。</li>
+    <li><strong>抄作业</strong>：直接用本站的成熟配装，不要自己瞎搭配。等理解了机制再调整。</li>
+    <li><strong>资源分配</strong>：金币优先洗炼核心装备的关键词条，材料优先升级主战侍从。不要平均分配。</li>
+    <li><strong>装备品质</strong>：远古传奇 > 传奇 > 稀有。前期有啥用啥，后期再追求远古/太古。</li>
+    <li><strong>技能等级</strong>：核心技能优先升满，辅助技能够用就行。技能书是稀缺资源。</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠️ 注意</div>
+    <p>不要浪费资源在过渡装备上！前期装备更新很快，等确定了终局配装再投入大量资源洗炼。</p>
+  </div>
+</div>
+
+<div class="guide-section" id="sec5">
+  <div class="section-header">
+    <span class="section-icon">📋</span>
+    <span class="section-title">配装思路</span>
+    <span class="section-num">05</span>
+  </div>
+  <p>看一套配装好不好，重点看这几个方面：</p>
+  <ul>
+    <li><strong>核心技能</strong>：这套配装靠什么技能输出？技能机制是否契合你的玩法？</li>
+    <li><strong>核心刻印</strong>：主刻印决定了配装的核心玩法，副刻印提供增伤。</li>
+    <li><strong>装备套装</strong>：套装效果是否强力？散件词条是否互补？</li>
+    <li><strong>侍从搭配</strong>：主战侍从是否提供关键光环？羁绊是否凑齐？</li>
+    <li><strong>共鸣系统</strong>：是否触发了高价值的共鸣效果？</li>
+  </ul>
+  <p>配装不是一成不变的，可以根据自己的装备情况灵活调整。核心思路不变，细节可以微调。</p>
+</div>
+
+<div class="guide-section" id="sec6">
+  <div class="section-header">
+    <span class="section-icon">❌</span>
+    <span class="section-title">常见误区</span>
+    <span class="section-num">06</span>
+  </div>
+  <ul>
+    <li><strong>盲目追求高战力</strong>：战力高不代表伤害高，词条搭配比战力更重要。</li>
+    <li><strong>什么都想堆</strong>：伤害类型要专一，堆一种伤害比平均堆多种强得多。</li>
+    <li><strong>忽视防御</strong>：首领战中活着才有输出，适当堆一些生存词条。</li>
+    <li><strong>频繁换流派</strong>：每个流派的装备和技能都是独立的，换流派成本很高。</li>
+    <li><strong>只看装备不看技能</strong>：技能等级和天赋对伤害的影响不亚于装备。</li>
+    <li><strong>洗炼追求全橙</strong>：橙色词条不一定适合你的流派，合适的比稀有的更重要。</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 最后一句话</div>
+    <p>配装是死的，人是活的。参考别人的配装，但要根据自己的装备和手感调整。适合自己的才是最好的。</p>
+  </div>
+</div>
+
+<div class="quick-links">
+  <h3>🔗 快速入口</h3>
+  <div class="links-grid">
+    <a href="index.html" class="link-card"><span class="icon">🏠</span><span class="name">配装首页</span></a>
+    <a href="compare.html" class="link-card"><span class="icon">⚖️</span><span class="name">配装对比</span></a>
+    <a href="skills.html" class="link-card"><span class="icon">⚔️</span><span class="name">技能图鉴</span></a>
+    <a href="engravings.html" class="link-card"><span class="icon">⚡</span><span class="name">刻印图鉴</span></a>
+    <a href="dark-armor.html" class="link-card"><span class="icon">📦</span><span class="name">装备图鉴</span></a>
+    <a href="pets.html" class="link-card"><span class="icon">🐾</span><span class="name">侍从图鉴</span></a>
+  </div>
+</div>
+
+<div style="text-align:center; margin-top:30px; padding:20px; color:var(--text-dim); font-size:13px;">
+  祝大家游戏愉快，有问题欢迎反馈 💪
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+// PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>

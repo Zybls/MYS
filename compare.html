@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配装对比 - 英雄没有闪S2赛季</title>
+<meta name="description" content="英雄没有闪S2赛季配装对比工具，选择2-3套配装并排对比。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%96%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --blue: #3b82f6; --red: #ef4444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.7; font-size: 16px; min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+.site-nav {
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3); flex-shrink: 0;
+}
+.nav-inner { max-width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover { color: var(--gold); }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+
+.selector-bar {
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
+  padding: 12px 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.selector-bar label { font-size: 14px; color: var(--text-dim); }
+.build-select {
+  background: var(--bg-card2); color: var(--text); border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 12px; font-size: 14px; font-family: inherit;
+  min-width: 160px; cursor: pointer;
+}
+.build-select:focus { outline: none; border-color: var(--gold); }
+.compare-btn {
+  background: var(--gold); color: #0a0a0f; border: none; border-radius: 6px;
+  padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer;
+  font-family: inherit; min-height: 36px;
+}
+.compare-btn:hover { background: #fbbf24; }
+.compare-btn:disabled { background: var(--border); color: var(--text-dim); cursor: not-allowed; }
+.clear-btn {
+  background: none; color: var(--text-dim); border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 16px; font-size: 14px; cursor: pointer;
+  font-family: inherit;
+}
+.clear-btn:hover { color: var(--red); border-color: var(--red); }
+
+.compare-container {
+  flex: 1; display: flex; gap: 4px; padding: 4px;
+  overflow: hidden; min-height: 0;
+}
+.compare-panel {
+  flex: 1; display: flex; flex-direction: column;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; min-width: 0;
+}
+.panel-header {
+  padding: 10px 14px; background: var(--bg-card2); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.panel-title { font-size: 14px; font-weight: bold; color: var(--gold); }
+.panel-actions { display: flex; gap: 6px; }
+.panel-btn {
+  background: none; border: none; color: var(--text-dim); font-size: 14px;
+  cursor: pointer; padding: 4px 8px; border-radius: 4px; min-height: 28px;
+}
+.panel-btn:hover { color: var(--text); background: var(--bg-card); }
+.compare-frame {
+  flex: 1; width: 100%; border: none; background: #fff;
+}
+.empty-panel {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); font-size: 14px; flex-direction: column; gap: 10px;
+}
+.empty-panel .icon { font-size: 40px; opacity: 0.3; }
+
+.sync-scroll-btn {
+  position: fixed; bottom: 20px; right: 20px; z-index: 100;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%;
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.sync-scroll-btn.active { background: var(--gold); border-color: var(--gold); }
+
+@media (max-width: 768px) {
+  .compare-container { flex-direction: column; }
+  .compare-panel { min-height: 300px; }
+  .selector-bar { padding: 10px; }
+  .build-select { min-width: 120px; font-size: 13px; }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <span style="color:var(--gold);font-size:15px;font-weight:bold;">⚖️ 配装对比</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="selector-bar">
+  <label>配装1：</label>
+  <select class="build-select" id="select1" onchange="updateCompare()"></select>
+  <label>配装2：</label>
+  <select class="build-select" id="select2" onchange="updateCompare()"></select>
+  <label>配装3：</label>
+  <select class="build-select" id="select3" onchange="updateCompare()"></select>
+  <button class="clear-btn" onclick="clearAll()">清空</button>
+</div>
+
+<div class="compare-container" id="compareContainer">
+  <div class="compare-panel" id="panel1">
+    <div class="panel-header">
+      <span class="panel-title" id="title1">配装1</span>
+      <div class="panel-actions">
+        <button class="panel-btn" onclick="openInNew(1)" title="新窗口打开">↗</button>
+      </div>
+    </div>
+    <div class="empty-panel"><div class="icon">📋</div>请选择配装</div>
+  </div>
+  <div class="compare-panel" id="panel2">
+    <div class="panel-header">
+      <span class="panel-title" id="title2">配装2</span>
+      <div class="panel-actions">
+        <button class="panel-btn" onclick="openInNew(2)" title="新窗口打开">↗</button>
+      </div>
+    </div>
+    <div class="empty-panel"><div class="icon">📋</div>请选择配装</div>
+  </div>
+  <div class="compare-panel" id="panel3" style="display:none;">
+    <div class="panel-header">
+      <span class="panel-title" id="title3">配装3</span>
+      <div class="panel-actions">
+        <button class="panel-btn" onclick="openInNew(3)" title="新窗口打开">↗</button>
+      </div>
+    </div>
+    <div class="empty-panel"><div class="icon">📋</div>请选择配装</div>
+  </div>
+</div>
+
+<button class="sync-scroll-btn" id="syncBtn" onclick="toggleSync()" title="同步滚动">🔗</button>
+
+<script>
+var BUILDS = [
+  {url:"shadow-dian.html", name:"梦花感电 3.0", class:"游侠"},
+  {url:"youxia-shengyin-jingji.html", name:"圣银荆棘枪", class:"游侠"},
+  {url:"youxia-gandian.html", name:"感电流派", class:"游侠"},
+  {url:"youxia-jingji-pk.html", name:"荆棘PK", class:"游侠"},
+  {url:"youxia-jingji-pve.html", name:"荆棘PVE", class:"游侠"},
+  {url:"zhuling-huoyan.html", name:"烛灵火焰", class:"法师"},
+  {url:"fashi-yanling-yanbao.html", name:"炎灵炎爆", class:"法师"},
+  {url:"fashi-yanbao.html", name:"炎爆流", class:"法师"},
+  {url:"fashi-leiquan.html", name:"雷拳", class:"法师"},
+  {url:"fashi-bingyan-pk.html", name:"冰焰PK", class:"法师"},
+  {url:"fashi-leidian-shaquan.html", name:"雷电杀拳", class:"法师"},
+  {url:"tianfa-huodao.html", name:"天罚火刀", class:"野蛮人"},
+  {url:"zhanshi-leichui-pve.html", name:"雷锤PVE", class:"野蛮人"},
+  {url:"zhanshi-leichui-pk.html", name:"雷锤PK", class:"野蛮人"},
+  {url:"zhanshi-diandao.html", name:"电刀", class:"野蛮人"},
+  {url:"zhanshi-leixuan.html", name:"雷旋", class:"野蛮人"},
+  {url:"huodao-shouling.html", name:"火刀首领", class:"野蛮人"},
+];
+
+var syncScroll = false;
+
+// 初始化下拉框
+function initSelects() {
+  var options = '<option value="">-- 请选择 --</option>';
+  BUILDS.forEach(function(b) {
+    options += '<option value="' + b.url + '">' + b.name + '（' + b.class + '）</option>';
+  });
+  ['select1','select2','select3'].forEach(function(id) {
+    document.getElementById(id).innerHTML = options;
+  });
+  
+  // 从URL参数读取
+  var params = new URLSearchParams(location.search);
+  var b1 = params.get('b1'), b2 = params.get('b2'), b3 = params.get('b3');
+  if (b1) document.getElementById('select1').value = b1;
+  if (b2) document.getElementById('select2').value = b2;
+  if (b3) document.getElementById('select3').value = b3;
+  updateCompare();
+}
+
+function updateCompare() {
+  var s1 = document.getElementById('select1').value;
+  var s2 = document.getElementById('select2').value;
+  var s3 = document.getElementById('select3').value;
+  
+  // 第三个面板显示控制
+  document.getElementById('panel3').style.display = s3 ? '' : 'none';
+  
+  [1,2,3].forEach(function(n) {
+    var url = document.getElementById('select' + n).value;
+    var panel = document.getElementById('panel' + n);
+    var build = BUILDS.find(function(b) { return b.url === url; });
+    
+    if (build) {
+      document.getElementById('title' + n).textContent = build.name;
+      // 检查是否已有iframe
+      var existing = panel.querySelector('.compare-frame');
+      if (existing) {
+        existing.src = url;
+      } else {
+        // 移除empty-panel，加iframe
+        var empty = panel.querySelector('.empty-panel');
+        if (empty) empty.remove();
+        var iframe = document.createElement('iframe');
+        iframe.className = 'compare-frame';
+        iframe.src = url;
+        iframe.loading = 'lazy';
+        panel.appendChild(iframe);
+      }
+    } else {
+      document.getElementById('title' + n).textContent = '配装' + n;
+      var iframe = panel.querySelector('.compare-frame');
+      if (iframe) iframe.remove();
+      if (!panel.querySelector('.empty-panel')) {
+        var empty = document.createElement('div');
+        empty.className = 'empty-panel';
+        empty.innerHTML = '<div class="icon">📋</div>请选择配装';
+        panel.appendChild(empty);
+      }
+    }
+  });
+  
+  // 更新URL
+  var params = [];
+  if (s1) params.push('b1=' + s1);
+  if (s2) params.push('b2=' + s2);
+  if (s3) params.push('b3=' + s3);
+  history.replaceState(null, '', params.length ? '?' + params.join('&') : location.pathname);
+}
+
+function clearAll() {
+  ['select1','select2','select3'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  updateCompare();
+}
+
+function openInNew(n) {
+  var url = document.getElementById('select' + n).value;
+  if (url) window.open(url, '_blank');
+}
+
+function toggleSync() {
+  syncScroll = !syncScroll;
+  var btn = document.getElementById('syncBtn');
+  btn.classList.toggle('active', syncScroll);
+  if (syncScroll) {
+    var frames = document.querySelectorAll('.compare-frame');
+    frames.forEach(function(f) {
+      f.contentWindow.onscroll = function() {
+        var st = f.contentWindow.scrollY;
+        frames.forEach(function(other) {
+          if (other !== f) other.contentWindow.scrollTo(0, st);
+        });
+      };
+    });
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+
+initSelects();
+
+// PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>
