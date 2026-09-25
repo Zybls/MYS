@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>更新日志 - 英雄没有闪S2赛季配装攻略</title>
+<meta name="description" content="英雄没有闪S2赛季配装攻略站更新日志，记录每次配装更新和网站功能迭代。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%9C%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --blue: #3b82f6; --red: #ef4444; --purple: #a855f7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.7; padding: 16px; max-width: 900px; margin: 0 auto; font-size: 16px;
+}
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn, .nav-link { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover, .nav-link:hover { color: var(--gold); }
+.nav-game-name { color: var(--text-dim); font-size: 15px; }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+body { padding-top: 68px; }
+
+.breadcrumb { margin-bottom: 12px; font-size: 13px; color: var(--text-dim); }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 8px; color: #4a5568; }
+.breadcrumb .current { color: var(--gold); }
+
+.hero { text-align: center; padding: 28px 20px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 24px; }
+.hero h1 { font-size: 28px; color: var(--gold); margin-bottom: 8px; }
+.hero .subtitle { color: var(--text-dim); font-size: 14px; }
+
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 28px; }
+.timeline-item::before {
+  content: ''; position: absolute; left: -28px; top: 6px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--gold); border: 3px solid var(--bg);
+}
+.timeline-item.major::before { background: var(--green); width: 18px; height: 18px; left: -30px; }
+.timeline-date { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+.timeline-title { font-size: 17px; font-weight: bold; color: var(--text); margin-bottom: 8px; }
+.timeline-item.major .timeline-title { color: var(--green); }
+.timeline-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; }
+.timeline-content ul { padding-left: 20px; }
+.timeline-content li { margin-bottom: 4px; font-size: 14px; color: var(--text-dim); }
+.timeline-content li strong { color: var(--text); }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; margin-left: 8px; }
+.tag-new { background: rgba(45,212,191,0.2); color: var(--green); }
+.tag-fix { background: rgba(239,68,68,0.2); color: var(--red); }
+.tag-opt { background: rgba(59,130,246,0.2); color: var(--blue); }
+
+@media (max-width: 768px) {
+  body { font-size: 15px; padding: 12px; }
+  .hero h1 { font-size: 22px; }
+  .nav-game-name { display: none; }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">🌐 天涯若比邻</a>
+      <a href="index.html" class="nav-home-btn">🏠 首页</a>
+      <a href="skills.html" class="nav-link">⚔️ 技能</a>
+      <a href="engravings.html" class="nav-link">⚡ 刻印</a>
+      <a href="dark-armor.html" class="nav-link">📦 装备</a>
+      <a href="pets.html" class="nav-link">🐾 侍从</a>
+      <span class="nav-game-name">《英雄没有闪》</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">🏠 首页</a>
+  <span class="sep">/</span>
+  <span class="current">📜 更新日志</span>
+</div>
+
+<div class="hero">
+  <h1>📜 更新日志</h1>
+  <div class="subtitle">记录配装更新和网站功能迭代</div>
+</div>
+
+<div class="timeline">
+
+  <div class="timeline-item major">
+    <div class="timeline-date">2026-09-25</div>
+    <div class="timeline-title">图鉴体系大完善 <span class="tag tag-new">重大更新</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>符文/遗物/贤者图鉴</strong>：381个道具全收录（符文72+遗物274+贤者35），三分类标签切换</li>
+        <li><strong>技能图鉴</strong>：48个技能（野蛮人24+秘法师24），按普攻/主动/终极/被动分组</li>
+        <li><strong>刻印图鉴</strong>：48个刻印（野蛮人12+秘法师6+通用30），按职业分类</li>
+        <li><strong>暗能装备图鉴</strong>：530件全收录（野蛮人265+秘法师265），散件+套装4分类切换</li>
+        <li><strong>职业名称修正</strong>：API property_1确认为野蛮人（非游侠），全部图鉴已修正</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-date">2026-09-25</div>
+    <div class="timeline-title">功能优化 <span class="tag tag-new">新功能</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>收藏功能</strong>：首页卡片和配装详情页支持收藏，存本地，"我的收藏"筛选</li>
+        <li><strong>配装页搜索</strong>：18个配装页全部加全屏搜索（Ctrl+K），搜索所有配装</li>
+        <li><strong>404页面</strong>：自定义404页，带搜索和快速导航</li>
+        <li><strong>面包屑导航</strong>：5个图鉴页全部加面包屑</li>
+        <li><strong>图片优化</strong>：1017张图片压缩优化</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-date">2026-09-25</div>
+    <div class="timeline-title">侍从图鉴上线 <span class="tag tag-new">新功能</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>侍从图鉴</strong>：45个侍从全收录，含光环/技能/普攻/被动/介绍/品质/羁绊</li>
+        <li>支持按品质和13种羁绊筛选</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-date">2026-09-25</div>
+    <div class="timeline-title">刻印专题 + 全站优化 <span class="tag tag-opt">优化</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>刻印图鉴专题</strong>：主流刻印强度全解析</li>
+        <li><strong>移动端适配</strong>：全站响应式优化</li>
+        <li><strong>搜索修复</strong>：首页搜索功能修复</li>
+        <li><strong>内联样式清理</strong>：CSS重构</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-date">2026-09-25</div>
+    <div class="timeline-title">SEO深度优化 <span class="tag tag-opt">优化</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>Schema.org结构化数据</strong>：首页WebSite+配装页Article</li>
+        <li><strong>OG标签个性化</strong>：17个配装页分享显示独特标题</li>
+        <li><strong>搜索引擎验证</strong>：Google Search Console、Bing、百度站长验证</li>
+        <li><strong>配装页差异化</strong>：3个配装页补充适用场景</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item major">
+    <div class="timeline-date">2026-09-25</div>
+    <div class="timeline-title">域名迁移 <span class="tag tag-new">重大更新</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>新域名上线</strong>：yxmsy.dpdns.org → <strong>ykmys.com</strong>（Spaceship购买）</li>
+        <li><strong>Cloudflare Pages部署</strong>：前端迁移至Cloudflare Pages，国内访问加速</li>
+        <li><strong>API中转</strong>：Pages Functions中转Worker API，解决workers.dev国内无法访问问题</li>
+        <li><strong>边缘缓存</strong>：GET请求5分钟缓存，节省D1读取次数</li>
+        <li><strong>301重定向</strong>：旧域名自动跳转新域名</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-date">2026-09-24</div>
+    <div class="timeline-title">配装内容更新 <span class="tag tag-new">内容更新</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>感电3.0修正版</strong>：暗影游侠梦花感电最新搭配，御龙改动后调整</li>
+        <li><strong>火刀首领</strong>：S2赛季火刀首领搭配攻略更新</li>
+        <li><strong>雷电秒杀</strong>：法师雷电秒杀拳配装</li>
+        <li><strong>17套配装</strong>：覆盖法师、游侠、野蛮人三职业，推图/首领/PK全场景</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-date">2026-09-23</div>
+    <div class="timeline-title">后台管理系统 <span class="tag tag-new">新功能</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>配装内容在线编辑</strong>：后台可直接编辑配装内容</li>
+        <li><strong>首页卡片排序</strong>：拖拽调整配装卡片顺序</li>
+        <li><strong>公告管理</strong>：首页公告发布和管理</li>
+        <li><strong>配装页面管理</strong>：配装页面增删改</li>
+        <li><strong>访问统计</strong>：PV/UV统计，热门配装排行</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-date">2026-09-22</div>
+    <div class="timeline-title">网站初版上线 <span class="tag tag-new">首发</span></div>
+    <div class="timeline-content">
+      <ul>
+        <li><strong>配装攻略站上线</strong>：《英雄没有闪》S2赛季配装攻略</li>
+        <li><strong>三职业配装</strong>：法师、游侠、野蛮人主流配装</li>
+        <li><strong>暗黑主题</strong>：护眼暗色主题，支持亮色切换</li>
+        <li><strong>响应式设计</strong>：PC/手机自适应</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center; margin-top:40px; padding:20px; color:var(--text-dim); font-size:13px;">
+  持续更新中... 有问题或建议请到 <a href="index.html" style="color:var(--gold);">首页</a> 提交
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+</script>
+</body>
+</html>
