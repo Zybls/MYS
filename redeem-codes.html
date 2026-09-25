@@ -130,49 +130,54 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, Bl
     <input type="text" class="search-input" placeholder="🔍 搜索兑换码或奖励..." oninput="filterCodes(this.value)">
   </div>
 
-  <!-- 可用兑换码 -->
+  <!-- 周礼包 -->
   <div class="code-section">
-    <div class="section-title">✅ 可用兑换码 <span class="count" id="activeCount"></span></div>
-    <div id="activeCodes"></div>
+    <div class="section-title">📅 社区周礼包 <span class="count" id="weeklyCount"></span></div>
+    <div id="weeklyCodes"></div>
   </div>
 
-  <!-- 已过期兑换码 -->
+  <!-- 节日礼包 -->
   <div class="code-section">
-    <div class="section-title">⌛ 已过期 <span class="count" id="expiredCount"></span></div>
-    <div id="expiredCodes"></div>
+    <div class="section-title">🎊 节日限定礼包 <span class="count" id="festivalCount"></span></div>
+    <div id="festivalCodes"></div>
+  </div>
+
+  <!-- 长期有效码（折叠） -->
+  <div class="code-section">
+    <div class="section-title collapse-header" onclick="togglePermanent()">
+      <span id="permanentArrow">▶</span> 长期有效兑换码 <span class="count" id="permanentCount"></span>
+      <span style="font-size:12px;color:var(--text-dim);font-weight:normal;margin-left:8px;">（老公会基本都换过了，点击展开）</span>
+    </div>
+    <div id="permanentCodes" style="display:none;"></div>
   </div>
 </div>
 
 <script>
 // 兑换码数据（来源：官方论坛女王洛伊丝汇总帖）
 const CODES = [
-  { code: 'MYS1225', reward: '新手礼包（官方长期有效）', expire: '长期有效', active: true },
-  { code: 'MYS666', reward: '活跃礼包（官方长期有效）', expire: '长期有效', active: true },
-  { code: 'MYS888', reward: '福利礼包（官方长期有效）', expire: '长期有效', active: true },
-  { code: 'VIP666', reward: '惊喜礼包（官方长期有效）', expire: '长期有效', active: true },
-  { code: 'VIP777', reward: '惊喜礼包（官方长期有效）', expire: '长期有效', active: true },
-  { code: 'VIP888', reward: '惊喜礼包（官方长期有效）', expire: '长期有效', active: true },
-  { code: '7T4b6UtRw0', reward: '福利站 | 社区周礼包码（9.21-9.27）', expire: '即日起-2026年9月27日', active: true },
-  { code: 'f4720Cc52r', reward: '中秋礼包（节日限定）', expire: '即日起-2026年10月1日', active: true },
-  { code: '02S0k57j85', reward: '秋分礼包（节日限定）', expire: '即日起-2026年9月29日', active: true },
-  { code: 'lLd5X272AW', reward: '福利站 | 社区周礼包码（9.14-9.20）', expire: '即日起-2026年9月20日', active: false },
-  { code: 'iLn3S81Xl5', reward: '福利站 | 社区周礼包码（9.7-9.13）', expire: '即日起-2026年9月13日', active: false },
-  { code: '6YG467qLi4', reward: '福利站 | 社区周礼包码（8.31-9.6）', expire: '即日起-2026年9月6日', active: false },
-  { code: '20V7t1miAx', reward: '福利站 | 社区周礼包码（8.24-8.30）', expire: '即日起-2026年8月30日', active: false },
+  // 周礼包
+  { code: '7T4b6UtRw0', reward: '社区周礼包（9.21-9.27）', expire: '即日起-2026年9月27日', active: true, type: 'weekly' },
+  { code: 'lLd5X272AW', reward: '社区周礼包（9.14-9.20）', expire: '即日起-2026年9月20日', active: false, type: 'weekly' },
+  { code: 'iLn3S81Xl5', reward: '社区周礼包（9.7-9.13）', expire: '即日起-2026年9月13日', active: false, type: 'weekly' },
+  { code: '6YG467qLi4', reward: '社区周礼包（8.31-9.6）', expire: '即日起-2026年9月6日', active: false, type: 'weekly' },
+  { code: '20V7t1miAx', reward: '社区周礼包（8.24-8.30）', expire: '即日起-2026年8月30日', active: false, type: 'weekly' },
+  // 节日礼包
+  { code: 'f4720Cc52r', reward: '中秋礼包（节日限定）', expire: '即日起-2026年10月1日', active: true, type: 'festival' },
+  { code: '02S0k57j85', reward: '秋分礼包（节日限定）', expire: '即日起-2026年9月29日', active: true, type: 'festival' },
+  // 长期有效码
+  { code: 'MYS1225', reward: '新手礼包', expire: '长期有效', active: true, type: 'permanent' },
+  { code: 'MYS666', reward: '活跃礼包', expire: '长期有效', active: true, type: 'permanent' },
+  { code: 'MYS888', reward: '福利礼包', expire: '长期有效', active: true, type: 'permanent' },
+  { code: 'VIP666', reward: '惊喜礼包', expire: '长期有效', active: true, type: 'permanent' },
+  { code: 'VIP777', reward: '惊喜礼包', expire: '长期有效', active: true, type: 'permanent' },
+  { code: 'VIP888', reward: '惊喜礼包', expire: '长期有效', active: true, type: 'permanent' },
 ];
 
 function renderCodes(filter = '') {
-  const activeContainer = document.getElementById('activeCodes');
-  const expiredContainer = document.getElementById('expiredCodes');
-  let activeHtml = '', expiredHtml = '';
-  let activeCount = 0, expiredCount = 0;
-  
   const f = filter.toLowerCase();
   
-  CODES.forEach(c => {
-    if (f && !c.code.toLowerCase().includes(f) && !c.reward.toLowerCase().includes(f)) return;
-    
-    const card = `
+  function makeCard(c) {
+    return `
       <div class="code-card ${c.active ? '' : 'expired'}">
         <div class="code-info">
           <div class="code-value">${c.code}</div>
@@ -183,15 +188,32 @@ function renderCodes(filter = '') {
         ${c.active ? `<button class="copy-btn" onclick="copyCode('${c.code}', this)">复制</button>` : ''}
       </div>
     `;
-    
-    if (c.active) { activeHtml += card; activeCount++; }
-    else { expiredHtml += card; expiredCount++; }
-  });
+  }
   
-  activeContainer.innerHTML = activeHtml || '<p style="color:var(--text-dim);text-align:center;padding:20px;">暂无可用兑换码</p>';
-  expiredContainer.innerHTML = expiredHtml || '<p style="color:var(--text-dim);text-align:center;padding:20px;">暂无过期记录</p>';
-  document.getElementById('activeCount').textContent = `(${activeCount}个)`;
-  document.getElementById('expiredCount').textContent = `(${expiredCount}个)`;
+  function renderGroup(type, containerId, countId) {
+    const items = CODES.filter(c => c.type === type && (!f || c.code.toLowerCase().includes(f) || c.reward.toLowerCase().includes(f)));
+    const active = items.filter(c => c.active);
+    const expired = items.filter(c => !c.active);
+    const html = active.map(makeCard).join('') + expired.map(makeCard).join('');
+    document.getElementById(containerId).innerHTML = html || '<p style="color:var(--text-dim);text-align:center;padding:20px;">暂无</p>';
+    document.getElementById(countId).textContent = `(${active.length}个可用)`;
+  }
+  
+  renderGroup('weekly', 'weeklyCodes', 'weeklyCount');
+  renderGroup('festival', 'festivalCodes', 'festivalCount');
+  renderGroup('permanent', 'permanentCodes', 'permanentCount');
+}
+
+function togglePermanent() {
+  const el = document.getElementById('permanentCodes');
+  const arrow = document.getElementById('permanentArrow');
+  if (el.style.display === 'none') {
+    el.style.display = 'block';
+    arrow.textContent = '▼';
+  } else {
+    el.style.display = 'none';
+    arrow.textContent = '▶';
+  }
 }
 
 function copyCode(code, btn) {
