@@ -816,6 +816,69 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   0%, 100% { height: 30%; }
   50% { height: 100%; }
 }
+@media (max-width: 768px) {
+  /* 公会导航栏 */
+  .guild-nav-inner { padding: 6px 12px; gap: 8px; flex-wrap: wrap; }
+  .guild-nav-left { gap: 8px; }
+  .guild-logo { width: 36px; height: 36px; }
+  .guild-nav-name { font-size: 14px; }
+  .guild-nav-slogan { display: none; }
+  .guild-nav-links { order: 3; width: 100%; justify-content: center; gap: 12px; padding: 4px 0; border-top: 1px solid rgba(245,158,11,0.1); }
+  .guild-nav-link { font-size: 12px; }
+  .guild-nav-right { gap: 6px; }
+  .guild-login-btn { font-size: 12px; padding: 5px 10px; }
+  .recruit-text { display: none; }
+  .nav-icon-btn { font-size: 16px; padding: 6px; }
+  .lang-switch { display: none; }
+  
+  /* 主体内容 */
+  body { padding-top: 100px !important; }
+  .hero { padding: 20px 14px; }
+  .hero h1 { font-size: 22px; }
+  .hero p { font-size: 13px; }
+  
+  /* 数据看板 */
+  .dashboard-grid { grid-template-columns: 1fr; gap: 12px; }
+  .dashboard-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stat-card { padding: 12px 8px; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 11px; }
+  
+  /* 活动区域 */
+  .activity-card { padding: 14px; }
+  .activity-title { font-size: 16px; }
+  
+  /* 战术库/配装卡片 */
+  .builds-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .build-card { padding: 12px 10px; }
+  .build-card h3 { font-size: 14px; }
+  .build-tags { gap: 4px; }
+  .build-tag { font-size: 10px; padding: 2px 6px; }
+  
+  /* 福利入口 */
+  .welfare-list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .welfare-item { padding: 14px 10px; }
+  
+  /* 公告栏 */
+  .announcement-bar { padding: 10px 14px; font-size: 13px; }
+  
+  /* 页脚 */
+  .footer { padding: 20px 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; }
+}
+
+@media (max-width: 480px) {
+  .guild-nav-name { font-size: 13px; }
+  .guild-logo { width: 32px; height: 32px; }
+  .guild-nav-links { gap: 8px; }
+  .guild-nav-link { font-size: 11px; }
+  .hero h1 { font-size: 20px; }
+  .builds-grid { grid-template-columns: 1fr; }
+  .dashboard-stats { grid-template-columns: repeat(3, 1fr); }
+  .stat-value { font-size: 18px; }
+  body { padding-top: 110px !important; }
+}
+
 @media (max-width: 639px) {
   .music-player { bottom: 12px; right: 12px; padding: 6px 12px 6px 6px; }
   .music-info { display: none; }
