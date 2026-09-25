@@ -293,7 +293,24 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
 /* ===== 筛选隐藏类 ===== */
 .hidden { display: none !important; }
 
-</style>
+
+/* 搜索结果信息 */
+.search-result-info { text-align: center; color: var(--text-dim); font-size: 13px; margin-bottom: 20px; min-height: 18px; }
+
+/* 请求新功能弹窗 */
+.contact-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,10,0.92); z-index: 9999; align-items: center; justify-content: center; }
+.contact-modal-overlay.active { display: flex; }
+.contact-modal-box { background: #16161f; border: 1px solid #2e2e44; border-radius: 16px; padding: 28px; width: 90%; max-width: 440px; position: relative; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+.contact-modal-close { position: absolute; top: 14px; right: 18px; font-size: 22px; color: var(--text-dim); cursor: pointer; line-height: 1; }
+.contact-modal-title { font-size: 20px; margin-bottom: 6px; color: var(--text); }
+.contact-modal-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+.contact-form-group { margin-bottom: 14px; }
+.contact-form-group:last-of-type { margin-bottom: 20px; }
+.contact-form-label { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+.contact-form-input { width: 100%; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; box-sizing: border-box; }
+.contact-form-textarea { width: 100%; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; resize: vertical; box-sizing: border-box; font-family: inherit; }
+.contact-submit-btn { width: 100%; padding: 12px; background: #f59e0b; color: #1a1a2e; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+.contact-result { text-align: center; margin-top: 12px; font-size: 13px; display: none; }</style>
         <link rel="manifest" href="manifest.json">
         <meta name="theme-color" content="#f59e0b">
           <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "英雄没有闪S2赛季配装攻略", "url": "https://ykmys.com", "description": "英雄没有闪S2赛季全职业配装攻略大全，含法师、游侠、蛮子的推图、首领、PK配装，技能装备刻印侍从完整搭配", "potentialAction": {"@type": "SearchAction", "target": "https://ykmys.com/?q={search_term_string}", "query-input": "required name=search_term_string"}}</script>
@@ -309,7 +326,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <span class="nav-game-name">《英雄没有闪》</span>
         </div>
         <div class="nav-right">
-        <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题" style="background:none;border:none;color:var(--text);font-size:18px;cursor:pointer;padding:6px 10px;border-radius:6px;transition:all 0.2s;">🌙</button>
+        <button class="nav-theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
         <button class="nav-search-btn" onclick="toggleFullscreenSearch()" title="搜索 (Ctrl+K)">🔍</button>
         </div>
         </div>
@@ -342,7 +359,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
   </div>
 </div>
 <!-- 职业筛选 -->
-        <div class="quick-filter" style="max-width:1200px;margin:0 auto 10px;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <div class="quick-filter">
         <button class="filter-btn active" onclick="filterByClass('all', this)">全部职业</button>
         <button class="filter-btn" onclick="filterByClass('ranger', this)">🏹 游侠</button>
         <button class="filter-btn" onclick="filterByClass('mage', this)">🔮 法师</button>
@@ -355,7 +372,7 @@ body.light-theme .nav-theme-btn:hover, body.light-theme .nav-search-btn:hover { 
         <button class="filter-btn" onclick="filterByUsage('boss', this)">👹 首领打桩</button>
         <button class="filter-btn" onclick="filterByUsage('pk', this)">⚔️ PK 对战</button>
         </div>
-        <div class="search-result-info" style="text-align:center;color:var(--text-dim);font-size:13px;margin-bottom:20px;min-height:18px;"></div>
+        <div class="search-result-info"></div>
         
 <main id="mainContent">
 <div class="class-section">
@@ -964,12 +981,10 @@ function loadChangelog() {
 }
 
 /* ===== 请求新功能 ===== */
-function openContactModal() {
-  document.getElementById("contactModal").style.display = "flex";
+function openContactModal() { document.getElementById("contactModal").classList.add("active");
   document.body.style.overflow = "hidden";
 }
-function closeContactModal() {
-  document.getElementById("contactModal").style.display = "none";
+function closeContactModal() { document.getElementById("contactModal").classList.remove("active");
   document.body.style.overflow = "";
   document.getElementById("contactResult").style.display = "none";
 }
@@ -1058,14 +1073,25 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-// 从配装页跳转过来时自动打开搜索框
+// 从配装页跳转过来时自动打开搜索框（增强容错）
 (function() {
+  function tryOpenSearch(retry) {
+    if (typeof toggleFullscreenSearch === 'function' && document.getElementById('fullscreenSearch')) {
+      toggleFullscreenSearch();
+      history.replaceState(null, '', location.pathname + location.search);
+      return true;
+    }
+    if (retry < 5) {
+      setTimeout(function() { tryOpenSearch(retry + 1); }, 100);
+    }
+    return false;
+  }
   if (location.hash === '#search') {
-    setTimeout(function() {
-      if (typeof toggleFullscreenSearch === 'function') {
-        toggleFullscreenSearch();
-      }
-    }, 100);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { tryOpenSearch(0); });
+    } else {
+      tryOpenSearch(0);
+    }
   }
 })();
 
@@ -1073,25 +1099,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <!-- 请求新功能弹窗 -->
-        <div id="contactModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,10,0.92);z-index:9999;align-items:center;justify-content:center;">
-        <div style="background:#16161f;border:1px solid #2e2e44;border-radius:16px;padding:28px;width:90%;max-width:440px;position:relative;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
-        <div onclick="closeContactModal()" style="position:absolute;top:14px;right:18px;font-size:22px;color:var(--text-dim);cursor:pointer;line-height:1;">×</div>
-        <h3 style="font-size:20px;margin-bottom:6px;color:var(--text);">💡 请求新功能</h3>
-        <p style="font-size:13px;color:var(--text-dim);margin-bottom:20px;">想要什么新功能？告诉站长，说不定下一个版本就安排上了！</p>
-        <div style="margin-bottom:14px;">
-        <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;">昵称（选填）</label>
-        <input type="text" id="contactName" placeholder="怎么称呼你？" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;">
+        <div id="contactModal" class="contact-modal-overlay">
+        <div class="contact-modal-box">
+        <div onclick="closeContactModal()" class="contact-modal-close">×</div>
+        <h3 class="contact-modal-title">💡 请求新功能</h3>
+        <p class="contact-modal-desc">想要什么新功能？告诉站长，说不定下一个版本就安排上了！</p>
+        <div class="contact-form-group">
+        <label class="contact-form-label">昵称（选填）</label>
+        <input type="text" id="contactName" placeholder="怎么称呼你？" class="contact-form-input">
         </div>
-        <div style="margin-bottom:14px;">
-        <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;">联系方式（选填）</label>
-        <input type="text" id="contactContact" placeholder="微信/QQ/邮箱，方便回复你" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;box-sizing:border-box;">
+        <div class="contact-form-group">
+        <label class="contact-form-label">联系方式（选填）</label>
+        <input type="text" id="contactContact" placeholder="微信/QQ/邮箱，方便回复你" class="contact-form-input">
         </div>
-        <div style="margin-bottom:20px;">
-        <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;">功能需求 <span style="color:var(--red);">*</span></label>
-        <textarea id="contactContent" rows="4" placeholder="描述一下你想要的功能..." style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;resize:vertical;box-sizing:border-box;font-family:inherit;"></textarea>
+        <div class="contact-form-group">
+        <label class="contact-form-label">功能需求 <span style="color:var(--red);">*</span></label>
+        <textarea id="contactContent" rows="4" placeholder="描述一下你想要的功能..." class="contact-form-textarea"></textarea>
         </div>
-        <button onclick="submitContact()" id="contactSubmitBtn" style="width:100%;padding:12px;background:#f59e0b;color:#1a1a2e;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">提交需求</button>
-        <div id="contactResult" style="text-align:center;margin-top:12px;font-size:13px;display:none;"></div>
+        <button onclick="submitContact()" id="contactSubmitBtn" class="contact-submit-btn">提交需求</button>
+        <div id="contactResult" class="contact-result"></div>
         </div>
         </div>
         </body>
