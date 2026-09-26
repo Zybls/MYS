@@ -8,7 +8,7 @@
 
   // ===== 配置 =====
   const API_BASE = 'https://api.ykmys.com';
-  const TURNSTILE_SITE_KEY = 'YOUR_TURNSTILE_SITE_KEY'; // 替换为你的Site Key
+  const TURNSTILE_SITE_KEY = '0x4AAAAAAFEEfWuZJqnevtcZ';
   const PAGE_ID = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
 
   // ===== 样式 =====
