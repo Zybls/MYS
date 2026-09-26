@@ -1533,5 +1533,54 @@ function filterBuilds(query) {
 }
 </script>
 
+
+<!-- 音乐播放器 -->
+<audio id="bgmPlayer" loop preload="none">
+  <source src="home-bgm.mp3" type="audio/mpeg">
+</audio>
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+    <svg class="play-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <div class="music-visualizer" id="musicViz">
+    <div class="music-bar"></div><div class="music-bar"></div>
+    <div class="music-bar"></div><div class="music-bar"></div>
+  </div>
+  <div class="music-info">
+    <div class="music-title">公会主题曲</div>
+    <div class="music-status" id="musicStatus">点击播放</div>
+  </div>
+</div>
+<script>
+var bgm = document.getElementById('bgmPlayer');
+var musicBtn = document.getElementById('musicBtn');
+var musicPlayer = document.getElementById('musicPlayer');
+var musicStatus = document.getElementById('musicStatus');
+var isPlaying = false;
+function toggleMusic() {
+  var playIcon = musicBtn.querySelector('.play-icon');
+  var pauseIcon = musicBtn.querySelector('.pause-icon');
+  if (isPlaying) {
+    bgm.pause();
+    isPlaying = false;
+    playIcon.style.display = 'block';
+    pauseIcon.style.display = 'none';
+    musicPlayer.classList.remove('playing');
+    musicStatus.textContent = '已暂停';
+  } else {
+    bgm.play().then(function() {
+      isPlaying = true;
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      musicPlayer.classList.add('playing');
+      musicStatus.textContent = '播放中';
+    }).catch(function(e) {
+      musicStatus.textContent = '加载失败';
+    });
+  }
+}
+</script>
+
 </body>
 </html>
