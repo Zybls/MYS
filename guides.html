@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英雄没有闪攻略大全 | 新手入门首领打法神殿纷争 | 天涯若比邻公会</title>
+<meta name="description" content="天涯若比邻公会攻略大全 - 新手入门、首领打法、神殿纷争、资源获取、刻印遗物侍从洗炼全攻略，公会精英实战总结">
+<meta name="keywords" content="英雄没有闪攻略,英雄没有闪新手入门,英雄没有闪首领打法,神殿纷争攻略,天涯若比邻公会">
+<meta property="og:title" content="攻略大全 · 天涯若比邻">
+<meta property="og:description" content="新手入门·首领打法·神殿纷争·资源获取·刻印遗物侍从洗炼全攻略">
+<link rel="canonical" href="https://ykmys.com/guides.html">
+<link rel="manifest" href="manifest.json">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#0a0a0f; --bg-card:#14141e; --bg-card2:#1a1a26;
+  --bg-card-hover:#1e1e2e; --text:#e8e8f0; --text-dim:#8888a0;
+  --text-bright:#fff; --border:#2a2a3a; --border-hover:#3a3a4e;
+  --gold:#f59e0b; --gold-dim:#d97706; --gold-glow:rgba(245,158,11,0.15);
+}
+body {
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:var(--bg); color:var(--text);
+  padding-top:72px; line-height:1.6;
+}
+a { color:inherit; text-decoration:none; }
+
+/* ===== 公会导航 ===== */
+.guild-nav {
+  position:fixed; top:0; left:0; right:0; z-index:9999;
+  background:rgba(11,11,18,0.92); backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(245,158,11,0.15);
+}
+.guild-nav-inner {
+  max-width:1280px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 20px; gap:16px;
+}
+.guild-nav-left { display:flex; align-items:center; gap:12px; }
+.guild-logo {
+  width:40px; height:40px; border-radius:50%;
+  border:2px solid rgba(245,158,11,0.4);
+  object-fit:cover;
+}
+.guild-nav-name { font-size:16px; font-weight:800; color:var(--gold); }
+.guild-nav-slogan { font-size:10px; color:var(--text-dim); }
+.guild-nav-links { display:flex; gap:16px; }
+.guild-nav-link { font-size:13px; color:var(--text-dim); transition:color 0.2s; }
+.guild-nav-link:hover, .guild-nav-link.active { color:var(--gold); }
+.guild-nav-right { display:flex; align-items:center; gap:8px; }
+.nav-icon-btn {
+  background:none; border:none; color:var(--text); font-size:18px;
+  cursor:pointer; padding:8px; border-radius:6px;
+}
+.nav-icon-btn:hover { background:rgba(245,158,11,0.1); }
+.recruit-status { display:flex; align-items:center; gap:6px; font-size:12px; color:#4ade80; }
+.recruit-dot { width:8px; height:8px; background:#4ade80; border-radius:50%; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ===== 页面标题 ===== */
+.page-header {
+  max-width:1280px; margin:0 auto; padding:24px 20px 16px;
+  text-align:center;
+}
+.page-title { font-size:24px; font-weight:800; color:var(--text); margin-bottom:6px; }
+.page-subtitle { font-size:13px; color:var(--text-dim); }
+
+/* ===== 攻略分类网格 ===== */
+.guides-container { max-width:1280px; margin:0 auto; padding:0 20px 40px; }
+.guide-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:16px; margin-bottom:32px;
+}
+
+/* ===== 攻略分类卡片 ===== */
+.guide-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:14px; padding:20px; transition:all 0.25s;
+  cursor:pointer; position:relative; overflow:hidden;
+}
+.guide-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+  opacity:0; transition:opacity 0.25s;
+}
+.guide-card:hover {
+  border-color:var(--gold); transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+.guide-card:hover::before { opacity:1; }
+
+.guide-card-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.guide-icon {
+  width:48px; height:48px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; background:var(--gold-glow); flex-shrink:0;
+}
+.guide-title { font-size:17px; font-weight:700; color:var(--text); }
+.guide-count { font-size:11px; color:var(--text-dim); margin-top:2px; }
+
+.guide-desc { font-size:13px; color:var(--text-dim); margin-bottom:14px; line-height:1.5; }
+
+.guide-sub-list { display:flex; flex-direction:column; gap:6px; }
+.guide-sub-item {
+  font-size:12px; color:var(--text); padding:6px 10px;
+  background:var(--bg-card2); border-radius:6px;
+  display:flex; align-items:center; gap:8px;
+  transition:background 0.2s;
+}
+.guide-sub-item:hover { background:var(--bg-card-hover); }
+.guide-sub-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--gold); flex-shrink:0;
+}
+.guide-sub-text { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.guide-sub-tag {
+  font-size:10px; padding:1px 6px; border-radius:4px;
+  background:rgba(74,222,128,0.15); color:#4ade80; flex-shrink:0;
+}
+.guide-sub-tag.wip { background:rgba(245,158,11,0.15); color:var(--gold); }
+
+/* ===== 分区标题 ===== */
+.section-title {
+  font-size:18px; font-weight:700; color:var(--gold);
+  margin:28px 0 14px; padding-left:12px;
+  border-left:3px solid var(--gold);
+}
+
+/* ===== 热门攻略 ===== */
+.hot-list { display:flex; flex-direction:column; gap:10px; }
+.hot-item {
+  display:flex; align-items:center; gap:14px;
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:10px; padding:14px 16px; transition:all 0.2s;
+}
+.hot-item:hover { border-color:var(--gold); background:var(--bg-card-hover); }
+.hot-rank {
+  width:28px; height:28px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:800; flex-shrink:0;
+}
+.hot-rank.r1 { background:rgba(245,158,11,0.2); color:var(--gold); }
+.hot-rank.r2 { background:rgba(192,192,192,0.15); color:#c0c0c0; }
+.hot-rank.r3 { background:rgba(205,127,50,0.15); color:#cd7f32; }
+.hot-rank.normal { background:var(--bg-card2); color:var(--text-dim); }
+.hot-info { flex:1; min-width:0; }
+.hot-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.hot-meta { font-size:11px; color:var(--text-dim); }
+.hot-views { font-size:12px; color:var(--text-dim); flex-shrink:0; }
+
+/* ===== 亮色主题 ===== */
+[data-theme="light"] {
+  --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa;
+  --bg-card-hover:#f0f0f5; --border:#e0e0e8; --border-hover:#c8c8d0;
+  --gold:#d97706; --text:#1a1a2e; --text-dim:#5a5a6e;
+}
+[data-theme="light"] body { background:var(--bg); color:var(--text); }
+[data-theme="light"] .guild-nav { background:rgba(255,255,255,0.95); border-bottom:1px solid #e0e0e8; }
+[data-theme="light"] .guild-nav-name { color:#78350f; }
+[data-theme="light"] .guild-nav-link { color:#1a1a2e; }
+[data-theme="light"] .guild-nav-link:hover { color:#d97706; }
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 768px) {
+  body { padding-top:100px; }
+  .guild-nav-inner { padding:6px 12px; gap:8px; flex-wrap:wrap; }
+  .guild-nav-slogan { display:none; }
+  .guild-nav-links { order:3; width:100%; justify-content:center; gap:12px; padding:4px 0; border-top:1px solid rgba(245,158,11,0.1); }
+  .guild-nav-link { font-size:12px; }
+  .recruit-text { display:none; }
+  .page-title { font-size:20px; }
+  .guide-grid { grid-template-columns:1fr; gap:12px; }
+  .guide-card { padding:16px; }
+  .guide-icon { width:42px; height:42px; font-size:20px; }
+  .guide-title { font-size:15px; }
+  .hot-item { padding:12px; gap:10px; }
+  .hot-title { font-size:13px; }
+}
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x:auto !important; overflow-y:hidden !important; flex-wrap:nowrap !important; -webkit-overflow-scrolling:touch !important; scrollbar-width:none !important; }
+  .nav-inner::-webkit-scrollbar { display:none !important; }
+  .nav-links { flex-wrap:nowrap !important; flex-shrink:0 !important; }
+  .nav-link { white-space:nowrap !important; flex-shrink:0 !important; }
+}
+</style>
+</head>
+<body>
+<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">英雄没有闪攻略大全 - 新手入门首领打法神殿纷争资源获取</h1>
+
+<!-- 公会导航 -->
+<nav class="guild-nav">
+  <div class="guild-nav-inner">
+    <div class="guild-nav-left">
+      <a href="index.html"><img loading="lazy" src="guild-badge.png" class="guild-logo" alt="公会徽章"></a>
+      <div>
+        <div class="guild-nav-name">天涯若比邻</div>
+        <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+      </div>
+    </div>
+    <div class="guild-nav-links">
+      <a href="index.html" class="guild-nav-link">首页</a>
+      <a href="tactics.html" class="guild-nav-link">战术库</a>
+      <a href="guides.html" class="guild-nav-link active">攻略</a>
+      <a href="pets.html" class="guild-nav-link">侍从</a>
+      <a href="redeem-codes.html" class="guild-nav-link">兑换码</a>
+    </div>
+    <div class="guild-nav-right">
+      <div class="recruit-status"><span class="recruit-dot"></span><span class="recruit-text">招募中</span></div>
+      <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- 页面标题 -->
+<div class="page-header">
+  <h2 class="page-title">📚 攻略大全</h2>
+  <p class="page-subtitle">新手入门 · 首领打法 · 神殿纷争 · 资源获取 · 刻印遗物侍从洗炼全攻略</p>
+</div>
+
+<div class="guides-container">
+
+<!-- ===== 攻略分类 ===== -->
+<div class="guide-grid">
+
+  <!-- 新手入门 -->
+  <div class="guide-card" onclick="showGuide('beginner')">
+    <div class="guide-card-header">
+      <div class="guide-icon">🎮</div>
+      <div>
+        <div class="guide-title">新手入门</div>
+        <div class="guide-count">5 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">开局不走弯路，资源规划、升级路线、首充建议，新手必看</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">开局7天发展路线</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">资源优先级分配</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">首充/月卡性价比分析</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">每日必做清单</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">常见误区避坑</span></div>
+    </div>
+  </div>
+
+  <!-- 首领打法 -->
+  <div class="guide-card" onclick="showGuide('boss')">
+    <div class="guide-card-header">
+      <div class="guide-icon">⚔️</div>
+      <div>
+        <div class="guide-title">首领打法</div>
+        <div class="guide-count">8 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">各首领机制解析、站位技巧、输出循环、时间轴规划</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">首领通用输出循环</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">各首领机制与应对</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">首领时间轴规划</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">首领阵容搭配</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">首领伤害提升技巧</span></div>
+    </div>
+  </div>
+
+  <!-- 神殿纷争 -->
+  <div class="guide-card" onclick="showGuide('temple')">
+    <div class="guide-card-header">
+      <div class="guide-icon">🏰</div>
+      <div>
+        <div class="guide-title">神殿纷争</div>
+        <div class="guide-count">4 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">公会战策略、阵容搭配、考勤管理、战功获取最大化</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">神殿纷争规则详解</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">公会战阵容推荐</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">战功获取最大化</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">神殿战术配合</span></div>
+    </div>
+  </div>
+
+  <!-- 资源获取 -->
+  <div class="guide-card" onclick="showGuide('resource')">
+    <div class="guide-card-header">
+      <div class="guide-icon">💰</div>
+      <div>
+        <div class="guide-title">资源获取</div>
+        <div class="guide-count">6 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">金币、材料、抽卡资源、各种货币的获取途径和使用建议</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">金币获取与使用</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">抽卡资源规划</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">材料刷取优先级</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">各货币用途一览</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">限时活动资源</span></div>
+    </div>
+  </div>
+
+  <!-- 刻印攻略 -->
+  <div class="guide-card" onclick="showGuide('engrave')">
+    <div class="guide-card-header">
+      <div class="guide-icon">🔮</div>
+      <div>
+        <div class="guide-title">刻印攻略</div>
+        <div class="guide-count">5 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">刻印选择、升级优先级、刻印共鸣、各职业刻印推荐</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">刻印系统详解</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">各职业刻印推荐</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">刻印升级优先级</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">刻印共鸣搭配</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">刻印获取途径</span></div>
+    </div>
+  </div>
+
+  <!-- 遗物攻略 -->
+  <div class="guide-card" onclick="showGuide('relic')">
+    <div class="guide-card-header">
+      <div class="guide-icon">💎</div>
+      <div>
+        <div class="guide-title">遗物攻略</div>
+        <div class="guide-count">4 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">遗物搭配、套装效果、品质选择、各流派遗物推荐</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">遗物系统详解</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">套装效果一览</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">各流派遗物搭配</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">遗物品质选择</span></div>
+    </div>
+  </div>
+
+  <!-- 侍从攻略 -->
+  <div class="guide-card" onclick="showGuide('pet')">
+    <div class="guide-card-header">
+      <div class="guide-icon">🐾</div>
+      <div>
+        <div class="guide-title">侍从攻略</div>
+        <div class="guide-count">5 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">侍从选择、培养优先级、侍从技能、侍从搭配</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">侍从系统详解</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">T0侍从推荐</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">侍从培养优先级</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">侍从技能解析</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">侍从搭配思路</span></div>
+    </div>
+  </div>
+
+  <!-- 洗炼攻略 -->
+  <div class="guide-card" onclick="showGuide('wash')">
+    <div class="guide-card-header">
+      <div class="guide-icon">⚗️</div>
+      <div>
+        <div class="guide-title">洗炼攻略</div>
+        <div class="guide-count">4 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">词条选择、洗炼技巧、各职业推荐词条、洗炼资源规划</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">洗炼系统详解</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">各职业推荐词条</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">洗炼技巧与概率</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">洗炼资源规划</span></div>
+    </div>
+  </div>
+
+  <!-- 悬赏赛 -->
+  <div class="guide-card" onclick="showGuide('bounty')">
+    <div class="guide-card-header">
+      <div class="guide-icon">🎯</div>
+      <div>
+        <div class="guide-title">悬赏赛</div>
+        <div class="guide-count">3 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">悬赏赛打法、高分技巧、阵容推荐、奖励兑换</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">悬赏赛规则与奖励</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">高分阵容推荐</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">悬赏赛技巧</span></div>
+    </div>
+  </div>
+
+  <!-- 战力提升 -->
+  <div class="guide-card" onclick="showGuide('power')">
+    <div class="guide-card-header">
+      <div class="guide-icon">📈</div>
+      <div>
+        <div class="guide-title">战力提升</div>
+        <div class="guide-count">4 篇攻略</div>
+      </div>
+    </div>
+    <div class="guide-desc">快速提升战力的方法、性价比分析、各阶段目标</div>
+    <div class="guide-sub-list">
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">战力构成解析</span><span class="guide-sub-tag">热门</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">性价比提升路线</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">各阶段战力目标</span><span class="guide-sub-tag wip">待补充</span></div>
+      <div class="guide-sub-item"><span class="guide-sub-dot"></span><span class="guide-sub-text">瓶颈期突破方法</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 热门攻略排行 ===== -->
+<div class="section-title">🔥 热门攻略 TOP 5</div>
+<div class="hot-list">
+  <div class="hot-item">
+    <div class="hot-rank r1">1</div>
+    <div class="hot-info">
+      <div class="hot-title">开局7天发展路线 - 新手不走弯路</div>
+      <div class="hot-meta">新手入门 · 公会精英整理</div>
+    </div>
+    <div class="hot-views">👁 2.3k</div>
+  </div>
+  <div class="hot-item">
+    <div class="hot-rank r2">2</div>
+    <div class="hot-info">
+      <div class="hot-title">首领通用输出循环 - 伤害提升30%</div>
+      <div class="hot-meta">首领打法 · 实战验证</div>
+    </div>
+    <div class="hot-views">👁 1.8k</div>
+  </div>
+  <div class="hot-item">
+    <div class="hot-rank r3">3</div>
+    <div class="hot-info">
+      <div class="hot-title">神殿纷争规则详解 - 战功最大化</div>
+      <div class="hot-meta">神殿纷争 · 公会战必备</div>
+    </div>
+    <div class="hot-views">👁 1.5k</div>
+  </div>
+  <div class="hot-item">
+    <div class="hot-rank normal">4</div>
+    <div class="hot-info">
+      <div class="hot-title">金币获取与使用 - 不再缺金币</div>
+      <div class="hot-meta">资源获取 · 每日必看</div>
+    </div>
+    <div class="hot-views">👁 1.2k</div>
+  </div>
+  <div class="hot-item">
+    <div class="hot-rank normal">5</div>
+    <div class="hot-info">
+      <div class="hot-title">刻印系统详解 - 各职业刻印推荐</div>
+      <div class="hot-meta">刻印攻略 · 配装核心</div>
+    </div>
+    <div class="hot-views">👁 1.0k</div>
+  </div>
+</div>
+
+<!-- ===== 攻略贡献 ===== -->
+<div style="margin-top:40px; text-align:center; padding:24px; background:var(--bg-card); border:1px dashed var(--border); border-radius:12px;">
+  <div style="font-size:16px; font-weight:700; color:var(--gold); margin-bottom:8px;">✍️ 欢迎投稿攻略</div>
+  <div style="font-size:13px; color:var(--text-dim); margin-bottom:12px;">如果你有好的攻略心得，欢迎联系公会管理投稿，审核通过后将展示在这里</div>
+  <a href="index.html#contact" style="display:inline-block; padding:8px 20px; background:var(--gold); color:#000; border-radius:8px; font-size:13px; font-weight:600;">联系投稿</a>
+</div>
+
+</div>
+</main>
+
+<script>
+// 主题切换
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  if (current === 'light') {
+    html.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    html.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  }
+}
+// 恢复主题
+if (localStorage.getItem('theme') === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+}
+
+// 攻略分类点击（占位，后续加详细页）
+function showGuide(category) {
+  alert('「' + category + '」详细攻略正在整理中，敬请期待！');
+}
+</script>
+<script src="search-data.js"></script>
+<script src="search.js"></script>
+</body>
+</html>

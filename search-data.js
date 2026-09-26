@@ -1,14 +1,14 @@
 // 全站搜索数据 - 自动生成
 const SEARCH_DATA = [
   {
-    "title": "全部配装 · 英雄没有闪 | 天涯若比邻",
+    "title": "英雄没有闪全部配装攻略大全 | 天涯若比邻公会",
     "url": "all-builds.html",
     "description": "全部配装 - 天涯若比邻公会站",
     "category": "配装大全",
     "keywords": "配装大全 全部配装"
   },
   {
-    "title": "更新日志 · 天涯若比邻",
+    "title": "英雄没有闪更新日志 | 天涯若比邻公会",
     "url": "changelog.html",
     "description": "英雄没有闪S2赛季配装攻略站更新日志，记录每次配装更新和网站功能迭代。",
     "category": "更新日志",
@@ -78,11 +78,18 @@ const SEARCH_DATA = [
     "keywords": "秘法师配装 秘法师 · 咒灵火眼"
   },
   {
-    "title": "新手指南 · 英雄没有闪 | 天涯若比邻",
+    "title": "英雄没有闪新手指南 | 入门攻略 | 天涯若比邻公会",
     "url": "guide.html",
     "description": "英雄没有闪S2赛季新手入门指南，职业选择、核心机制、配装思路、常见误区一文搞懂。",
     "category": "新手指南",
     "keywords": "新手指南 🎯 新手入门指南"
+  },
+  {
+    "title": "英雄没有闪攻略大全 | 新手入门首领打法神殿纷争 | 天涯若比邻公会",
+    "url": "guides.html",
+    "description": "天涯若比邻公会攻略大全 - 新手入门、首领打法、神殿纷争、资源获取、刻印遗物侍从洗炼全攻略，公会精英实战总结",
+    "category": "其他",
+    "keywords": "其他 英雄没有闪攻略大全 - 新手入门首领打法神殿纷争资源获取"
   },
   {
     "title": "公会历史 · 天涯若比邻",
@@ -92,14 +99,14 @@ const SEARCH_DATA = [
     "keywords": "历史战报 🏆 公会战报"
   },
   {
-    "title": "成员详情 · 天涯若比邻",
+    "title": "天涯若比邻公会成员详情 | 英雄没有闪",
     "url": "guild-member-detail.html",
     "description": "天涯若比邻公会成员详细战绩",
     "category": "成员详情",
     "keywords": "成员详情"
   },
   {
-    "title": "公会成员 · 天涯若比邻",
+    "title": "天涯若比邻公会成员榜 | 英雄没有闪",
     "url": "guild-members.html",
     "description": "天涯若比邻公会成员列表，8.22神殿纷争参战名单，总功勋522,750",
     "category": "成员榜",
@@ -134,7 +141,7 @@ const SEARCH_DATA = [
     "keywords": "配装推荐 🎯 智能配装推荐"
   },
   {
-    "title": "英雄没有闪兑换码大全 · 实时更新 | 天涯若比邻",
+    "title": "英雄没有闪兑换码大全2026 | 最新礼包码实时更新 | 天涯若比邻",
     "url": "redeem-codes.html",
     "description": "英雄没有闪最新兑换码、礼包码大全，实时更新，一键复制",
     "category": "兑换码",
@@ -162,7 +169,7 @@ const SEARCH_DATA = [
     "keywords": "技能图鉴 ⚔️ 技能图鉴 ·"
   },
   {
-    "title": "公会战术库 · 全职业配装大全 | 天涯若比邻",
+    "title": "英雄没有闪公会战术库 | 全职业配装攻略 | 天涯若比邻",
     "url": "tactics.html",
     "description": "天涯若比邻公会战术库 - 全职业流派配装大全，公会精英实战验证",
     "category": "战术库",
