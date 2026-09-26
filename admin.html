@@ -259,6 +259,37 @@ body.light-theme .action-btn:hover {
 .hint { font-size: 12px; color: var(--text-dim); margin: 0 0 16px; }
 @media (max-width: 639px) { .editor-grid { grid-template-columns: 1fr; } }
 
+/* ===== 移动端全面适配 ===== */
+@media (max-width: 768px) {
+  .admin-body { padding: 12px !important; }
+  .admin-header { flex-direction: column !important; gap: 10px !important; align-items: flex-start !important; }
+  .admin-title { font-size: 18px !important; }
+  .tab-bar { overflow-x: auto !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; padding-bottom: 4px !important; }
+  .tab-bar::-webkit-scrollbar { display: none !important; }
+  .tab-btn { white-space: nowrap !important; flex-shrink: 0 !important; font-size: 12px !important; padding: 8px 12px !important; }
+  .panel { padding: 14px !important; }
+  .panel-title { font-size: 16px !important; }
+  .two-col { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .build-manage-layout { grid-template-columns: 1fr !important; }
+  .editor-grid { grid-template-columns: 1fr !important; }
+  .input, select, textarea { width: 100% !important; box-sizing: border-box !important; font-size: 14px !important; }
+  .btn-primary, button { font-size: 13px !important; padding: 8px 14px !important; }
+  table { display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+  th, td { padding: 6px 8px !important; font-size: 12px !important; white-space: nowrap !important; }
+  .stat-card { padding: 12px !important; }
+  .stat-number { font-size: 20px !important; }
+  .stat-label { font-size: 11px !important; }
+  .form-group { margin-bottom: 10px !important; }
+  .form-group label { font-size: 13px !important; }
+}
+
+@media (max-width: 480px) {
+  .admin-body { padding: 8px !important; }
+  .panel { padding: 10px !important; }
+  .tab-btn { font-size: 11px !important; padding: 6px 10px !important; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js">
 /* ===== 网站内容可视化编辑 ===== */
@@ -1198,15 +1229,6 @@ function deleteActivity(id){if(!confirm("确定删除该活动？"))return;fetch
 
 // ==================== 兑换码管理 ====================
 var editingRedeemId=null;
-function showRedeemForm(id){editingRedeemId=id||null;document.getElementById("redeemForm").style.display="block";if(id){var r=redeemData.find(function(x){return x.id===id});if(r){document.getElementById("r_code").value=r.code||"";document.getElementById("r_type").value=r.type||"weekly";document.getElementById("r_expire").value=r.expire_date||"";document.getElementById("r_reward").value=r.reward||"";document.getElementById("r_source").value=r.source||""}}else{document.getElementById("r_code").value="";document.getElementById("r_type").value="weekly";document.getElementById("r_expire").value="";document.getElementById("r_reward").value="";document.getElementById("r_source").value=""}}
-function hideRedeemForm(){document.getElementById("redeemForm").style.display="none"}
-var redeemData=[];
-function loadRedeemCodes(){fetch(API_BASE+"/api/redeem-codes/all",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){redeemData=data||[];renderRedeem()}).catch(function(){document.getElementById("redeemList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
-function renderRedeem(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">兑换码</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">奖励</th><th style="text-align:left;padding:8px">过期日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(redeemData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无兑换码</td></tr>'}redeemData.forEach(function(r){var typeMap={weekly:"周礼包",festival:"节日礼包",permanent:"长期有效"};html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-family:monospace">'+(r.code||'')+'</td><td style="padding:8px">'+(typeMap[r.type]||r.type||'')+'</td><td style="padding:8px">'+(r.reward||'')+'</td><td style="padding:8px">'+(r.expire_date||'永久')+'</td><td style="padding:8px">'+(r.is_active?'🟢 有效':'🔴 无效')+'</td><td style="padding:8px"><button onclick="showRedeemForm(''+r.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteRedeem(''+r.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("redeemList").innerHTML=html}
-function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
-function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
-
-
 // ==================== 考勤管理 ====================
 function loadActivitiesForAttendance(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){var sel=document.getElementById("attendanceActivity");if(sel){sel.innerHTML='<option value="">选择活动</option>';(data||[]).forEach(function(a){sel.innerHTML+='<option value="'+a.id+'">'+(a.title||'')+' ('+(a.date||'')+')</option>'})}})}
 var attendanceData=[];
@@ -1277,15 +1299,6 @@ function deleteActivity(id){if(!confirm("确定删除该活动？"))return;fetch
 
 // ==================== 兑换码管理 ====================
 var editingRedeemId=null;
-function showRedeemForm(id){editingRedeemId=id||null;document.getElementById("redeemForm").style.display="block";if(id){var r=redeemData.find(function(x){return x.id===id});if(r){document.getElementById("r_code").value=r.code||"";document.getElementById("r_type").value=r.type||"weekly";document.getElementById("r_expire").value=r.expire_date||"";document.getElementById("r_reward").value=r.reward||"";document.getElementById("r_source").value=r.source||""}}else{document.getElementById("r_code").value="";document.getElementById("r_type").value="weekly";document.getElementById("r_expire").value="";document.getElementById("r_reward").value="";document.getElementById("r_source").value=""}}
-function hideRedeemForm(){document.getElementById("redeemForm").style.display="none"}
-var redeemData=[];
-function loadRedeemCodes(){fetch(API_BASE+"/api/redeem-codes/all",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){redeemData=data||[];renderRedeem()}).catch(function(){document.getElementById("redeemList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
-function renderRedeem(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">兑换码</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">奖励</th><th style="text-align:left;padding:8px">过期日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(redeemData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无兑换码</td></tr>'}redeemData.forEach(function(r){var typeMap={weekly:"周礼包",festival:"节日礼包",permanent:"长期有效"};html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-family:monospace">'+(r.code||'')+'</td><td style="padding:8px">'+(typeMap[r.type]||r.type||'')+'</td><td style="padding:8px">'+(r.reward||'')+'</td><td style="padding:8px">'+(r.expire_date||'永久')+'</td><td style="padding:8px">'+(r.is_active?'🟢 有效':'🔴 无效')+'</td><td style="padding:8px"><button onclick="showRedeemForm(''+r.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteRedeem(''+r.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("redeemList").innerHTML=html}
-function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
-function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
-
-
 // ==================== 考勤管理 ====================
 function loadActivitiesForAttendance(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){var sel=document.getElementById("attendanceActivity");if(sel){sel.innerHTML='<option value="">选择活动</option>';(data||[]).forEach(function(a){sel.innerHTML+='<option value="'+a.id+'">'+(a.title||'')+' ('+(a.date||'')+')</option>'})}})}
 var attendanceData=[];
@@ -1349,15 +1362,6 @@ function deleteActivity(id){if(!confirm("确定删除该活动？"))return;fetch
 
 // ==================== 兑换码管理 ====================
 var editingRedeemId=null;
-function showRedeemForm(id){editingRedeemId=id||null;document.getElementById("redeemForm").style.display="block";if(id){var r=redeemData.find(function(x){return x.id===id});if(r){document.getElementById("r_code").value=r.code||"";document.getElementById("r_type").value=r.type||"weekly";document.getElementById("r_expire").value=r.expire_date||"";document.getElementById("r_reward").value=r.reward||"";document.getElementById("r_source").value=r.source||""}}else{document.getElementById("r_code").value="";document.getElementById("r_type").value="weekly";document.getElementById("r_expire").value="";document.getElementById("r_reward").value="";document.getElementById("r_source").value=""}}
-function hideRedeemForm(){document.getElementById("redeemForm").style.display="none"}
-var redeemData=[];
-function loadRedeemCodes(){fetch(API_BASE+"/api/redeem-codes/all",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){redeemData=data||[];renderRedeem()}).catch(function(){document.getElementById("redeemList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
-function renderRedeem(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">兑换码</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">奖励</th><th style="text-align:left;padding:8px">过期日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(redeemData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无兑换码</td></tr>'}redeemData.forEach(function(r){var typeMap={weekly:"周礼包",festival:"节日礼包",permanent:"长期有效"};html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-family:monospace">'+(r.code||'')+'</td><td style="padding:8px">'+(typeMap[r.type]||r.type||'')+'</td><td style="padding:8px">'+(r.reward||'')+'</td><td style="padding:8px">'+(r.expire_date||'永久')+'</td><td style="padding:8px">'+(r.is_active?'🟢 有效':'🔴 无效')+'</td><td style="padding:8px"><button onclick="showRedeemForm(''+r.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteRedeem(''+r.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("redeemList").innerHTML=html}
-function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
-function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
-
-
 // ==================== 考勤管理 ====================
 function loadActivitiesForAttendance(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){var sel=document.getElementById("attendanceActivity");if(sel){sel.innerHTML='<option value="">选择活动</option>';(data||[]).forEach(function(a){sel.innerHTML+='<option value="'+a.id+'">'+(a.title||'')+' ('+(a.date||'')+')</option>'})}})}
 var attendanceData=[];
