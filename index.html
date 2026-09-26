@@ -1219,6 +1219,12 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 var API_BASE = "https://api.ykmys.com";
 var siteConfig = null;
 
+function escapeHtml(str) {
+  return (str || '').replace(/[&<>"']/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
 function loadSiteConfig() {
   fetch(API_BASE + "/api/home-config")
     .then(function(r){ return r.json(); })
@@ -1253,8 +1259,8 @@ function renderSiteConfig() {
       var tags = ["战报","联赛","招募","活动","通知"];
       siteConfig.announcements.forEach(function(text, i){
         html += '<div class="announcement-item">' +
-          '<span class="ann-tag">' + (tags[i % tags.length]) + '</span>' +
-          '<span class="ann-text">' + text + '</span>' +
+          '<span class="ann-tag">' + escapeHtml(tags[i % tags.length]) + '</span>' +
+          '<span class="ann-text">' + escapeHtml(text) + '</span>' +
           '</div>';
       });
       scroll.innerHTML = html + html; // 复制一份用于无缝滚动
@@ -1267,7 +1273,7 @@ function renderSiteConfig() {
     if (welfareContainer) {
       var html = "";
       siteConfig.welfare.forEach(function(w){
-        html += '<div class="welfare-item"><span class="welfare-dot"></span>' + (w.icon?w.icon+" ":"") + (w.text||"") + '</div>';
+        html += '<div class="welfare-item"><span class="welfare-dot"></span>' + (w.icon?escapeHtml(w.icon)+" ":"") + escapeHtml(w.text||"") + '</div>';
       });
       welfareContainer.innerHTML = html;
     }
@@ -1585,7 +1591,7 @@ function submitSignup() {
     alert('报名成功！我们会尽快联系你');
     document.getElementById('signupGameId').value = '';
   }).catch(function(e){
-    alert('报名成功（本地记录），如未收到请联系会长');
+    alert('报名失败，请稍后重试或联系会长');
   }).finally(function(){
     btn.disabled = false; btn.textContent = '确认报名';
   });
