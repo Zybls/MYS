@@ -9,7 +9,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f1a;color:#e4e4e7;min-height:100vh;padding-bottom:80px}
-:root{--bg:#0f0f1a;--bg2:#1a1a2e;--bg3:#16213e;--border:rgba(255,255,255,0.08);--text:#e4e4e7;--text-dim:#a1a1aa;--accent:#60a5fa;--accent2:#fbbf24;--success:#34d399;--danger:#f87171}
+:root{--bg:#0f0f1a;--bg2:#1a1a2e;--bg3:#16213e;--border:rgba(255,255,255,0.08);--text:#e4e4e7;--text-dim:#a1a1aa;--accent:#60a5fa;--accent2:#fbbf24;--success:#34d399;--danger:#f87171;--purple:#a78bfa}
 .header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:20px;text-align:center;border-bottom:1px solid var(--border)}
 .header h1{font-size:22px;color:#fff;margin-bottom:4px}
 .header p{font-size:13px;color:var(--text-dim)}
@@ -26,6 +26,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .empty-state .icon{font-size:48px;margin-bottom:16px;opacity:0.5}
 .empty-state h3{font-size:16px;margin-bottom:8px;color:var(--text)}
 .empty-state p{font-size:13px}
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.filter-btn{padding:6px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;color:var(--text-dim);font-size:12px;cursor:pointer;transition:all .2s}
+.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filter-btn:hover{border-color:var(--accent)}
 .activity-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px}
 .activity-card .act-title{font-size:16px;font-weight:600;color:#fff;margin-bottom:6px}
 .activity-card .act-meta{display:flex;gap:12px;font-size:12px;color:var(--text-dim);margin-bottom:10px;flex-wrap:wrap}
@@ -36,9 +40,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .status-upcoming{background:rgba(96,165,250,0.15);color:var(--accent)}
 .signup-form{background:var(--bg3);border-radius:8px;padding:14px;margin-top:12px}
 .signup-form h4{font-size:13px;margin-bottom:10px;color:var(--accent)}
-.form-row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.form-row input{flex:1;min-width:120px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px}
-.form-row input:focus{outline:none;border-color:var(--accent)}
+.signup-form input{width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px}
+.signup-form input:focus{outline:none;border-color:var(--accent)}
 .btn{padding:8px 20px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;transition:all .2s}
 .btn:hover{background:#3b82f6}
 .btn:disabled{opacity:0.5;cursor:not-allowed}
@@ -46,7 +49,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .signup-list h4{font-size:13px;margin-bottom:8px;color:var(--text-dim)}
 .signup-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
 .signup-item .name{color:var(--text)}
-.signup-item .prof{color:var(--text-dim);font-size:12px}
+.member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.member-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;transition:all .2s}
+.member-card:hover{border-color:var(--accent)}
+.member-card .m-rank{font-size:11px;color:var(--text-dim);margin-bottom:4px}
+.member-card .m-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:4px}
+.member-card .m-power{font-size:13px;color:var(--accent2);margin-bottom:6px}
+.member-card .m-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.m-tag{font-size:10px;padding:2px 6px;border-radius:4px}
+.m-tag-chief{background:rgba(248,113,113,0.15);color:var(--danger)}
+.m-tag-vice{background:rgba(251,191,36,0.15);color:var(--accent2)}
+.m-tag-new{background:rgba(167,139,250,0.15);color:var(--purple)}
+.m-tag-normal{background:rgba(255,255,255,0.05);color:var(--text-dim)}
+.member-card .m-remark{font-size:11px;color:var(--text-dim);line-height:1.4}
+.battle-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px}
+.battle-card .b-title{font-size:15px;font-weight:600;color:#fff;margin-bottom:8px}
+.battle-card .b-score{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.battle-card .b-our{font-size:24px;font-weight:700;color:var(--accent)}
+.battle-card .b-vs{font-size:14px;color:var(--text-dim)}
+.battle-card .b-enemy{font-size:24px;font-weight:700;color:var(--danger)}
+.battle-card .b-result{font-size:12px;padding:2px 8px;border-radius:4px}
+.b-result-win{background:rgba(52,211,153,0.15);color:var(--success)}
+.b-result-lose{background:rgba(248,113,113,0.15);color:var(--danger)}
+.battle-card .b-meta{font-size:12px;color:var(--text-dim);line-height:1.8}
+.battle-card .b-meta span{margin-right:12px}
+.news-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid var(--accent)}
+.news-item .n-date{font-size:11px;color:var(--text-dim);margin-bottom:4px}
+.news-item .n-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(96,165,250,0.15);color:var(--accent);margin-right:6px}
+.news-item .n-content{font-size:13px;line-height:1.7;color:var(--text)}
 .comment-section{margin-bottom:20px}
 .comment-form{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px}
 .comment-form h4{font-size:14px;margin-bottom:12px;color:var(--accent)}
@@ -71,8 +101,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   .header h1{font-size:18px}
   .guild-info span{font-size:11px;padding:3px 8px}
   .panel{padding:14px}
-  .form-row{flex-direction:column}
-  .form-row input{min-width:auto}
+  .member-grid{grid-template-columns:1fr}
+  .battle-card .b-our,.battle-card .b-enemy{font-size:20px}
 }
 </style>
 </head>
@@ -87,7 +117,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <span>神殿联赛 6届</span>
   </div>
 </div>
-
 <div class="tabs" id="tabs">
   <div class="tab active" data-tab="signup" onclick="switchTab('signup')">活动报名</div>
   <div class="tab" data-tab="attendance" onclick="switchTab('attendance')">考勤统计</div>
@@ -96,49 +125,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="tab" data-tab="news" onclick="switchTab('news')">公会动态</div>
   <div class="tab" data-tab="comments" onclick="switchTab('comments')">留言板</div>
 </div>
-
-<!-- 活动报名 -->
-<div class="panel active" id="panel-signup">
-  <div id="activity-list"><p style="text-align:center;color:var(--text-dim);padding:40px">加载中...</p></div>
-</div>
-
-<!-- 考勤统计（空状态） -->
-<div class="panel" id="panel-attendance">
-  <div class="empty-state">
-    <div class="icon">📊</div>
-    <h3>考勤统计</h3>
-    <p>数据补充中，敬请期待</p>
-  </div>
-</div>
-
-<!-- 成员名录（空状态） -->
+<div class="panel active" id="panel-signup"><div id="activity-list"><p style="text-align:center;color:var(--text-dim);padding:40px">加载中...</p></div></div>
+<div class="panel" id="panel-attendance"><div class="empty-state"><div class="icon">📊</div><h3>考勤统计</h3><p>数据补充中，敬请期待</p></div></div>
 <div class="panel" id="panel-members">
-  <div class="empty-state">
-    <div class="icon">👥</div>
-    <h3>成员名录</h3>
-    <p>数据补充中，敬请期待</p>
+  <div class="filter-bar" id="member-filters">
+    <button class="filter-btn active" onclick="filterMembers('all')">全部</button>
+    <button class="filter-btn" onclick="filterMembers('chief')">会长副会长</button>
+    <button class="filter-btn" onclick="filterMembers('new')">新加入</button>
+    <button class="filter-btn" onclick="filterMembers('normal')">普通成员</button>
   </div>
+  <div class="member-grid" id="member-grid"><p style="grid-column:1/-1;text-align:center;color:var(--text-dim);padding:40px">加载中...</p></div>
+  <p style="text-align:center;color:var(--text-dim);font-size:11px;margin-top:16px">参战榜、功勋榜等更多维度数据补充中</p>
 </div>
-
-<!-- 历史战报（空状态） -->
-<div class="panel" id="panel-battles">
-  <div class="empty-state">
-    <div class="icon">⚔️</div>
-    <h3>历史战报</h3>
-    <p>数据补充中，敬请期待</p>
-  </div>
-</div>
-
-<!-- 公会动态（空状态） -->
-<div class="panel" id="panel-news">
-  <div class="empty-state">
-    <div class="icon">📢</div>
-    <h3>公会动态</h3>
-    <p>数据补充中，敬请期待</p>
-  </div>
-</div>
-
-<!-- 留言板 -->
+<div class="panel" id="panel-battles"><div id="battle-list"><p style="text-align:center;color:var(--text-dim);padding:40px">加载中...</p></div></div>
+<div class="panel" id="panel-news"><div id="news-list"><p style="text-align:center;color:var(--text-dim);padding:40px">加载中...</p></div></div>
 <div class="panel" id="panel-comments">
   <div class="comment-section">
     <div class="comment-form">
@@ -158,195 +158,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <button class="btn" onclick="submitMessage()" style="background:var(--accent2)">发送私信</button>
   </div>
 </div>
-
 <div class="bottom-nav">
   <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span>首页</a>
   <a href="library.html" class="nav-item"><span class="nav-icon">📚</span>资料库</a>
   <a href="guild.html" class="nav-item active"><span class="nav-icon">⚔️</span>公会</a>
   <a href="tools.html" class="nav-item"><span class="nav-icon">🔧</span>工具</a>
 </div>
-
 <div class="toast" id="toast"></div>
-
-<noscript>
-<div style="padding:20px;">
-<h2>公会中心</h2>
-<p>天涯若比邻公会，灾厄枷锁18服，40/40满编，总战力2266万兆。</p>
-<ul>
-<li>活动报名：神殿纷争每周六，报名请使用浏览器开启JavaScript</li>
-<li>留言板：公会成员交流区</li>
-<li>成员名录：40位成员战力排行</li>
-<li>历史战报：第六届联赛半决赛止步</li>
-</ul>
-</div>
-</noscript>
-
+<noscript><div style="padding:20px;"><h2>公会中心</h2><p>天涯若比邻公会，灾厄枷锁18服，40/40满编，总战力2266万兆。</p><ul><li>活动报名：神殿纷争每周六</li><li>成员名录：40位成员战力排行</li><li>历史战报：第六届联赛半决赛止步</li><li>留言板：公会成员交流区</li></ul></div></noscript>
 <script>
-const API_BASE = 'https://api.ykmys.com';
-
-function escapeHtml(str){
-  return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
-
-function switchTab(tab){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+tab));
-  if(tab==='signup') loadActivities();
-  if(tab==='comments') loadComments();
-}
-
-// 活动报名
-async function loadActivities(){
-  const list=document.getElementById('activity-list');
-  try{
-    const res=await fetch(API_BASE+'/api/activities');
-    const data=await res.json();
-    const acts=Array.isArray(data)?data:(data.data||[]);
-    if(acts.length===0){
-      list.innerHTML='<div class="empty-state"><div class="icon">📋</div><h3>暂无活动</h3><p>管理员正在创建活动，请稍后再来</p></div>';
-      return;
-    }
-    list.innerHTML=acts.map(a=>{
-      const statusClass=a.status==='已结束'?'status-ended':'status-upcoming';
-      const canSignup=a.status!=='已结束';
-      return `<div class="activity-card">
-        <div class="act-title">${escapeHtml(a.title)}</div>
-        <span class="act-status ${statusClass}">${escapeHtml(a.status)}</span>
-        <div class="act-meta">
-          <span>🗓️ ${escapeHtml(a.date||'日期待定')}</span>
-          <span>⏰ ${escapeHtml(a.time||'20:00')}</span>
-          <span>👥 ${a.max_participants||40}人</span>
-        </div>
-        <div class="act-desc">${escapeHtml(a.description||'')}</div>
-        ${canSignup?`
-        <div class="signup-form">
-          <h4>快速报名</h4>
-          <div class="form-row">
-            <input type="text" id="sg-name-${a.id}" placeholder="游戏ID" maxlength="20">
-            <input type="text" id="sg-prof-${a.id}" placeholder="职业" maxlength="10">
-          </div>
-          <input type="text" id="sg-remark-${a.id}" placeholder="备注（选填）" maxlength="50" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px">
-          <button class="btn" onclick="submitSignup('${a.id}','${escapeHtml(a.title)}')">确认报名</button>
-        </div>
-        <div class="signup-list" id="sg-list-${a.id}"></div>`:'<p style="font-size:12px;color:var(--text-dim)">活动已结束</p>'}
-      </div>`;
-    }).join('');
-    // 加载已报名列表
-    acts.forEach(a=>{if(a.status!=='已结束') loadSignups(a.id);});
-  }catch(e){
-    list.innerHTML='<div class="empty-state"><div class="icon">❌</div><h3>加载失败</h3><p>'+escapeHtml(e.message)+'</p></div>';
-  }
-}
-
-async function submitSignup(actId, actTitle){
-  const name=document.getElementById('sg-name-'+actId).value.trim();
-  const prof=document.getElementById('sg-prof-'+actId).value.trim();
-  const remark=document.getElementById('sg-remark-'+actId).value.trim();
-  if(!name){showToast('请填写游戏ID');return;}
-  try{
-    const res=await fetch(API_BASE+'/api/signups',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({game_id:name,activity:actTitle,profession:prof,remark:remark})
-    });
-    if(res.ok){
-      showToast('报名成功！');
-      document.getElementById('sg-name-'+actId).value='';
-      document.getElementById('sg-prof-'+actId).value='';
-      document.getElementById('sg-remark-'+actId).value='';
-      loadSignups(actId);
-    }else{
-      const err=await res.json();
-      showToast(err.error||'报名失败');
-    }
-  }catch(e){showToast('网络错误：'+e.message);}
-}
-
-async function loadSignups(actId){
-  const list=document.getElementById('sg-list-'+actId);
-  if(!list)return;
-  try{
-    const res=await fetch(API_BASE+'/api/signups');
-    const data=await res.json();
-    const all=Array.isArray(data)?data:(data.data||[]);
-    const signups=all.filter(s=>s.activity===actId||s.activity_id===actId);
-    if(signups.length>0){
-      list.innerHTML='<h4>已报名 ('+signups.length+')</h4>'+signups.map(s=>
-        `<div class="signup-item"><span class="name">${escapeHtml(s.game_id)}</span><span class="prof">${escapeHtml(s.profession||'')}</span></div>`
-      ).join('');
-    }
-  }catch(e){}
-}
-
-// 留言板
-async function loadComments(){
-  const list=document.getElementById('comment-list');
-  try{
-    const res=await fetch(API_BASE+'/api/comments?page=guild');
-    const data=await res.json();
-    const comments=Array.isArray(data)?data:(data.data||[]);
-    if(comments.length===0){
-      list.innerHTML='<p style="text-align:center;color:var(--text-dim);padding:20px">还没有评论，来抢沙发吧</p>';
-      return;
-    }
-    list.innerHTML=comments.map(c=>`<div class="comment-item">
-      <div class="c-header"><span class="c-name">${escapeHtml(c.nickname||'匿名')}</span><span class="c-time">${escapeHtml(c.created_at||'')}</span></div>
-      <div class="c-content">${escapeHtml(c.content)}</div>
-    </div>`).join('');
-  }catch(e){
-    list.innerHTML='<p style="text-align:center;color:var(--text-dim);padding:20px">加载失败</p>';
-  }
-}
-
-async function submitComment(){
-  const nickname=document.getElementById('c-nickname').value.trim()||'匿名玩家';
-  const content=document.getElementById('c-content').value.trim();
-  if(!content){showToast('请输入评论内容');return;}
-  try{
-    const res=await fetch(API_BASE+'/api/comments',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({page:'guild',nickname,content})
-    });
-    if(res.ok){
-      showToast('评论发表成功！');
-      document.getElementById('c-nickname').value='';
-      document.getElementById('c-content').value='';
-      loadComments();
-    }else{
-      const err=await res.json();
-      showToast(err.error||'发表失败');
-    }
-  }catch(e){showToast('网络错误：'+e.message);}
-}
-
-async function submitMessage(){
-  const name=document.getElementById('m-name').value.trim();
-  const contact=document.getElementById('m-contact').value.trim();
-  const content=document.getElementById('m-content').value.trim();
-  if(!name||!content){showToast('请填写游戏ID和留言内容');return;}
-  try{
-    const res=await fetch(API_BASE+'/api/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name,contact,content})
-    });
-    if(res.ok){
-      showToast('私信已发送给会长！');
-      document.getElementById('m-name').value='';
-      document.getElementById('m-contact').value='';
-      document.getElementById('m-content').value='';
-    }else{
-      const err=await res.json();
-      showToast(err.error||'发送失败');
-    }
-  }catch(e){showToast('网络错误：'+e.message);}
-}
-
-// 初始化
+const API_BASE='https://api.ykmys.com';
+var membersData=[],memberFilter='all';
+function escapeHtml(str){return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function switchTab(tab){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+tab));if(tab==='signup')loadActivities();if(tab==='members')loadMembers();if(tab==='battles')loadBattles();if(tab==='news')loadNews();if(tab==='comments')loadComments();}
+function getMemberRole(remark){if(!remark)return 'normal';if(remark.includes('会长')&&!remark.includes('副'))return 'chief';if(remark.includes('副会长'))return 'chief';if(remark.includes('新加入'))return 'new';return 'normal';}
+function getRoleTag(remark){const role=getMemberRole(remark);if(role==='chief'){if(remark&&remark.includes('副会长'))return '<span class="m-tag m-tag-vice">副会长</span>';return '<span class="m-tag m-tag-chief">会长</span>';}if(role==='new')return '<span class="m-tag m-tag-new">新加入</span>';return '<span class="m-tag m-tag-normal">成员</span>';}
+async function loadActivities(){const list=document.getElementById('activity-list');try{const res=await fetch(API_BASE+'/api/activities');const data=await res.json();const acts=Array.isArray(data)?data:(data.data||[]);if(acts.length===0){list.innerHTML='<div class="empty-state"><div class="icon">📋</div><h3>暂无活动</h3><p>管理员正在创建活动，请稍后再来</p></div>';return;}list.innerHTML=acts.map(a=>{const statusClass=a.status==='已结束'?'status-ended':'status-upcoming';const canSignup=a.status!=='已结束';return `<div class="activity-card"><div class="act-title">${escapeHtml(a.title)}</div><span class="act-status ${statusClass}">${escapeHtml(a.status)}</span><div class="act-meta"><span>🗓️ ${escapeHtml(a.date||'日期待定')}</span><span>⏰ ${escapeHtml(a.time||'20:00')}</span><span>👥 ${a.max_participants||40}人</span></div><div class="act-desc">${escapeHtml(a.description||'')}</div>${canSignup?`<div class="signup-form"><h4>快速报名</h4><input type="text" id="sg-name-${a.id}" placeholder="游戏ID" maxlength="20"><input type="text" id="sg-remark-${a.id}" placeholder="备注（选填）" maxlength="50"><button class="btn" onclick="submitSignup('${a.id}','${escapeHtml(a.title)}')">确认报名</button></div><div class="signup-list" id="sg-list-${a.id}"></div>`:'<p style="font-size:12px;color:var(--text-dim)">活动已结束</p>'}</div>`;}).join('');acts.forEach(a=>{if(a.status!=='已结束')loadSignups(a.id);});}catch(e){list.innerHTML='<div class="empty-state"><div class="icon">❌</div><h3>加载失败</h3><p>'+escapeHtml(e.message)+'</p></div>';}}
+async function submitSignup(actId,actTitle){const name=document.getElementById('sg-name-'+actId).value.trim();const remark=document.getElementById('sg-remark-'+actId).value.trim();if(!name){showToast('请填写游戏ID');return;}try{const res=await fetch(API_BASE+'/api/signups',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({game_id:name,activity:actTitle,remark:remark})});if(res.ok){showToast('报名成功！');document.getElementById('sg-name-'+actId).value='';document.getElementById('sg-remark-'+actId).value='';loadSignups(actId);}else{const err=await res.json();showToast(err.error||'报名失败');}}catch(e){showToast('网络错误：'+e.message);}}
+async function loadSignups(actId){const list=document.getElementById('sg-list-'+actId);if(!list)return;try{const res=await fetch(API_BASE+'/api/signups');const data=await res.json();const all=Array.isArray(data)?data:(data.data||[]);const signups=all.filter(s=>s.activity===actId||s.activity_id===actId);if(signups.length>0){list.innerHTML='<h4>已报名 ('+signups.length+')</h4>'+signups.map(s=>`<div class="signup-item"><span class="name">${escapeHtml(s.game_id)}</span><span class="prof">${escapeHtml(s.remark||'')}</span></div>`).join('');}}catch(e){}}
+async function loadMembers(){const grid=document.getElementById('member-grid');if(membersData.length>0){renderMembers();return;}try{const res=await fetch(API_BASE+'/api/members');const data=await res.json();membersData=Array.isArray(data)?data:(data.data||[]);renderMembers();}catch(e){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--text-dim);padding:40px">加载失败</p>';}}
+function renderMembers(){const grid=document.getElementById('member-grid');let list=membersData;if(memberFilter!=='all'){list=membersData.filter(m=>getMemberRole(m.remark)===memberFilter);}if(list.length===0){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--text-dim);padding:40px">暂无成员数据</p>';return;}grid.innerHTML=list.map((m,i)=>`<div class="member-card"><div class="m-rank">#${i+1} 战力排名</div><div class="m-name">${escapeHtml(m.game_id)}</div><div class="m-power">${escapeHtml(m.power||'未知')}</div><div class="m-tags">${getRoleTag(m.remark)}</div><div class="m-remark">${escapeHtml(m.remark||'')}</div></div>`).join('');}
+function filterMembers(filter){memberFilter=filter;document.querySelectorAll('#member-filters .filter-btn').forEach((b,i)=>{b.classList.toggle('active',(filter==='all'&&i===0)||(filter==='chief'&&i===1)||(filter==='new'&&i===2)||(filter==='normal'&&i===3));});renderMembers();}
+async function loadBattles(){const list=document.getElementById('battle-list');try{const res=await fetch(API_BASE+'/api/battles');const data=await res.json();const battles=Array.isArray(data)?data:(data.data||[]);if(battles.length===0){list.innerHTML='<div class="empty-state"><div class="icon">⚔️</div><h3>暂无战报</h3><p>数据补充中</p></div>';return;}list.innerHTML=battles.map(b=>{const isWin=b.our_score>=b.enemy_score;return `<div class="battle-card"><div class="b-title">${escapeHtml(b.activity_id||b.title||'神殿纷争')}</div><div class="b-score"><span class="b-our">${b.our_score}</span><span class="b-vs">VS</span><span class="b-enemy">${b.enemy_score}</span><span class="b-result ${isWin?'b-result-win':'b-result-lose'}">${isWin?'胜':'负'}</span></div><div class="b-meta"><span>🆚 对手：${escapeHtml(b.opponent||'未知')}</span>${b.mvp?`<span>⭐ MVP：${escapeHtml(b.mvp)}</span>`:''}${b.participants?`<span>👥 参战：${escapeHtml(String(b.participants))}人</span>`:''}${b.total_merit?`<span>🏆 总功勋：${Number(b.total_merit).toLocaleString()}</span>`:''}${b.battle_date?`<span>📅 ${escapeHtml(b.battle_date)}</span>`:''}</div>${b.description?`<div class="b-meta" style="margin-top:6px;color:var(--text-dim)">${escapeHtml(b.description)}</div>`:''}</div>`;}).join('');}catch(e){list.innerHTML='<div class="empty-state"><div class="icon">❌</div><h3>加载失败</h3><p>'+escapeHtml(e.message)+'</p></div>';}}
+async function loadNews(){const list=document.getElementById('news-list');try{const res=await fetch(API_BASE+'/api/changelog');const data=await res.json();const logs=Array.isArray(data)?data:(data.data||[]);if(logs.length===0){list.innerHTML='<div class="empty-state"><div class="icon">📢</div><h3>暂无动态</h3><p>数据补充中</p></div>';return;}list.innerHTML=logs.map(l=>`<div class="news-item"><div class="n-date">${escapeHtml(l.date||'')}</div><div><span class="n-tag">${escapeHtml(l.tag||'')}</span></div><div class="n-content" style="margin-top:4px">${escapeHtml(l.content||'')}</div></div>`).join('');}catch(e){list.innerHTML='<div class="empty-state"><div class="icon">❌</div><h3>加载失败</h3><p>'+escapeHtml(e.message)+'</p></div>';}}
+async function loadComments(){const list=document.getElementById('comment-list');try{const res=await fetch(API_BASE+'/api/comments?page=guild');const data=await res.json();const comments=Array.isArray(data)?data:(data.data||[]);if(comments.length===0){list.innerHTML='<p style="text-align:center;color:var(--text-dim);padding:20px">还没有评论，来抢沙发吧</p>';return;}list.innerHTML=comments.map(c=>`<div class="comment-item"><div class="c-header"><span class="c-name">${escapeHtml(c.nickname||'匿名')}</span><span class="c-time">${escapeHtml(c.created_at||'')}</span></div><div class="c-content">${escapeHtml(c.content)}</div></div>`).join('');}catch(e){list.innerHTML='<p style="text-align:center;color:var(--text-dim);padding:20px">加载失败</p>';}}
+async function submitComment(){const nickname=document.getElementById('c-nickname').value.trim()||'匿名玩家';const content=document.getElementById('c-content').value.trim();if(!content){showToast('请输入评论内容');return;}try{const res=await fetch(API_BASE+'/api/comments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:'guild',nickname,content})});if(res.ok){showToast('评论发表成功！');document.getElementById('c-nickname').value='';document.getElementById('c-content').value='';loadComments();}else{const err=await res.json();showToast(err.error||'发表失败');}}catch(e){showToast('网络错误：'+e.message);}}
+async function submitMessage(){const name=document.getElementById('m-name').value.trim();const contact=document.getElementById('m-contact').value.trim();const content=document.getElementById('m-content').value.trim();if(!name||!content){showToast('请填写游戏ID和留言内容');return;}try{const res=await fetch(API_BASE+'/api/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,contact,content})});if(res.ok){showToast('私信已发送给会长！');document.getElementById('m-name').value='';document.getElementById('m-contact').value='';document.getElementById('m-content').value='';}else{const err=await res.json();showToast(err.error||'发送失败');}}catch(e){showToast('网络错误：'+e.message);}}
 loadActivities();
 </script>
 </body>
