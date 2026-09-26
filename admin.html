@@ -239,8 +239,162 @@ body.light-theme .action-btn:hover {
 [data-theme="light"] .recruit-text { color:#16a34a !important; }
 [data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
 
+
+/* 网站内容编辑器 */
+.editor-section { background: var(--bg-card2); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.editor-section h4 { margin: 0 0 12px; font-size: 15px; color: var(--gold); }
+.editor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.editor-grid label { font-size: 12px; color: var(--text-dim); display: flex; flex-direction: column; gap: 4px; }
+.editor-grid input { padding: 8px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; }
+.editor-grid input:focus { outline: none; border-color: var(--gold); }
+.editor-item { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+.editor-item input { flex: 1; padding: 8px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; }
+.editor-item select { padding: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; }
+.mini-btn { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 500; }
+.mini-btn.add { background: rgba(34,197,94,0.15); color: #22c55e; }
+.mini-btn.del { background: rgba(239,68,68,0.15); color: #ef4444; padding: 6px 10px; }
+.editor-actions { display: flex; gap: 10px; margin-top: 16px; }
+.action-btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; }
+.action-btn.primary { background: linear-gradient(135deg,#f59e0b,#d97706); color: #1a1a2e; }
+.hint { font-size: 12px; color: var(--text-dim); margin: 0 0 16px; }
+@media (max-width: 639px) { .editor-grid { grid-template-columns: 1fr; } }
+
 </style>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js">
+/* ===== 网站内容可视化编辑 ===== */
+var siteConfigData = { hero: {}, announcements: [], activities: [], welfare: [] };
+
+function loadSiteConfig() {
+  fetch(API_BASE + "/api/site-config").then(function(r){return r.json()}).then(function(data){
+    siteConfigData = data || { hero: {}, announcements: [], activities: [], welfare: [] };
+    renderSiteConfig();
+  }).catch(function(){ showToast("加载失败，使用默认值","error"); renderDefaultConfig(); });
+}
+
+function renderDefaultConfig() {
+  siteConfigData = {
+    hero: { guildName:"天涯若比邻", guildSlogan:"众志成城 · 共战神殿", memberCount:"40/40", totalPower:"1838万兆", leagueCount:"6届", guildLevel:"21级" },
+    announcements: ["欢迎来到天涯若比邻公会！","兑换码每日更新，记得领取！","战术库已更新18套配装。"],
+    activities: [
+      { title:"大胜暗影军团！", desc:"35人参战，总功勋522,750", date:"08-22", tag:"神殿纷争", type:"battle" },
+      { title:"第六届神殿联赛第1周", desc:"战胜刀剑神域，取得开门红！", date:"09-20", tag:"神殿联赛", type:"league" },
+      { title:"招收活跃玩家", desc:"要求每日上线，战力不低于50万兆", date:"持续", tag:"公会招募", type:"recruit" }
+    ],
+    welfare: [
+      { icon:"💰", text:"每周装备分红" },
+      { icon:"⚔️", text:"精英团带练" },
+      { icon:"🧧", text:"节日红包雨" },
+      { icon:"📋", text:"专属配装指导" }
+    ]
+  };
+  renderSiteConfig();
+}
+
+function renderSiteConfig() {
+  var h = siteConfigData.hero || {};
+  document.getElementById("cfg_guildName").value = h.guildName || "";
+  document.getElementById("cfg_guildSlogan").value = h.guildSlogan || "";
+  document.getElementById("cfg_memberCount").value = h.memberCount || "";
+  document.getElementById("cfg_totalPower").value = h.totalPower || "";
+  document.getElementById("cfg_leagueCount").value = h.leagueCount || "";
+  document.getElementById("cfg_guildLevel").value = h.guildLevel || "";
+  
+  // 渲染公告
+  var annEl = document.getElementById("announcementEditor");
+  annEl.innerHTML = "";
+  (siteConfigData.announcements || []).forEach(function(text){
+    annEl.innerHTML += '<div class="editor-item"><input type="text" class="ann-input" value="'+text+'"><button class="mini-btn del" onclick="this.parentElement.remove()">×</button></div>';
+  });
+  
+  // 渲染活动
+  var actEl = document.getElementById("activityEditor");
+  actEl.innerHTML = "";
+  (siteConfigData.activities || []).forEach(function(act, i){
+    actEl.innerHTML += '<div class="editor-item" style="flex-wrap:wrap;gap:6px;">' +
+      '<input type="text" class="act-title" placeholder="标题" value="'+(act.title||'')+'" style="flex:1;min-width:120px;">' +
+      '<input type="text" class="act-desc" placeholder="描述" value="'+(act.desc||'')+'" style="flex:1;min-width:120px;">' +
+      '<input type="text" class="act-date" placeholder="日期" value="'+(act.date||'')+'" style="width:80px;">' +
+      '<input type="text" class="act-tag" placeholder="标签" value="'+(act.tag||'')+'" style="width:100px;">' +
+      '<select class="act-type"><option value="battle">战报</option><option value="league">联赛</option><option value="recruit">招募</option></select>' +
+      '<button class="mini-btn del" onclick="this.parentElement.remove()">×</button></div>';
+    // 设置选中的type
+    var selects = actEl.querySelectorAll(".act-type");
+    if (selects[i]) selects[i].value = act.type || "battle";
+  });
+  
+  // 渲染福利
+  var welEl = document.getElementById("welfareEditor");
+  welEl.innerHTML = "";
+  (siteConfigData.welfare || []).forEach(function(w){
+    welEl.innerHTML += '<div class="editor-item">' +
+      '<input type="text" class="wel-icon" placeholder="图标" value="'+(w.icon||'')+'" style="width:60px;text-align:center;">' +
+      '<input type="text" class="wel-text" placeholder="福利名称" value="'+(w.text||'')+'" style="flex:1;">' +
+      '<button class="mini-btn del" onclick="this.parentElement.remove()">×</button></div>';
+  });
+}
+
+function addAnnouncementItem() {
+  document.getElementById("announcementEditor").innerHTML += '<div class="editor-item"><input type="text" class="ann-input" placeholder="公告内容"><button class="mini-btn del" onclick="this.parentElement.remove()">×</button></div>';
+}
+
+function addActivityItem() {
+  document.getElementById("activityEditor").innerHTML += '<div class="editor-item" style="flex-wrap:wrap;gap:6px;">' +
+    '<input type="text" class="act-title" placeholder="标题" style="flex:1;min-width:120px;">' +
+    '<input type="text" class="act-desc" placeholder="描述" style="flex:1;min-width:120px;">' +
+    '<input type="text" class="act-date" placeholder="日期" style="width:80px;">' +
+    '<input type="text" class="act-tag" placeholder="标签" style="width:100px;">' +
+    '<select class="act-type"><option value="battle">战报</option><option value="league">联赛</option><option value="recruit">招募</option></select>' +
+    '<button class="mini-btn del" onclick="this.parentElement.remove()">×</button></div>';
+}
+
+function addWelfareItem() {
+  document.getElementById("welfareEditor").innerHTML += '<div class="editor-item">' +
+    '<input type="text" class="wel-icon" placeholder="图标" style="width:60px;text-align:center;">' +
+    '<input type="text" class="wel-text" placeholder="福利名称" style="flex:1;">' +
+    '<button class="mini-btn del" onclick="this.parentElement.remove()">×</button></div>';
+}
+
+function saveSiteConfig() {
+  // 收集Hero数据
+  siteConfigData.hero = {
+    guildName: document.getElementById("cfg_guildName").value,
+    guildSlogan: document.getElementById("cfg_guildSlogan").value,
+    memberCount: document.getElementById("cfg_memberCount").value,
+    totalPower: document.getElementById("cfg_totalPower").value,
+    leagueCount: document.getElementById("cfg_leagueCount").value,
+    guildLevel: document.getElementById("cfg_guildLevel").value
+  };
+  // 收集公告
+  siteConfigData.announcements = Array.from(document.querySelectorAll(".ann-input")).map(function(i){return i.value}).filter(function(v){return v.trim()});
+  // 收集活动
+  siteConfigData.activities = Array.from(document.querySelectorAll("#activityEditor .editor-item")).map(function(item){
+    return {
+      title: item.querySelector(".act-title").value,
+      desc: item.querySelector(".act-desc").value,
+      date: item.querySelector(".act-date").value,
+      tag: item.querySelector(".act-tag").value,
+      type: item.querySelector(".act-type").value
+    };
+  }).filter(function(a){return a.title.trim()});
+  // 收集福利
+  siteConfigData.welfare = Array.from(document.querySelectorAll("#welfareEditor .editor-item")).map(function(item){
+    return { icon: item.querySelector(".wel-icon").value, text: item.querySelector(".wel-text").value };
+  }).filter(function(w){return w.text.trim()});
+  
+  fetch(API_BASE + "/api/site-config", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Admin-Token": getToken() },
+    body: JSON.stringify(siteConfigData)
+  }).then(function(r){return r.json()}).then(function(data){
+    if (data.ok) { showToast("✅ 网站内容已保存"); }
+    else { showToast(data.error || "保存失败", "error"); }
+  }).catch(function(){ showToast("保存失败", "error"); });
+}
+
+// 页面加载时自动加载配置
+document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
+
+</script>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#f59e0b">
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/admin.html" />
@@ -276,6 +430,7 @@ body.light-theme .action-btn:hover {
       <button class="tab-btn" onclick="switchTab('homeSort',this)">🔄 首页排序</button>
       <button class="tab-btn" onclick="switchTab('announce',this)">📢 公告管理</button>
       <button class="tab-btn" onclick="switchTab('changelog',this)">📋 更新日志</button>
+      <button class="tab-btn" onclick="switchTab('siteContent',this)">🎨 网站内容</button>
       <button class="tab-btn" onclick="switchTab('messages',this)">💬 私信管理</button>
     </div>
 
@@ -367,6 +522,56 @@ body.light-theme .action-btn:hover {
     </div>
 
     <!-- 私信管理 -->
+
+    <div class="tab-content" id="tab-siteContent">
+      <h3>🎨 网站内容可视化编辑</h3>
+      <p class="hint">编辑首页显示内容，保存后立即生效</p>
+      
+      <!-- Hero区编辑 -->
+      <div class="editor-section">
+        <h4>🏰 Hero公会信息</h4>
+        <div class="editor-grid">
+          <label>公会名称 <input type="text" id="cfg_guildName" placeholder="天涯若比邻"></label>
+          <label>公会口号 <input type="text" id="cfg_guildSlogan" placeholder="众志成城 · 共战神殿"></label>
+          <label>成员数 <input type="text" id="cfg_memberCount" placeholder="40/40"></label>
+          <label>总战力 <input type="text" id="cfg_totalPower" placeholder="1838万兆"></label>
+          <label>联赛届数 <input type="text" id="cfg_leagueCount" placeholder="6届"></label>
+          <label>公会等级 <input type="text" id="cfg_guildLevel" placeholder="21级"></label>
+        </div>
+      </div>
+
+      <!-- 公告编辑 -->
+      <div class="editor-section">
+        <h4>📢 滚动公告</h4>
+        <div id="announcementEditor">
+          <div class="editor-item">
+            <input type="text" class="ann-input" placeholder="公告内容1">
+            <button class="mini-btn del" onclick="this.parentElement.remove()">×</button>
+          </div>
+        </div>
+        <button class="mini-btn add" onclick="addAnnouncementItem()">+ 添加公告</button>
+      </div>
+
+      <!-- 活动卡片编辑 -->
+      <div class="editor-section">
+        <h4>⚔️ 活动卡片</h4>
+        <div id="activityEditor"></div>
+        <button class="mini-btn add" onclick="addActivityItem()">+ 添加活动</button>
+      </div>
+
+      <!-- 福利项目编辑 -->
+      <div class="editor-section">
+        <h4>🎁 福利项目</h4>
+        <div id="welfareEditor"></div>
+        <button class="mini-btn add" onclick="addWelfareItem()">+ 添加福利</button>
+      </div>
+
+      <div class="editor-actions">
+        <button class="action-btn primary" onclick="saveSiteConfig()">💾 保存配置</button>
+        <button class="action-btn" onclick="loadSiteConfig()">🔄 重新加载</button>
+      </div>
+    </div>
+
     <div class="tab-content" id="tab-messages">
       <div class="panel">
         <div class="panel-title">💬 站长私信 <span id="msgCount" style="font-size:13px;color:var(--text-dim);font-weight:normal;"></span></div>
@@ -739,6 +944,7 @@ if(getToken()){
   fetch(API_BASE+"/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:getToken()})})
     .then(function(r){return r.json()}).then(function(data){if(data.ok)showAdmin()});
 }
+
 </script>
 <script>
 // PWA Service Worker 注册
@@ -747,7 +953,9 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js').catch(function() {});
   });
 }
+
 </script>
-  <script src="js/i18n.js"></script>
+  <script src="js/i18n.js">
+</script>
 </body>
 </html>

@@ -1043,10 +1043,111 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   .tactics-entry-tags { justify-content: center; }
 }
 
+
+/* 福利高亮入口（兑换码） */
+.welfare-highlight { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05)); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; text-decoration: none; transition: all 0.2s; }
+.welfare-highlight:hover { border-color: var(--gold); transform: translateY(-1px); }
+.welfare-highlight-icon { font-size: 28px; flex-shrink: 0; }
+.welfare-highlight-content { flex: 1; }
+.welfare-highlight-title { font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 2px; }
+.welfare-highlight-desc { font-size: 11px; color: var(--text-dim); }
+.welfare-highlight-arrow { font-size: 20px; color: var(--gold); flex-shrink: 0; }
+
 </style>
         <link rel="manifest" href="manifest.json">
         <meta name="theme-color" content="#f59e0b">
-          <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "英雄没有闪S2赛季配装攻略", "url": "https://ykmys.com", "description": "英雄没有闪S2赛季全职业配装攻略大全，含法师、游侠、蛮子的推图、首领、PK配装，技能装备刻印侍从完整搭配", "potentialAction": {"@type": "SearchAction", "target": "https://ykmys.com/?q={search_term_string}", "query-input": "required name=search_term_string"}}</script>
+          <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "英雄没有闪S2赛季配装攻略", "url": "https://ykmys.com", "description": "英雄没有闪S2赛季全职业配装攻略大全，含法师、游侠、蛮子的推图、首领、PK配装，技能装备刻印侍从完整搭配", "potentialAction": {"@type": "SearchAction", "target": "https://ykmys.com/?q={search_term_string}", "query-input": "required name=search_term_string"}}
+/* ===== 从API加载网站配置并动态渲染 ===== */
+var API_BASE = "https://api.ykmys.com";
+var siteConfig = null;
+
+function loadSiteConfig() {
+  fetch(API_BASE + "/api/site-config")
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data && data.hero && Object.keys(data.hero).length > 0) {
+        siteConfig = data;
+        renderSiteConfig();
+      }
+    })
+    .catch(function(){ /* API不可用时使用默认内容 */ });
+}
+
+function renderSiteConfig() {
+  if (!siteConfig) return;
+  var h = siteConfig.hero || {};
+  
+  // 更新Hero区
+  if (h.guildName) {
+    var titleEl = document.querySelector(".hero-title");
+    if (titleEl) titleEl.textContent = h.guildName;
+  }
+  if (h.guildSlogan) {
+    var subEl = document.querySelector(".hero-subtitle");
+    if (subEl) subEl.textContent = h.guildSlogan;
+  }
+  var statValues = document.querySelectorAll(".hero-stat-value");
+  if (statValues.length >= 3) {
+    if (h.memberCount) statValues[0].textContent = h.memberCount;
+    if (h.totalPower) statValues[1].textContent = h.totalPower;
+    if (h.leagueCount) statValues[2].textContent = h.leagueCount;
+  }
+  if (h.guildLevel) {
+    var levelEl = document.querySelector(".hero-level-badge");
+    if (levelEl) levelEl.textContent = h.guildLevel;
+  }
+  
+  // 更新公告
+  if (siteConfig.announcements && siteConfig.announcements.length > 0) {
+    var track = document.getElementById("announcementTrack");
+    if (track) {
+      var html = "";
+      siteConfig.announcements.forEach(function(text){
+        html += '<span class="announcement-text">' + text + '</span>';
+      });
+      // 复制一份用于无缝滚动
+      track.innerHTML = html + html;
+    }
+  }
+  
+  // 更新活动卡片
+  if (siteConfig.activities && siteConfig.activities.length > 0) {
+    var container = document.querySelector(".activity-cards");
+    if (container) {
+      var html = "";
+      siteConfig.activities.forEach(function(act){
+        var typeLabel = {battle:"战报", league:"联赛", recruit:"招募"}[act.type] || "活动";
+        html += '<div class="activity-card">' +
+          '<div class="activity-badge ' + (act.type||'battle') + '">' + typeLabel + '</div>' +
+          '<div class="activity-content">' +
+          '<h3 class="activity-title">' + (act.title||'') + '</h3>' +
+          '<p class="activity-desc">' + (act.desc||'') + '</p>' +
+          '<div class="activity-meta">' +
+          '<span class="activity-date">' + (act.date||'') + '</span>' +
+          '<span class="activity-tag">' + (act.tag||'') + '</span>' +
+          '</div></div></div>';
+      });
+      container.innerHTML = html;
+    }
+  }
+  
+  // 更新福利项目
+  if (siteConfig.welfare && siteConfig.welfare.length > 0) {
+    var welfareContainer = document.querySelector(".welfare-items");
+    if (welfareContainer) {
+      var html = "";
+      siteConfig.welfare.forEach(function(w){
+        html += '<div class="welfare-item"><span class="welfare-icon">' + (w.icon||'') + '</span><span>' + (w.text||'') + '</span></div>';
+      });
+      welfareContainer.innerHTML = html;
+    }
+  }
+}
+
+// 页面加载完成后加载配置
+document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
+
+</script>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/index.html" />
   <link rel="alternate" hreflang="en" href="https://ykmys.com/index.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://ykmys.com/index.html" />
