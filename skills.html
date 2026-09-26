@@ -221,7 +221,7 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
   <div class="guild-nav-inner">
     <div class="guild-nav-left">
       <a href="index.html" class="guild-logo-wrap">
-        <img src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+        <img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
       </a>
       <div class="guild-nav-info">
         <div class="guild-nav-name">天涯若比邻</div>
@@ -538,7 +538,7 @@ function switchClass(btn) {
 function showSkillDetail(skill) {
   var typeMap = {"property_1": "普攻", "property_2": "主动技能", "property_3": "主动技能", "property_4": "主动技能", "property_5": "终极技能", "property_6": "被动技能"};
   var typeName = typeMap[skill.type] || '其他';
-  var imgHtml = skill.local_img ? '<img src="' + skill.local_img + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚔️</div>';
+  var imgHtml = skill.local_img ? '<img loading="lazy" src="' + skill.local_img + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚔️</div>';
   
   var html = '<div class="detail-header">' + imgHtml +
     '<div class="detail-info">' +

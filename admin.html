@@ -442,6 +442,26 @@ var battlesData=[];
 function loadBattles(){fetch(API_BASE+"/api/battles").then(function(r){return r.json()}).then(function(data){battlesData=data||[];renderBattles()}).catch(function(){document.getElementById("battlesList").innerHTML='<div class="empty">加载失败</div>'})}
 function renderBattles(){var html='';if(battlesData.length===0){html='<div class="empty">暂无战报</div>'}battlesData.forEach(function(b){var win=parseInt(b.our_score)>parseInt(b.enemy_score);html+='<div style="padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><div><strong>'+(win?'🏆 胜利':'😢 失败')+'</strong> vs '+(b.opponent||'未知')+' <span style="color:var(--text-dim);font-size:12px">'+(b.battle_date||'')+'</span></div><div><button onclick="showBattleForm(''+b.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteBattle(''+b.id+'')" style="color:#ff6b6b">删除</button></div></div><div style="margin-top:8px;font-size:14px"><strong>'+(b.our_score||0)+' : '+(b.enemy_score||0)+'</strong> | 参战 '+(b.participants||0)+'人 | 总功勋 '+(b.total_merit||0)+' | MVP: '+(b.mvp||'-')+'</div>';if(b.description){html+='<div style="margin-top:6px;color:var(--text-dim);font-size:13px">'+b.description+'</div>'}html+='</div>'});document.getElementById("battlesList").innerHTML=html}
 function saveBattle(){var data={opponent:document.getElementById("b_opponent").value.trim(),our_score:parseInt(document.getElementById("b_ourScore").value)||0,enemy_score:parseInt(document.getElementById("b_enemyScore").value)||0,participants:parseInt(document.getElementById("b_participants").value)||0,total_merit:parseInt(document.getElementById("b_totalMerit").value)||0,mvp:document.getElementById("b_mvp").value.trim(),battle_date:document.getElementById("b_date").value.trim(),activity_id:document.getElementById("b_activity").value,description:document.getElementById("b_desc").value.trim()};if(!data.opponent){showToast("请填写对手公会","error");return}var url=API_BASE+"/api/battles"+(editingBattleId?"/"+editingBattleId:"");var method=editingBattleId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingBattleId?"战报已更新":"战报已创建");hideBattleForm();loadBattles()}else{showToast(res.error||"操作失败","error")}})}
+function exportData(type) {
+  var token = getToken();
+  if (!token) { showToast("请先登录", "error"); return; }
+  var activityId = "";
+  if (type === "attendance") {
+    var sel = document.getElementById("attendanceActivity");
+    if (sel && sel.value) activityId = "?activity_id=" + sel.value;
+  }
+  var url = API_BASE + "/api/export/" + type + activityId;
+  fetch(url, { headers: { "X-Admin-Token": token } })
+    .then(function(r) { return r.blob(); })
+    .then(function(blob) {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = type + ".csv";
+      a.click();
+      showToast("导出成功");
+    })
+    .catch(function() { showToast("导出失败", "error"); });
+}
 function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(API_BASE+"/api/battles/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadBattles()}else{showToast("删除失败","error")}})}
 
 </script>
@@ -704,6 +724,7 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
       <div class="panel">
         <div class="panel-title">📋 考勤管理
           <div style="float:right">
+            <button onclick="exportData('attendance')" style="font-size:12px;padding:6px 12px;margin-right:8px">📥 导出CSV</button>
             <select id="attendanceActivity" class="input" style="width:200px;display:inline-block" onchange="loadAttendance()">
               <option value="">选择活动</option>
             </select>
@@ -718,7 +739,7 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
     <!-- 战报管理 -->
     <div class="tab-content" id="tab-battles">
       <div class="panel">
-        <div class="panel-title">⚔️ 战报管理 <button class="btn-primary" onclick="showBattleForm()" style="float:right;font-size:12px;padding:6px 14px">+ 新建战报</button></div>
+        <div class="panel-title">⚔️ 战报管理 <div style="float:right"><button onclick="exportData('battles')" style="font-size:12px;padding:6px 12px;margin-right:8px">📥 导出CSV</button><button class="btn-primary" onclick="showBattleForm()" style="font-size:12px;padding:6px 14px">+ 新建战报</button></div></div>
         <div id="battleForm" style="display:none;margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:10px">
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
             <input id="b_opponent" placeholder="对手公会" class="input">
@@ -1159,6 +1180,26 @@ var battlesData=[];
 function loadBattles(){fetch(API_BASE+"/api/battles").then(function(r){return r.json()}).then(function(data){battlesData=data||[];renderBattles()}).catch(function(){document.getElementById("battlesList").innerHTML='<div class="empty">加载失败</div>'})}
 function renderBattles(){var html='';if(battlesData.length===0){html='<div class="empty">暂无战报</div>'}battlesData.forEach(function(b){var win=parseInt(b.our_score)>parseInt(b.enemy_score);html+='<div style="padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><div><strong>'+(win?'🏆 胜利':'😢 失败')+'</strong> vs '+(b.opponent||'未知')+' <span style="color:var(--text-dim);font-size:12px">'+(b.battle_date||'')+'</span></div><div><button onclick="showBattleForm(''+b.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteBattle(''+b.id+'')" style="color:#ff6b6b">删除</button></div></div><div style="margin-top:8px;font-size:14px"><strong>'+(b.our_score||0)+' : '+(b.enemy_score||0)+'</strong> | 参战 '+(b.participants||0)+'人 | 总功勋 '+(b.total_merit||0)+' | MVP: '+(b.mvp||'-')+'</div>';if(b.description){html+='<div style="margin-top:6px;color:var(--text-dim);font-size:13px">'+b.description+'</div>'}html+='</div>'});document.getElementById("battlesList").innerHTML=html}
 function saveBattle(){var data={opponent:document.getElementById("b_opponent").value.trim(),our_score:parseInt(document.getElementById("b_ourScore").value)||0,enemy_score:parseInt(document.getElementById("b_enemyScore").value)||0,participants:parseInt(document.getElementById("b_participants").value)||0,total_merit:parseInt(document.getElementById("b_totalMerit").value)||0,mvp:document.getElementById("b_mvp").value.trim(),battle_date:document.getElementById("b_date").value.trim(),activity_id:document.getElementById("b_activity").value,description:document.getElementById("b_desc").value.trim()};if(!data.opponent){showToast("请填写对手公会","error");return}var url=API_BASE+"/api/battles"+(editingBattleId?"/"+editingBattleId:"");var method=editingBattleId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingBattleId?"战报已更新":"战报已创建");hideBattleForm();loadBattles()}else{showToast(res.error||"操作失败","error")}})}
+function exportData(type) {
+  var token = getToken();
+  if (!token) { showToast("请先登录", "error"); return; }
+  var activityId = "";
+  if (type === "attendance") {
+    var sel = document.getElementById("attendanceActivity");
+    if (sel && sel.value) activityId = "?activity_id=" + sel.value;
+  }
+  var url = API_BASE + "/api/export/" + type + activityId;
+  fetch(url, { headers: { "X-Admin-Token": token } })
+    .then(function(r) { return r.blob(); })
+    .then(function(blob) {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = type + ".csv";
+      a.click();
+      showToast("导出成功");
+    })
+    .catch(function() { showToast("导出失败", "error"); });
+}
 function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(API_BASE+"/api/battles/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadBattles()}else{showToast("删除失败","error")}})}
 
 </script>
@@ -1218,6 +1259,26 @@ var battlesData=[];
 function loadBattles(){fetch(API_BASE+"/api/battles").then(function(r){return r.json()}).then(function(data){battlesData=data||[];renderBattles()}).catch(function(){document.getElementById("battlesList").innerHTML='<div class="empty">加载失败</div>'})}
 function renderBattles(){var html='';if(battlesData.length===0){html='<div class="empty">暂无战报</div>'}battlesData.forEach(function(b){var win=parseInt(b.our_score)>parseInt(b.enemy_score);html+='<div style="padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><div><strong>'+(win?'🏆 胜利':'😢 失败')+'</strong> vs '+(b.opponent||'未知')+' <span style="color:var(--text-dim);font-size:12px">'+(b.battle_date||'')+'</span></div><div><button onclick="showBattleForm(''+b.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteBattle(''+b.id+'')" style="color:#ff6b6b">删除</button></div></div><div style="margin-top:8px;font-size:14px"><strong>'+(b.our_score||0)+' : '+(b.enemy_score||0)+'</strong> | 参战 '+(b.participants||0)+'人 | 总功勋 '+(b.total_merit||0)+' | MVP: '+(b.mvp||'-')+'</div>';if(b.description){html+='<div style="margin-top:6px;color:var(--text-dim);font-size:13px">'+b.description+'</div>'}html+='</div>'});document.getElementById("battlesList").innerHTML=html}
 function saveBattle(){var data={opponent:document.getElementById("b_opponent").value.trim(),our_score:parseInt(document.getElementById("b_ourScore").value)||0,enemy_score:parseInt(document.getElementById("b_enemyScore").value)||0,participants:parseInt(document.getElementById("b_participants").value)||0,total_merit:parseInt(document.getElementById("b_totalMerit").value)||0,mvp:document.getElementById("b_mvp").value.trim(),battle_date:document.getElementById("b_date").value.trim(),activity_id:document.getElementById("b_activity").value,description:document.getElementById("b_desc").value.trim()};if(!data.opponent){showToast("请填写对手公会","error");return}var url=API_BASE+"/api/battles"+(editingBattleId?"/"+editingBattleId:"");var method=editingBattleId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingBattleId?"战报已更新":"战报已创建");hideBattleForm();loadBattles()}else{showToast(res.error||"操作失败","error")}})}
+function exportData(type) {
+  var token = getToken();
+  if (!token) { showToast("请先登录", "error"); return; }
+  var activityId = "";
+  if (type === "attendance") {
+    var sel = document.getElementById("attendanceActivity");
+    if (sel && sel.value) activityId = "?activity_id=" + sel.value;
+  }
+  var url = API_BASE + "/api/export/" + type + activityId;
+  fetch(url, { headers: { "X-Admin-Token": token } })
+    .then(function(r) { return r.blob(); })
+    .then(function(blob) {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = type + ".csv";
+      a.click();
+      showToast("导出成功");
+    })
+    .catch(function() { showToast("导出失败", "error"); });
+}
 function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(API_BASE+"/api/battles/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadBattles()}else{showToast("删除失败","error")}})}
 
 </script>
@@ -1270,6 +1331,26 @@ var battlesData=[];
 function loadBattles(){fetch(API_BASE+"/api/battles").then(function(r){return r.json()}).then(function(data){battlesData=data||[];renderBattles()}).catch(function(){document.getElementById("battlesList").innerHTML='<div class="empty">加载失败</div>'})}
 function renderBattles(){var html='';if(battlesData.length===0){html='<div class="empty">暂无战报</div>'}battlesData.forEach(function(b){var win=parseInt(b.our_score)>parseInt(b.enemy_score);html+='<div style="padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><div><strong>'+(win?'🏆 胜利':'😢 失败')+'</strong> vs '+(b.opponent||'未知')+' <span style="color:var(--text-dim);font-size:12px">'+(b.battle_date||'')+'</span></div><div><button onclick="showBattleForm(''+b.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteBattle(''+b.id+'')" style="color:#ff6b6b">删除</button></div></div><div style="margin-top:8px;font-size:14px"><strong>'+(b.our_score||0)+' : '+(b.enemy_score||0)+'</strong> | 参战 '+(b.participants||0)+'人 | 总功勋 '+(b.total_merit||0)+' | MVP: '+(b.mvp||'-')+'</div>';if(b.description){html+='<div style="margin-top:6px;color:var(--text-dim);font-size:13px">'+b.description+'</div>'}html+='</div>'});document.getElementById("battlesList").innerHTML=html}
 function saveBattle(){var data={opponent:document.getElementById("b_opponent").value.trim(),our_score:parseInt(document.getElementById("b_ourScore").value)||0,enemy_score:parseInt(document.getElementById("b_enemyScore").value)||0,participants:parseInt(document.getElementById("b_participants").value)||0,total_merit:parseInt(document.getElementById("b_totalMerit").value)||0,mvp:document.getElementById("b_mvp").value.trim(),battle_date:document.getElementById("b_date").value.trim(),activity_id:document.getElementById("b_activity").value,description:document.getElementById("b_desc").value.trim()};if(!data.opponent){showToast("请填写对手公会","error");return}var url=API_BASE+"/api/battles"+(editingBattleId?"/"+editingBattleId:"");var method=editingBattleId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingBattleId?"战报已更新":"战报已创建");hideBattleForm();loadBattles()}else{showToast(res.error||"操作失败","error")}})}
+function exportData(type) {
+  var token = getToken();
+  if (!token) { showToast("请先登录", "error"); return; }
+  var activityId = "";
+  if (type === "attendance") {
+    var sel = document.getElementById("attendanceActivity");
+    if (sel && sel.value) activityId = "?activity_id=" + sel.value;
+  }
+  var url = API_BASE + "/api/export/" + type + activityId;
+  fetch(url, { headers: { "X-Admin-Token": token } })
+    .then(function(r) { return r.blob(); })
+    .then(function(blob) {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = type + ".csv";
+      a.click();
+      showToast("导出成功");
+    })
+    .catch(function() { showToast("导出失败", "error"); });
+}
 function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(API_BASE+"/api/battles/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadBattles()}else{showToast("删除失败","error")}})}
 
 </script>
