@@ -90,6 +90,69 @@ a { color:inherit; text-decoration:none; }
 [data-theme="light"] .guild-nav-name { color:#78350f; }
 [data-theme="light"] .guild-nav-link { color:#1a1a2e; }
 [data-theme="light"] .guild-nav-link:hover { color:#d97706; }
+
+/* ===== 职业分区 ===== */
+.class-section { margin-bottom: 32px; }
+.class-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding: 0 4px; }
+.class-name { font-size: 18px; font-weight: 800; color: var(--gold); }
+.class-name.ranger { color: #4ade80; }
+.class-name.mage { color: #60a5fa; }
+.class-name.warrior { color: #f87171; }
+.class-count { font-size: 12px; color: var(--text-dim); background: var(--bg-card2); padding: 4px 12px; border-radius: 20px; }
+
+/* ===== 配装卡片网格 ===== */
+.build-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+/* ===== 配装卡片 ===== */
+.build-card {
+  display: block; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px; transition: all 0.25s; position: relative;
+  overflow: hidden; text-decoration: none;
+}
+.build-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent); opacity: 0; transition: opacity 0.25s;
+}
+.build-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.build-card:hover::before { opacity: 1; }
+.build-card.ranger:hover { border-color: #4ade80; }
+.build-card.ranger::before { background: linear-gradient(90deg, #4ade80, transparent); }
+.build-card.mage:hover { border-color: #60a5fa; }
+.build-card.mage::before { background: linear-gradient(90deg, #60a5fa, transparent); }
+.build-card.warrior:hover { border-color: #f87171; }
+.build-card.warrior::before { background: linear-gradient(90deg, #f87171, transparent); }
+
+/* 卡片头部 */
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.build-name { font-size: 15px; font-weight: 700; color: var(--text); }
+.build-likes { font-size: 12px; color: var(--text-dim); display: flex; align-items: center; gap: 4px; }
+.fav-btn { background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px; opacity: 0.6; transition: opacity 0.2s; }
+.fav-btn:hover { opacity: 1; }
+.fav-btn.favorited { opacity: 1; }
+
+/* 标签 */
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.build-tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+.tag-pve { background: rgba(74,222,128,0.15); color: #4ade80; }
+.tag-boss { background: rgba(245,158,11,0.15); color: var(--gold); }
+.tag-pk { background: rgba(248,113,113,0.15); color: #f87171; }
+.tag-t0 { background: rgba(168,85,247,0.15); color: #c084fc; }
+
+/* 推荐语 */
+.card-recommend { font-size: 13px; color: var(--text-bright); margin-bottom: 10px; font-weight: 500; }
+
+/* 核心配置 */
+.card-core { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.core-tag { font-size: 12px; color: var(--text-dim); display: flex; align-items: center; gap: 4px; }
+.core-tag.weapon { color: #fbbf24; }
+.core-tag.engrave { color: #a78bfa; }
+
+/* 卡片底部 */
+.card-footer { border-top: 1px solid var(--border); padding-top: 10px; }
+.build-source { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 4px; }
+.source-icon { font-size: 12px; }
+
+
 </style>
 </head>
 <body>
@@ -495,44 +558,6 @@ a { color:inherit; text-decoration:none; }
         </div>
 </main>
 
-<!-- 热门排行 & 更新日志 -->
-<div class="two-col-layout">
-  <div class="hot-rank-section">
-    <div class="section-title-row">
-      <span class="icon">🔥</span>
-      <span class="title">热门排行</span>
-      <span class="count">按点赞数</span>
-    </div>
-    <div class="hot-rank-list" id="hotRankList">
-      <div class="rank-loading">加载中...</div>
-    </div>
-  </div>
-  <div class="changelog-section">
-    <div class="section-title-row">
-      <span class="icon">📋</span>
-      <span class="title">更新日志</span>
-      <span class="count">最近更新</span>
-    </div>
-    <div class="changelog-list" id="changelogList">
-      <div class="empty-state">加载中...</div>
-    </div>
-  </div>
-</div>
-
-<div class="comment-section">
-        <div class="section-title">💬 留言板</div>
-        <div class="comment-box">
-        <livere-comment client-id="9Xb93o4GKHetNel7Yjv3"></livere-comment>
-        <script type="module" src="https://www.livere.org/livere-widget.js"></script>
-        </div>
-        </div>
-<div class="disclaimer-section">
-        <div class="disclaimer-box">
-        <div class="disclaimer-title">⚠️ 免责声明</div>
-        <div class="disclaimer-text"> 本站所有配装攻略均来自网络公开资料整理，仅供学习参考，不保证100%准确。游戏版本更新可能导致配装失效，请以游戏内实际数据为准。本站不承担因使用本站内容造成的任何直接或间接损失。游戏名称、商标及相关素材版权归原游戏公司所有。 </div>
-        </div>
-        </div>
-<div class="footer"> 英雄没有闪 · 全职业流派配装大全<br> 数据来源：邪神攻略站 | 卡皮拉巴 | 小冬瓜 等攻略作者整理<br> 共收录 17 套流派配装，点击卡片查看详细配装页 </div>
 <script>
 
 // 主题切换
@@ -942,484 +967,5 @@ if (document.readyState === 'loading') {
 
 </script>
 
-
-<!-- 请求新功能弹窗 -->
-        <!-- 登录模态框 -->
-        <div id="loginModal" class="contact-modal-overlay" onclick="if(event.target===this)closeLoginModal()">
-        <div class="contact-modal-box">
-        <div onclick="closeLoginModal()" class="contact-modal-close">×</div>
-        <h3 class="contact-modal-title">⚔️ 公会成员登录</h3>
-        <p class="contact-modal-desc">登录后可参与活动报名、考勤打卡、查看公会专属内容</p>
-        <div class="contact-form-group">
-          <label class="contact-form-label">游戏ID</label>
-          <input type="text" class="contact-form-input" placeholder="请输入游戏ID">
-        </div>
-        <div class="contact-form-group">
-          <label class="contact-form-label">公会密码 <span class="optional">（向管理索取）</span></label>
-          <input type="password" class="contact-form-input" placeholder="请输入公会密码">
-        </div>
-        <button class="contact-form-submit" onclick="alert('登录功能开发中，敬请期待！')">登 录</button>
-        <p style="text-align:center;font-size:12px;color:var(--text-dim);margin:12px 0 0;">还没加入公会？<a href="javascript:void(0)" onclick="closeLoginModal();document.getElementById('signupSection').scrollIntoView({behavior:'smooth'});" style="color:var(--gold);">申请加入</a></p>
-        </div>
-        </div>
-        <script>
-        function openLoginModal(){document.getElementById("loginModal").classList.add("active");}
-        function closeLoginModal(){document.getElementById("loginModal").classList.remove("active");}
-        </script>
-
-        <div id="contactModal" class="contact-modal-overlay">
-        <div class="contact-modal-box">
-        <div onclick="closeContactModal()" class="contact-modal-close">×</div>
-        <h3 class="contact-modal-title">💡 请求新功能</h3>
-        <p class="contact-modal-desc">想要什么新功能？告诉站长，说不定下一个版本就安排上了！</p>
-        <div class="contact-form-group">
-        <label class="contact-form-label">昵称（选填）</label>
-        <input type="text" id="contactName" placeholder="怎么称呼你？" class="contact-form-input">
-        </div>
-        <div class="contact-form-group">
-        <label class="contact-form-label">联系方式（选填）</label>
-        <input type="text" id="contactContact" placeholder="微信/QQ/邮箱，方便回复你" class="contact-form-input">
-        </div>
-        <div class="contact-form-group">
-        <label class="contact-form-label">功能需求 <span style="color:var(--red);">*</span></label>
-        <textarea id="contactContent" rows="4" placeholder="描述一下你想要的功能..." class="contact-form-textarea"></textarea>
-        </div>
-        <button onclick="submitContact()" id="contactSubmitBtn" class="contact-submit-btn">提交需求</button>
-        <div id="contactResult" class="contact-result"></div>
-        </div>
-        </div>
-          <script src="js/i18n.js"></script>
-
-<!-- 音乐播放器 -->
-<audio id="bgmPlayer" loop preload="none">
-  <source src="home-bgm.mp3" type="audio/mpeg">
-</audio>
-<div class="music-player" id="musicPlayer">
-  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-    <svg class="play-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    <svg class="pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-  </button>
-  <div class="music-visualizer" id="musicViz">
-    <div class="music-bar"></div><div class="music-bar"></div>
-    <div class="music-bar"></div><div class="music-bar"></div>
-  </div>
-  <div class="music-info">
-    <div class="music-title">公会主题曲</div>
-    <div class="music-status" id="musicStatus">点击播放</div>
-  </div>
-</div>
-<script>
-var bgm = document.getElementById('bgmPlayer');
-var musicBtn = document.getElementById('musicBtn');
-var musicPlayer = document.getElementById('musicPlayer');
-var musicStatus = document.getElementById('musicStatus');
-var isPlaying = false;
-function toggleMusic() {
-  var playIcon = musicBtn.querySelector('.play-icon');
-  var pauseIcon = musicBtn.querySelector('.pause-icon');
-  if (isPlaying) {
-    bgm.pause();
-    playIcon.style.display = 'block';
-    pauseIcon.style.display = 'none';
-    musicPlayer.classList.remove('playing');
-    musicStatus.textContent = '已暂停';
-    isPlaying = false;
-  } else {
-    bgm.play().then(function(){
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
-      musicPlayer.classList.add('playing');
-      musicStatus.textContent = '播放中';
-      isPlaying = true;
-    }).catch(function(e){ musicStatus.textContent = '加载失败'; });
-  }
-}
-</script>
-
-</body>
-        </html>
-
-</main>
-
-<script>
-// 主题切换
-function toggleTheme() {
-  var html = document.documentElement;
-  var current = html.getAttribute('data-theme');
-  if (current === 'light') { html.removeAttribute('data-theme'); localStorage.setItem('theme','dark'); }
-  else { html.setAttribute('data-theme','light'); localStorage.setItem('theme','light'); }
-}
-// 加载主题
-if (localStorage.getItem('theme') === 'light') { document.documentElement.setAttribute('data-theme','light'); }
-
-function filterBuilds(keyword) {
-  keyword = keyword.toLowerCase().trim();
-  var cards = document.querySelectorAll('.build-card');
-  var sections = document.querySelectorAll('.class-section');
-  var matchCount = 0;
-  cards.forEach(function(card) {
-    var text = card.textContent.toLowerCase();
-    if (!keyword || text.indexOf(keyword) !== -1) {
-      card.classList.remove('hidden');
-      matchCount++;
-    } else {
-      card.classList.add('hidden');
-    }
-  });
-  sections.forEach(function(section) {
-    var visibleCards = section.querySelectorAll('.build-card:not(.hidden)');
-    if (visibleCards.length === 0) {
-      section.classList.add('hidden');
-    } else {
-      section.classList.remove('hidden');
-    }
-  });
-  var infoEl = document.querySelector('.search-result-info');
-  if (infoEl) {
-    infoEl.textContent = keyword ? (matchCount > 0 ? '找到 ' + matchCount + ' 套匹配配装' : '没有找到匹配的配装') : '';
-  }
-}
-
-/* ===== 职业/用途筛选 ===== */
-var currentClass = 'all';
-var currentUsage = 'all';
-function applyFilters() {
-  var visibleCount = 0;
-  document.querySelectorAll('.class-section').forEach(function(section) {
-    var icon = section.querySelector('.class-icon');
-    var classMatch = (currentClass === 'all') || (icon && icon.classList.contains(currentClass));
-    var cards = section.querySelectorAll('.build-card');
-    var sectionHasVisible = false;
-    cards.forEach(function(card) {
-      var usage = card.getAttribute('data-usage') || '';
-      var usageMatch = (currentUsage === 'all') || (usage.indexOf(currentUsage) !== -1);
-      if (classMatch && usageMatch) {
-        card.classList.remove('hidden');
-        sectionHasVisible = true;
-        visibleCount++;
-      } else {
-        card.classList.add('hidden');
-      }
-    });
-    if (classMatch && sectionHasVisible) {
-      section.classList.remove('hidden');
-    } else {
-      section.classList.add('hidden');
-    }
-  });
-  var info = document.querySelector('.search-result-info');
-  if (info) {
-    info.textContent = (currentClass === 'all' && currentUsage === 'all') ? '' : '找到 ' + visibleCount + ' 套配装';
-  }
-}
-function filterByClass(cls, btn) {
-  currentClass = cls;
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  applyFilters();
-}
-function filterByUsage(usage, btn) {
-  currentUsage = usage;
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  applyFilters();
-}
-
-/* ===== 全屏搜索 ===== */
-function toggleFullscreenSearch() {
-  var el = document.getElementById("fullscreenSearch");
-  el.classList.toggle("active");
-  if (el.classList.contains("active")) {
-    setTimeout(function() { document.getElementById("fullscreenSearchInput").focus(); }, 100);
-  }
-}
-document.addEventListener("keydown", function(e) {
-  if (e.key === "Escape") {
-    var el = document.getElementById("fullscreenSearch");
-    if (el.classList.contains("active")) el.classList.remove("active");
-  }
-  if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-    e.preventDefault();
-    toggleFullscreenSearch();
-  }
-});
-
-/* ===== 公告栏 ===== */
-var currentAnnId = null;
-function getClosedAnns() {
-  try { return JSON.parse(localStorage.getItem("yxmysbd_closed_anns") || "[]"); }
-  catch (e) { return []; }
-}
-function loadAnnouncement() {
-  fetch(API + "/api/announcements")
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (!data || !data.length) return;
-      var ann = data[0];
-      if (getClosedAnns().indexOf(ann.id) !== -1) return;
-      var bar = document.getElementById("announcementBar");
-      var box = document.getElementById("announcementBox");
-      if (!bar || !box) return;
-      currentAnnId = ann.id;
-      box.className = "announcement-box " + ann.type;
-      document.getElementById("annIcon").textContent = ann.type === "important" ? "🔴" : ann.type === "update" ? "🟡" : "📘";
-      document.getElementById("annTitle").textContent = ann.title;
-      document.getElementById("annContent").textContent = ann.content;
-      document.getElementById("annDate").textContent = new Date(ann.createdAt).toLocaleDateString();
-      bar.style.display = "block";
-    })
-    .catch(function() {});
-}
-function closeAnnouncement() {
-  if (currentAnnId) {
-    var closed = getClosedAnns();
-    if (closed.indexOf(currentAnnId) === -1) { closed.push(currentAnnId); try { localStorage.setItem("yxmysbd_closed_anns", JSON.stringify(closed)); } catch (e) {} }
-  }
-  document.getElementById("announcementBar").style.display = "none";
-}
-
-/* ===== 热门排行 ===== */
-function loadHotRank() {
-  fetch(API + "/api/likes/all")
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      var list = document.getElementById("hotRankList");
-      if (!list) return;
-      if (!data || !data.length) {
-        list.innerHTML = '<div class="rank-loading" style="line-height:1.7;">还没有点赞数据<br><span style="font-size:12px;color:var(--gold);">去配装页为你喜欢的流派点个赞吧</span></div>';
-        return;
-      }
-      var top5 = data.slice(0, 5);
-      var html = "";
-      top5.forEach(function(item, idx) {
-        var name = PAGE_NAMES[item.page] || item.page;
-        var rankClass = idx === 0 ? "top1" : idx === 1 ? "top2" : idx === 2 ? "top3" : "normal";
-        html += '<a href="' + item.page + '.html" class="hot-rank-item">' +
-          '<div class="rank-num ' + rankClass + '">' + (idx + 1) + '</div>' +
-          '<div class="rank-info"><div class="rank-name">' + name + '</div>' +
-          '<div class="rank-likes">❤️ ' + item.count + ' 赞</div></div></a>';
-      });
-      list.innerHTML = html;
-    })
-    .catch(function() {
-      var list = document.getElementById("hotRankList");
-      if (list) list.innerHTML = '<div class="rank-loading">排行加载失败</div>';
-    });
-}
-
-/* ===== 卡片点赞数 ===== */
-function loadCardLikes() {
-  fetch(API + "/api/likes/all")
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      data.forEach(function(item) {
-        var el = document.querySelector('.like-count[data-page="' + item.page + '"]');
-        if (el) el.textContent = item.count;
-      });
-    })
-    .catch(function() {});
-}
-
-/* ===== 更新日志 ===== */
-function loadChangelog() {
-  fetch(API + "/api/changelog")
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      var el = document.getElementById("changelogList");
-      if (!el) return;
-      var html = "";
-      if (!data.length) {
-        html = '<div class="empty-state">暂无更新记录</div>';
-      } else {
-        data.slice(0, 8).forEach(function(item) {
-          var tagText = item.tag === "new" ? "新增" : item.tag === "fix" ? "修复" : "更新";
-          html += '<div class="changelog-item"><div class="changelog-date">' + item.date.slice(5) + '</div>' +
-            '<div class="changelog-content"><span class="changelog-tag tag-' + item.tag + '">' + tagText + '</span>' +
-            item.content + '</div></div>';
-        });
-      }
-      el.innerHTML = html;
-    })
-    .catch(function() {
-      var el = document.getElementById("changelogList");
-      if (el) el.innerHTML = '<div class="empty-state">更新日志加载失败</div>';
-    });
-}
-
-/* ===== 请求新功能 ===== */
-function openContactModal() { document.getElementById("contactModal").classList.add("active");
-  document.body.style.overflow = "hidden";
-}
-function closeContactModal() { document.getElementById("contactModal").classList.remove("active");
-  document.body.style.overflow = "";
-  document.getElementById("contactResult").style.display = "none";
-}
-function submitContact() {
-  var name = document.getElementById("contactName").value.trim();
-  var contact = document.getElementById("contactContact").value.trim();
-  var content = document.getElementById("contactContent").value.trim();
-  var resultEl = document.getElementById("contactResult");
-  var btn = document.getElementById("contactSubmitBtn");
-  if (!content) {
-    resultEl.style.display = "block";
-    resultEl.style.color = "#ef4444";
-    resultEl.textContent = "请填写功能需求";
-    return;
-  }
-  btn.disabled = true;
-  btn.textContent = "发送中...";
-  fetch(API + "/api/messages", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({name: name, contact: contact, content: content})
-  }).then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.ok) {
-        resultEl.style.display = "block";
-        resultEl.style.color = "#22c55e";
-        resultEl.textContent = "发送成功！站长会尽快回复你";
-        document.getElementById("contactName").value = "";
-        document.getElementById("contactContact").value = "";
-        document.getElementById("contactContent").value = "";
-        setTimeout(closeContactModal, 2000);
-      } else {
-        resultEl.style.display = "block";
-        resultEl.style.color = "#ef4444";
-        resultEl.textContent = "发送失败";
-      }
-    }).catch(function() {
-      resultEl.style.display = "block";
-      resultEl.style.color = "#ef4444";
-      resultEl.textContent = "网络错误，请稍后重试";
-    }).finally(function() {
-      btn.disabled = false;
-      btn.textContent = "提交需求";
-    });
-}
-
-/* ===== PWA ===== */
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker.register("service-worker.js").catch(function() {});
-  });
-}
-
-/* ===== 访问统计（按会话去重） ===== */
-var PAGE_ID = location.pathname.split("/").pop().replace(".html", "") || "index";
-(function trackVisit() {
-  var t;
-  try { t = JSON.parse(sessionStorage.getItem("yxmysbd_session") || '{"started":false,"pages":[]}'); }
-  catch (e) { t = {"started":false,"pages":[]}; }
-  if (t.pages.indexOf(PAGE_ID) !== -1) return;
-  var newSession = !t.started;
-  t.started = true; t.pages.push(PAGE_ID);
-  try { sessionStorage.setItem("yxmysbd_session", JSON.stringify(t)); } catch (e) {}
-  fetch(API + "/api/track", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({page: PAGE_ID, newSession: newSession})
-  }).catch(function() {});
-})();
-
-/* ===== 页面加载完成后初始化 ===== */
-document.addEventListener("DOMContentLoaded", function() {
-  loadAnnouncement();
-  if (document.getElementById("hotRankList")) loadHotRank();
-  loadCardLikes();
-  if (document.getElementById("changelogList")) loadChangelog();
-});
-
-/* 点击遮罩关闭联系弹窗 */
-document.addEventListener("DOMContentLoaded", function() {
-  var modal = document.getElementById("contactModal");
-  if (modal) {
-    modal.addEventListener("click", function(e) {
-      if (e.target === modal) closeContactModal();
-    });
-  }
-});
-
-// 从配装页跳转过来时自动打开搜索框（增强容错）
-(function() {
-  function tryOpenSearch(retry) {
-    if (typeof toggleFullscreenSearch === 'function' && document.getElementById('fullscreenSearch')) {
-      toggleFullscreenSearch();
-      history.replaceState(null, '', location.pathname + location.search);
-      return true;
-    }
-    if (retry < 5) {
-      setTimeout(function() { tryOpenSearch(retry + 1); }, 100);
-    }
-    return false;
-  }
-  if (location.hash === '#search') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() { tryOpenSearch(0); });
-    } else {
-      tryOpenSearch(0);
-    }
-  }
-})();
-
-
-// ===== 收藏功能 =====
-function getFavs() {
-  try { return JSON.parse(localStorage.getItem('yxmys_favs') || '[]'); }
-  catch(e) { return []; }
-}
-function saveFavs(favs) {
-  localStorage.setItem('yxmys_favs', JSON.stringify(favs));
-}
-function toggleFav(btn) {
-  var card = btn.closest('.build-card');
-  if (!card) return;
-  var url = card.getAttribute('href');
-  var favs = getFavs();
-  var idx = favs.indexOf(url);
-  if (idx >= 0) {
-    favs.splice(idx, 1);
-    btn.classList.remove('active');
-  } else {
-    favs.push(url);
-    btn.classList.add('active');
-  }
-  saveFavs(favs);
-  // 如果当前在收藏筛选模式，更新显示
-  var favFilter = document.querySelector('.fav-filter.active');
-  if (favFilter) filterByFav(favFilter);
-}
-function initFavButtons() {
-  var favs = getFavs();
-  document.querySelectorAll('.build-card').forEach(function(card) {
-    var url = card.getAttribute('href');
-    var btn = card.querySelector('.fav-btn');
-    if (btn && favs.indexOf(url) >= 0) {
-      btn.classList.add('active');
-    }
-  });
-}
-function filterByFav(btn) {
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  var favs = getFavs();
-  document.querySelectorAll('.build-card').forEach(function(card) {
-    var url = card.getAttribute('href');
-    if (favs.indexOf(url) >= 0) {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
-    }
-  });
-  updateBuildCounts();
-}
-// 页面加载后初始化收藏按钮
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initFavButtons);
-} else {
-  initFavButtons();
-}
-
-
-</script>
 </body>
 </html>
