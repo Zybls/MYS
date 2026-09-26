@@ -1,4 +1,17 @@
+// runes-data.js - 遗物/符文/贤者图鉴数据（共381个）
+// 数据来源：官方图鉴
 const RUNES_DATA = [
+  {
+    "id": "rune_1",
+    "name": "重砍·排山",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_1.png",
+    "desc": "【蓝色品质】重砍造成的伤害提升10%。 【紫色品质】释放时有20%概率使用跳劈造成重击。 【黄色品质】释放重砍时额外回复2点能量。 【橙色品质】使用跳劈造成重击时额外恢复10点能量并使目标急速降低30%",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2d6416a0871d3989781b6ab6185aef63.png",
+    "sort": 1
+  },
   {
     "id": "rune_2",
     "name": "沉思坐垫",
@@ -9,6 +22,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/65f9a1e3daa355206a8e093e77a2c0e4.png",
     "sort": 1
+  },
+  {
+    "id": "rune_3",
+    "name": "阿尔卡撒",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_1.png",
+    "desc": "【基础属性】攻击+10400、防御+2400、生命+405100 【属性加成】暴击+20% 【加成效果】主线挂机额外掉落战利品数量上限+28%\n「他是教会中最后的传人，肩负着传承远古知识与使命的重任。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0cca8f8675bfaa921248d110a6ff6421.png",
+    "sort": 1
+  },
+  {
+    "id": "rune_4",
+    "name": "重砍·刚毅",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_2.png",
+    "desc": "【蓝色品质】重砍的暴击率提升10%。 【紫色品质】重砍造成暴击时获得最大生命5%的护盾，持续6秒。 【黄色品质】角色的暴击率提升5%。 【橙色品质】暴击时获得的护盾量提升至最大生命的10%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a9060a277b30db4c47828b9574509a9d.png",
+    "sort": 2
   },
   {
     "id": "rune_5",
@@ -22,6 +57,28 @@ const RUNES_DATA = [
     "sort": 2
   },
   {
+    "id": "rune_6",
+    "name": "卡米拉",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_2.png",
+    "desc": "【品质】蓝 【基础属性】攻击+10400、防御+2400、生命+405100 【属性加成】荆棘+20% 【加成效果】混沌牧场扫荡时混沌石掉落数量增加100个\n「她是修女会的高等女教士，修女姐妹会的精神领袖。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6d681490785e81097d4700653b4f500b.png",
+    "sort": 2
+  },
+  {
+    "id": "rune_7",
+    "name": "疯刃·叠刺",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_3.png",
+    "desc": "【蓝色品质】疯刃造成的伤害提升10%。 【紫色品质】疯刃技能释放时有30%概率追加一次额外打击。 【黄色品质】疯刃技能释放时有30%概率追加一次额外打击。 【橙色品质】追加额外打击的概率提升至60%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/38b25e8d74e7e3381237c7719aa206c3.png",
+    "sort": 3
+  },
+  {
     "id": "rune_8",
     "name": "祷告念珠",
     "class": "通用",
@@ -31,6 +88,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/43b10839179c964fe47b6b2314ef3ea8.png",
     "sort": 3
+  },
+  {
+    "id": "rune_9",
+    "name": "拉维斯",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_3.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】附伤概率+20% 【加成效果】竞技场获胜时，有26%的概率额外获得1个圣羽\n「她是一名弓箭手，修女姐妹会的重要成员。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2b8bf05badf4fe4c9a8a7dd6b93f968a.png",
+    "sort": 3
+  },
+  {
+    "id": "rune_10",
+    "name": "疯刃·难遏",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_4.png",
+    "desc": "【蓝色品质】疯刃的技能急速提升15%。 【紫色品质】疯刃效果的最大层数提升至7层。 【黄色品质】释放疯刃时额外回复1点能量。 【橙色品质】最大层数提升至8层且每层的急速加成提升至5%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f28626ade8813ce2bb4b93596cf09f78.png",
+    "sort": 4
   },
   {
     "id": "rune_11",
@@ -44,6 +123,28 @@ const RUNES_DATA = [
     "sort": 4
   },
   {
+    "id": "rune_12",
+    "name": "格兰特",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_4.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】暴击伤害+50% 【加成效果】侍从升星或放逐时额外返还26%灵魂石\n「他是一位渴望战斗的佣兵队长，有着冷酷的目光，凭借家族传承的战斗技艺，赢得了麾下士兵的尊重。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/fe74b83cfc9654eb47c4baab79a17d3d.png",
+    "sort": 4
+  },
+  {
+    "id": "rune_13",
+    "name": "破伤·粉碎",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_5.png",
+    "desc": "【蓝色品质】角色的物理伤害提升5%。 【紫色品质】命中目标时对其施加2层易伤，持续5秒。 【黄色品质】角色的的持续伤害提升10%。 【橙色品质】对易伤目标额外施加攻击50%的创伤。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c00977413397e3dfb37349e12bc1a842.png",
+    "sort": 5
+  },
+  {
     "id": "rune_14",
     "name": "旅行日志",
     "class": "通用",
@@ -53,6 +154,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9e311f2b021fa77882888336915880f2.png",
     "sort": 5
+  },
+  {
+    "id": "rune_15",
+    "name": "凯西娅",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_5.png",
+    "desc": "【基础属性】攻击+13760、防御+3200、生命+469100 【属性加成】附加伤害+50% 【加成效果】图书馆探索次数上限+12\n「她是罗格佣兵部队的首领，也是修女姐妹会的成员，是守护人类、对抗恶魔的重要力量之一。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/00f58a7030df755dbac1cf3182ed7fa9.png",
+    "sort": 5
+  },
+  {
+    "id": "rune_16",
+    "name": "破伤·双重",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_6.png",
+    "desc": "【蓝色品质】破伤的技能急速提升15%。 【紫色品质】每次释放并命中目标时，有20%概率恢复已损失生命值20%的血量。 【黄色品质】角色受到的治疗效果提升25%。 【橙色品质】恢复生命的概率提升至30%，恢复量提升至已损失生命值的40%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e8459577e4cc0a332afe2eff55b51b4b.png",
+    "sort": 6
   },
   {
     "id": "rune_17",
@@ -66,6 +189,61 @@ const RUNES_DATA = [
     "sort": 6
   },
   {
+    "id": "rune_18",
+    "name": "鲁弗斯",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_6.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】荆棘增伤+50% 【加成效果】混沌牧场扫荡时混沌石掉落数量增加100个\n「乐于助人的旅行医生，擅长治愈魔法，喜欢在旅途中结交新朋友。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ef917ae7a52e0bc255b079fca449d04b.png",
+    "sort": 6
+  },
+  {
+    "id": "rune_19",
+    "name": "伊莱拉",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_21.png",
+    "desc": "【基础属性】攻击+13760、防御+3200、生命+469100 【属性加成】暴击抵御+20% 【加成效果】主线挂机额外掉落战利品数量上限+28%\n「她并非后天选择，而是生来就流淌着古老而污秽的黑暗血脉。她既是受害者，也是危险的驾驭者。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1d4a4a3e7b1f122837426a93fd8739bb.png",
+    "sort": 6
+  },
+  {
+    "id": "rune_20",
+    "name": "卡塞尔",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_23.png",
+    "desc": "",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6faa9a99528767249b373869c53eee3d.png",
+    "sort": 6
+  },
+  {
+    "id": "rune_21",
+    "name": "阿兹尔沃德",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_24.png",
+    "desc": "【属性加成】最终减伤+13% 【加成效果】物理抗性+13%\n「被命运戏弄的献祭者，曾经是一位受人尊敬的乡村治疗师，在瘟疫爆发时，他面对村民们的死亡来手无策。最终黑暗中的低语诱惑了他，他献祭了人间的躯体化身成为半人半羊的怪物，以此获得驱散瘟疫的能力。但代价是永远失去安宁，并成为恶魔永久的侍奉者。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/70c856dc09adacbe92abc9832dab341c.png",
+    "sort": 6
+  },
+  {
+    "id": "rune_22",
+    "name": "旋风斩·滚雷",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_7.png",
+    "desc": "【蓝色品质】旋风斩的附伤概率提升10%。 【紫色品质】旋风斩每次命中目标时有20%概率在周围随机目标处引发一道雷击造成30%攻击的范围元素伤害。 【黄色品质】角色的附加伤害提升45% 【橙色品质】雷击伤害提升至攻击的65%并施加1层持续5秒的易伤，且有20%概率再额外引发一道雷击。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/200a3b9a1b2828d6593b03d865d1efe1.png",
+    "sort": 7
+  },
+  {
     "id": "rune_23",
     "name": "好运骰子",
     "class": "通用",
@@ -75,6 +253,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/b19ae151d88c10623d555713c2deede5.png",
     "sort": 7
+  },
+  {
+    "id": "rune_24",
+    "name": "莱夫",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_7.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】元素伤害+13%\n「世代在此打猎的猎户，处理皮毛的手艺十分娴熟。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0636a3e5319b30b689ed4adb31a9cfa1.png",
+    "sort": 7
+  },
+  {
+    "id": "rune_25",
+    "name": "旋风斩·火怒",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_8.png",
+    "desc": "【蓝色品质】旋风斩技能的能量消耗降低6点。 【紫色品质】旋风斩改为只挥动一次武器造成360%攻击的物理伤害且范围提升10%。 【黄色品质】旋风斩技能的暴击率提升20%。 【橙色品质】旋风斩造成暴击时有50%概率引发一个持续2秒的火旋风追踪敌人。受到攻击时有3%概率自动引发一个火焰旋风。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1fe86963ecf3eeafba588e27fc1b5db2.png",
+    "sort": 8
   },
   {
     "id": "rune_26",
@@ -88,6 +288,28 @@ const RUNES_DATA = [
     "sort": 8
   },
   {
+    "id": "rune_27",
+    "name": "沃尔特",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_8.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】物理抗性+13%\n「赫赫有名的雇佣兵首领，身上的伤疤见证着他职业的危险性。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/b600b5246e546afc41672536a944385f.png",
+    "sort": 8
+  },
+  {
+    "id": "rune_28",
+    "name": "旋风斩·荆棘",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_9.png",
+    "desc": "【蓝色品质】角色的荆棘概率提升15%。 【紫色品质】旋风斩能量消耗增加15点，持续时间和伤害次数翻倍，旋转期间每次受击获得3点能量且荆棘提升20%，荆棘伤害提升30%，击中恢复降低20%。 【黄色品质】角色的荆棘伤害提升45%。 【橙色品质】每次旋转时有15%概率在随机敌人脚下召唤地刺攻击范围敌人，击飞并造成100%的荆棘伤害。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/882ac476400963c5cfb3cb198e3cf328.png",
+    "sort": 9
+  },
+  {
     "id": "rune_29",
     "name": "好运护符",
     "class": "通用",
@@ -97,6 +319,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9bb421077b4ba833c8a6279e074c4ab8.png",
     "sort": 9
+  },
+  {
+    "id": "rune_30",
+    "name": "瓦莱瑞亚",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_9.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】物理伤害+13%\n「曾是痴迷古代符文的学院派法师。一次禁忌实验的反噬使她半只脚踏入了死亡领域，获得了操纵死灵的力量。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/60a80b3ae66fd3abccee29670cc09f08.png",
+    "sort": 9
+  },
+  {
+    "id": "rune_31",
+    "name": "无情收割·炎刃",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_10.png",
+    "desc": "【蓝色品质】无情收割技能的暴击率提升10%。 【紫色品质】有30%概率释放火刀造成元素伤害并对创伤目标施加攻击50%的点燃效果。 【黄色品质】角色的持续伤害提升20%。 【橙色品质】无情收割造成暴击时施展双倍创伤效果。火刀升级为无情收割·炎刃且释放概率提升至60%。点燃目标的同时对其施加剧痛效果。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/df0d07b425f82d3bec3bacf9053f28e9.png",
+    "sort": 10
   },
   {
     "id": "rune_32",
@@ -110,6 +354,28 @@ const RUNES_DATA = [
     "sort": 10
   },
   {
+    "id": "rune_33",
+    "name": "埃弗拉德",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_10.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】元素抗性+13%\n「幽静山谷中渔获最多的渔夫，传闻说是隐居此地的隐修者。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a7b5f6e1b385660b6255d5a057b7d50a.png",
+    "sort": 10
+  },
+  {
+    "id": "rune_34",
+    "name": "无情收割·狂电",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_11.png",
+    "desc": "【蓝色品质】无情收割技能造成的直接伤害提升200%。 【紫色品质】有30%概率释放电刀造成元素伤害，且本次伤害对创伤目标额外提升40%暴击率。 【黄色品质】无情收割技能的暴击伤害提升100%。 【橙色品质】电刀升级为无情收割·狂电且释放概率提升至60%。释放无情收割·狂电后角色的持续伤害提升5%，无情收割的直接伤害提升100%，持续30秒，可叠加10层。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/edd4e78dacc81ef9ad93e0b512a10b23.png",
+    "sort": 11
+  },
+  {
     "id": "rune_35",
     "name": "战斗木偶",
     "class": "通用",
@@ -119,6 +385,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f0fca68e8d3d8f50189acdfb6b0287d7.png",
     "sort": 11
+  },
+  {
+    "id": "rune_36",
+    "name": "路维茜",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_11.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终增伤+13% 【加成效果】物理伤害+13%\n「稀少的黑暗精灵，作为永恒之森的守护者，守护着此地生灵们的安宁。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d7fea85884c2da359375d460b8b3e527.png",
+    "sort": 11
+  },
+  {
+    "id": "rune_37",
+    "name": "无情收割·祭刀",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_12.png",
+    "desc": "【蓝色品质】角色的持续伤害提升20%。 【紫色品质】有30%概率释放黑刀，命中后提升自身20%急速，持续6秒。 【黄色品质】角色的附伤概率提升10%。 【橙色品质】黑刀升级为无情收割·祭刀且释放概率提升至60%。无情收割·祭刀命中创伤目标时对其额外施加腐溃，持续6秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/75e8961ee98061c0abb4d8d043e27cde.png",
+    "sort": 12
   },
   {
     "id": "rune_38",
@@ -132,6 +420,28 @@ const RUNES_DATA = [
     "sort": 12
   },
   {
+    "id": "rune_39",
+    "name": "索恩·格雷姆斯",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_12.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终增伤+13% 【加成效果】物理伤害+13%\n「他如何登上王位至今是个谜，人们私下议论，真正统治国家的并非国王本人，而是那些在他影子中蠕动的未知存在。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/eba43810ba02a4e802cfe4e3fa31eeb2.png",
+    "sort": 12
+  },
+  {
+    "id": "rune_40",
+    "name": "原力锤·狱火",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_13.png",
+    "desc": "【蓝色品质】原力锤造成的伤害提升10%。 【紫色品质】对锤击中心处的目标额外造成300%攻击的元素伤害。 【黄色品质】原力锤造成的暴击率提升10%。 【橙色品质】锤击中心处不再造成额外伤害，改为喷发火柱造成一次600%攻击的元素伤害并附加100%攻击的点燃。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/984367bf3d4712351e000d613da559b6.png",
+    "sort": 13
+  },
+  {
     "id": "rune_41",
     "name": "蓝皮书",
     "class": "通用",
@@ -141,6 +451,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2a3b1f0b392a7bd063f17de6df84016e.png",
     "sort": 13
+  },
+  {
+    "id": "rune_42",
+    "name": "希格露恩",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_13.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】物理抗性+13%\n「强大的部落之女，当帝国的军队入侵她的家乡时，她以冰原狼为坐骑，提着巨剑打退了入侵者。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/34690e8e42a3b725e45d2e4938288e32.png",
+    "sort": 13
+  },
+  {
+    "id": "rune_43",
+    "name": "原力锤·冰爆",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_14.png",
+    "desc": "【蓝色品质】原力锤技能的能量消耗降低8点。 【紫色品质】原力锤伤害提升至300%，并对命中目标施加1层持续5秒的冻伤。 【黄色品质】角色的附伤概率提升10%。 【橙色品质】使命中目标立即触发一次满层冻伤效果，随后对其再施加1层冻伤和寒冷。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/acd2488c9d8a99c4a3006ed720e02f9e.png",
+    "sort": 14
   },
   {
     "id": "rune_44",
@@ -154,6 +486,28 @@ const RUNES_DATA = [
     "sort": 14
   },
   {
+    "id": "rune_45",
+    "name": "席勒",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_14.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终增伤+13% 【加成效果】元素伤害+13%\n「她是一位神秘的铁匠，也是对抗魔团英雄的后裔，传承着秘法知识与技艺。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5314399af66ed7bf534559f1570d26d8.png",
+    "sort": 14
+  },
+  {
+    "id": "rune_46",
+    "name": "原力锤·雷霆",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_15.png",
+    "desc": "【蓝色品质】角色的附伤概率提升10%。 【紫色品质】释放后有40%概率获得30点能量。 【黄色品质】原力锤技能的暴击率提升10%。 【橙色品质】命中目标时有30%概率引发一道雷击对随机目标处造成3次120%攻击的范围元素伤害。锤击造成暴击时额外引发一道雷击。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/46eb5bee0b65c9adb19712124cd39ea9.png",
+    "sort": 15
+  },
+  {
     "id": "rune_47",
     "name": "银色指环",
     "class": "通用",
@@ -163,6 +517,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8fe32e0e44026a3a6830fb776dabae63.png",
     "sort": 15
+  },
+  {
+    "id": "rune_48",
+    "name": "维蕾娅",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_15.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终增伤+13% 【加成效果】元素抗性+13%\n「夜刃之牙的核心成员，家族惨遭屠戮之后被一位老刺客收留培养。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6107c3376e622dfab99835e822a14c60.png",
+    "sort": 15
+  },
+  {
+    "id": "rune_49",
+    "name": "奋勇冲击·擂鼓",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_16.png",
+    "desc": "【蓝色品质】奋勇冲击技能的基础冷却时间减少2秒。 【紫色品质】施放时获得20点能量和持续2秒的免控效果。 【黄色品质】角色的能量恢复提升10%。 【橙色品质】施放时的能量获取量提升至40点，免控效果持续时间提升至4秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/85febecf052a1d6cade9e2b9ba981719.png",
+    "sort": 16
   },
   {
     "id": "rune_50",
@@ -176,6 +552,28 @@ const RUNES_DATA = [
     "sort": 16
   },
   {
+    "id": "rune_51",
+    "name": "碧翠丝",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_16.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】物理抗性+13%\n「来自一个以追捕重犯闻名的古老家族，血脉中流淌着净化邪恶的职责与傲慢。她的技艺是家族数百年荣誉的结晶，目标在她眼中不过是等待被清除的污点。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/243e6759889e9363d1dfe767a0ce3537.png",
+    "sort": 16
+  },
+  {
+    "id": "rune_52",
+    "name": "奋勇冲击·顺势",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_17.png",
+    "desc": "【蓝色品质】奋勇冲击技能造成的伤害提升50%。 【紫色品质】释放奋勇冲击时提升30%急速，持续3秒。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】急速加成的持续时间提升至5秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/62731affbcaecce0fcee52878f6a717d.png",
+    "sort": 17
+  },
+  {
     "id": "rune_53",
     "name": "铁质镣铐",
     "class": "通用",
@@ -185,6 +583,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0a9b6e6a49b41636a6b25f26c5ff6a0a.png",
     "sort": 17
+  },
+  {
+    "id": "rune_54",
+    "name": "艾拉尼尔",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_17.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】元素伤害+13%\n「一位优雅的裁缝，专精于使用月光丝线制作出轻盈便携，能在黑暗中闪烁光芒的礼服和斗篷。他相信衣物是灵魂的延伸，一针一线都诠释着对美学的极致追求。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/46038e867abcf6fdc9feeba709ee528a.png",
+    "sort": 17
+  },
+  {
+    "id": "rune_55",
+    "name": "跃空击·怒意",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_18.png",
+    "desc": "【蓝色品质】角色的最终减伤提升5%。 【紫色品质】跃空击结束时，提升自身15%格挡率和50%格挡值，并获得免控效果，持续3秒。 【黄色品质】角色的格挡值提升20%。 【橙色品质】跃空击结束时的格挡率加成提升至30%，格挡值加成提升至200%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2b8d7ecca074d49f11fa58d060aec321.png",
+    "sort": 18
   },
   {
     "id": "rune_56",
@@ -429,6 +849,28 @@ const RUNES_DATA = [
     "sort": 18
   },
   {
+    "id": "rune_78",
+    "name": "罗莎琳德",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_18.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终减伤+13% 【加成效果】元素抗性+13%\n「她并非怨恨光明，而是觉得它索然无味。她主动拥抱堕落，并乐于引诱那些光明的仆从，看着他们挣扎、屈服，最终在黑暗中找到“真正的愉悦”。对她而言，黑暗即是救赎。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/74427bf5b5396eec138078e6962b8404.png",
+    "sort": 18
+  },
+  {
+    "id": "rune_79",
+    "name": "跃空击·毁灭",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_19.png",
+    "desc": "【蓝色品质】跃空击的基础冷却时间减少2秒。 【紫色品质】跃空击有50%概率造成重击，并使其降低30%的急速，持续5秒。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】跃空击造成重击并使其降低急速的概率提升至100%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/75a9bba195a15f6175b6613a5511671b.png",
+    "sort": 19
+  },
+  {
     "id": "rune_80",
     "name": "泰坦左足",
     "class": "通用",
@@ -438,6 +880,28 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/790c3068b1d87a15e7983e8249c4f802.png",
     "sort": 19
+  },
+  {
+    "id": "rune_81",
+    "name": "洛伊丝",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_19.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终增伤+13% 【加成效果】物理伤害+13%\n「流淌着恶魔血脉的雾影者，她热衷于用魔法引导迷途的冒险者。她的帮助既是出于对弱者的怜悯，也是为了维持此界微妙的平衡。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ea7f1ecfc3e382d3c41d47dfa27d9a58.png",
+    "sort": 19
+  },
+  {
+    "id": "rune_82",
+    "name": "踏平·昏厥",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_20.png",
+    "desc": "【蓝色品质】角色的闪避率提升5%。 【紫色品质】眩晕效果的持续时间增加1秒。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】眩晕效果的持续时间再增加1秒，技能影响范围增加25%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/09f5b522ada009777263f031c65f846b.png",
+    "sort": 20
   },
   {
     "id": "rune_83",
@@ -451,6 +915,28 @@ const RUNES_DATA = [
     "sort": 20
   },
   {
+    "id": "rune_84",
+    "name": "霍克船长",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_20.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终增伤+13% 【加成效果】元素伤害+13%\n「他把人生和每一次劫掠都当成一场豪赌。疯狂、不可预测、运气好得邪门。可能为了一个传说冲进致命风暴，也可能因为一时兴起放过满载的商船。追求刺激远胜于财宝本身。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8559009378c2b96f0eeca3ee10aa820c.png",
+    "sort": 20
+  },
+  {
+    "id": "rune_85",
+    "name": "踏平·强劲",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_21.png",
+    "desc": "【蓝色品质】踏平技能的基础冷却时间减少2秒。 【紫色品质】每命中1个目标缩短终极技能0.5秒的冷却时间（最多3秒），并且对命中目标施加10层易伤，持续5秒。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】缩短的冷却时间提升至1秒（最多6秒），施加的易伤提升至20层。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8bd7792bc12e053a804289f57c4e81a4.png",
+    "sort": 21
+  },
+  {
     "id": "rune_86",
     "name": "陈旧浴缸",
     "class": "通用",
@@ -460,6 +946,149 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5f569cbfe6508d5e866c8bffaf4a3968.png",
     "sort": 21
+  },
+  {
+    "id": "rune_87",
+    "name": "维特洛克",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_22.png",
+    "desc": "【基础属性】攻击+11680、防御+2560、生命+437100 【属性加成】最终增伤+13% 【加成效果】物理抗性+13%\n「维特洛克是一位备受尊敬的皇家炼金术师，专注于纯净物质的转化和能量萃取。他的手稿堆积如山，将炼金术师这一职业再度发扬光大。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e03cfa65f04f0f621c6c0a861589e3e1.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_88",
+    "name": "莫尔迦娜",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_25.png",
+    "desc": "",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7c9fb28f525f8b5bafe702b2d1b97d1a.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_89",
+    "name": "吉安娜",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_26.png",
+    "desc": "【属性加成】最终增伤+13% 【加成效果】元素伤害+13%\n「贵族之女，以武力和智慧调和各方势力，逐步掌握了自己的海盗舰队。因而她特殊的身份，贵族与海盗皆敬畏她三分，她的船只也成为各方势力交易谈判的独特存在。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6778ee19a2d7c65e2bea0fc4bfe9d6ed.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_90",
+    "name": "格纳",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_27.png",
+    "desc": "【属性加成】最终减伤+13% 【加成效果】元素抗性+13%\n「极北冻土的守护者，宽阔的臂膀和粗粝的武器，保护了部族的安宁。他所在的地方，凶兽便无法伤害他的族人。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e1686ddf87968c14ccc6409056dc3abc.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_91",
+    "name": "埃里克",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_28.png",
+    "desc": "【属性加成】最终增伤+13% 【加成效果】元素伤害+13%\n「因海难失去了所有的家人，埃里克发誓守护部落的孩子们，不让他们重蹈覆辙。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/65c056510db1802e59f73584680a0926.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_92",
+    "name": "伊芙琳",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_29.png",
+    "desc": "【属性加成】最终减伤+13% 【加成效果】元素抗性+13%\n「烈阳骑士团指挥官，历战无数的精灵骑士，高傲的面孔下是一颗仁慈的心。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/af631e8e966025cd150a69b698378d82.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_93",
+    "name": "阿方索",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_30.png",
+    "desc": "【属性加成】最终增伤+13% 【加成效果】物理伤害+13%\n「流亡中的王室末裔，曾经是黄金王朝的继承人。在一场卑劣的宫廷政变中，黄金血脉被屠戮殆尽，仅剩隐姓埋名的阿方索潜行于黑暗中寻找复仇的机会。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4559237f565053b7e72ad64e21670596.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_94",
+    "name": "阿利斯泰尔",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_31.png",
+    "desc": "【属性加成】最终减伤+13% 【加成效果】物理抗性+13%\n「他为继承亡兄的使命，伪装成哥哥与龙族缔结盟约，龙早已看穿这拙劣的谎言，却在弟弟那份近乎绝望的责任感中，看到了其兄长的影子。最终，它默许了这场欺骗，将力量借给了这个颤抖的冒牌货。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/145f19cd13117d016caef1e1a50ca7f3.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_95",
+    "name": "乔伊斯",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_32.png",
+    "desc": "【属性加成】最终减伤+13% 【加成效果】元素伤害+13%\n「她将魔法理论化为战场上的焚尽魔潮的烈焰，成为用知识与意志守护文明的第一道防线。」",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2247c8fdd3d36ca140d652086f26b6f4.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_96",
+    "name": "伊妮德",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_33.png",
+    "desc": "",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8a4871b9ecd1d78221308e48e4967061.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_97",
+    "name": "布伦娅",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_34.png",
+    "desc": "",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/224996164e421139e74a755cc1028687.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_98",
+    "name": "阿伦",
+    "class": "通用",
+    "category": "贤者",
+    "icon": "assets/runes-relics/sage_content_35.png",
+    "desc": "",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e64ae546c912e1e0d2634b15ba77a0e7.png",
+    "sort": 21
+  },
+  {
+    "id": "rune_99",
+    "name": "坚不可摧·翻涌",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_22.png",
+    "desc": "【蓝色品质】角色的护盾强度提升5%。 【紫色品质】护盾消失时有50%概率再次获得一个等量的护盾。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】护盾量提升至最大生命的45%且再次获得护盾的概率提升至100%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8e1a8d3a34e78d1f3686d45cbf3a2cdc.png",
+    "sort": 22
   },
   {
     "id": "rune_100",
@@ -473,6 +1102,17 @@ const RUNES_DATA = [
     "sort": 22
   },
   {
+    "id": "rune_101",
+    "name": "坚不可摧·沐光",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_23.png",
+    "desc": "【蓝色品质】坚不可摧技能的基础冷却时间减少4秒。 【紫色品质】护盾消失后，角色的最终减伤提升10%，持续6秒。 【黄色品质】角色的护盾强度提升10%。 【橙色品质】护盾消失后的最终减伤加成提升至20%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/385e9610c6638bafe904f7a27588bbe3.png",
+    "sort": 23
+  },
+  {
     "id": "rune_102",
     "name": "浴火颈环",
     "class": "通用",
@@ -482,6 +1122,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/036ff41311078702c24b928b8a841ba7.png",
     "sort": 23
+  },
+  {
+    "id": "rune_103",
+    "name": "决战咆哮·破势",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_24.png",
+    "desc": "【蓝色品质】决战咆哮的基础冷却时间减少3秒。 【紫色品质】咆哮效果持续期间，额外提升20%击中恢复，并在释放时对周围敌人施加10层易伤，持续5秒。 【黄色品质】角色的击中恢复提升50%。 【橙色品质】期间击中恢复的加成比例提升至40%，施加的易伤提升至20层。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/33ff54435614eb432000c0ef07bd1ae9.png",
+    "sort": 24
   },
   {
     "id": "rune_104",
@@ -495,6 +1146,28 @@ const RUNES_DATA = [
     "sort": 24
   },
   {
+    "id": "rune_105",
+    "name": "决战咆哮·扬志",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_25.png",
+    "desc": "【蓝色品质】角色的暴击率提升5%。 【紫色品质】怒吼效果持续期间获得100%眩晕抗性和50%减速抗性。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】怒吼效果的持续时间提升至10秒，并在施放怒吼后获得逐渐衰减的100%移速加成，移速加成持续4秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/32d8d2a119d8fd8085aecc0fdfef9fed.png",
+    "sort": 25
+  },
+  {
+    "id": "rune_106",
+    "name": "聚气咆哮·嘶吼",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_26.png",
+    "desc": "【蓝色品质】角色的能量恢复提升5%。 【紫色品质】聚气咆哮效果持续期间，释放技能后返还25%能量消耗。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】能量消耗的返还比例提升至50%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0dd030a77fea835ebe46c30de55c1960.png",
+    "sort": 26
+  },
+  {
     "id": "rune_107",
     "name": "鉴定之镜",
     "class": "通用",
@@ -504,6 +1177,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5ae32b2a18b473ce38dc268d1f8c4a91.png",
     "sort": 26
+  },
+  {
+    "id": "rune_108",
+    "name": "聚气咆哮·威吓",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_27.png",
+    "desc": "【蓝色品质】聚气咆哮的基础冷却时间减少3秒。 【紫色品质】释放时对周围敌人施加持续4秒的虚弱效果。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】虚弱效果的持续时间提升至8秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5742021219ddbf18ddfe1293b02ec665.png",
+    "sort": 27
   },
   {
     "id": "rune_109",
@@ -517,6 +1201,17 @@ const RUNES_DATA = [
     "sort": 27
   },
   {
+    "id": "rune_110",
+    "name": "破碎穿透·炸裂",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_28.png",
+    "desc": "【蓝色品质】破碎穿透技能造成的直接伤害提升50%。 【紫色品质】重创目标受击时有10%概率发生爆炸对周围造成5%攻击的物理伤害。 【黄色品质】角色的暴击率提升5%。 【橙色品质】重创目标受击时爆炸的概率提升至15%且爆炸伤害提升至攻击的100%。若被暴击则触发爆炸的概率提升至50%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7c2a54355c9518ee6cb2cbf0f260517c.png",
+    "sort": 28
+  },
+  {
     "id": "rune_111",
     "name": "皇室画卷",
     "class": "通用",
@@ -526,6 +1221,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/89bb1870e77c7eadb9dff266f13015f4.png",
     "sort": 28
+  },
+  {
+    "id": "rune_112",
+    "name": "破碎穿透·蛮劲",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_29.png",
+    "desc": "【蓝色品质】破碎穿透技能的基础冷却时间减少2秒。 【紫色品质】每次命中时额外施加1层重伤，持续8秒。 【黄色品质】角色的的持续伤害提升10%。 【橙色品质】每次命中时额外施加2层重伤，持续8秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1574c799c180c71eea56a9940b097451.png",
+    "sort": 29
   },
   {
     "id": "rune_113",
@@ -539,6 +1245,17 @@ const RUNES_DATA = [
     "sort": 29
   },
   {
+    "id": "rune_114",
+    "name": "破碎穿透·涌动",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_30.png",
+    "desc": "【蓝色品质】角色的击中恢复提升25%。 【紫色品质】友方对重创状态目标造成直接伤害时，有25%概率提升2%每秒恢复，持续3秒。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】概率提升至75%，每秒恢复加成提升至5%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2e629d3a3de75c34f0e99c05040a36b1.png",
+    "sort": 30
+  },
+  {
     "id": "rune_115",
     "name": "怨毒符印",
     "class": "通用",
@@ -548,6 +1265,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/67e9f1d42300a90533eed012814b6f24.png",
     "sort": 30
+  },
+  {
+    "id": "rune_116",
+    "name": "蛮灵召唤·崛起",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_31.png",
+    "desc": "【蓝色品质】角色的最终伤害提升5%。 【紫色品质】蛮灵继承的战斗属性提升至100%。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】改为召唤蛮灵-乌尔哈克。召唤蛮灵-乌尔哈克时，额外召唤1名蛮灵协助作战。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/393bd529a3db45febb188278d6668a55.png",
+    "sort": 31
   },
   {
     "id": "rune_117",
@@ -561,6 +1289,17 @@ const RUNES_DATA = [
     "sort": 31
   },
   {
+    "id": "rune_118",
+    "name": "蛮灵召唤·破怒",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_32.png",
+    "desc": "【蓝色品质】角色的暴击率提升5%。 【紫色品质】蛮灵造成暴击时，有50%概率为角色恢复3点能量并减少0.5秒终极技能的冷却时间。 【黄色品质】角色的暴击伤害提升20%。 【橙色品质】改为召唤蛮灵-乌尔芬。蛮灵-乌尔芬造成暴击时，有50%概率为角色恢复5点能量并减少1秒终极技能的冷却时间。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/cb9031678eda93961c590ce2b1cd66fb.png",
+    "sort": 32
+  },
+  {
     "id": "rune_119",
     "name": "沉沦之羽",
     "class": "通用",
@@ -570,6 +1309,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/759860dc2247de02919b697a1370d595.png",
     "sort": 32
+  },
+  {
+    "id": "rune_120",
+    "name": "蛮灵召唤·恩赐",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_33.png",
+    "desc": "【蓝色品质】角色的护盾强度提升5%。 【紫色品质】召唤蛮灵时，为所有友方角色添加吸收20%最大生命值的护盾，持续至被破坏。 【黄色品质】蛮灵召唤的基础冷却时间减少10秒。 【橙色品质】改为召唤蛮灵-乌尔托尔。召唤蛮灵-乌尔托尔时，为所有友方角色添加吸收30%最大生命值的护盾，持续至被破坏。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f18b3b81e7b237826bc1ea2919af72ee.png",
+    "sort": 33
   },
   {
     "id": "rune_121",
@@ -583,6 +1333,17 @@ const RUNES_DATA = [
     "sort": 33
   },
   {
+    "id": "rune_122",
+    "name": "蛮魂觉醒·薄发",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_34.png",
+    "desc": "【蓝色品质】角色的格挡率提升10%。 【紫色品质】狂暴期间每次释放技能时额外提升1.2%闪避与2.5%格挡，最多叠加10层。 【黄色品质】角色的格挡值提升50%。 【橙色品质】每层的加成提升至2.5%闪避与5%格挡。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/88de0f3f07b9a755bbb0e95da4e9c966.png",
+    "sort": 34
+  },
+  {
     "id": "rune_123",
     "name": "信仰指环",
     "class": "通用",
@@ -594,6 +1355,17 @@ const RUNES_DATA = [
     "sort": 34
   },
   {
+    "id": "rune_124",
+    "name": "蛮魂觉醒·癫狂",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_35.png",
+    "desc": "【蓝色品质】角色的能量恢复提升5%。 【紫色品质】狂暴期间每次造成伤害时提升2%体型与2.5%最终伤害，最多叠加10层，暴击时额外提升一层。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】每层体型加成提升至4%，最终伤害加成提升至5%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1d6f20d6e0ef161bb6376c65550b8445.png",
+    "sort": 35
+  },
+  {
     "id": "rune_125",
     "name": "不朽胫甲",
     "class": "通用",
@@ -603,6 +1375,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9467b82647330e883761e39ba3e5ba39.png",
     "sort": 35
+  },
+  {
+    "id": "rune_126",
+    "name": "蛮魂觉醒·冲天",
+    "class": "野蛮人",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_36.png",
+    "desc": "【蓝色品质】角色的暴击率提升5%。 【紫色品质】狂暴效果的持续时间延长至16秒。 【黄色品质】角色的暴击伤害提升20%。 【橙色品质】狂暴效果的持续时间延长至20秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/284aa6ddadf6658abd0cfd602c4f3e64.png",
+    "sort": 36
   },
   {
     "id": "rune_127",
@@ -1045,6 +1828,17 @@ const RUNES_DATA = [
     "sort": 39
   },
   {
+    "id": "rune_167",
+    "name": "寒冰弹·冰甲",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_40.png",
+    "desc": "【蓝色品质】角色的最终减伤提升5%。 【紫色品质】释放时获得1层冰甲提升2.5%的最终减伤，最多叠加6层，持续20秒。 【黄色品质】角色的击中恢复提升30%。 【橙色品质】每层冰甲的最终减伤提升至4%，上限提升至8层。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9876427969fffbf8138f3c2b0c3f6302.png",
+    "sort": 40
+  },
+  {
     "id": "rune_168",
     "name": "好运之石",
     "class": "通用",
@@ -1054,6 +1848,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ef04d91d23418f2fb3ce784ba8cc9696.png",
     "sort": 40
+  },
+  {
+    "id": "rune_169",
+    "name": "寒冰弹·冰刺",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_41.png",
+    "desc": "【蓝色品质】寒冰弹急速提升10%。 【紫色品质】命中寒冷目标时有20%概率对其施加1.5秒的禁锢。 【黄色品质】寒冰弹伤害提升30%。 【橙色品质】寒冰弹施加禁锢时额外召唤冰刺造成5次50%攻击的元素伤害。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/085e66e8b9a5794d3e93ae5691595cb0.png",
+    "sort": 41
   },
   {
     "id": "rune_170",
@@ -1067,6 +1872,17 @@ const RUNES_DATA = [
     "sort": 41
   },
   {
+    "id": "rune_171",
+    "name": "火焰波·灼热",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_42.png",
+    "desc": "【蓝色品质】释放火焰波时额外回复2点能量。 【紫色品质】每次释放时获得1层灼热，提升2.5%元素伤害，最多叠加8层，持续20秒。 【黄色品质】火焰波急速提升10%。 【橙色品质】每层灼热的加成提升至4%，上限提升至12层。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d996d46d5594a3e384ebfbe40647559c.png",
+    "sort": 42
+  },
+  {
     "id": "rune_172",
     "name": "赤红甲壳",
     "class": "通用",
@@ -1076,6 +1892,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c4ecfb964441e9dea2578e01409852a7.png",
     "sort": 42
+  },
+  {
+    "id": "rune_173",
+    "name": "火焰波·爆破",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_43.png",
+    "desc": "【蓝色品质】火焰波伤害提升30%。 【紫色品质】命中目标时对其施加2层易伤。 【黄色品质】角色的持续伤害提升20%。 【橙色品质】命中燃烧目标时有30%概率额外引发一次爆炸对周围造成180%攻击的元素伤害并额外施加3层易伤。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/664e56429d858dc53732d1677152f7f9.png",
+    "sort": 43
   },
   {
     "id": "rune_174",
@@ -1089,6 +1916,17 @@ const RUNES_DATA = [
     "sort": 43
   },
   {
+    "id": "rune_175",
+    "name": "闪电鞭·麻痹",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_44.png",
+    "desc": "【蓝色品质】闪电鞭暴击率提升10%。 【紫色品质】闪电鞭对触电目标的暴击率提升20%，目标每有一层触电额外提升0.3%。 【黄色品质】角色的暴击率提升5%。 【橙色品质】闪电鞭暴击时有20%概率眩晕目标0.5秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a1431ce4aa533f416e27110f5a2355c3.png",
+    "sort": 44
+  },
+  {
     "id": "rune_176",
     "name": "恶魔图册",
     "class": "通用",
@@ -1098,6 +1936,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ae8668dfc0e0824c865ad26d24e8eef4.png",
     "sort": 44
+  },
+  {
+    "id": "rune_177",
+    "name": "闪电鞭·充能",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_45.png",
+    "desc": "【蓝色品质】角色的元素伤害提升5%。 【紫色品质】命中触电目标时有30%概率额外获得3点能量，目标每有一层触电额外提升1%概率。 【黄色品质】角色的能量恢复提升5%。 【橙色品质】额外获得的能量提升至5点，目标每有一层触电额外提升2%概率",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5d30dc2579ed6dd5b06fccac2fe3884b.png",
+    "sort": 45
   },
   {
     "id": "rune_178",
@@ -1111,6 +1960,17 @@ const RUNES_DATA = [
     "sort": 45
   },
   {
+    "id": "rune_179",
+    "name": "火球术·冰焰",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_46.png",
+    "desc": "【蓝色品质】角色的击中恢复提升30%。 【紫色品质】改为发射5颗冰晶碎片对目标造成20%攻击的元素伤害，并施加寒冷和1层冰焰燃烧。 【黄色品质】角色的附加伤害提升30% 【橙色品质】所有技能命中寒冷目标时获得1层冰晶层数，禁锢目标时额外获得1层，冻结目标时额外获得2层。达到30层后召唤冰晶之花发射10颗冰晶碎片。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/579ea6d331c371c8b3beab5f5a8c8bd6.png",
+    "sort": 46
+  },
+  {
     "id": "rune_180",
     "name": "魔焰火烛",
     "class": "通用",
@@ -1120,6 +1980,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/dd9d62f55ee9d3a3e0667a90a66d6536.png",
     "sort": 46
+  },
+  {
+    "id": "rune_181",
+    "name": "火球术·炎爆",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_47.png",
+    "desc": "【蓝色品质】角色的暴击率提升5%。 【紫色品质】改为发射一颗熔岩火球对前方大范围敌人造成1次120%攻击的元素伤害，并施加3层持续5秒的燃烧。 【黄色品质】火球术暴击伤害提升45%。 【橙色品质】命中时有50%概率在目标身上添加一颗小型熔岩炸弹，短暂延迟后爆炸造成200%攻击的元素伤害，目标每有一层燃烧伤害提升8%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ff7452c88a339c39826512e8b7533090.png",
+    "sort": 47
   },
   {
     "id": "rune_182",
@@ -1133,6 +2004,17 @@ const RUNES_DATA = [
     "sort": 47
   },
   {
+    "id": "rune_183",
+    "name": "火球术·电矛",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_48.png",
+    "desc": "【蓝色品质】火球术伤害提升30%。 【紫色品质】改为凝聚闪电矛向前戳刺造成1次200%攻击的元素伤害并施加2层触电。 【黄色品质】火球术暴击率提升10%。 【橙色品质】命中时有25%概率额外召唤雷神之矛造成1次500%攻击的元素伤害并击晕0.5秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c3295ce55b602fe2a284ce119e1e471c.png",
+    "sort": 48
+  },
+  {
     "id": "rune_184",
     "name": "响亮战鼓",
     "class": "通用",
@@ -1142,6 +2024,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5c7dd43420a8fd2a0642f73243c6f342.png",
     "sort": 48
+  },
+  {
+    "id": "rune_185",
+    "name": "闪电拳·寒冰剑",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_49.png",
+    "desc": "【蓝色品质】闪电拳伤害提升30%。 【紫色品质】改为斩下寒冰大剑对前方大范围敌人造成1次500%攻击的元素伤害并施加寒冷效果。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】有30%概率升级为斩下三把寒冰大剑对前方大范围敌人造成3次共1800%攻击的冰元素伤害并施加1秒的冻结效果。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/013e165635c474ea8ab22ec49c4214f0.png",
+    "sort": 49
   },
   {
     "id": "rune_186",
@@ -1155,6 +2048,17 @@ const RUNES_DATA = [
     "sort": 49
   },
   {
+    "id": "rune_187",
+    "name": "闪电拳·火焰弓",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_50.png",
+    "desc": "【蓝色品质】角色的持续伤害提升20%。 【紫色品质】改为向前射出火焰弓箭，对前方敌人造成1次200%攻击的元素伤害并施加3层燃烧。 【黄色品质】闪电拳暴击率提升10%。 【橙色品质】有30%概率发射出一条火龙，对前方敌人造成1次350%攻击的元素伤害并施加20层燃烧。闪电拳暴击时下次触发火龙的概率提升至60%。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a0bdb5eedc4c3cf378ba2cc14f1af772.png",
+    "sort": 50
+  },
+  {
     "id": "rune_188",
     "name": "碎裂的剑刃",
     "class": "通用",
@@ -1164,6 +2068,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f5483416c7978509e7f88e0dcefa9079.png",
     "sort": 50
+  },
+  {
+    "id": "rune_189",
+    "name": "闪电拳·雷电拳",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_51.png",
+    "desc": "【蓝色品质】角色的暴击率提升5%。 【紫色品质】闪电拳伤害提升至300%并施加3层触电，对触电目标暴击时，有50%概率造成爆炸，对周围小范围敌人造成1次100%攻击的元素伤害。 【黄色品质】闪电拳附伤概率提升15%。 【橙色品质】释放时有30%概率连续朝前方轰击，对前方区域所有目标造成5次200%攻击的元素伤害，同时施加3层触电。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/567dbc8a9a8680e9aebc2219060a39db.png",
+    "sort": 51
   },
   {
     "id": "rune_190",
@@ -1177,6 +2092,17 @@ const RUNES_DATA = [
     "sort": 51
   },
   {
+    "id": "rune_191",
+    "name": "寒冰光束·霜冻",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_52.png",
+    "desc": "【蓝色品质】寒冰光束的附加伤害提升45% 【紫色品质】伤害间隔缩短到0.3秒。 【黄色品质】角色的附伤概率提升10%。 【橙色品质】每次伤害对目标额外施加1层冻伤。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8a5689409b80c481ab15c9ca97807f09.png",
+    "sort": 52
+  },
+  {
     "id": "rune_192",
     "name": "无畏勋章",
     "class": "通用",
@@ -1186,6 +2112,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1080a480da818f54d159305fc6e1bcb9.png",
     "sort": 52
+  },
+  {
+    "id": "rune_193",
+    "name": "寒冰光束·火眼",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_53.png",
+    "desc": "【蓝色品质】角色的持续伤害提升20%。 【紫色品质】不再引导改为直接消耗能量召唤地狱之眼扫射前方区域，对目标造成1次300%攻击的元素伤害并施加3层燃烧。 【黄色品质】寒冰光束的能量消耗降低8点。 【橙色品质】火眼扫射后留下一片燃烧区域，每0.7秒造成一次40%攻击的元素伤害并施加1层燃烧，持续3秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1678db94217929464bbea5dbf91b59e4.png",
+    "sort": 53
   },
   {
     "id": "rune_194",
@@ -1199,6 +2136,17 @@ const RUNES_DATA = [
     "sort": 53
   },
   {
+    "id": "rune_195",
+    "name": "寒冰光束·电离",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_54.png",
+    "desc": "【蓝色品质】寒冰光束伤害提升30%。 【紫色品质】改为引导电磁光束每次造成100%攻击的元素伤害，并施加1层触电。 【黄色品质】电磁光束附伤概率提升15%。 【橙色品质】电磁光束命中目标时获得5%电荷充能，同时触发附加伤害时额外充能5%。（一次命中多个时只充能一次）",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/50099dece670f7c8d292cb8ac7aec9ce.png",
+    "sort": 54
+  },
+  {
     "id": "rune_196",
     "name": "塔拉什日记",
     "class": "通用",
@@ -1208,6 +2156,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/816a8034de59400ae5927ba508c42b22.png",
     "sort": 54
+  },
+  {
+    "id": "rune_197",
+    "name": "震荡·禁锢",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_55.png",
+    "desc": "【蓝色品质】角色的最终伤害提升5%。 【紫色品质】范围和击退距离增大并施加5层易伤。 【黄色品质】角色的暴击率提升5%。 【橙色品质】击退后施加10层易伤并降低90%移速1.5秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/691361fcb49ee73d62f31b4b466f9b64.png",
+    "sort": 55
   },
   {
     "id": "rune_198",
@@ -1221,6 +2180,17 @@ const RUNES_DATA = [
     "sort": 55
   },
   {
+    "id": "rune_199",
+    "name": "震荡·回响",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_56.png",
+    "desc": "【蓝色品质】震荡的基础冷却时间减少2秒。 【紫色品质】命中目标后恢复15点能量。每额外命中一名敌人多恢复2点能量 【黄色品质】角色的能量恢复提升5%。 【橙色品质】释放后会再击退2次周围敌人，每次造成50%攻击的元素伤害。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/58d4fde9d3b02ed9fdca96df33bdea86.png",
+    "sort": 56
+  },
+  {
     "id": "rune_200",
     "name": "轻语竖琴",
     "class": "通用",
@@ -1230,6 +2200,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e0615055145f157ace78c50775fc315b.png",
     "sort": 56
+  },
+  {
+    "id": "rune_201",
+    "name": "闪现·背刺",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_57.png",
+    "desc": "【蓝色品质】角色的能量恢复提升5%。 【紫色品质】改为瞬间移动到前方最远目标的身后，并获得2秒的免控效果。 【黄色品质】角色受到的治疗效果提升20%。 【橙色品质】第一次闪现3秒后若周围有目标会自动再释放一次。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/fb888da8cfd4e6c111dcd5fcd50c7094.png",
+    "sort": 57
   },
   {
     "id": "rune_202",
@@ -1243,6 +2224,17 @@ const RUNES_DATA = [
     "sort": 57
   },
   {
+    "id": "rune_203",
+    "name": "闪现·替身",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_58.png",
+    "desc": "【蓝色品质】闪现的基础冷却时间减少2秒。 【紫色品质】闪现时在前方留下一个继承 20%最大生命值，最多持续5秒的假身。 【黄色品质】角色的击中恢复提升30%。 【橙色品质】改为瞬间移动到前方最远目标的身后，并且恢复的生命值翻倍。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f101cc6909a0bdce5d2ee466f14b277b.png",
+    "sort": 58
+  },
+  {
     "id": "rune_204",
     "name": "古树之心",
     "class": "通用",
@@ -1252,6 +2244,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9cb0188337242c1c04783f056b391d4a.png",
     "sort": 58
+  },
+  {
+    "id": "rune_205",
+    "name": "引力场·黑洞",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_59.png",
+    "desc": "【蓝色品质】角色的最终伤害提升5%。 【紫色品质】引力场每秒对敌人造成一次10%攻击的物理伤害并持续将其向中心牵引。 【黄色品质】时间凝滞伤害提升100%。 【橙色品质】每次伤害提升至攻击的20%并额外施加2层易伤。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e2bf9a1e95277bc27a2658090c8fc610.png",
+    "sort": 59
   },
   {
     "id": "rune_206",
@@ -1265,6 +2268,17 @@ const RUNES_DATA = [
     "sort": 59
   },
   {
+    "id": "rune_207",
+    "name": "引力场·领域",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_60.png",
+    "desc": "【蓝色品质】角色的最终减伤提升5%。 【紫色品质】引力场改为以自身为中心释放并持续跟随，同时范围增大一倍。 【黄色品质】角色的闪避率提升5%。 【橙色品质】引力场同时使处在其中的友方单位提升20%急速。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/66800f7383d10f1a088ede33a62c6795.png",
+    "sort": 60
+  },
+  {
     "id": "rune_208",
     "name": "秘法师之魂",
     "class": "通用",
@@ -1274,6 +2288,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4c8ffe56cd9fef291b6759147b4391d6.png",
     "sort": 60
+  },
+  {
+    "id": "rune_209",
+    "name": "闪电球·电解",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_61.png",
+    "desc": "【蓝色品质】闪电球的伤害提升30% 【紫色品质】改为抛出一个大号闪电球，落地后对大范围敌人造成1次200%攻击的元素伤害，施加3层触电。 【黄色品质】角色的暴击率提升5%。 【橙色品质】造成的伤害提升至攻击的250%，触电层数提升至5层并施加1秒的眩晕效果。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/991a1d6606e0583cfbb812037b862b0f.png",
+    "sort": 61
   },
   {
     "id": "rune_210",
@@ -1287,6 +2312,17 @@ const RUNES_DATA = [
     "sort": 61
   },
   {
+    "id": "rune_211",
+    "name": "闪电球·冰封",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_62.png",
+    "desc": "【蓝色品质】闪电球的基础冷却时间减少2秒。 【紫色品质】改为向前发射一个旋转冰球，每0.5秒对周围造成1次150%攻击的元素伤害。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】冰球会在终点爆炸，对周围敌人造成1次250%攻击的元素伤害并禁锢1.5秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/16fb269c25508c8454d8b45b9ba38cb0.png",
+    "sort": 62
+  },
+  {
     "id": "rune_212",
     "name": "蝮蛇吊坠",
     "class": "通用",
@@ -1296,6 +2332,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9a3d9b6cb8bd336c88cedafa032adfd5.png",
     "sort": 62
+  },
+  {
+    "id": "rune_213",
+    "name": "冰霜盾·碎冰",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_63.png",
+    "desc": "【蓝色品质】角色的护盾强度提升10%。 【紫色品质】额外为随机一个友方单位施加冰霜盾。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】冰霜盾消失时对周围敌人施加持续1秒的冻结。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/97ca232422f9848e99225cb043d24b42.png",
+    "sort": 63
   },
   {
     "id": "rune_214",
@@ -2211,6 +3258,17 @@ const RUNES_DATA = [
     "sort": 63
   },
   {
+    "id": "rune_297",
+    "name": "冰霜盾·熔火",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_64.png",
+    "desc": "【蓝色品质】冰霜盾的基础冷却时间减少3秒。 【紫色品质】不再吸收伤害，每秒对周围造成1次50%攻击的元素伤害并施加1层燃烧。持续5秒。期间获得免控效果。 【黄色品质】角色的元素伤害提升5%。 【橙色品质】持续时间延长至8秒，并且期间提升自身15%元素伤害。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a9538054d312837271228ec0d7c1d70b.png",
+    "sort": 64
+  },
+  {
     "id": "rune_298",
     "name": "裂空斧",
     "class": "通用",
@@ -2220,6 +3278,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/022beae3852883f929b7fc2f027203a9.png",
     "sort": 64
+  },
+  {
+    "id": "rune_299",
+    "name": "魔焰花·火蕊",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_65.png",
+    "desc": "【蓝色品质】角色的最终伤害提升5%。 【紫色品质】改为召唤一条持续8秒的火蕊。 【黄色品质】角色的持续伤害提升20%。 【橙色品质】火蕊出现时扫射一道火焰波对前方所有目标造成250%攻击的元素伤害并击飞，同时施加5层燃烧。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/b1aa2e4d057b821a610a5cb0e83c92f3.png",
+    "sort": 65
   },
   {
     "id": "rune_300",
@@ -2233,6 +3302,17 @@ const RUNES_DATA = [
     "sort": 65
   },
   {
+    "id": "rune_301",
+    "name": "魔焰花·电鳗",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_66.png",
+    "desc": "【蓝色品质】魔焰花的基础冷却时间减少2秒。 【紫色品质】改为召唤一条持续10秒的电鳗，飘浮在身边跟随作战。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】持续时间增加至15秒，召唤上限增加至3条。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/3592f975c67f4179fce309f61bcf2186.png",
+    "sort": 66
+  },
+  {
     "id": "rune_302",
     "name": "风暴护臂",
     "class": "通用",
@@ -2242,6 +3322,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/efa3cc5179f54764e0eab821b11a08c0.png",
     "sort": 66
+  },
+  {
+    "id": "rune_303",
+    "name": "冰雹·冰寒",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_67.png",
+    "desc": "【蓝色品质】角色的击中恢复提升30%。 【紫色品质】冰雹持续时间增加1秒并有10%概率禁锢目标1秒。 【黄色品质】角色的附伤概率提升10%。 【橙色品质】冰雹每秒对敌人造成5次50%攻击的元素伤害。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4c94ef68b6572d3f969937825536afe2.png",
+    "sort": 67
   },
   {
     "id": "rune_304",
@@ -2255,6 +3346,17 @@ const RUNES_DATA = [
     "sort": 67
   },
   {
+    "id": "rune_305",
+    "name": "冰雹·天火",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_68.png",
+    "desc": "【蓝色品质】冰雹的基础冷却时间减少5秒。 【紫色品质】改为召唤一颗火陨石落下，对范围内敌人造成1次200%攻击的元素伤害并施加8层燃烧。 【黄色品质】角色的持续伤害提升20%。 【橙色品质】火陨石落下后会留下一片燃烧区域，持续3秒。每秒造成80%攻击的元素伤害并施加3层燃烧。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/dd06d3b0b0f841ae8e242054a624e161.png",
+    "sort": 68
+  },
+  {
     "id": "rune_306",
     "name": "晶棱战盔",
     "class": "通用",
@@ -2264,6 +3366,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a257becfb2b5609d4cf6cabdc8bbde58.png",
     "sort": 68
+  },
+  {
+    "id": "rune_307",
+    "name": "冰雹·陨星",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_69.png",
+    "desc": "【蓝色品质】冰雹的伤害提升30%。 【紫色品质】改为召唤2颗瞬间坠落的电陨石造成对范围内敌人造成1次300%攻击的元素伤害，施加3层触电和0.7秒的眩晕。 【黄色品质】角色的暴击率提升5%。 【橙色品质】额外再召唤1次且每次伤害提升至攻击的350%，触电层数增加至5层，眩晕时间增加至1秒。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/22e5b512508430bfbcb00e99b536d1c2.png",
+    "sort": 69
   },
   {
     "id": "rune_308",
@@ -2277,6 +3390,17 @@ const RUNES_DATA = [
     "sort": 69
   },
   {
+    "id": "rune_309",
+    "name": "分身术·冰魄",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_70.png",
+    "desc": "【蓝色品质】角色的最终减伤提升5%。 【紫色品质】改为召唤一个继承秘法师70%血量的冰分身协助作战，最多存在12秒。 【黄色品质】角色的附加伤害提升30% 【橙色品质】召唤出来的冰分身拥有一个50%血量的冰盾，冰盾破碎时会给周围敌人施加冻结。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/20cd7e5581e6f32f1c034700ea65e8f6.png",
+    "sort": 70
+  },
+  {
     "id": "rune_310",
     "name": "神侍黑羽",
     "class": "通用",
@@ -2286,6 +3410,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1a044563055bdd65644ceb24feec16b9.png",
     "sort": 70
+  },
+  {
+    "id": "rune_311",
+    "name": "分身术·余烬",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_71.png",
+    "desc": "【蓝色品质】角色的元素伤害提升5%。 【紫色品质】改为召唤一个继承秘法师70%血量的火分身协助作战，最多存在12秒。 【黄色品质】分身术的基础冷却时间减少10秒。 【橙色品质】火分身死亡时会爆炸，击飞周围敌人，造成1次800%攻击的元素伤害并施加20层燃烧。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ed2a896119c5e3fd6934ed293e3d5dc0.png",
+    "sort": 71
   },
   {
     "id": "rune_312",
@@ -2299,6 +3434,17 @@ const RUNES_DATA = [
     "sort": 71
   },
   {
+    "id": "rune_313",
+    "name": "分身术·雷霆",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_72.png",
+    "desc": "【蓝色品质】角色的能量恢复提升5%。 【紫色品质】改为召唤一个继承秘法师70%血量的电分身协助作战，最多存在12秒。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】电分身有50%概率发射一颗加强版闪电球，到敌人上方后引爆虚空，落下多道闪电，对下方敌人造成5次100%攻击的元素伤害并施加3层触电。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/12c7395e847237d7b0754e8d21062677.png",
+    "sort": 72
+  },
+  {
     "id": "rune_314",
     "name": "恐惧之眼",
     "class": "通用",
@@ -2308,6 +3454,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7f05957e338b1d9a363e845ae154dd6e.png",
     "sort": 72
+  },
+  {
+    "id": "rune_315",
+    "name": "以太之躯·寒冰",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_73.png",
+    "desc": "【蓝色品质】角色的能量恢复提升5%。 【紫色品质】改为化身冰元素体，额外施法改为释放冰棘地刺，但概率降低至10%。 【黄色品质】角色的最终减伤提升5%。 【橙色品质】获得15%元素伤害和命中加成，额外施法概率提升至15%，变身时立即释放一次。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d6d565c810af319d4c1a733c412fd633.png",
+    "sort": 73
   },
   {
     "id": "rune_316",
@@ -2321,6 +3478,17 @@ const RUNES_DATA = [
     "sort": 73
   },
   {
+    "id": "rune_317",
+    "name": "以太之躯·烈火",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_74.png",
+    "desc": "【蓝色品质】角色的持续伤害提升20%。 【紫色品质】改为化身火元素体，额外施法改为释放烽火燎原，但概率降低至10%。 【黄色品质】角色的最终伤害提升5%。 【橙色品质】获得15%元素伤害和命中加成，额外施法概率提升至15%，变身时立即释放一次。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d0162d3e2eb3de5f8a6b19180f6dbba3.png",
+    "sort": 74
+  },
+  {
     "id": "rune_318",
     "name": "血镰",
     "class": "通用",
@@ -2330,6 +3498,17 @@ const RUNES_DATA = [
     "source": "官方图鉴",
     "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c9c5b7efeb1e30f0a3cd19b25d5fdc31.png",
     "sort": 74
+  },
+  {
+    "id": "rune_319",
+    "name": "以太之躯·滚雷",
+    "class": "秘法师",
+    "category": "符文",
+    "icon": "assets/runes-relics/rune_content_75.png",
+    "desc": "【蓝色品质】角色的暴击率提升5%。 【紫色品质】改为化身电元素体，额外施法改为释放雷霆风暴，但概率降低至10%。 【黄色品质】角色的击中恢复提升30%。 【橙色品质】获得15%元素伤害和命中加成，额外施法概率提升至15%，变身时立即释放一次。",
+    "source": "官方图鉴",
+    "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/097ee62febb947b1c11a2e6efd70d39e.png",
+    "sort": 75
   },
   {
     "id": "rune_320",

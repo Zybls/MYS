@@ -289,7 +289,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="catalog-filter-group" id="runeCategoryFilter">
       <button class="filter-btn active" data-cat="all" onclick="filterRuneCategory('all')">全部</button><button class="filter-btn" data-cat="符文" onclick="filterRuneCategory('符文')">符文</button><button class="filter-btn" data-cat="贤者" onclick="filterRuneCategory('贤者')">贤者</button><button class="filter-btn" data-cat="遗物" onclick="filterRuneCategory('遗物')">遗物</button>
     </div>
-    <div class="catalog-count" id="runeCount">381 个遗物</div>
+    <div class="catalog-count" id="runeCount">381 个遗物（含遗物/符文/贤者）</div>
   </div>
   <div class="rune-grid" id="runeGrid"></div>
   <div class="empty-state" id="runeEmpty" style="display:none;">
@@ -300,7 +300,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 <noscript>
   <div style="padding:20px;">
-    <h2>遗物图鉴（381个）</h2>
+    <h2>遗物图鉴（381个，含遗物274/符文72/贤者35）</h2>
     <ul>
       <li>重砍·排山 - 野蛮人 - 符文</li>
       <li>沉思坐垫 - 通用 - 遗物</li>
@@ -352,7 +352,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <li>维蕾娅 - 通用 - 贤者</li>
       <li>奋勇冲击·擂鼓 - 野蛮人 - 符文</li>
       <li>反省日记 - 通用 - 遗物</li>
-      <li>更多遗物请在页面中查看（共381个）</li>
+      <li>更多遗物请在页面中查看（共381个，含遗物274/符文72/贤者35）</li>
     </ul>
   </div>
 </noscript>
@@ -529,6 +529,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <script src="engravings-data.js"></script>
 <script src="skills-data.js"></script>
 <script src="runes-data.js"></script>
+<script src="rune-symbols-data.js"></script>
+<script src="sages-data.js"></script>
 <script src="darkarmor-data.js"></script>
 <script src="pets-data.js"></script>
 
@@ -771,12 +773,20 @@ let currentRuneFilter = 'all';
 let currentRuneCategory = 'all';
 let runeSearchTimer = null;
 
+function getAllRunes() {
+  return [].concat(
+    typeof RUNES_DATA !== 'undefined' ? RUNES_DATA : [],
+    typeof RUNE_SYMBOLS_DATA !== 'undefined' ? RUNE_SYMBOLS_DATA : [],
+    typeof SAGES_DATA !== 'undefined' ? SAGES_DATA : []
+  );
+}
+
 function renderRune() {
   const grid = document.getElementById('runeGrid');
   const empty = document.getElementById('runeEmpty');
   const search = (document.getElementById('runeSearch').value || '').toLowerCase().trim();
   
-  let list = RUNES_DATA;
+  let list = getAllRunes();
   
   if (currentRuneFilter !== 'all') {
     list = list.filter(e => e.class === currentRuneFilter);
@@ -816,9 +826,9 @@ function renderRune() {
 }
 
 function showRuneModalById(id) {
-  const item = RUNES_DATA.find(e => e.id === id);
+  const item = getAllRunes().find(e => e.id === id);
   if (!item) return;
-  showCatalogModal(item, '遗物', 'rune');
+  showCatalogModal(item, item.category || '遗物', 'rune');
 }
 
 function filterRune(filter) {
