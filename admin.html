@@ -4,7 +4,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>配装站 - 管理后台</title>
+<title>后台管理 · 天涯若比邻</title>
 <meta property="og:title" content="后台管理">
 <meta property="og:description" content="后台管理 - 天涯若比邻公会站">
 <meta property="og:image" content="https://ykmys.com/guild-badge.png">
@@ -394,12 +394,44 @@ function saveSiteConfig() {
 // 页面加载时自动加载配置
 document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
 
+
+// ==================== 成员管理 ====================
+var editingMemberId=null;
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
+var membersData=[];
+function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderMembers(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:left;padding:8px">战力</th><th style="text-align:left;padding:8px">加入日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(membersData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无成员</td></tr>'}membersData.forEach(function(m){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px">'+(m.power||'')+'</td><td style="padding:8px">'+(m.join_date||'')+'</td><td style="padding:8px">'+(m.status==='active'?'🟢 活跃':m.status==='inactive'?'⚪ 沉睡':'🔴 已离开')+'</td><td style="padding:8px"><button onclick="showMemberForm(''+m.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteMember(''+m.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("membersList").innerHTML=html}
+function saveMember(){var data={game_id:document.getElementById("m_gameId").value.trim(),profession:document.getElementById("m_profession").value,power:document.getElementById("m_power").value.trim(),join_date:document.getElementById("m_joinDate").value.trim(),status:document.getElementById("m_status").value,remark:document.getElementById("m_remark").value.trim()};if(!data.game_id){showToast("请填写游戏ID","error");return}var url=API_BASE+"/api/members"+(editingMemberId?"/"+editingMemberId:"");var method=editingMemberId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingMemberId?"成员已更新":"成员已添加");hideMemberForm();loadMembers()}else{showToast(res.error||"操作失败","error")}})}
+function deleteMember(id){if(!confirm("确定删除该成员？"))return;fetch(API_BASE+"/api/members/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadMembers()}else{showToast("删除失败","error")}})}
+
+// ==================== 活动管理 ====================
+var editingActivityId=null;
+function showActivityForm(id){editingActivityId=id||null;document.getElementById("activityForm").style.display="block";if(id){var a=activitiesData.find(function(x){return x.id===id});if(a){document.getElementById("a_title").value=a.title||"";document.getElementById("a_type").value=a.type||"神殿纷争";document.getElementById("a_date").value=a.date||"";document.getElementById("a_time").value=a.time||"";document.getElementById("a_status").value=a.status||"upcoming";document.getElementById("a_max").value=a.max_participants||40;document.getElementById("a_desc").value=a.description||""}}else{document.getElementById("a_title").value="";document.getElementById("a_type").value="神殿纷争";document.getElementById("a_date").value="";document.getElementById("a_time").value="";document.getElementById("a_status").value="upcoming";document.getElementById("a_max").value=40;document.getElementById("a_desc").value=""}}
+function hideActivityForm(){document.getElementById("activityForm").style.display="none"}
+var activitiesData=[];
+function loadActivities(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){activitiesData=data||[];renderActivities()}).catch(function(){document.getElementById("activitiesList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderActivities(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">活动名称</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">日期</th><th style="text-align:left;padding:8px">时间</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(activitiesData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无活动</td></tr>'}activitiesData.forEach(function(a){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(a.title||'')+'</td><td style="padding:8px">'+(a.type||'')+'</td><td style="padding:8px">'+(a.date||'')+'</td><td style="padding:8px">'+(a.time||'')+'</td><td style="padding:8px">'+(a.status==='upcoming'?'🔜 即将开始':a.status==='ongoing'?'🔥 进行中':'✅ 已结束')+'</td><td style="padding:8px"><button onclick="showActivityForm(''+a.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteActivity(''+a.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("activitiesList").innerHTML=html}
+function saveActivity(){var data={title:document.getElementById("a_title").value.trim(),type:document.getElementById("a_type").value,date:document.getElementById("a_date").value.trim(),time:document.getElementById("a_time").value.trim(),status:document.getElementById("a_status").value,max_participants:parseInt(document.getElementById("a_max").value)||40,description:document.getElementById("a_desc").value.trim()};if(!data.title){showToast("请填写活动名称","error");return}var url=API_BASE+"/api/activities"+(editingActivityId?"/"+editingActivityId:"");var method=editingActivityId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingActivityId?"活动已更新":"活动已创建");hideActivityForm();loadActivities()}else{showToast(res.error||"操作失败","error")}})}
+function deleteActivity(id){if(!confirm("确定删除该活动？"))return;fetch(API_BASE+"/api/activities/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadActivities()}else{showToast("删除失败","error")}})}
+
+// ==================== 兑换码管理 ====================
+var editingRedeemId=null;
+function showRedeemForm(id){editingRedeemId=id||null;document.getElementById("redeemForm").style.display="block";if(id){var r=redeemData.find(function(x){return x.id===id});if(r){document.getElementById("r_code").value=r.code||"";document.getElementById("r_type").value=r.type||"weekly";document.getElementById("r_expire").value=r.expire_date||"";document.getElementById("r_reward").value=r.reward||"";document.getElementById("r_source").value=r.source||""}}else{document.getElementById("r_code").value="";document.getElementById("r_type").value="weekly";document.getElementById("r_expire").value="";document.getElementById("r_reward").value="";document.getElementById("r_source").value=""}}
+function hideRedeemForm(){document.getElementById("redeemForm").style.display="none"}
+var redeemData=[];
+function loadRedeemCodes(){fetch(API_BASE+"/api/redeem-codes/all",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){redeemData=data||[];renderRedeem()}).catch(function(){document.getElementById("redeemList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderRedeem(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">兑换码</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">奖励</th><th style="text-align:left;padding:8px">过期日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(redeemData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无兑换码</td></tr>'}redeemData.forEach(function(r){var typeMap={weekly:"周礼包",festival:"节日礼包",permanent:"长期有效"};html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-family:monospace">'+(r.code||'')+'</td><td style="padding:8px">'+(typeMap[r.type]||r.type||'')+'</td><td style="padding:8px">'+(r.reward||'')+'</td><td style="padding:8px">'+(r.expire_date||'永久')+'</td><td style="padding:8px">'+(r.is_active?'🟢 有效':'🔴 无效')+'</td><td style="padding:8px"><button onclick="showRedeemForm(''+r.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteRedeem(''+r.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("redeemList").innerHTML=html}
+function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
+function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
+
 </script>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#f59e0b">
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/admin.html" />
   <link rel="alternate" hreflang="en" href="https://ykmys.com/admin.html?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://ykmys.com/admin.html" />
+  <link rel="canonical" href="https://ykmys.com/admin.html">
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -431,7 +463,9 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
       <button class="tab-btn" onclick="switchTab('announce',this)">📢 公告管理</button>
       <button class="tab-btn" onclick="switchTab('changelog',this)">📋 更新日志</button>
       <button class="tab-btn" onclick="switchTab('siteContent',this)">🎨 网站内容</button>
-      <button class="tab-btn" onclick="switchTab('messages',this)">💬 私信管理</button>
+      <button class="tab-btn" onclick="switchTab('members',this)">👥 成员管理</button>
+      <button class="tab-btn" onclick="switchTab('activities',this)">🎯 活动管理</button>
+      <button class="tab-btn" onclick="switchTab('redeem',this)">🎁 兑换码管理</button>
     </div>
 
     <!-- 数据中心 -->
@@ -578,6 +612,72 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
         <div id="messagesList"><div class="empty">加载中...</div></div>
       </div>
     </div>
+
+    <!-- 成员管理 -->
+    <div class="tab-content" id="tab-members">
+      <div class="panel">
+        <div class="panel-title">👥 公会成员管理 <button class="btn-primary" onclick="showMemberForm()" style="float:right;font-size:12px;padding:6px 14px">+ 添加成员</button></div>
+        <div id="memberForm" style="display:none;margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:10px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <input id="m_gameId" placeholder="游戏ID" class="input">
+            <select id="m_profession" class="input"><option value="">职业</option><option>游侠</option><option>秘法师</option><option>野蛮人</option></select>
+            <input id="m_power" placeholder="战力" class="input">
+            <input id="m_joinDate" placeholder="加入日期 (2026-01-01)" class="input">
+            <select id="m_status" class="input"><option value="active">活跃</option><option value="inactive">沉睡</option><option value="left">已离开</option></select>
+            <input id="m_remark" placeholder="备注" class="input">
+          </div>
+          <div style="margin-top:10px">
+            <button class="btn-primary" onclick="saveMember()">保存</button>
+            <button class="btn-secondary" onclick="hideMemberForm()">取消</button>
+          </div>
+        </div>
+        <div id="membersList"><div class="empty">加载中...</div></div>
+      </div>
+    </div>
+
+    <!-- 活动管理 -->
+    <div class="tab-content" id="tab-activities">
+      <div class="panel">
+        <div class="panel-title">🎯 活动管理 <button class="btn-primary" onclick="showActivityForm()" style="float:right;font-size:12px;padding:6px 14px">+ 创建活动</button></div>
+        <div id="activityForm" style="display:none;margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:10px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <input id="a_title" placeholder="活动名称" class="input">
+            <select id="a_type" class="input"><option value="神殿纷争">神殿纷争</option><option value="公会BOSS">公会BOSS</option><option value="其他">其他</option></select>
+            <input id="a_date" placeholder="日期 (2026-09-27)" class="input">
+            <input id="a_time" placeholder="时间 (20:00)" class="input">
+            <select id="a_status" class="input"><option value="upcoming">即将开始</option><option value="ongoing">进行中</option><option value="finished">已结束</option></select>
+            <input id="a_max" placeholder="最大人数" class="input" value="40">
+          </div>
+          <textarea id="a_desc" placeholder="活动描述" class="input" style="margin-top:10px;height:60px"></textarea>
+          <div style="margin-top:10px">
+            <button class="btn-primary" onclick="saveActivity()">保存</button>
+            <button class="btn-secondary" onclick="hideActivityForm()">取消</button>
+          </div>
+        </div>
+        <div id="activitiesList"><div class="empty">加载中...</div></div>
+      </div>
+    </div>
+
+    <!-- 兑换码管理 -->
+    <div class="tab-content" id="tab-redeem">
+      <div class="panel">
+        <div class="panel-title">🎁 兑换码管理 <button class="btn-primary" onclick="showRedeemForm()" style="float:right;font-size:12px;padding:6px 14px">+ 添加兑换码</button></div>
+        <div id="redeemForm" style="display:none;margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:10px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <input id="r_code" placeholder="兑换码" class="input">
+            <select id="r_type" class="input"><option value="weekly">周礼包</option><option value="festival">节日礼包</option><option value="permanent">长期有效</option></select>
+            <input id="r_expire" placeholder="过期日期 (2026-10-01)" class="input">
+          </div>
+          <input id="r_reward" placeholder="奖励内容" class="input" style="margin-top:10px">
+          <input id="r_source" placeholder="来源" class="input" style="margin-top:10px">
+          <div style="margin-top:10px">
+            <button class="btn-primary" onclick="saveRedeem()">保存</button>
+            <button class="btn-secondary" onclick="hideRedeemForm()">取消</button>
+          </div>
+        </div>
+        <div id="redeemList"><div class="empty">加载中...</div></div>
+      </div>
+    </div>
   </div>
 </div>
 <script>
@@ -618,6 +718,9 @@ function switchTab(name,btn){
   if(name==="announce")loadAnnouncements();
   if(name==="changelog")loadChangelog();
   if(name==="messages")loadMessages();
+  if(name==="members")loadMembers();
+  if(name==="activities")loadActivities();
+  if(name==="redeem")loadRedeemCodes();
 }
 
 function doLogin(){
@@ -945,6 +1048,37 @@ if(getToken()){
     .then(function(r){return r.json()}).then(function(data){if(data.ok)showAdmin()});
 }
 
+
+// ==================== 成员管理 ====================
+var editingMemberId=null;
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
+var membersData=[];
+function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderMembers(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:left;padding:8px">战力</th><th style="text-align:left;padding:8px">加入日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(membersData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无成员</td></tr>'}membersData.forEach(function(m){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px">'+(m.power||'')+'</td><td style="padding:8px">'+(m.join_date||'')+'</td><td style="padding:8px">'+(m.status==='active'?'🟢 活跃':m.status==='inactive'?'⚪ 沉睡':'🔴 已离开')+'</td><td style="padding:8px"><button onclick="showMemberForm(''+m.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteMember(''+m.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("membersList").innerHTML=html}
+function saveMember(){var data={game_id:document.getElementById("m_gameId").value.trim(),profession:document.getElementById("m_profession").value,power:document.getElementById("m_power").value.trim(),join_date:document.getElementById("m_joinDate").value.trim(),status:document.getElementById("m_status").value,remark:document.getElementById("m_remark").value.trim()};if(!data.game_id){showToast("请填写游戏ID","error");return}var url=API_BASE+"/api/members"+(editingMemberId?"/"+editingMemberId:"");var method=editingMemberId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingMemberId?"成员已更新":"成员已添加");hideMemberForm();loadMembers()}else{showToast(res.error||"操作失败","error")}})}
+function deleteMember(id){if(!confirm("确定删除该成员？"))return;fetch(API_BASE+"/api/members/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadMembers()}else{showToast("删除失败","error")}})}
+
+// ==================== 活动管理 ====================
+var editingActivityId=null;
+function showActivityForm(id){editingActivityId=id||null;document.getElementById("activityForm").style.display="block";if(id){var a=activitiesData.find(function(x){return x.id===id});if(a){document.getElementById("a_title").value=a.title||"";document.getElementById("a_type").value=a.type||"神殿纷争";document.getElementById("a_date").value=a.date||"";document.getElementById("a_time").value=a.time||"";document.getElementById("a_status").value=a.status||"upcoming";document.getElementById("a_max").value=a.max_participants||40;document.getElementById("a_desc").value=a.description||""}}else{document.getElementById("a_title").value="";document.getElementById("a_type").value="神殿纷争";document.getElementById("a_date").value="";document.getElementById("a_time").value="";document.getElementById("a_status").value="upcoming";document.getElementById("a_max").value=40;document.getElementById("a_desc").value=""}}
+function hideActivityForm(){document.getElementById("activityForm").style.display="none"}
+var activitiesData=[];
+function loadActivities(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){activitiesData=data||[];renderActivities()}).catch(function(){document.getElementById("activitiesList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderActivities(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">活动名称</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">日期</th><th style="text-align:left;padding:8px">时间</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(activitiesData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无活动</td></tr>'}activitiesData.forEach(function(a){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(a.title||'')+'</td><td style="padding:8px">'+(a.type||'')+'</td><td style="padding:8px">'+(a.date||'')+'</td><td style="padding:8px">'+(a.time||'')+'</td><td style="padding:8px">'+(a.status==='upcoming'?'🔜 即将开始':a.status==='ongoing'?'🔥 进行中':'✅ 已结束')+'</td><td style="padding:8px"><button onclick="showActivityForm(''+a.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteActivity(''+a.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("activitiesList").innerHTML=html}
+function saveActivity(){var data={title:document.getElementById("a_title").value.trim(),type:document.getElementById("a_type").value,date:document.getElementById("a_date").value.trim(),time:document.getElementById("a_time").value.trim(),status:document.getElementById("a_status").value,max_participants:parseInt(document.getElementById("a_max").value)||40,description:document.getElementById("a_desc").value.trim()};if(!data.title){showToast("请填写活动名称","error");return}var url=API_BASE+"/api/activities"+(editingActivityId?"/"+editingActivityId:"");var method=editingActivityId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingActivityId?"活动已更新":"活动已创建");hideActivityForm();loadActivities()}else{showToast(res.error||"操作失败","error")}})}
+function deleteActivity(id){if(!confirm("确定删除该活动？"))return;fetch(API_BASE+"/api/activities/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadActivities()}else{showToast("删除失败","error")}})}
+
+// ==================== 兑换码管理 ====================
+var editingRedeemId=null;
+function showRedeemForm(id){editingRedeemId=id||null;document.getElementById("redeemForm").style.display="block";if(id){var r=redeemData.find(function(x){return x.id===id});if(r){document.getElementById("r_code").value=r.code||"";document.getElementById("r_type").value=r.type||"weekly";document.getElementById("r_expire").value=r.expire_date||"";document.getElementById("r_reward").value=r.reward||"";document.getElementById("r_source").value=r.source||""}}else{document.getElementById("r_code").value="";document.getElementById("r_type").value="weekly";document.getElementById("r_expire").value="";document.getElementById("r_reward").value="";document.getElementById("r_source").value=""}}
+function hideRedeemForm(){document.getElementById("redeemForm").style.display="none"}
+var redeemData=[];
+function loadRedeemCodes(){fetch(API_BASE+"/api/redeem-codes/all",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){redeemData=data||[];renderRedeem()}).catch(function(){document.getElementById("redeemList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderRedeem(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">兑换码</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">奖励</th><th style="text-align:left;padding:8px">过期日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(redeemData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无兑换码</td></tr>'}redeemData.forEach(function(r){var typeMap={weekly:"周礼包",festival:"节日礼包",permanent:"长期有效"};html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-family:monospace">'+(r.code||'')+'</td><td style="padding:8px">'+(typeMap[r.type]||r.type||'')+'</td><td style="padding:8px">'+(r.reward||'')+'</td><td style="padding:8px">'+(r.expire_date||'永久')+'</td><td style="padding:8px">'+(r.is_active?'🟢 有效':'🔴 无效')+'</td><td style="padding:8px"><button onclick="showRedeemForm(''+r.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteRedeem(''+r.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("redeemList").innerHTML=html}
+function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
+function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
+
 </script>
 <script>
 // PWA Service Worker 注册
@@ -954,8 +1088,70 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+
+// ==================== 成员管理 ====================
+var editingMemberId=null;
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
+var membersData=[];
+function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderMembers(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:left;padding:8px">战力</th><th style="text-align:left;padding:8px">加入日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(membersData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无成员</td></tr>'}membersData.forEach(function(m){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px">'+(m.power||'')+'</td><td style="padding:8px">'+(m.join_date||'')+'</td><td style="padding:8px">'+(m.status==='active'?'🟢 活跃':m.status==='inactive'?'⚪ 沉睡':'🔴 已离开')+'</td><td style="padding:8px"><button onclick="showMemberForm(''+m.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteMember(''+m.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("membersList").innerHTML=html}
+function saveMember(){var data={game_id:document.getElementById("m_gameId").value.trim(),profession:document.getElementById("m_profession").value,power:document.getElementById("m_power").value.trim(),join_date:document.getElementById("m_joinDate").value.trim(),status:document.getElementById("m_status").value,remark:document.getElementById("m_remark").value.trim()};if(!data.game_id){showToast("请填写游戏ID","error");return}var url=API_BASE+"/api/members"+(editingMemberId?"/"+editingMemberId:"");var method=editingMemberId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingMemberId?"成员已更新":"成员已添加");hideMemberForm();loadMembers()}else{showToast(res.error||"操作失败","error")}})}
+function deleteMember(id){if(!confirm("确定删除该成员？"))return;fetch(API_BASE+"/api/members/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadMembers()}else{showToast("删除失败","error")}})}
+
+// ==================== 活动管理 ====================
+var editingActivityId=null;
+function showActivityForm(id){editingActivityId=id||null;document.getElementById("activityForm").style.display="block";if(id){var a=activitiesData.find(function(x){return x.id===id});if(a){document.getElementById("a_title").value=a.title||"";document.getElementById("a_type").value=a.type||"神殿纷争";document.getElementById("a_date").value=a.date||"";document.getElementById("a_time").value=a.time||"";document.getElementById("a_status").value=a.status||"upcoming";document.getElementById("a_max").value=a.max_participants||40;document.getElementById("a_desc").value=a.description||""}}else{document.getElementById("a_title").value="";document.getElementById("a_type").value="神殿纷争";document.getElementById("a_date").value="";document.getElementById("a_time").value="";document.getElementById("a_status").value="upcoming";document.getElementById("a_max").value=40;document.getElementById("a_desc").value=""}}
+function hideActivityForm(){document.getElementById("activityForm").style.display="none"}
+var activitiesData=[];
+function loadActivities(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){activitiesData=data||[];renderActivities()}).catch(function(){document.getElementById("activitiesList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderActivities(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">活动名称</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">日期</th><th style="text-align:left;padding:8px">时间</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(activitiesData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无活动</td></tr>'}activitiesData.forEach(function(a){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(a.title||'')+'</td><td style="padding:8px">'+(a.type||'')+'</td><td style="padding:8px">'+(a.date||'')+'</td><td style="padding:8px">'+(a.time||'')+'</td><td style="padding:8px">'+(a.status==='upcoming'?'🔜 即将开始':a.status==='ongoing'?'🔥 进行中':'✅ 已结束')+'</td><td style="padding:8px"><button onclick="showActivityForm(''+a.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteActivity(''+a.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("activitiesList").innerHTML=html}
+function saveActivity(){var data={title:document.getElementById("a_title").value.trim(),type:document.getElementById("a_type").value,date:document.getElementById("a_date").value.trim(),time:document.getElementById("a_time").value.trim(),status:document.getElementById("a_status").value,max_participants:parseInt(document.getElementById("a_max").value)||40,description:document.getElementById("a_desc").value.trim()};if(!data.title){showToast("请填写活动名称","error");return}var url=API_BASE+"/api/activities"+(editingActivityId?"/"+editingActivityId:"");var method=editingActivityId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingActivityId?"活动已更新":"活动已创建");hideActivityForm();loadActivities()}else{showToast(res.error||"操作失败","error")}})}
+function deleteActivity(id){if(!confirm("确定删除该活动？"))return;fetch(API_BASE+"/api/activities/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadActivities()}else{showToast("删除失败","error")}})}
+
+// ==================== 兑换码管理 ====================
+var editingRedeemId=null;
+function showRedeemForm(id){editingRedeemId=id||null;document.getElementById("redeemForm").style.display="block";if(id){var r=redeemData.find(function(x){return x.id===id});if(r){document.getElementById("r_code").value=r.code||"";document.getElementById("r_type").value=r.type||"weekly";document.getElementById("r_expire").value=r.expire_date||"";document.getElementById("r_reward").value=r.reward||"";document.getElementById("r_source").value=r.source||""}}else{document.getElementById("r_code").value="";document.getElementById("r_type").value="weekly";document.getElementById("r_expire").value="";document.getElementById("r_reward").value="";document.getElementById("r_source").value=""}}
+function hideRedeemForm(){document.getElementById("redeemForm").style.display="none"}
+var redeemData=[];
+function loadRedeemCodes(){fetch(API_BASE+"/api/redeem-codes/all",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){redeemData=data||[];renderRedeem()}).catch(function(){document.getElementById("redeemList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderRedeem(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">兑换码</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">奖励</th><th style="text-align:left;padding:8px">过期日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(redeemData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无兑换码</td></tr>'}redeemData.forEach(function(r){var typeMap={weekly:"周礼包",festival:"节日礼包",permanent:"长期有效"};html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-family:monospace">'+(r.code||'')+'</td><td style="padding:8px">'+(typeMap[r.type]||r.type||'')+'</td><td style="padding:8px">'+(r.reward||'')+'</td><td style="padding:8px">'+(r.expire_date||'永久')+'</td><td style="padding:8px">'+(r.is_active?'🟢 有效':'🔴 无效')+'</td><td style="padding:8px"><button onclick="showRedeemForm(''+r.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteRedeem(''+r.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("redeemList").innerHTML=html}
+function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
+function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
+
 </script>
   <script src="js/i18n.js">
+
+// ==================== 成员管理 ====================
+var editingMemberId=null;
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
+var membersData=[];
+function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderMembers(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:left;padding:8px">战力</th><th style="text-align:left;padding:8px">加入日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(membersData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无成员</td></tr>'}membersData.forEach(function(m){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px">'+(m.power||'')+'</td><td style="padding:8px">'+(m.join_date||'')+'</td><td style="padding:8px">'+(m.status==='active'?'🟢 活跃':m.status==='inactive'?'⚪ 沉睡':'🔴 已离开')+'</td><td style="padding:8px"><button onclick="showMemberForm(''+m.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteMember(''+m.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("membersList").innerHTML=html}
+function saveMember(){var data={game_id:document.getElementById("m_gameId").value.trim(),profession:document.getElementById("m_profession").value,power:document.getElementById("m_power").value.trim(),join_date:document.getElementById("m_joinDate").value.trim(),status:document.getElementById("m_status").value,remark:document.getElementById("m_remark").value.trim()};if(!data.game_id){showToast("请填写游戏ID","error");return}var url=API_BASE+"/api/members"+(editingMemberId?"/"+editingMemberId:"");var method=editingMemberId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingMemberId?"成员已更新":"成员已添加");hideMemberForm();loadMembers()}else{showToast(res.error||"操作失败","error")}})}
+function deleteMember(id){if(!confirm("确定删除该成员？"))return;fetch(API_BASE+"/api/members/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadMembers()}else{showToast("删除失败","error")}})}
+
+// ==================== 活动管理 ====================
+var editingActivityId=null;
+function showActivityForm(id){editingActivityId=id||null;document.getElementById("activityForm").style.display="block";if(id){var a=activitiesData.find(function(x){return x.id===id});if(a){document.getElementById("a_title").value=a.title||"";document.getElementById("a_type").value=a.type||"神殿纷争";document.getElementById("a_date").value=a.date||"";document.getElementById("a_time").value=a.time||"";document.getElementById("a_status").value=a.status||"upcoming";document.getElementById("a_max").value=a.max_participants||40;document.getElementById("a_desc").value=a.description||""}}else{document.getElementById("a_title").value="";document.getElementById("a_type").value="神殿纷争";document.getElementById("a_date").value="";document.getElementById("a_time").value="";document.getElementById("a_status").value="upcoming";document.getElementById("a_max").value=40;document.getElementById("a_desc").value=""}}
+function hideActivityForm(){document.getElementById("activityForm").style.display="none"}
+var activitiesData=[];
+function loadActivities(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){activitiesData=data||[];renderActivities()}).catch(function(){document.getElementById("activitiesList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderActivities(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">活动名称</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">日期</th><th style="text-align:left;padding:8px">时间</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(activitiesData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无活动</td></tr>'}activitiesData.forEach(function(a){html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(a.title||'')+'</td><td style="padding:8px">'+(a.type||'')+'</td><td style="padding:8px">'+(a.date||'')+'</td><td style="padding:8px">'+(a.time||'')+'</td><td style="padding:8px">'+(a.status==='upcoming'?'🔜 即将开始':a.status==='ongoing'?'🔥 进行中':'✅ 已结束')+'</td><td style="padding:8px"><button onclick="showActivityForm(''+a.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteActivity(''+a.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("activitiesList").innerHTML=html}
+function saveActivity(){var data={title:document.getElementById("a_title").value.trim(),type:document.getElementById("a_type").value,date:document.getElementById("a_date").value.trim(),time:document.getElementById("a_time").value.trim(),status:document.getElementById("a_status").value,max_participants:parseInt(document.getElementById("a_max").value)||40,description:document.getElementById("a_desc").value.trim()};if(!data.title){showToast("请填写活动名称","error");return}var url=API_BASE+"/api/activities"+(editingActivityId?"/"+editingActivityId:"");var method=editingActivityId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingActivityId?"活动已更新":"活动已创建");hideActivityForm();loadActivities()}else{showToast(res.error||"操作失败","error")}})}
+function deleteActivity(id){if(!confirm("确定删除该活动？"))return;fetch(API_BASE+"/api/activities/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadActivities()}else{showToast("删除失败","error")}})}
+
+// ==================== 兑换码管理 ====================
+var editingRedeemId=null;
+function showRedeemForm(id){editingRedeemId=id||null;document.getElementById("redeemForm").style.display="block";if(id){var r=redeemData.find(function(x){return x.id===id});if(r){document.getElementById("r_code").value=r.code||"";document.getElementById("r_type").value=r.type||"weekly";document.getElementById("r_expire").value=r.expire_date||"";document.getElementById("r_reward").value=r.reward||"";document.getElementById("r_source").value=r.source||""}}else{document.getElementById("r_code").value="";document.getElementById("r_type").value="weekly";document.getElementById("r_expire").value="";document.getElementById("r_reward").value="";document.getElementById("r_source").value=""}}
+function hideRedeemForm(){document.getElementById("redeemForm").style.display="none"}
+var redeemData=[];
+function loadRedeemCodes(){fetch(API_BASE+"/api/redeem-codes/all",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){redeemData=data||[];renderRedeem()}).catch(function(){document.getElementById("redeemList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
+function renderRedeem(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">兑换码</th><th style="text-align:left;padding:8px">类型</th><th style="text-align:left;padding:8px">奖励</th><th style="text-align:left;padding:8px">过期日期</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">操作</th></tr>';if(redeemData.length===0){html+='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-dim)">暂无兑换码</td></tr>'}redeemData.forEach(function(r){var typeMap={weekly:"周礼包",festival:"节日礼包",permanent:"长期有效"};html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px;font-family:monospace">'+(r.code||'')+'</td><td style="padding:8px">'+(typeMap[r.type]||r.type||'')+'</td><td style="padding:8px">'+(r.reward||'')+'</td><td style="padding:8px">'+(r.expire_date||'永久')+'</td><td style="padding:8px">'+(r.is_active?'🟢 有效':'🔴 无效')+'</td><td style="padding:8px"><button onclick="showRedeemForm(''+r.id+'')" style="margin-right:6px">编辑</button><button onclick="deleteRedeem(''+r.id+'')" style="color:#ff6b6b">删除</button></td></tr>'});html+='</table>';document.getElementById("redeemList").innerHTML=html}
+function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
+function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
+
 </script>
 </body>
 </html>
