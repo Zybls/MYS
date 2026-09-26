@@ -1560,5 +1560,52 @@ function toggleMusic() {
 }
 </script>
 
+<script>
+// 活动区从API动态加载
+function loadActivities() {
+  fetch('https://api.ykmys.com/api/activities')
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var list = document.getElementById('activityList');
+      var select = document.getElementById('signupActivity');
+      if(!data || data.length === 0) {
+        if(list) list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:13px">暂无活动安排</div>';
+        if(select) select.innerHTML = '<option>暂无活动</option>';
+        return;
+      }
+      if(list) {
+        var html = '';
+        var statusMap = {upcoming:'即将开始',ongoing:'进行中',finished:'已结束'};
+        var statusClass = {upcoming:'upcoming',ongoing:'signup',finished:'planned'};
+        data.slice(0,5).forEach(function(a){
+          var dateStr = a.date || '';
+          var parts = dateStr.split('-');
+          var day = parts.length === 3 ? parts[2] : '?';
+          var month = parts.length >= 2 ? parseInt(parts[1]) + '月' : '';
+          html += '<div class="activity-item">' +
+            '<div class="activity-date"><div class="activity-day">' + day + '</div><div class="activity-month">' + month + '</div></div>' +
+            '<div class="activity-info"><div class="activity-name">' + (a.title||'') + '</div>' +
+            '<div class="activity-meta">' + (a.time||'') + ' · ' + (a.type||'') + '</div></div>' +
+            '<span class="activity-status ' + (statusClass[a.status]||'planned') + '">' + (statusMap[a.status]||'计划中') + '</span>' +
+            '</div>';
+        });
+        list.innerHTML = html;
+      }
+      if(select) {
+        var options = '<option value="">请选择活动</option>';
+        data.filter(function(a){return a.status !== 'finished'}).forEach(function(a){
+          options += '<option value="' + (a.title||'') + '">' + (a.title||'') + ' (' + (a.date||'') + ')</option>';
+        });
+        select.innerHTML = options;
+      }
+    })
+    .catch(function(){});
+}
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadActivities);
+} else {
+  loadActivities();
+}
+</script>
 </body>
 </html>
