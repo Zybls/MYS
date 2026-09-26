@@ -516,7 +516,15 @@ function renderRec(){
   var list = RECOMMEND_DATA.slice();
   var s = tabState.recommend.search.toLowerCase();
   var f = tabState.recommend.filter;
-  if(s) list = list.filter(function(r){return (r.desc||'').toLowerCase().indexOf(s)>-1||(r.scene||'').toLowerCase().indexOf(s)>-1;});
+  var buildsById = {};
+  BUILDS_DATA.forEach(function(b){ buildsById[b.id]=b; });
+  if(s) list = list.filter(function(r){
+    var builds = (r.build_ids||[]).map(function(bid){return buildsById[bid]?buildsById[bid].name:'';}).join(' ');
+    return (r.desc||'').toLowerCase().indexOf(s)>-1
+      || (r.scene||'').toLowerCase().indexOf(s)>-1
+      || (r.class||'').toLowerCase().indexOf(s)>-1
+      || builds.toLowerCase().indexOf(s)>-1;
+  });
   if(f!=='all') list = list.filter(function(r){return r.scene===f;});
   document.getElementById('recCount').textContent = list.length+' 条推荐';
   var empty = document.getElementById('recEmpty');
@@ -524,11 +532,8 @@ function renderRec(){
   if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
   empty.style.display='none';
   grid.innerHTML = list.map(function(r){
-    var builds = (r.build_ids||[]).map(function(bid){
-      var b = BUILDS_DATA.find(function(x){return x.id===bid;});
-      return b?escapeHtml(b.name):bid;
-    }).join('、');
-    return '<div class="guide-card" onclick="window.location.href=\''+(BUILDS_DATA.find(function(x){return x.id===r.build_ids[0]})||{}).url+'\'">'+
+    var builds = (r.build_ids||[]).map(function(bid){return buildsById[bid]?escapeHtml(buildsById[bid].name):bid;}).join('、');
+    return '<div class="guide-card" onclick="window.location.href=\''+(buildsById[r.build_ids[0]]||{}).url+'\'">'+
       '<div class="guide-icon">&#127919;</div>'+
       '<div class="guide-title">'+escapeHtml(builds)+'</div>'+
       '<span class="rec-scene scene-'+escapeHtml(r.scene)+'">'+escapeHtml(r.scene)+'</span>'+
