@@ -1062,7 +1062,7 @@ var API_BASE = "https://api.ykmys.com";
 var siteConfig = null;
 
 function loadSiteConfig() {
-  fetch(API_BASE + "/api/site-config")
+  fetch(API_BASE + "/api/home-config")
     .then(function(r){ return r.json(); })
     .then(function(data){
       if (data && data.hero && Object.keys(data.hero).length > 0) {

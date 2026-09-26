@@ -265,7 +265,7 @@ body.light-theme .action-btn:hover {
 var siteConfigData = { hero: {}, announcements: [], activities: [], welfare: [] };
 
 function loadSiteConfig() {
-  fetch(API_BASE + "/api/site-config").then(function(r){return r.json()}).then(function(data){
+  fetch(API_BASE + "/api/home-config").then(function(r){return r.json()}).then(function(data){
     siteConfigData = data || { hero: {}, announcements: [], activities: [], welfare: [] };
     renderSiteConfig();
   }).catch(function(){ showToast("加载失败，使用默认值","error"); renderDefaultConfig(); });
@@ -381,8 +381,8 @@ function saveSiteConfig() {
     return { icon: item.querySelector(".wel-icon").value, text: item.querySelector(".wel-text").value };
   }).filter(function(w){return w.text.trim()});
   
-  fetch(API_BASE + "/api/site-config", {
-    method: "POST",
+  fetch(API_BASE + "/api/home-config", {
+    method: "PUT",
     headers: { "Content-Type": "application/json", "X-Admin-Token": getToken() },
     body: JSON.stringify(siteConfigData)
   }).then(function(r){return r.json()}).then(function(data){
