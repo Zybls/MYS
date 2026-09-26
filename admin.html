@@ -425,6 +425,47 @@ function renderRedeem(){var html='<table style="width:100%;border-collapse:colla
 function saveRedeem(){var data={code:document.getElementById("r_code").value.trim(),type:document.getElementById("r_type").value,reward:document.getElementById("r_reward").value.trim(),expire_date:document.getElementById("r_expire").value.trim(),source:document.getElementById("r_source").value.trim(),is_active:1};if(!data.code){showToast("请填写兑换码","error");return}var url=API_BASE+"/api/redeem-codes"+(editingRedeemId?"/"+editingRedeemId:"");var method=editingRedeemId?"PUT":"POST";fetch(url,{method:method,headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast(editingRedeemId?"兑换码已更新":"兑换码已添加");hideRedeemForm();loadRedeemCodes()}else{showToast(res.error||"操作失败","error")}})}
 function deleteRedeem(id){if(!confirm("确定删除该兑换码？"))return;fetch(API_BASE+"/api/redeem-codes/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadRedeemCodes()}else{showToast("删除失败","error")}})}
 
+// ==================== 评论管理 ====================
+var adminCommentsData=[];
+function loadAdminComments(){
+  var pageFilter=document.getElementById("commentPageFilter").value;
+  var url=API_BASE+"/api/admin/comments"+(pageFilter?"?page="+encodeURIComponent(pageFilter):"");
+  fetch(url,{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(data){
+    if(!data.ok){showToast(data.error||"加载失败","error");return}
+    adminCommentsData=data.data||[];
+    // 更新统计
+    if(data.stats){
+      document.getElementById("commentTotal").textContent=data.stats.total||0;
+      document.getElementById("commentToday").textContent=data.stats.today||0;
+      document.getElementById("commentActive").textContent=data.stats.active||0;
+    }
+    // 更新页面筛选下拉
+    var pages=[];
+    adminCommentsData.forEach(function(c){if(pages.indexOf(c.page)===-1)pages.push(c.page)});
+    var sel=document.getElementById("commentPageFilter");
+    var currentVal=sel.value;
+    sel.innerHTML='<option value="">全部页面</option>'+pages.map(function(p){return '<option value="'+p+'"'+(p===currentVal?' selected':'')+'>'+p+'</option>'}).join('');
+    renderAdminComments();
+  }).catch(function(){document.getElementById("commentAdminList").innerHTML='<div class="empty">加载失败</div>'})
+}
+function renderAdminComments(){
+  var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">ID</th><th style="text-align:left;padding:8px">页面</th><th style="text-align:left;padding:8px">昵称</th><th style="text-align:left;padding:8px">内容</th><th style="text-align:left;padding:8px">点赞</th><th style="text-align:left;padding:8px">状态</th><th style="text-align:left;padding:8px">时间</th><th style="text-align:left;padding:8px">操作</th></tr>';
+  if(adminCommentsData.length===0){html+='<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--text-dim)">暂无评论</td></tr>'}
+  adminCommentsData.forEach(function(c){
+    var statusBadge=c.status==='active'?'<span style="color:#27ae60">🟢 正常</span>':'<span style="color:#e74c3c">🔴 已删</span>';
+    var contentPreview=(c.content||'').length>40?(c.content||'').slice(0,40)+'...':(c.content||'');
+    html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+c.id+'</td><td style="padding:8px;font-family:monospace;font-size:12px">'+c.page+'</td><td style="padding:8px">'+(c.nickname||'匿名')+'</td><td style="padding:8px;max-width:200px">'+contentPreview+'</td><td style="padding:8px">❤️ '+(c.likes||0)+'</td><td style="padding:8px">'+statusBadge+'</td><td style="padding:8px;font-size:12px;color:var(--text-dim)">'+(c.created_at||'')+'</td><td style="padding:8px">'+(c.status==='active'?'<button onclick="deleteAdminComment('+c.id+')" style="color:#ff6b6b">删除</button>':'-')+'</td></tr>';
+  });
+  html+='</table>';
+  document.getElementById("commentAdminList").innerHTML=html;
+}
+function deleteAdminComment(id){
+  if(!confirm("确定删除该评论？删除后不在前台显示"))return;
+  fetch(API_BASE+"/api/comments/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){
+    if(res.ok){showToast("已删除");loadAdminComments()}else{showToast("删除失败","error")}
+  })
+}
+
 
 // ==================== 考勤管理 ====================
 function loadActivitiesForAttendance(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){var sel=document.getElementById("attendanceActivity");if(sel){sel.innerHTML='<option value="">选择活动</option>';(data||[]).forEach(function(a){sel.innerHTML+='<option value="'+a.id+'">'+(a.title||'')+' ('+(a.date||'')+')</option>'})}})}
@@ -506,6 +547,7 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
       <button class="tab-btn" onclick="switchTab('activities',this)">🎯 活动管理</button>
       <button class="tab-btn" onclick="switchTab('attendance',this)">📋 考勤管理</button>
       <button class="tab-btn" onclick="switchTab('battles',this)">⚔️ 战报管理</button>
+      <button class="tab-btn" onclick="switchTab('comments',this)">💬 评论管理</button>
     </div>
 
     <!-- 数据中心 -->
@@ -803,6 +845,7 @@ function switchTab(name,btn){
   if(name==="members")loadMembers();
   if(name==="activities")loadActivities();
   if(name==="redeem")loadRedeemCodes();
+  if(name==="comments")loadAdminComments();
   if(name==="attendance"){loadActivitiesForAttendance();loadAttendance();}
   if(name==="battles"){loadActivitiesForBattle();loadBattles();}
 }
