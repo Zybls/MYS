@@ -1233,7 +1233,7 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
                 <span class="activity-icon">📅</span>
                 <span class="activity-card-title">近期活动</span>
               </div>
-              <div class="activity-list">
+              <div class="activity-list" id="activityList">
                 <div class="activity-item">
                   <div class="activity-date">
                     <div class="activity-day">27</div>
@@ -1244,28 +1244,6 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
                     <div class="activity-meta">周六 20:00 · 全员参加</div>
                   </div>
                   <span class="activity-status upcoming">即将开始</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-date">
-                    <div class="activity-day">28</div>
-                    <div class="activity-month">9月</div>
-                  </div>
-                  <div class="activity-info">
-                    <div class="activity-name">公会BOSS首杀</div>
-                    <div class="activity-meta">周日 19:30 · 精英团</div>
-                  </div>
-                  <span class="activity-status signup">报名中</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-date">
-                    <div class="activity-day">30</div>
-                    <div class="activity-month">9月</div>
-                  </div>
-                  <div class="activity-info">
-                    <div class="activity-name">新人带练活动</div>
-                    <div class="activity-meta">周二 21:00 · 自愿参加</div>
-                  </div>
-                  <span class="activity-status planned">计划中</span>
                 </div>
               </div>
             </div>
@@ -1317,9 +1295,7 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
                 <div class="signup-field">
                   <label>参加活动</label>
                   <select id="signupActivity" class="signup-select">
-                    <option>神殿纷争 · 周末团战</option>
-                    <option>公会BOSS首杀</option>
-                    <option>新人带练活动</option>
+                    <option>加载中...</option>
                   </select>
                 </div>
                 <button class="signup-submit" id="signupBtn" onclick="submitSignup()">确认报名</button>
