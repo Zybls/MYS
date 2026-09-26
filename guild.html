@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公会中心 · 天涯若比邻 | 英雄没有闪</title>
+<meta name="description" content="天涯若比邻公会中心，成员榜、历史战报、活动报名、考勤统计。">
+<link rel="canonical" href="https://ykmys.com/guild.html">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f1a;color:#e4e4e7;min-height:100vh;padding-bottom:80px}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1)}
+.header h1{font-size:22px;color:#fff;margin-bottom:4px}
+.header p{font-size:13px;color:#a1a1aa}
+.guild-info{display:flex;justify-content:center;gap:20px;margin-top:12px;flex-wrap:wrap}
+.guild-info span{font-size:12px;color:#a1a1aa;background:rgba(255,255,255,0.05);padding:4px 12px;border-radius:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;padding:20px;max-width:800px;margin:0 auto}
+.card{background:#1a1a2e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;text-align:center;text-decoration:none;color:#e4e4e7;transition:all .2s}
+.card:hover{border-color:#60a5fa;transform:translateY(-2px)}
+.card .icon{font-size:32px;margin-bottom:8px}
+.card .title{font-size:15px;font-weight:600;margin-bottom:4px}
+.card .desc{font-size:12px;color:#a1a1aa}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:#60a5fa}
+.nav-item .nav-icon{font-size:20px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>公会中心</h1>
+  <p>天涯若比邻 · 灾厄枷锁18服</p>
+  <div class="guild-info">
+    <span>成员 40/40</span>
+    <span>公会等级 21</span>
+    <span>总战力 1838万兆</span>
+    <span>神殿联赛 6届</span>
+  </div>
+</div>
+<div class="grid">
+  <a href="guild-members.html" class="card">
+    <div class="icon">👥</div>
+    <div class="title">成员榜</div>
+    <div class="desc">公会成员战力排行</div>
+  </a>
+  <a href="guild-history.html" class="card">
+    <div class="icon">⚔️</div>
+    <div class="title">历史战报</div>
+    <div class="desc">神殿纷争历届战绩</div>
+  </a>
+  <a href="index.html#signup" class="card">
+    <div class="icon">📋</div>
+    <div class="title">活动报名</div>
+    <div class="desc">神殿纷争报名</div>
+  </a>
+  <a href="changelog.html" class="card">
+    <div class="icon">📜</div>
+    <div class="title">更新日志</div>
+    <div class="desc">网站功能更新记录</div>
+  </a>
+</div>
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span>首页</a>
+  <a href="library.html" class="nav-item"><span class="nav-icon">📚</span>资料库</a>
+  <a href="guild.html" class="nav-item active"><span class="nav-icon">⚔️</span>公会</a>
+  <a href="tools.html" class="nav-item"><span class="nav-icon">🔧</span>工具</a>
+</div>
+</body>
+</html>

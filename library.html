@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>资料库 - 天涯若比邻公会</title>
+<style>
+:root{--bg:#0f0f1a;--bg-card:#1a1a2e;--bg-card2:#252540;--border:#2d2d4a;--text:#e8e8f0;--text-dim:#8888aa;--purple:#a78bfa;--blue:#60a5fa;--red:#f87171;--green:#34d399;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding-bottom:80px;}
+.header{background:var(--bg-card);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.header h1{font-size:18px;font-weight:700;}
+.header .search-btn{background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;}
+.tab-bar{display:flex;gap:4px;padding:10px 16px;background:var(--bg-card);border-bottom:1px solid var(--border);overflow-x:auto;}
+.tab-btn{padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;border:none;color:var(--text-dim);white-space:nowrap;transition:all 0.2s;}
+.tab-btn.active{background:rgba(167,139,250,0.15);color:var(--purple);font-weight:600;}
+.tab-panel{display:none;padding:16px;}
+.tab-panel.active{display:block;}
+.catalog-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.catalog-search-box{position:relative;flex:1;min-width:200px;max-width:360px;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;opacity:0.5;}
+.catalog-search-input{width:100%;padding:9px 12px 9px 36px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;}
+.catalog-search-input:focus{border-color:var(--blue);}
+.catalog-filter-group{display:flex;gap:6px;flex-wrap:wrap;}
+.filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);}
+.filter-btn:hover{border-color:var(--blue);}
+.filter-btn.active{background:rgba(96,165,250,0.15);border-color:var(--blue);color:var(--blue);font-weight:600;}
+.catalog-count{margin-left:auto;font-size:12px;color:var(--text-dim);white-space:nowrap;}
+.engraving-grid,.skill-grid,.rune-grid,.armor-grid,.pet-grid,.build-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+.engraving-card,.skill-card,.rune-card,.armor-card,.pet-card,.build-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:all 0.2s;display:block;}
+.engraving-card:hover,.skill-card:hover,.rune-card:hover,.armor-card:hover,.pet-card:hover,.build-card:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
+.engraving-icon,.skill-icon,.rune-icon,.armor-icon,.pet-icon,.build-icon{width:56px;height:56px;margin:0 auto 8px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:28px;}
+.engraving-icon img,.skill-icon img,.rune-icon img,.armor-icon img,.pet-icon img{width:100%;height:100%;object-fit:contain;}
+.engraving-name,.skill-name,.rune-name,.armor-name,.pet-name,.build-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.engraving-class,.skill-class,.rune-class,.armor-class,.pet-class,.build-class{font-size:10px;padding:2px 8px;border-radius:4px;display:inline-block;margin:2px;}
+.build-tags{margin-top:4px;}
+.build-tag{font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(96,165,250,0.1);color:#60a5fa;display:inline-block;margin:1px;}
+.pet-card-tags{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+.pet-tag{font-size:10px;padding:2px 6px;border-radius:4px;}
+.pet-quality{background:rgba(251,191,36,0.15);color:#fbbf24;}
+.pet-bond{background:rgba(167,139,250,0.15);color:#a78bfa;}
+.modal-kv-list{background:var(--bg-card2);border-radius:8px;padding:10px 14px;}
+.modal-kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);}
+.modal-kv:last-child{border-bottom:none;}
+.modal-kv-label{font-size:13px;color:var(--text-dim);}
+.modal-kv-value{font-size:13px;color:var(--text);font-weight:600;}
+.cls-野蛮人{background:rgba(248,113,113,0.15);color:#f87171;}
+.cls-秘法师{background:rgba(96,165,250,0.15);color:#60a5fa;}
+.cls-游侠{background:rgba(52,211,153,0.15);color:#34d399;}
+.cls-通用{background:rgba(148,163,184,0.15);color:#94a3b8;}
+.skill-cat,.rune-cat,.armor-part,.armor-quality,.pet-quality{font-size:10px;padding:1px 6px;border-radius:3px;display:inline-block;margin:2px;background:rgba(167,139,250,0.1);color:#a78bfa;}
+.engraving-desc-preview,.skill-desc-preview,.rune-desc-preview,.armor-desc-preview,.pet-desc-preview,.build-desc-preview{font-size:10px;color:var(--text-dim);margin-top:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.empty-state{text-align:center;padding:40px 20px;}
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal-content{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;position:relative;animation:modalIn 0.25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;z-index:1;}
+.modal-body{padding:24px;}
+.modal-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.modal-icon{width:72px;height:72px;border-radius:14px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.modal-icon img{width:100%;height:100%;object-fit:contain;}
+.modal-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.modal-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.modal-section{margin-bottom:16px;}
+.modal-section-title{font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.modal-section-content{font-size:14px;color:var(--text);line-height:1.8;background:var(--bg-card2);padding:12px 14px;border-radius:8px;}
+.modal-detail-img{width:100%;border-radius:10px;margin-top:8px;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0;z-index:99;}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--text-dim);text-decoration:none;font-size:11px;padding:4px 12px;}
+.bottom-nav a.active{color:var(--purple);}
+.bottom-nav .icon{font-size:20px;}
+@media(max-width:768px){
+  .engraving-grid,.skill-grid,.rune-grid,.armor-grid,.pet-grid,.build-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;}
+  .engraving-icon,.skill-icon,.rune-icon,.armor-icon,.pet-icon{width:48px;height:48px;}
+  .engraving-name,.skill-name,.rune-name,.armor-name,.pet-name{font-size:12px;}
+  .catalog-toolbar{flex-direction:column;align-items:stretch;}
+  .catalog-search-box{max-width:100%;}
+  .catalog-count{margin-left:0;text-align:center;}
+  .modal-body{padding:16px;}
+  .modal-header{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>&#128218; 资料库</h1>
+  <button class="search-btn" onclick="alert('搜索功能开发中')">&#128269;</button>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="build" onclick="switchTab('build')">配装</button>
+  <button class="tab-btn" data-tab="engraving" onclick="switchTab('engraving')">刻印</button>
+  <button class="tab-btn" data-tab="skill" onclick="switchTab('skill')">技能</button>
+  <button class="tab-btn" data-tab="rune" onclick="switchTab('rune')">遗物</button>
+  <button class="tab-btn" data-tab="armor" onclick="switchTab('armor')">暗能</button>
+  <button class="tab-btn" data-tab="pet" onclick="switchTab('pet')">侍从</button>
+</div>
+
+<!-- ===== 配装Tab ===== -->
+<div class="tab-panel" id="panel-build">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="buildSearch" placeholder="搜索配装名称/流派..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="buildFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterBuilds('all')">全部</button>
+      <button class="filter-btn" data-filter="野蛮人" onclick="filterBuilds('野蛮人')">野蛮人</button>
+      <button class="filter-btn" data-filter="秘法师" onclick="filterBuilds('秘法师')">秘法师</button>
+      <button class="filter-btn" data-filter="游侠" onclick="filterBuilds('游侠')">游侠</button>
+    </div>
+    <div class="catalog-count" id="buildCount">18 套配装</div>
+  </div>
+  <div class="build-grid" id="buildGrid"></div>
+  <div class="empty-state" id="buildEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的配装</div>
+  </div>
+</div>
+
+<!-- ===== 刻印Tab ===== -->
+<div class="tab-panel" id="panel-engraving">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="engravingSearch" placeholder="搜索刻印名称/效果..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="engravingFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterEngravings('all')">全部</button>
+      <button class="filter-btn" data-filter="野蛮人" onclick="filterEngravings('野蛮人')">野蛮人</button>
+      <button class="filter-btn" data-filter="秘法师" onclick="filterEngravings('秘法师')">秘法师</button>
+      <button class="filter-btn" data-filter="通用" onclick="filterEngravings('通用')">通用</button>
+    </div>
+    <div class="catalog-count" id="engravingCount">48 个刻印</div>
+  </div>
+  <div class="engraving-grid" id="engravingGrid"></div>
+  <div class="empty-state" id="engravingEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的刻印</div>
+  </div>
+</div>
+
+<noscript>
+  <div style="padding:20px;">
+    <h2>刻印图鉴（48个）</h2>
+    <ul>
+      <li>超级闪光 - 野蛮人 - 造成暴击伤害时，施放超级闪光，每5秒最多触发1次。</li>
+      <li>腐化浪潮 - 野蛮人 - 击中处于持续伤害状态的敌人时施放一阵毒液，对大范围内的敌人施加腐化每5秒最多触发1次。</li>
+      <li>冠军拳套 - 野蛮人 - 核心技能击中时有20%概率施放冠军之拳，每5秒最多触发1次；每次施展掌控或终极技能时获得蓄力。</li>
+      <li>巨人壁垒 - 野蛮人 - 每隔5秒，下一次基础技能造成10倍伤害，同时获得40%最大生命值的护盾，持续5秒。</li>
+      <li>烈日光环 - 野蛮人 - 施加持续伤害类效果时展开烈日光环，每5秒最多触发1次。</li>
+      <li>流星 - 野蛮人 - 核心技能造成伤害时有30%概率施放流星，每5秒最多触发1次。</li>
+      <li>熔岩爆裂 - 野蛮人 - 造成元素伤害时有50%概率施放熔岩奔涌，每5秒最多触发1次。</li>
+      <li>虚空裂口 - 野蛮人 - 施放终极技能或掌控技能时施放虚空裂口，每5秒最多触发1次。</li>
+      <li>以太光束 - 野蛮人 - 施放核心技能时施放以太光束，每5秒最多触发1次。</li>
+      <li>战争印记 - 野蛮人 - 你的基础技能有30%概率施加2秒眩晕和10秒战争印记。效果结束前无法重复施加。</li>
+      <li>震耳噪音 - 野蛮人 - 施放掌控技能后发出一阵怒吼，对周围所有敌人造成1000%攻击力的元素伤害和失衡，每5秒最多触发1次。</li>
+      <li>征服者 - 野蛮人 - 施展核心技能时有50%概率获得征服者，每5秒最多触发1次。</li>
+      <li>保护祝福 - 秘法师 - 生命值首次降低至40%时，获得最大生命值100%的护盾，最多持续6秒。</li>
+      <li>复仇 - 秘法师 - 受到大于等于最大生命值10%的伤害时，你的核心技能在接下来的2秒内伤害翻倍，这个效果每5秒最多触发1次。</li>
+      <li>海浪之歌 - 秘法师 - 造成伤害时有10%概率施放海浪攻击，造成100%攻击力的元素伤害并施加寒冷，每10秒最多触发1次。</li>
+      <li>回春 - 秘法师 - 核心刻印效果触发时，在3秒内持续恢复总计40%最大生命值。</li>
+      <li>强风射击 - 秘法师 - 击中敌人时有20%概率施展强风射击，对大范围敌人造成50%攻击力的元素伤害、施加击退和禁锢1.5秒，每8秒最多触发1次。</li>
+      <li>余震 - 秘法师 - 核心刻印效果触发时，击飞附近的敌人，同时造成100%攻击力的物理伤害。</li>
+      <li>巨神兵 - 通用 - 使自身体型增大15%、最大生命值提升15%、护盾效果提升15%。</li>
+      <li>狂热 - 通用 - 在战斗中每隔8秒，消耗5%当前生命值，解除自身受到的控制效果并获得狂热。</li>
+      <li>力量祝福 - 通用 - 核心刻印效果触发时，伤害强化提升60%，持续2秒。</li>
+      <li>灵巧 - 通用 - 核心刻印效果触发时，使闪避提升25%，持续2.5秒。</li>
+      <li>领袖 - 通用 - 你的所有友军(不包括自己)伤害强化提升15%、急速提升15%。</li>
+      <li>全能 - 通用 - 生命值高于80%时，使自身伤害强化提升20%、伤害减免提升15%。</li>
+      <li>疯刃专家 - 通用 - [野蛮人限定]疯刃击中时根据疯刃增益效果层数附加每层额外20%攻击力的物理伤害。</li>
+      <li>破伤专家 - 通用 - [野蛮人限定]装备破伤技能时，施放核心技能有40%概率触发额外施法，施放所装备的破伤。</li>
+      <li>重砍专家 - 通用 - [野蛮人限定]重砍触发跳劈时使目标急速和闪避降低20%，持续2秒;重砍触发护盾时使自身招架提升30%，持续2秒。</li>
+      <li>无情收割专家 - 通用 - [野蛮人限定]无情收割施加踉跄状态。</li>
+      <li>旋风斩专家 - 通用 - [野蛮人限定]施放旋风斩时会快速朝前方发射5道剑气，造成共计750%攻击力的物理伤害，每5秒最多触发1次。</li>
+      <li>原力锤专家 - 通用 - [野蛮人限定]原力锤有3%概率造成1.5秒眩晕和2.5秒弱化。</li>
+      <li>寒冰弹专家 - 通用 - [秘法师限定]敌人累计被寒冰弹命中20次会产生1秒冻结。</li>
+      <li>火焰波专家 - 通用 - [秘法师限定]火焰波到达终点时有25%概率返回，对沿途的敌人造成伤害。</li>
+      <li>闪电鞭专家 - 通用 - [秘法师限定]闪电鞭有10%概率产生闪电链，对5个敌人造成100%攻击力的电元素伤害并施加震颤，持续2.5秒。</li>
+      <li>火球术专家 - 通用 - [秘法师限定]火球术击中敌人时产生一次额外的元素爆炸，造成150%攻击的元素伤害并施加燃烧、冰焰燃烧、电各1层。每2秒最多触发1次。</li>
+      <li>闪电拳专家 - 通用 - [秘法师限定]每第五次施放闪电拳必定暴击，且每1%暴击率额外提升2%闪电拳增伤。</li>
+      <li>寒冰光束专家 - 通用 - [秘法师限定]施放寒冰光束时，在接下来的3秒内持续恢复总计18点能量每6秒最多触发1次。</li>
+      <li>奋勇冲击专家 - 通用 - [野蛮人限定]奋勇冲击的伤害倍率提升到3次总计500%，并且奋勇冲击具有额外20%暴击率和80%暴击伤害。</li>
+      <li>坚不可摧专家 - 通用 - [野蛮人限定]坚不可摧护盾存在期间，最终暴击伤害抗性提升40%。</li>
+      <li>聚气咆哮专家 - 通用 - [野蛮人限定]聚气咆哮期间施放核心技能延长聚气咆哮效果0.5秒持续时间，每次施放聚气咆哮最多延长4秒。</li>
+      <li>决战咆哮专家 - 通用 - [野蛮人限定]决战咆哮期间每累计消耗20点怒气，使终极技能冷却时间减少1秒。</li>
+      <li>踏平专家 - 通用 - [野蛮人限定]踏平击中首领或其他玩家时，冷却时间减少2秒。</li>
+      <li>跃空击专家 - 通用 - [野蛮人限定]跃空击落地时将中等范围内的敌人拉到自己身边。</li>
+      <li>冰霜盾专家 - 通用 - [秘法师限定]每次受到攻击时有30%概率使冰霜盾当前冷却减少1秒。</li>
+      <li>引力场专家 - 通用 - [秘法师限定]累计在引力场内超过3秒的敌人会被眩晕1秒。</li>
+      <li>魔焰花专家 - 通用 - [秘法师限定]魔焰花造成伤害时为你回复1点能量。</li>
+      <li>闪电球专家 - 通用 - [秘法师限定]闪电球对敌人施加元素易伤，持续3秒。</li>
+      <li>闪现专家 - 通用 - [秘法师限定]闪现后使自身闪避提升15%，持续3秒。</li>
+      <li>震荡专家 - 通用 - [秘法师限定]震荡击中敌人时施加缓慢，持续5秒</li>
+    </ul>
+  </div>
+</noscript>
+
+<!-- ===== 技能Tab ===== -->
+<div class="tab-panel" id="panel-skill">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="skillSearch" placeholder="搜索技能名称/效果..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="skillFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterSkill('all')">全部</button><button class="filter-btn" data-filter="野蛮人" onclick="filterSkill('野蛮人')">野蛮人</button><button class="filter-btn" data-filter="秘法师" onclick="filterSkill('秘法师')">秘法师</button>
+    </div>
+    <div class="catalog-count" id="skillCount">48 个技能</div>
+  </div>
+  <div class="skill-grid" id="skillGrid"></div>
+  <div class="empty-state" id="skillEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">🔍</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的技能</div>
+  </div>
+</div>
+
+<noscript>
+  <div style="padding:20px;">
+    <h2>技能图鉴（48个）</h2>
+    <ul>
+      <li>重砍 - 野蛮人 - 对前方小范围敌人造成1次67.5％攻击的物理伤害。</li>
+      <li>疯刃 - 野蛮人 - 对前方小范围敌人造成1次50％攻击的物理伤害，同时获得1层疯刃效果。</li>
+      <li>破伤 - 野蛮人 - 对前方小范围敌人造成1次16％攻击的物理伤害，同时施加攻击100％的创伤。</li>
+      <li>旋风斩 - 野蛮人 - 对周身小范围敌人造成6次共计180％攻击的物理伤害。</li>
+      <li>无情收割 - 野蛮人 - 对前方中等范围敌人造成1次36.5％攻击的物理伤害，同时施加攻击240％的创伤。</li>
+      <li>原力锤 - 野蛮人 - 对前方中等范围敌人造成1次200％攻击的物理伤害。</li>
+      <li>奋勇冲击 - 野蛮人 - 向前方奋勇冲击一段距离，推动碰到的敌人并对其造成最多3次15％攻击的物理伤害。（奋勇冲击期间提升80%最终减伤）</li>
+      <li>跃空击 - 野蛮人 - 跳向远处目标另一侧，落地时对周围小范围敌人造成1次50％攻击的物理伤害。（跃空击期间提升100%闪避）</li>
+      <li>踏平 - 野蛮人 - 对周围敌人造成1次20％攻击的物理伤害，并使其眩晕1秒。</li>
+      <li>坚不可摧 - 野蛮人 - 获得一个吸收30%最大生命值伤害的护盾，护盾存在期间提升5%格挡率和20%格挡值，最多持续6秒。</li>
+      <li>决战咆哮 - 野蛮人 - 对全场所有友方单位施加怒吼，使其伤害强化提升20%，移动速度提升10%，持续8秒。</li>
+      <li>聚气咆哮 - 野蛮人 - 对全场所有友方单位施加怒吼，使其能量恢复提升20%，持续8秒。</li>
+      <li>破碎穿透 - 野蛮人 - 对前方大范围所有敌人造成3次150%攻击的物理伤害，同时施加3次攻击300%的创伤。</li>
+      <li>蛮灵召唤 - 野蛮人 - 召唤蛮灵协助作战，其继承自身70％战斗属性，持续15秒。（召唤时免疫控制）</li>
+      <li>蛮魂觉醒 - 野蛮人 - 觉醒血脉之力，变身并获得12秒狂暴效果。（变身瞬间免疫控制）</li>
+      <li>寒冰弹 - 秘法师 - 向前发射一块寒冰弹对小范围敌人造成1次60%攻击的元素伤害，并施加持续5秒的寒冷。</li>
+      <li>火焰波 - 秘法师 - 向前发射火焰波对前方敌人造成1次30%攻击的元素伤害，并施加1层燃烧。</li>
+      <li>闪电鞭 - 秘法师 - 挥舞闪电鞭对前方敌人造成1次50%攻击的元素伤害，并施加1层触电。</li>
+      <li>火球术 - 秘法师 - 发射一团巨大火球对前方大范围敌人造成1次70%攻击的元素伤害，并施加3层燃烧。</li>
+      <li>闪电拳 - 秘法师 - 轰出一道闪电对前方区域所有目标造成1次160%攻击的元素伤害，同时施加2层触电。</li>
+      <li>寒冰光束 - 秘法师 - 持续引导一道冰能量光束对前方小范围敌人每0.4秒造成一次70%攻击的元素伤害，并施加持续5秒的寒冷。</li>
+      <li>震荡 - 秘法师 - 迸发能量击退周围敌人，对其造成1次50%攻击的元素伤害和短暂眩晕。</li>
+      <li>闪现 - 秘法师 - 敌人靠近时向后瞬间移动一段距离，并恢复15%已损失生命值。</li>
+      <li>引力场 - 秘法师 - 在身前召唤一片持续5秒的引力场，降低场内敌人50%的急速和35%移动速度。</li>
+      <li>闪电球 - 秘法师 - 向前发射一个缓慢移动的闪电球，每0.3秒对周围造成1次35%攻击的元素伤害并施加1层触电。</li>
+      <li>冰霜盾 - 秘法师 - 获得一个吸收35%最大生命值伤害的冰霜盾，持续8秒。</li>
+      <li>魔焰花 - 秘法师 - 召唤一条持续8秒的魔焰花协助作战。（留在原地不可选中，最多同时存在2条）</li>
+      <li>冰雹 - 秘法师 - 在前方区域召唤一片持续3秒的冰雹，区域内敌人移速降低20%。每秒对区域内敌人造成2次50%攻击的元素伤害并施加寒冷。</li>
+      <li>分身术 - 秘法师 - 召唤一个可以使用火焰波或寒冰弹的分身协助作战。分身继承本体70%血量，最多存在12秒。</li>
+      <li>以太之躯 - 秘法师 - 化身能量体，每次释放技能时有15%概率额外施法释放一道能量波，持续15秒。</li>
+      <li>斩杀 - 野蛮人 - </li>
+      <li>砍倒 - 野蛮人 - </li>
+      <li>越战越勇 - 野蛮人 - </li>
+      <li>灵巧步伐 - 野蛮人 - </li>
+      <li>庇护之力 - 野蛮人 - </li>
+      <li>痛楚反射 - 野蛮人 - </li>
+      <li>远古蛮灵之力 - 野蛮人 - </li>
+      <li>能量转化 - 野蛮人 - </li>
+      <li>怒意高涨 - 野蛮人 - </li>
+      <li>元素共鸣 - 秘法师 - </li>
+      <li>生命回溯 - 秘法师 - </li>
+      <li>能量亲和 - 秘法师 - </li>
+      <li>不倒翁 - 秘法师 - </li>
+      <li>强盛 - 秘法师 - </li>
+      <li>猎魂 - 秘法师 - </li>
+      <li>恶魔契约 - 秘法师 - </li>
+      <li>秘术护体 - 秘法师 - </li>
+      <li>唤法 - 秘法师 - </li>
+    </ul>
+  </div>
+</noscript>
+<!-- ===== 遗物Tab ===== -->
+<div class="tab-panel" id="panel-rune">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="runeSearch" placeholder="搜索遗物名称/效果..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="runeFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterRune('all')">全部</button><button class="filter-btn" data-filter="野蛮人" onclick="filterRune('野蛮人')">野蛮人</button><button class="filter-btn" data-filter="秘法师" onclick="filterRune('秘法师')">秘法师</button><button class="filter-btn" data-filter="通用" onclick="filterRune('通用')">通用</button>
+    </div>
+    <div class="catalog-filter-group" id="runeCategoryFilter">
+      <button class="filter-btn active" data-cat="all" onclick="filterRuneCategory('all')">全部</button><button class="filter-btn" data-cat="符文" onclick="filterRuneCategory('符文')">符文</button><button class="filter-btn" data-cat="贤者" onclick="filterRuneCategory('贤者')">贤者</button><button class="filter-btn" data-cat="遗物" onclick="filterRuneCategory('遗物')">遗物</button>
+    </div>
+    <div class="catalog-count" id="runeCount">381 个遗物</div>
+  </div>
+  <div class="rune-grid" id="runeGrid"></div>
+  <div class="empty-state" id="runeEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">🔍</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的遗物</div>
+  </div>
+</div>
+
+<noscript>
+  <div style="padding:20px;">
+    <h2>遗物图鉴（381个）</h2>
+    <ul>
+      <li>重砍·排山 - 野蛮人 - 符文</li>
+      <li>沉思坐垫 - 通用 - 遗物</li>
+      <li>阿尔卡撒 - 通用 - 贤者</li>
+      <li>重砍·刚毅 - 野蛮人 - 符文</li>
+      <li>腐朽的古书 - 通用 - 遗物</li>
+      <li>卡米拉 - 通用 - 贤者</li>
+      <li>疯刃·叠刺 - 野蛮人 - 符文</li>
+      <li>祷告念珠 - 通用 - 遗物</li>
+      <li>拉维斯 - 通用 - 贤者</li>
+      <li>疯刃·难遏 - 野蛮人 - 符文</li>
+      <li>海盗罗盘 - 通用 - 遗物</li>
+      <li>格兰特 - 通用 - 贤者</li>
+      <li>破伤·粉碎 - 野蛮人 - 符文</li>
+      <li>旅行日志 - 通用 - 遗物</li>
+      <li>凯西娅 - 通用 - 贤者</li>
+      <li>破伤·双重 - 野蛮人 - 符文</li>
+      <li>商会旗帜 - 通用 - 遗物</li>
+      <li>鲁弗斯 - 通用 - 贤者</li>
+      <li>伊莱拉 - 通用 - 贤者</li>
+      <li>卡塞尔 - 通用 - 贤者</li>
+      <li>阿兹尔沃德 - 通用 - 贤者</li>
+      <li>旋风斩·滚雷 - 野蛮人 - 符文</li>
+      <li>好运骰子 - 通用 - 遗物</li>
+      <li>莱夫 - 通用 - 贤者</li>
+      <li>旋风斩·火怒 - 野蛮人 - 符文</li>
+      <li>藏宝图 - 通用 - 遗物</li>
+      <li>沃尔特 - 通用 - 贤者</li>
+      <li>旋风斩·荆棘 - 野蛮人 - 符文</li>
+      <li>好运护符 - 通用 - 遗物</li>
+      <li>瓦莱瑞亚 - 通用 - 贤者</li>
+      <li>无情收割·炎刃 - 野蛮人 - 符文</li>
+      <li>训练手册 - 通用 - 遗物</li>
+      <li>埃弗拉德 - 通用 - 贤者</li>
+      <li>无情收割·狂电 - 野蛮人 - 符文</li>
+      <li>战斗木偶 - 通用 - 遗物</li>
+      <li>路维茜 - 通用 - 贤者</li>
+      <li>无情收割·祭刀 - 野蛮人 - 符文</li>
+      <li>好运箭袋 - 通用 - 遗物</li>
+      <li>索恩·格雷姆斯 - 通用 - 贤者</li>
+      <li>原力锤·狱火 - 野蛮人 - 符文</li>
+      <li>蓝皮书 - 通用 - 遗物</li>
+      <li>希格露恩 - 通用 - 贤者</li>
+      <li>原力锤·冰爆 - 野蛮人 - 符文</li>
+      <li>时空储物袋 - 通用 - 遗物</li>
+      <li>席勒 - 通用 - 贤者</li>
+      <li>原力锤·雷霆 - 野蛮人 - 符文</li>
+      <li>银色指环 - 通用 - 遗物</li>
+      <li>维蕾娅 - 通用 - 贤者</li>
+      <li>奋勇冲击·擂鼓 - 野蛮人 - 符文</li>
+      <li>反省日记 - 通用 - 遗物</li>
+      <li>更多遗物请在页面中查看（共381个）</li>
+    </ul>
+  </div>
+</noscript>
+<!-- ===== 暗能装备Tab ===== -->
+<div class="tab-panel" id="panel-armor">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="armorSearch" placeholder="搜索暗能装备名称/效果..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="armorFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterArmor('all')">全部</button><button class="filter-btn" data-filter="野蛮人" onclick="filterArmor('野蛮人')">野蛮人</button><button class="filter-btn" data-filter="秘法师" onclick="filterArmor('秘法师')">秘法师</button>
+    </div>
+    <div class="catalog-filter-group" id="armorCategoryFilter">
+      <button class="filter-btn active" data-cat="all" onclick="filterArmorCategory('all')">全部位</button><button class="filter-btn" data-cat="头盔" onclick="filterArmorCategory('头盔')">头盔</button><button class="filter-btn" data-cat="戒指" onclick="filterArmorCategory('戒指')">戒指</button><button class="filter-btn" data-cat="护手" onclick="filterArmorCategory('护手')">护手</button><button class="filter-btn" data-cat="护符" onclick="filterArmorCategory('护符')">护符</button><button class="filter-btn" data-cat="护肩" onclick="filterArmorCategory('护肩')">护肩</button><button class="filter-btn" data-cat="护腕" onclick="filterArmorCategory('护腕')">护腕</button><button class="filter-btn" data-cat="护腿" onclick="filterArmorCategory('护腿')">护腿</button><button class="filter-btn" data-cat="武器" onclick="filterArmorCategory('武器')">武器</button><button class="filter-btn" data-cat="胸甲" onclick="filterArmorCategory('胸甲')">胸甲</button><button class="filter-btn" data-cat="腰带" onclick="filterArmorCategory('腰带')">腰带</button><button class="filter-btn" data-cat="靴子" onclick="filterArmorCategory('靴子')">靴子</button><button class="filter-btn" data-cat="项链" onclick="filterArmorCategory('项链')">项链</button>
+    </div>
+    <div class="catalog-count" id="armorCount">530 个暗能装备</div>
+  </div>
+  <div class="armor-grid" id="armorGrid"></div>
+  <div class="empty-state" id="armorEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">🔍</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的暗能装备</div>
+  </div>
+</div>
+
+<noscript>
+  <div style="padding:20px;">
+    <h2>暗能装备图鉴（530个）</h2>
+    <ul>
+      <li>修罗锋芒 - 野蛮人 - 武器</li>
+      <li>审判 - 野蛮人 - 武器</li>
+      <li>部族的敬重 - 野蛮人 - 武器</li>
+      <li>恶魔钩刺 - 野蛮人 - 武器</li>
+      <li>埃登恩的掠夺 - 野蛮人 - 武器</li>
+      <li>熔炉残烬 - 野蛮人 - 武器</li>
+      <li>元祖 - 野蛮人 - 武器</li>
+      <li>狂气王冠 - 野蛮人 - 头盔</li>
+      <li>崩解之冠 - 野蛮人 - 头盔</li>
+      <li>寂静头冠 - 野蛮人 - 头盔</li>
+      <li>角斗士的意志 - 野蛮人 - 头盔</li>
+      <li>死士护肩 - 野蛮人 - 护肩</li>
+      <li>伏魔肩胄 - 野蛮人 - 护肩</li>
+      <li>炽狱怒肩 - 野蛮人 - 护肩</li>
+      <li>角斗士的无畏 - 野蛮人 - 护肩</li>
+      <li>霸者之魂 - 野蛮人 - 胸甲</li>
+      <li>赤诚斗衣 - 野蛮人 - 胸甲</li>
+      <li>海渊龙骨胸甲 - 野蛮人 - 胸甲</li>
+      <li>角斗士的守护 - 野蛮人 - 胸甲</li>
+      <li>统治者臂甲 - 野蛮人 - 护手</li>
+      <li>先王遗志 - 野蛮人 - 护手</li>
+      <li>三角拳甲 - 野蛮人 - 护手</li>
+      <li>角斗士的蛮力 - 野蛮人 - 护手</li>
+      <li>古龙之息 - 野蛮人 - 护腿</li>
+      <li>护根之器 - 野蛮人 - 护腿</li>
+      <li>海渊龙骨胫甲 - 野蛮人 - 护腿</li>
+      <li>角斗士的稳固 - 野蛮人 - 护腿</li>
+      <li>炼狱行者 - 野蛮人 - 靴子</li>
+      <li>劫掠者的痴妄 - 野蛮人 - 靴子</li>
+      <li>血爪铠靴 - 野蛮人 - 靴子</li>
+      <li>角斗士的迅捷 - 野蛮人 - 靴子</li>
+      <li>邪魔猎杀者 - 野蛮人 - 护腕</li>
+      <li>湮灭之手 - 野蛮人 - 护腕</li>
+      <li>狂怒之力 - 野蛮人 - 护腕</li>
+      <li>莽汉的意志 - 野蛮人 - 护腕</li>
+      <li>鬼怪护臂 - 野蛮人 - 护腕</li>
+      <li>角斗士的强韧 - 野蛮人 - 护腕</li>
+      <li>冠军腰带 - 野蛮人 - 腰带</li>
+      <li>龙龟护腰 - 野蛮人 - 腰带</li>
+      <li>鬼怪护腰 - 野蛮人 - 腰带</li>
+      <li>角斗士的灵巧 - 野蛮人 - 腰带</li>
+      <li>黑曜石之心 - 野蛮人 - 项链</li>
+      <li>铁血兽魂 - 野蛮人 - 项链</li>
+      <li>混沌风暴 - 野蛮人 - 项链</li>
+      <li>巨兽喉链 - 野蛮人 - 项链</li>
+      <li>雷霆之眼 - 野蛮人 - 护符</li>
+      <li>不屈之印 - 野蛮人 - 护符</li>
+      <li>血吼战符 - 野蛮人 - 护符</li>
+      <li>破碎大地 - 野蛮人 - 护符</li>
+      <li>风暴先驱 - 野蛮人 - 戒指</li>
+      <li>更多暗能装备请在页面中查看（共530个）</li>
+    </ul>
+  </div>
+</noscript>
+<!-- ===== 侍从Tab ===== -->
+<div class="tab-panel" id="panel-pet">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="petSearch" placeholder="搜索侍从名称/效果..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="petFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterPet('all')">全部</button>
+    </div>
+    <div class="catalog-count" id="petCount">45 个侍从</div>
+  </div>
+  <div class="pet-grid" id="petGrid"></div>
+  <div class="empty-state" id="petEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">🔍</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的侍从</div>
+  </div>
+</div>
+
+<noscript>
+  <div style="padding:20px;">
+    <h2>侍从图鉴（45个）</h2>
+    <ul>
+      <li>觉醒·泰拉勒 - 通用 - </li>
+      <li>觉醒·奶牛之王 - 通用 - </li>
+      <li>觉醒·面山 - 通用 - </li>
+      <li>觉醒·斗瓦尔 - 通用 - </li>
+      <li>觉醒·玛瑟尔 - 通用 - </li>
+      <li>觉醒·墨特 - 通用 - </li>
+      <li>觉醒·莉娅布罗 - 通用 - </li>
+      <li>觉醒·霸迭 - 通用 - </li>
+      <li>觉醒·爱露 - 通用 - </li>
+      <li>觉醒·魔蛋 - 通用 - </li>
+      <li>觉醒·安娜特 - 通用 - </li>
+      <li>觉醒·奥黛丽 - 通用 - </li>
+      <li>泰拉勒 - 通用 - </li>
+      <li>奶牛之王 - 通用 - </li>
+      <li>面山 - 通用 - </li>
+      <li>斗瓦尔 - 通用 - </li>
+      <li>玛瑟尔 - 通用 - </li>
+      <li>墨特 - 通用 - </li>
+      <li>莉娅布罗 - 通用 - </li>
+      <li>霸迭 - 通用 - </li>
+      <li>爱露 - 通用 - </li>
+      <li>魔蛋 - 通用 - </li>
+      <li>安娜特 - 通用 - </li>
+      <li>贝利尔 - 通用 - </li>
+      <li>奥黛丽 - 通用 - </li>
+      <li>魔钩肥 - 通用 - </li>
+      <li>枯骨王 - 通用 - </li>
+      <li>幽灵法师 - 通用 - </li>
+      <li>魔刃 - 通用 - </li>
+      <li>狗头人萨满 - 通用 - </li>
+      <li>狗头人卫士 - 通用 - </li>
+      <li>爆烈战士 - 通用 - </li>
+      <li>咒蚀先知 - 通用 - </li>
+      <li>迷雾蛛后 - 通用 - </li>
+      <li>飘飘 - 通用 - </li>
+      <li>荒原狼 - 通用 - </li>
+      <li>吞噬怪 - 通用 - </li>
+      <li>堕落枪手 - 通用 - </li>
+      <li>沙刺蜂 - 通用 - </li>
+      <li>巨石魔 - 通用 - </li>
+      <li>小骨战士 - 通用 - </li>
+      <li>沙地幼虫 - 通用 - </li>
+      <li>堕落弓手 - 通用 - </li>
+      <li>钉刺魔 - 通用 - </li>
+      <li>觉醒·贝利尔 - 通用 - </li>
+    </ul>
+  </div>
+</noscript>
+
+
+<!-- ===== 统一图鉴详情弹窗（所有Tab共用） ===== -->
+<div class="modal-overlay" id="catalogModal" onclick="closeCatalogModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeCatalogModal()">✕</button>
+    <div class="modal-body" id="catalogModalBody"></div>
+  </div>
+</div>
+
+
+<div class="bottom-nav">
+  <a href="index.html"><span class="icon">&#127968;</span>首页</a>
+  <a href="library.html" class="active"><span class="icon">&#128218;</span>资料库</a>
+  <a href="guild.html"><span class="icon">&#9876;</span>公会</a>
+  <a href="tools.html"><span class="icon">&#128295;</span>工具</a>
+</div>
+
+<script src="builds-data.js"></script>
+<script src="engravings-data.js"></script>
+<script src="skills-data.js"></script>
+<script src="runes-data.js"></script>
+<script src="darkarmor-data.js"></script>
+<script src="pets-data.js"></script>
+
+<script>
+
+// ===== 公共工具：HTML转义（防XSS） =====
+function escapeHtml(str) {
+  return (str || '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+
+// ===== 统一图鉴详情弹窗（所有Tab共用） =====
+function showCatalogModal(item, typeName, prefix) {
+  const modal = document.getElementById('catalogModal');
+  const body = document.getElementById('catalogModalBody');
+  
+  // 侍从特殊处理：基本信息用键值对列表
+  let basicInfoHtml = '';
+  if (prefix === 'pet') {
+    const kvItems = [];
+    if (item.quality) kvItems.push(['品质', item.quality]);
+    if (item.bonds) kvItems.push(['羁绊', item.bonds]);
+    if (kvItems.length > 0) {
+      basicInfoHtml = `<div class="modal-section">
+        <div class="modal-section-title">基本信息</div>
+        <div class="modal-kv-list">
+          ${kvItems.map(([k,v]) => `<div class="modal-kv"><span class="modal-kv-label">${k}</span><span class="modal-kv-value">${escapeHtml(v)}</span></div>`).join('')}
+        </div>
+      </div>`;
+    }
+  }
+  
+  const extraFields = [];
+  if (prefix !== 'pet') {
+    if (item.cooldown) extraFields.push(['冷却时间', item.cooldown]);
+    if (item.energy) extraFields.push(['能量消耗', item.energy]);
+    if (item.category) extraFields.push(['分类', item.category]);
+    if (item.part) extraFields.push(['部位', item.part]);
+    if (item.quality) extraFields.push(['品质', item.quality]);
+    if (item.set) extraFields.push(['套装', item.set]);
+    if (item.season) extraFields.push(['赛季', item.season]);
+    if (item.bonds) extraFields.push(['羁绊', item.bonds]);
+  }
+  
+  let extraHtml = '';
+  for (const [label, value] of extraFields) {
+    extraHtml += `
+      <div class="modal-section">
+        <div class="modal-section-title">${label}</div>
+        <div class="modal-section-content">${escapeHtml(value)}</div>
+      </div>`;
+  }
+  
+  // 描述：侍从desc为空时显示"详细描述待补充"
+  const descText = item.desc ? escapeHtml(item.desc).replace(/\n/g,'<br>') : (prefix === 'pet' ? '<span style="color:var(--text-dim);font-style:italic;">详细描述待补充</span>' : '暂无描述');
+  
+  body.innerHTML = `
+    <div class="modal-header">
+      <div class="modal-icon">
+        <img src="${item.icon}" alt="${escapeHtml(item.name)}" 
+             onerror="this.style.display='none';this.parentElement.innerHTML='🔮'">
+      </div>
+      <div>
+        <div class="modal-title">${escapeHtml(item.name)}</div>
+        <div class="modal-meta">
+          <span class="engraving-class cls-${item.class}">${item.class}</span>
+          ${item.category ? `<span class="engraving-class cls-通用">${item.category}</span>` : ''}
+          ${item.part ? `<span class="engraving-class cls-通用">${item.part}</span>` : ''}
+        </div>
+      </div>
+    </div>
+    ${basicInfoHtml}
+    <div class="modal-section">
+      <div class="modal-section-title">${prefix === 'pet' ? '详细描述' : typeName + '效果'}</div>
+      <div class="modal-section-content">${descText}</div>
+    </div>
+    ${extraHtml}
+    <div class="modal-section">
+      <div class="modal-section-title">获取方式</div>
+      <div class="modal-section-content">${escapeHtml(item.source || '官方图鉴')}</div>
+    </div>
+    ${item.detail_img ? `
+    <div class="modal-section">
+      <div class="modal-section-title">详情图</div>
+      <img src="${item.detail_img}" alt="${escapeHtml(item.name)}详情" class="modal-detail-img" loading="lazy" referrerpolicy="no-referrer">
+    </div>` : ''}
+  `;
+  
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCatalogModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('catalogModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeCatalogModal();
+});
+
+
+// ===== 配装Tab逻辑（点击跳转详情页） =====
+let currentBuildFilter='all', buildSearchTimer=null;
+function renderBuilds() {
+  const grid=document.getElementById('buildGrid'),empty=document.getElementById('buildEmpty');
+  const search=(document.getElementById('buildSearch').value||'').toLowerCase().trim();
+  let list=BUILDS_DATA;
+  if(currentBuildFilter!=='all') list=list.filter(e=>e.class===currentBuildFilter);
+  if(search) list=list.filter(e=>(e.name||'').toLowerCase().includes(search)||(e.desc||'').toLowerCase().includes(search)||(e.tags||[]).some(t=>t.toLowerCase().includes(search)));
+  document.getElementById('buildCount').textContent=`${list.length} 套配装`;
+  if(list.length===0){grid.style.display='none';empty.style.display='block';return;}
+  grid.style.display='grid';empty.style.display='none';
+  grid.innerHTML=list.map(e=>`<a href="${e.url}" class="build-card" data-id="${e.id}" style="text-decoration:none;color:inherit;">
+    <div class="build-icon">&#9876;</div>
+    <div class="build-name">${escapeHtml(e.name)}</div>
+    <span class="build-class cls-${escapeHtml(e.class)}">${e.class}</span>
+    <div class="build-tags">${(e.tags||[]).map(t=>`<span class="build-tag">${escapeHtml(t)}</span>`).join('')}</div>
+    <div class="build-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div></a>`).join('');
+}
+function filterBuilds(filter){currentBuildFilter=filter;document.querySelectorAll('#buildFilter .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));renderBuilds();}
+function initBuildTab(){renderBuilds();}
+document.addEventListener('DOMContentLoaded',function(){const i=document.getElementById('buildSearch');if(i)i.addEventListener('input',function(){clearTimeout(buildSearchTimer);buildSearchTimer=setTimeout(renderBuilds,300);});});
+
+
+// ===== 刻印Tab逻辑（改用统一弹窗） =====
+let currentEngravingFilter='all', engravingSearchTimer=null;
+function renderEngravings() {
+  const grid=document.getElementById('engravingGrid'),empty=document.getElementById('engravingEmpty');
+  const search=(document.getElementById('engravingSearch').value||'').toLowerCase().trim();
+  let list=ENGRAVINGS_DATA;
+  if(currentEngravingFilter!=='all') list=list.filter(e=>e.class===currentEngravingFilter);
+  if(search) list=list.filter(e=>(e.name||'').toLowerCase().includes(search)||(e.desc||'').toLowerCase().includes(search));
+  document.getElementById('engravingCount').textContent=`${list.length} 个刻印`;
+  if(list.length===0){grid.style.display='none';empty.style.display='block';return;}
+  grid.style.display='grid';empty.style.display='none';
+  grid.innerHTML=list.map(e=>`<div class="engraving-card" data-id="${e.id}" onclick="showEngravingModalById('${e.id}')">
+    <div class="engraving-icon"><img src="${e.icon}" alt="${escapeHtml(e.name)}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='&#128302;'"></div>
+    <div class="engraving-name">${escapeHtml(e.name)}</div>
+    <span class="engraving-class cls-${escapeHtml(e.class)}">${e.class}</span>
+    <div class="engraving-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div></div>`).join('');
+}
+function showEngravingModalById(id){const item=ENGRAVINGS_DATA.find(e=>e.id===id);if(!item)return;showCatalogModal(item,'刻印','engraving');}
+function filterEngravings(filter){currentEngravingFilter=filter;document.querySelectorAll('#engravingFilter .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));renderEngravings();}
+function initEngravingsTab(){renderEngravings();}
+document.addEventListener('DOMContentLoaded',function(){const i=document.getElementById('engravingSearch');if(i)i.addEventListener('input',function(){clearTimeout(engravingSearchTimer);engravingSearchTimer=setTimeout(renderEngravings,300);});});
+
+// ===== 技能Tab逻辑 =====
+let currentSkillFilter = 'all';
+let currentSkillCategory = 'all';
+let skillSearchTimer = null;
+
+function renderSkill() {
+  const grid = document.getElementById('skillGrid');
+  const empty = document.getElementById('skillEmpty');
+  const search = (document.getElementById('skillSearch').value || '').toLowerCase().trim();
+  
+  let list = SKILLS_DATA;
+  
+  if (currentSkillFilter !== 'all') {
+    list = list.filter(e => e.class === currentSkillFilter);
+  }
+  if (currentSkillCategory !== 'all') {
+    list = list.filter(e => (e.category || e.part || '') === currentSkillCategory);
+  }
+  if (search) {
+    list = list.filter(e => 
+      (e.name || '').toLowerCase().includes(search) || 
+      (e.desc || '').toLowerCase().includes(search)
+    );
+  }
+  
+  document.getElementById('skillCount').textContent = `${list.length} 个技能`;
+  
+  if (list.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  
+  grid.innerHTML = list.map(e => `
+    <div class="skill-card" data-id="${e.id}" onclick="showSkillModalById('${e.id}')">
+      <div class="skill-icon">
+        <img src="${e.icon}" alt="${e.name}" loading="lazy" 
+             onerror="this.style.display='none';this.parentElement.innerHTML='🔮'">
+      </div>
+      <div class="skill-name">${escapeHtml(e.name)}</div>
+      <span class="skill-class cls-${e.class}">${e.class}</span>
+      <div class="skill-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+}
+
+function showSkillModalById(id) {
+  const item = SKILLS_DATA.find(e => e.id === id);
+  if (!item) return;
+  showCatalogModal(item, '技能', 'skill');
+}
+
+function filterSkill(filter) {
+  currentSkillFilter = filter;
+  document.querySelectorAll('#skillFilter .filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === filter);
+  });
+  renderSkill();
+}
+
+function filterSkillCategory(cat) {
+  currentSkillCategory = cat;
+  const el = document.getElementById('skillCategoryFilter');
+  if (el) {
+    el.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+  }
+  renderSkill();
+}
+
+function initSkillTab() {
+  renderSkill();
+}
+
+// 搜索框debounce
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('skillSearch');
+  if (input) {
+    input.addEventListener('input', function() {
+      clearTimeout(skillSearchTimer);
+      skillSearchTimer = setTimeout(renderSkill, 300);
+    });
+  }
+});
+
+// ===== 遗物Tab逻辑 =====
+let currentRuneFilter = 'all';
+let currentRuneCategory = 'all';
+let runeSearchTimer = null;
+
+function renderRune() {
+  const grid = document.getElementById('runeGrid');
+  const empty = document.getElementById('runeEmpty');
+  const search = (document.getElementById('runeSearch').value || '').toLowerCase().trim();
+  
+  let list = RUNES_DATA;
+  
+  if (currentRuneFilter !== 'all') {
+    list = list.filter(e => e.class === currentRuneFilter);
+  }
+  if (currentRuneCategory !== 'all') {
+    list = list.filter(e => (e.category || e.part || '') === currentRuneCategory);
+  }
+  if (search) {
+    list = list.filter(e => 
+      (e.name || '').toLowerCase().includes(search) || 
+      (e.desc || '').toLowerCase().includes(search)
+    );
+  }
+  
+  document.getElementById('runeCount').textContent = `${list.length} 个遗物`;
+  
+  if (list.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  
+  grid.innerHTML = list.map(e => `
+    <div class="rune-card" data-id="${e.id}" onclick="showRuneModalById('${e.id}')">
+      <div class="rune-icon">
+        <img src="${e.icon}" alt="${e.name}" loading="lazy" 
+             onerror="this.style.display='none';this.parentElement.innerHTML='🔮'">
+      </div>
+      <div class="rune-name">${escapeHtml(e.name)}</div>
+      <span class="rune-class cls-${e.class}">${e.class}</span>
+      <span class="rune-cat">${e.category}</span>
+      <div class="rune-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+}
+
+function showRuneModalById(id) {
+  const item = RUNES_DATA.find(e => e.id === id);
+  if (!item) return;
+  showCatalogModal(item, '遗物', 'rune');
+}
+
+function filterRune(filter) {
+  currentRuneFilter = filter;
+  document.querySelectorAll('#runeFilter .filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === filter);
+  });
+  renderRune();
+}
+
+function filterRuneCategory(cat) {
+  currentRuneCategory = cat;
+  const el = document.getElementById('runeCategoryFilter');
+  if (el) {
+    el.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+  }
+  renderRune();
+}
+
+function initRuneTab() {
+  renderRune();
+}
+
+// 搜索框debounce
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('runeSearch');
+  if (input) {
+    input.addEventListener('input', function() {
+      clearTimeout(runeSearchTimer);
+      runeSearchTimer = setTimeout(renderRune, 300);
+    });
+  }
+});
+
+// ===== 暗能装备Tab逻辑 =====
+let currentArmorFilter = 'all';
+let currentArmorCategory = 'all';
+let armorSearchTimer = null;
+
+function renderArmor() {
+  const grid = document.getElementById('armorGrid');
+  const empty = document.getElementById('armorEmpty');
+  const search = (document.getElementById('armorSearch').value || '').toLowerCase().trim();
+  
+  let list = DARKARMOR_DATA;
+  
+  if (currentArmorFilter !== 'all') {
+    list = list.filter(e => e.class === currentArmorFilter);
+  }
+  if (currentArmorCategory !== 'all') {
+    list = list.filter(e => (e.category || e.part || '') === currentArmorCategory);
+  }
+  if (search) {
+    list = list.filter(e => 
+      (e.name || '').toLowerCase().includes(search) || 
+      (e.desc || '').toLowerCase().includes(search)
+    );
+  }
+  
+  document.getElementById('armorCount').textContent = `${list.length} 个暗能装备`;
+  
+  if (list.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  
+  grid.innerHTML = list.map(e => `
+    <div class="armor-card" data-id="${e.id}" onclick="showArmorModalById('${e.id}')">
+      <div class="armor-icon">
+        <img src="${e.icon}" alt="${e.name}" loading="lazy" 
+             onerror="this.style.display='none';this.parentElement.innerHTML='🔮'">
+      </div>
+      <div class="armor-name">${escapeHtml(e.name)}</div>
+      <span class="armor-class cls-${e.class}">${e.class}</span>
+      <span class="armor-part">${e.part}</span>
+      <span class="armor-quality">${e.quality}</span>
+      <div class="armor-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+}
+
+function showArmorModalById(id) {
+  const item = DARKARMOR_DATA.find(e => e.id === id);
+  if (!item) return;
+  showCatalogModal(item, '暗能装备', 'armor');
+}
+
+function filterArmor(filter) {
+  currentArmorFilter = filter;
+  document.querySelectorAll('#armorFilter .filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === filter);
+  });
+  renderArmor();
+}
+
+function filterArmorCategory(cat) {
+  currentArmorCategory = cat;
+  const el = document.getElementById('armorCategoryFilter');
+  if (el) {
+    el.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+  }
+  renderArmor();
+}
+
+function initArmorTab() {
+  renderArmor();
+}
+
+// 搜索框debounce
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('armorSearch');
+  if (input) {
+    input.addEventListener('input', function() {
+      clearTimeout(armorSearchTimer);
+      armorSearchTimer = setTimeout(renderArmor, 300);
+    });
+  }
+});
+
+// ===== 侍从Tab逻辑 =====
+let currentPetFilter = 'all';
+let currentPetCategory = 'all';
+let petSearchTimer = null;
+
+function renderPet() {
+  const grid = document.getElementById('petGrid');
+  const empty = document.getElementById('petEmpty');
+  const search = (document.getElementById('petSearch').value || '').toLowerCase().trim();
+  
+  let list = PETS_DATA;
+  
+  if (currentPetFilter !== 'all') {
+    list = list.filter(e => e.class === currentPetFilter);
+  }
+  if (currentPetCategory !== 'all') {
+    list = list.filter(e => (e.category || e.part || '') === currentPetCategory);
+  }
+  if (search) {
+    list = list.filter(e => 
+      (e.name || '').toLowerCase().includes(search) || 
+      (e.desc || '').toLowerCase().includes(search)
+    );
+  }
+  
+  document.getElementById('petCount').textContent = `${list.length} 个侍从`;
+  
+  if (list.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  
+  grid.innerHTML = list.map(e => `
+    <div class="pet-card" data-id="${e.id}" onclick="showPetModalById('${e.id}')">
+      <div class="pet-icon">
+        <img src="${e.icon}" alt="${e.name}" loading="lazy" 
+             onerror="this.style.display='none';this.parentElement.innerHTML='🔮'">
+      </div>
+      <div class="pet-name">${escapeHtml(e.name)}</div>
+      <span class="pet-class cls-${e.class}">${e.class}</span>
+      <div class="pet-card-tags">
+        <span class="pet-tag pet-quality">${escapeHtml(e.quality || '未知')}</span>
+        <span class="pet-tag pet-bond">${escapeHtml(e.bonds || '无羁绊')}</span>
+      </div>
+      ${e.desc ? `<div class="pet-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function showPetModalById(id) {
+  const item = PETS_DATA.find(e => e.id === id);
+  if (!item) return;
+  showCatalogModal(item, '侍从', 'pet');
+}
+
+function filterPet(filter) {
+  currentPetFilter = filter;
+  document.querySelectorAll('#petFilter .filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === filter);
+  });
+  renderPet();
+}
+
+function filterPetCategory(cat) {
+  currentPetCategory = cat;
+  const el = document.getElementById('petCategoryFilter');
+  if (el) {
+    el.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+  }
+  renderPet();
+}
+
+function initPetTab() {
+  renderPet();
+}
+
+// 搜索框debounce
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('petSearch');
+  if (input) {
+    input.addEventListener('input', function() {
+      clearTimeout(petSearchTimer);
+      petSearchTimer = setTimeout(renderPet, 300);
+    });
+  }
+});
+
+
+// ===== Tab切换（切Tab时重置搜索和筛选状态） =====
+function resetTabState(tab) {
+  const config = {
+    build: {search:'buildSearch', fn:'filterBuilds'},
+    engraving: {search:'engravingSearch', fn:'filterEngravings'},
+    skill: {search:'skillSearch', fn:'filterSkill'},
+    rune: {search:'runeSearch', fn:'filterRune'},
+    armor: {search:'armorSearch', fn:'filterArmor'},
+    pet: {search:'petSearch', fn:'filterPet'}
+  };
+  const c = config[tab];
+  if(!c) return;
+  const s = document.getElementById(c.search);
+  if(s) s.value = '';
+  // 直接调用各Tab的filter函数重置状态（let声明的变量不挂window，必须用函数）
+  if(c.fn && typeof window[c.fn] === 'function') window[c.fn]('all');
+}
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
+  resetTabState(tab);
+  if (tab === 'build') initBuildTab();
+  if (tab === 'engraving') initEngravingsTab();
+  if (tab === 'skill') initSkillTab();
+  if (tab === 'rune') initRuneTab();
+  if (tab === 'armor') initArmorTab();
+  if (tab === 'pet') initPetTab();
+}
+// 默认显示配装Tab
+document.addEventListener('DOMContentLoaded', function() {
+  switchTab('build');
+});
+
+</script>
+
+</body>
+</html>

@@ -575,6 +575,12 @@ body.light-theme .action-btn:hover {
   .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
 }
 
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:#60a5fa}
+.nav-item .nav-icon{font-size:20px}
+
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "英雄没有闪 · S2赛季游侠-梦花感电新-秘境之王", "description": "在《英雄没有闪》S2赛季中，游侠梦花感电新配装，秘境之王，助你在探索秘境时无往不利，成为副本高手。", "articleSection": "游侠", "url": "https://ykmys.com/shadow-dian.html", "publisher": {"@type": "Organization", "name": "英雄没有闪配装攻略站"}}</script>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/shadow-dian.html" />
@@ -1043,5 +1049,24 @@ body.light-theme .action-btn:hover {
 <script src="comments.js"></script>
 <script src="search-data.js"></script>
 <script src="search.js"></script>
+
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item" data-page="index"><span class="nav-icon">🏠</span>首页</a>
+  <a href="library.html" class="nav-item" data-page="library"><span class="nav-icon">📚</span>资料库</a>
+  <a href="guild.html" class="nav-item" data-page="guild"><span class="nav-icon">⚔️</span>公会</a>
+  <a href="tools.html" class="nav-item" data-page="tools"><span class="nav-icon">🔧</span>工具</a>
+</div>
+<script>
+(function(){
+  var path = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'index','library.html':'library','guild.html':'guild','tools.html':'tools'};
+  var page = map[path] || '';
+  if(page){
+    var item = document.querySelector('.bottom-nav .nav-item[data-page="'+page+'"]');
+    if(item) item.classList.add('active');
+  }
+})();
+</script>
+
 </body>
 </html>

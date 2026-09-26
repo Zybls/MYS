@@ -1,6 +1,13 @@
 // 全站搜索数据 - 自动生成
 const SEARCH_DATA = [
   {
+    "title": "资料库 · 配装刻印技能遗物暗能侍从 | 天涯若比邻",
+    "url": "library.html",
+    "description": "英雄没有闪S2赛季资料库，配装大全、刻印图鉴、技能图鉴、遗物图鉴、暗能装备图鉴、侍从图鉴，一站式查询。",
+    "category": "资料库",
+    "keywords": "资料库 配装 刻印 技能 遗物 暗能 侍从 图鉴"
+  },
+  {
     "title": "英雄没有闪全部配装攻略大全 | 天涯若比邻公会",
     "url": "all-builds.html",
     "description": "全部配装 - 天涯若比邻公会站",

@@ -96,10 +96,16 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, Bl
   .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
 }
 
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:#60a5fa}
+.nav-item .nav-icon{font-size:20px}
+
 </style>
   <link rel="canonical" href="https://ykmys.com/wash-stats.html">
 </head>
-<body>
+<body style="padding-bottom:80px">
 
 <nav class="guild-nav">
   <div class="guild-nav-inner">
@@ -456,5 +462,24 @@ if ('serviceWorker' in navigator) {
 </script>
 <script src="search-data.js"></script>
 <script src="search.js"></script>
+
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item" data-page="index"><span class="nav-icon">🏠</span>首页</a>
+  <a href="library.html" class="nav-item" data-page="library"><span class="nav-icon">📚</span>资料库</a>
+  <a href="guild.html" class="nav-item" data-page="guild"><span class="nav-icon">⚔️</span>公会</a>
+  <a href="tools.html" class="nav-item" data-page="tools"><span class="nav-icon">🔧</span>工具</a>
+</div>
+<script>
+(function(){
+  var path = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'index','library.html':'library','guild.html':'guild','tools.html':'tools'};
+  var page = map[path] || '';
+  if(page){
+    var item = document.querySelector('.bottom-nav .nav-item[data-page="'+page+'"]');
+    if(item) item.classList.add('active');
+  }
+})();
+</script>
+
 </body>
 </html>
