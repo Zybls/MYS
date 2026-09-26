@@ -218,6 +218,15 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
 
 
 .hidden{display:none}
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
 </style>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/compare.html" />
   <link rel="alternate" hreflang="en" href="https://ykmys.com/compare.html?lang=en" />

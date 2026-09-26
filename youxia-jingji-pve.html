@@ -566,6 +566,15 @@ body.light-theme .action-btn:hover {
 [data-theme="light"] .recruit-text { color:#16a34a !important; }
 [data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
 
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "英雄没有闪 · S2赛季游侠-荆棘PVE-首领打桩", "description": "在《英雄没有闪》S2赛季中，游侠荆棘PVE配装，专为首领打桩设计，助你成为副本中的顶尖高手。", "articleSection": "游侠", "url": "https://ykmys.com/youxia-jingji-pve.html", "publisher": {"@type": "Organization", "name": "英雄没有闪配装攻略站"}}</script>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/youxia-jingji-pve.html" />

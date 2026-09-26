@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>更新日志 · 天涯若比邻</title>
+<title>英雄没有闪更新日志 | 天涯若比邻公会</title>
 <meta property="og:title" content="更新日志">
 <meta property="og:description" content="更新日志 - 天涯若比邻公会站">
 <meta property="og:image" content="https://ykmys.com/guild-badge.png">
@@ -186,6 +186,15 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
 [data-theme="light"] .badge-bronze { background:linear-gradient(135deg,#fdba74,#fb923c) !important; color:#7c2d12 !important; }
 [data-theme="light"] .recruit-text { color:#16a34a !important; }
 [data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
+
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
 
 </style>
 <link rel="manifest" href="manifest.json">

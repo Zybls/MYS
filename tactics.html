@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>公会战术库 · 全职业配装大全 | 天涯若比邻</title>
+<title>英雄没有闪公会战术库 | 全职业配装攻略 | 天涯若比邻</title>
 <meta name="description" content="天涯若比邻公会战术库 - 全职业流派配装大全，公会精英实战验证">
 <meta property="og:title" content="公会战术库 · 天涯若比邻">
 <meta property="og:description" content="全职业流派配装 · 公会精英实战验证">
@@ -152,6 +152,15 @@ a { color:inherit; text-decoration:none; }
 .build-source { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 4px; }
 .source-icon { font-size: 12px; }
 
+
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
 
 </style>
   <link rel="canonical" href="https://ykmys.com/tactics.html">

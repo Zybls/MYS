@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>公会成员 · 天涯若比邻</title>
+  <title>天涯若比邻公会成员榜 | 英雄没有闪</title>
 <link rel="alternate" hreflang="zh" href="https://ykmys.com/guild-members.html">
 <link rel="alternate" hreflang="en" href="https://ykmys.com/guild-members.html?lang=en">
 <meta property="og:title" content="公会成员列表">
@@ -151,6 +151,15 @@
 .badge-legend-title { font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 12px; }
 .badge-legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
 .badge-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-dim); }
+
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
 
 </style>
   <link rel="manifest" href="manifest.json">

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="0; url=index.html">
-<title>全部配装 · 英雄没有闪 | 天涯若比邻</title>
+<title>英雄没有闪全部配装攻略大全 | 天涯若比邻公会</title>
 <meta property="og:title" content="全部配装">
 <meta property="og:description" content="全部配装 - 天涯若比邻公会站">
 <meta property="og:image" content="https://ykmys.com/guild-badge.png">
@@ -64,6 +64,15 @@
     transition: all 0.2s; min-width: 28px; text-align: center; }
   .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
   .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#f59e0b">

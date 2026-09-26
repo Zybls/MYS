@@ -87,6 +87,15 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, Bl
     .page-title { font-size: 22px; }
     .stats-grid { grid-template-columns: 1fr; }
 }
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
 </style>
   <link rel="canonical" href="https://ykmys.com/wash-stats.html">
 </head>
