@@ -15,6 +15,13 @@ const SEARCH_DATA = [
     "keywords": "资料库 配装 刻印 技能 遗物 暗能 侍从 图鉴"
   },
   {
+    "title": "公会中心 · 成员名录战报活动考勤 | 天涯若比邻",
+    "url": "guild.html",
+    "description": "天涯若比邻公会中心，成员名录40人、历史战报、活动报名、考勤统计、留言板，公会作战指挥中心。",
+    "category": "公会中心",
+    "keywords": "公会 成员 战报 活动 报名 考勤 留言"
+  },
+  {
     "title": "英雄没有闪全部配装攻略大全 | 天涯若比邻公会",
     "url": "all-builds.html",
     "description": "全部配装 - 天涯若比邻公会站",

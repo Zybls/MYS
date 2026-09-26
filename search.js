@@ -1,4 +1,4 @@
-// 全站搜索组件
+﻿// 全站搜索组件
 (function() {
   // 搜索弹窗HTML
   const searchModalHTML = `
@@ -13,7 +13,7 @@
         <div style="text-align:center;color:var(--text-dim,#888);padding:40px 0;">输入关键词开始搜索</div>
       </div>
       <div style="padding:10px 16px;border-top:1px solid var(--border,#333);font-size:12px;color:var(--text-dim,#888);display:flex;justify-content:space-between;">
-        <span>共 <span id="searchTotal">35</span> 个页面可搜索</span>
+        <span>共 <span id="searchTotal">40</span> 个页面可搜索</span>
         <span>ESC 关闭</span>
       </div>
     </div>
