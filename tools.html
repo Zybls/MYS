@@ -1,76 +1,571 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>工具箱 · 天涯若比邻 | 英雄没有闪</title>
-<meta name="description" content="英雄没有闪工具箱，兑换码、洗炼词条查询器、配装对比、配装推荐、攻略大全。">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>工具箱 - 天涯若比邻公会</title>
+<meta name="description" content="英雄没有闪工具箱 - 兑换码、攻略大全、洗炼查询、配装对比、配装推荐">
 <link rel="canonical" href="https://ykmys.com/tools.html">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f1a;color:#e4e4e7;min-height:100vh;padding-bottom:80px}
-.header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1)}
-.header h1{font-size:22px;color:#fff;margin-bottom:4px}
-.header p{font-size:13px;color:#a1a1aa}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;padding:20px;max-width:800px;margin:0 auto}
-.card{background:#1a1a2e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;text-align:center;text-decoration:none;color:#e4e4e7;transition:all .2s}
-.card:hover{border-color:#60a5fa;transform:translateY(-2px)}
-.card .icon{font-size:32px;margin-bottom:8px}
-.card .title{font-size:15px;font-weight:600;margin-bottom:4px}
-.card .desc{font-size:12px;color:#a1a1aa}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
-.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
-.nav-item.active{color:#60a5fa}
-.nav-item .nav-icon{font-size:20px}
+
+:root{--bg:#0f0f1a;--bg-card:#1a1a2e;--bg-card2:#252540;--border:#2d2d4a;--text:#e8e8f0;--text-dim:#8888aa;--purple:#a78bfa;--blue:#60a5fa;--red:#f87171;--green:#34d399;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding-bottom:80px;}
+.header{background:var(--bg-card);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.header h1{font-size:18px;font-weight:700;}
+.header .search-btn{background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;}
+.tab-bar{display:flex;gap:4px;padding:10px 16px;background:var(--bg-card);border-bottom:1px solid var(--border);overflow-x:auto;}
+.tab-btn{padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;border:none;color:var(--text-dim);white-space:nowrap;transition:all 0.2s;}
+.tab-btn.active{background:rgba(167,139,250,0.15);color:var(--purple);font-weight:600;}
+.tab-panel{display:none;padding:16px;}
+.tab-panel.active{display:block;}
+.catalog-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.catalog-search-box{position:relative;flex:1;min-width:200px;max-width:360px;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;opacity:0.5;}
+.catalog-search-input{width:100%;padding:9px 12px 9px 36px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;}
+.catalog-search-input:focus{border-color:var(--blue);}
+.catalog-filter-group{display:flex;gap:6px;flex-wrap:wrap;}
+.filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);}
+.filter-btn:hover{border-color:var(--blue);}
+.filter-btn.active{background:rgba(96,165,250,0.15);border-color:var(--blue);color:var(--blue);font-weight:600;}
+.catalog-count{margin-left:auto;font-size:12px;color:var(--text-dim);white-space:nowrap;}
+.engraving-grid,.skill-grid,.rune-grid,.armor-grid,.pet-grid,.build-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+.engraving-card,.skill-card,.rune-card,.armor-card,.pet-card,.build-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:all 0.2s;display:block;}
+.engraving-card:hover,.skill-card:hover,.rune-card:hover,.armor-card:hover,.pet-card:hover,.build-card:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
+.engraving-icon,.skill-icon,.rune-icon,.armor-icon,.pet-icon,.build-icon{width:56px;height:56px;margin:0 auto 8px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:28px;}
+.engraving-icon img,.skill-icon img,.rune-icon img,.armor-icon img,.pet-icon img{width:100%;height:100%;object-fit:contain;}
+.engraving-name,.skill-name,.rune-name,.armor-name,.pet-name,.build-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.engraving-class,.skill-class,.rune-class,.armor-class,.pet-class,.build-class{font-size:10px;padding:2px 8px;border-radius:4px;display:inline-block;margin:2px;}
+.build-tags{margin-top:4px;}
+.build-tag{font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(96,165,250,0.1);color:#60a5fa;display:inline-block;margin:1px;}
+.pet-card-tags{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+.pet-tag{font-size:10px;padding:2px 6px;border-radius:4px;}
+.pet-quality{background:rgba(251,191,36,0.15);color:#fbbf24;}
+.pet-bond{background:rgba(167,139,250,0.15);color:#a78bfa;}
+.modal-kv-list{background:var(--bg-card2);border-radius:8px;padding:10px 14px;}
+.modal-kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);}
+.modal-kv:last-child{border-bottom:none;}
+.modal-kv-label{font-size:13px;color:var(--text-dim);}
+.modal-kv-value{font-size:13px;color:var(--text);font-weight:600;}
+.cls-野蛮人{background:rgba(248,113,113,0.15);color:#f87171;}
+.cls-秘法师{background:rgba(96,165,250,0.15);color:#60a5fa;}
+.cls-游侠{background:rgba(52,211,153,0.15);color:#34d399;}
+.cls-通用{background:rgba(148,163,184,0.15);color:#94a3b8;}
+.skill-cat,.rune-cat,.armor-part,.armor-quality,.pet-quality{font-size:10px;padding:1px 6px;border-radius:3px;display:inline-block;margin:2px;background:rgba(167,139,250,0.1);color:#a78bfa;}
+.engraving-desc-preview,.skill-desc-preview,.rune-desc-preview,.armor-desc-preview,.pet-desc-preview,.build-desc-preview{font-size:10px;color:var(--text-dim);margin-top:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.empty-state{text-align:center;padding:40px 20px;}
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal-content{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;position:relative;animation:modalIn 0.25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;z-index:1;}
+.modal-body{padding:24px;}
+.modal-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.modal-icon{width:72px;height:72px;border-radius:14px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.modal-icon img{width:100%;height:100%;object-fit:contain;}
+.modal-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.modal-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.modal-section{margin-bottom:16px;}
+.modal-section-title{font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.modal-section-content{font-size:14px;color:var(--text);line-height:1.8;background:var(--bg-card2);padding:12px 14px;border-radius:8px;}
+.modal-detail-img{width:100%;border-radius:10px;margin-top:8px;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0;z-index:99;}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--text-dim);text-decoration:none;font-size:11px;padding:4px 12px;}
+.bottom-nav a.active{color:var(--purple);}
+.bottom-nav .icon{font-size:20px;}
+@media(max-width:768px){
+  .engraving-grid,.skill-grid,.rune-grid,.armor-grid,.pet-grid,.build-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;}
+  .engraving-icon,.skill-icon,.rune-icon,.armor-icon,.pet-icon{width:48px;height:48px;}
+  .engraving-name,.skill-name,.rune-name,.armor-name,.pet-name{font-size:12px;}
+  .catalog-toolbar{flex-direction:column;align-items:stretch;}
+  .catalog-search-box{max-width:100%;}
+  .catalog-count{margin-left:0;text-align:center;}
+  .modal-body{padding:16px;}
+  .modal-header{flex-direction:column;text-align:center;}
+}
+
+
+/* ===== tools专用样式 ===== */
+.redeem-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;transition:all 0.2s;}
+.redeem-card:hover{border-color:var(--purple);transform:translateX(4px);}
+.redeem-code{font-family:'Courier New',monospace;font-size:20px;font-weight:700;color:var(--purple);letter-spacing:2px;margin-bottom:6px;user-select:all;}
+.redeem-reward{font-size:14px;color:var(--text);margin-bottom:4px;}
+.redeem-meta{display:flex;gap:12px;font-size:11px;color:var(--text-dim);flex-wrap:wrap;}
+.redeem-type{padding:2px 8px;border-radius:4px;font-weight:600;}
+.type-周礼包{background:rgba(96,165,250,0.15);color:#60a5fa;}
+.type-节日礼包{background:rgba(251,191,36,0.15);color:#fbbf24;}
+.type-长期礼包{background:rgba(52,211,153,0.15);color:#34d399;}
+.copy-btn{background:rgba(167,139,250,0.15);border:1px solid var(--purple);color:var(--purple);padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;float:right;margin-top:-30px;}
+.copy-btn:hover{background:rgba(167,139,250,0.3);}
+.guide-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.guide-card:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
+.guide-card.wip{opacity:0.6;cursor:not-allowed;}
+.guide-card.wip:hover{transform:none;box-shadow:none;}
+.guide-icon{width:48px;height:48px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:10px;}
+.guide-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.guide-desc{font-size:12px;color:var(--text-dim);line-height:1.5;margin-bottom:8px;}
+.guide-status{font-size:10px;padding:2px 8px;border-radius:4px;display:inline-block;}
+.status-online{background:rgba(52,211,153,0.15);color:#34d399;}
+.status-wip{background:rgba(148,163,184,0.15);color:#94a3b8;}
+.wash-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px;transition:all 0.2s;}
+.wash-card:hover{border-color:var(--blue);}
+.wash-name{font-size:13px;font-weight:600;margin-bottom:4px;}
+.wash-slot{font-size:10px;color:var(--text-dim);margin-bottom:4px;}
+.wash-special{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(251,191,36,0.15);color:#fbbf24;display:inline-block;}
+.wash-normal{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(148,163,184,0.15);color:#94a3b8;display:inline-block;}
+.wash-count{font-size:11px;color:var(--text-dim);float:right;}
+.compare-container{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.compare-select{width:100%;padding:10px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;margin-bottom:12px;}
+.compare-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.compare-card h3{font-size:16px;margin-bottom:8px;color:var(--purple);}
+.compare-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;}
+.compare-tag{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(96,165,250,0.1);color:#60a5fa;}
+.compare-desc{font-size:12px;color:var(--text-dim);line-height:1.6;}
+.compare-link{display:inline-block;margin-top:8px;font-size:12px;color:var(--blue);text-decoration:none;}
+.rec-scene{font-size:11px;padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:6px;}
+.scene-PVE推图{background:rgba(52,211,153,0.15);color:#34d399;}
+.scene-首领打桩{background:rgba(248,113,113,0.15);color:#f87171;}
+.scene-PVP竞技{background:rgba(167,139,250,0.15);color:#a78bfa;}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.tool-entry{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;text-decoration:none;color:var(--text);display:block;}
+.tool-entry:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
+.tool-icon{font-size:32px;margin-bottom:8px;}
+.tool-name{font-size:14px;font-weight:600;margin-bottom:4px;}
+.tool-desc{font-size:11px;color:var(--text-dim);}
+@media(max-width:768px){
+  .compare-container{grid-template-columns:1fr;}
+  .redeem-code{font-size:16px;}
+  .copy-btn{float:none;margin-top:8px;display:block;width:100%;}
+}
+
 </style>
 </head>
 <body>
+
 <div class="header">
-  <h1>工具箱</h1>
-  <p>实用工具一站直达</p>
+  <h1>&#128295; 工具箱</h1>
+  <button class="search-btn" onclick="window.location.href='library.html'">&#128218;</button>
 </div>
-<div class="grid">
-  <a href="redeem-codes.html" class="card">
-    <div class="icon">🎁</div>
-    <div class="title">兑换码</div>
-    <div class="desc">最新礼包码汇总</div>
-  </a>
-  <a href="wash-stats.html" class="card">
-    <div class="icon">🧪</div>
-    <div class="title">洗炼查询器</div>
-    <div class="desc">洗炼词条属性查询</div>
-  </a>
-  <a href="compare.html" class="card">
-    <div class="icon">⚖️</div>
-    <div class="title">配装对比</div>
-    <div class="desc">多套配装并排对比</div>
-  </a>
-  <a href="recommend.html" class="card">
-    <div class="icon">🎯</div>
-    <div class="title">配装推荐</div>
-    <div class="desc">按场景推荐配装</div>
-  </a>
-  <a href="guides.html" class="card">
-    <div class="icon">📖</div>
-    <div class="title">攻略大全</div>
-    <div class="desc">刻印攻略等深度攻略</div>
-  </a>
-  <a href="all-builds.html" class="card">
-    <div class="icon">📦</div>
-    <div class="title">配装大全</div>
-    <div class="desc">全部配装一览</div>
-  </a>
-  <a href="admin.html" class="card">
-    <div class="icon">⚙️</div>
-    <div class="title">后台管理</div>
-    <div class="desc">网站管理后台</div>
-  </a>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="redeem" onclick="switchTab('redeem')">兑换码</button>
+  <button class="tab-btn" data-tab="guides" onclick="switchTab('guides')">攻略大全</button>
+  <button class="tab-btn" data-tab="wash" onclick="switchTab('wash')">洗炼查询</button>
+  <button class="tab-btn" data-tab="compare" onclick="switchTab('compare')">配装对比</button>
+  <button class="tab-btn" data-tab="recommend" onclick="switchTab('recommend')">配装推荐</button>
+  <button class="tab-btn" data-tab="tools" onclick="switchTab('tools')">工具入口</button>
 </div>
+
+<!-- ===== 兑换码Tab ===== -->
+<div class="tab-panel active" id="panel-redeem">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="redeemSearch" placeholder="搜索兑换码/奖励..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="redeemFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterRedeem('all')">全部</button>
+      <button class="filter-btn" data-filter="周礼包" onclick="filterRedeem('周礼包')">周礼包</button>
+      <button class="filter-btn" data-filter="节日礼包" onclick="filterRedeem('节日礼包')">节日礼包</button>
+      <button class="filter-btn" data-filter="长期礼包" onclick="filterRedeem('长期礼包')">长期礼包</button>
+    </div>
+    <div class="catalog-count" id="redeemCount">9 个兑换码</div>
+  </div>
+  <div id="redeemList"></div>
+  <div class="empty-state" id="redeemEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的兑换码</div>
+  </div>
+</div>
+
+<!-- ===== 攻略大全Tab ===== -->
+<div class="tab-panel" id="panel-guides">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="guidesSearch" placeholder="搜索攻略分类..." class="catalog-search-input">
+    </div>
+    <div class="catalog-count" id="guidesCount">10 个分类</div>
+  </div>
+  <div class="engraving-grid" id="guidesGrid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));"></div>
+  <div class="empty-state" id="guidesEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的攻略</div>
+  </div>
+</div>
+
+<!-- ===== 洗炼查询Tab ===== -->
+<div class="tab-panel" id="panel-wash">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="washSearch" placeholder="搜索词条名称..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="washFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterWash('all')">全部</button>
+      <button class="filter-btn" data-filter="武器" onclick="filterWash('武器')">武器</button>
+      <button class="filter-btn" data-filter="头盔" onclick="filterWash('头盔')">头盔</button>
+      <button class="filter-btn" data-filter="护肩" onclick="filterWash('护肩')">护肩</button>
+      <button class="filter-btn" data-filter="胸甲" onclick="filterWash('胸甲')">胸甲</button>
+      <button class="filter-btn" data-filter="护手" onclick="filterWash('护手')">护手</button>
+      <button class="filter-btn" data-filter="护腿" onclick="filterWash('护腿')">护腿</button>
+      <button class="filter-btn" data-filter="靴子" onclick="filterWash('靴子')">靴子</button>
+      <button class="filter-btn" data-filter="护腕" onclick="filterWash('护腕')">护腕</button>
+      <button class="filter-btn" data-filter="腰带" onclick="filterWash('腰带')">腰带</button>
+      <button class="filter-btn" data-filter="项链" onclick="filterWash('项链')">项链</button>
+      <button class="filter-btn" data-filter="护符" onclick="filterWash('护符')">护符</button>
+      <button class="filter-btn" data-filter="戒指" onclick="filterWash('戒指')">戒指</button>
+    </div>
+    <div class="catalog-count" id="washCount">300 个词条</div>
+  </div>
+  <div class="engraving-grid" id="washGrid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));"></div>
+  <div class="empty-state" id="washEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的词条</div>
+  </div>
+</div>
+
+<!-- ===== 配装对比Tab ===== -->
+<div class="tab-panel" id="panel-compare">
+  <div class="catalog-toolbar">
+    <div class="catalog-count" style="margin-left:0;">选择两套配装进行对比</div>
+  </div>
+  <div class="compare-container">
+    <div>
+      <select class="compare-select" id="compareA" onchange="doCompare()">
+        <option value="">选择配装A...</option>
+      </select>
+      <div class="compare-card" id="compareAResult"><div style="color:var(--text-dim);text-align:center;padding:20px;">请选择配装A</div></div>
+    </div>
+    <div>
+      <select class="compare-select" id="compareB" onchange="doCompare()">
+        <option value="">选择配装B...</option>
+      </select>
+      <div class="compare-card" id="compareBResult"><div style="color:var(--text-dim);text-align:center;padding:20px;">请选择配装B</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 配装推荐Tab ===== -->
+<div class="tab-panel" id="panel-recommend">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="recSearch" placeholder="搜索推荐理由..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="recFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterRec('all')">全部</button>
+      <button class="filter-btn" data-filter="PVE推图" onclick="filterRec('PVE推图')">PVE</button>
+      <button class="filter-btn" data-filter="首领打桩" onclick="filterRec('首领打桩')">首领</button>
+      <button class="filter-btn" data-filter="PVP竞技" onclick="filterRec('PVP竞技')">PVP</button>
+    </div>
+    <div class="catalog-count" id="recCount">24 条推荐</div>
+  </div>
+  <div class="engraving-grid" id="recGrid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));"></div>
+  <div class="empty-state" id="recEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的推荐</div>
+  </div>
+</div>
+
+<!-- ===== 工具入口Tab ===== -->
+<div class="tab-panel" id="panel-tools">
+  <div class="catalog-toolbar">
+    <div class="catalog-count" style="margin-left:0;">常用工具与后台入口</div>
+  </div>
+  <div class="tools-grid">
+    <a href="admin.html" class="tool-entry">
+      <div class="tool-icon">&#128273;</div>
+      <div class="tool-name">后台管理</div>
+      <div class="tool-desc">公告/成员/活动/评论</div>
+    </a>
+    <a href="redeem-codes.html" class="tool-entry">
+      <div class="tool-icon">&#127873;</div>
+      <div class="tool-name">兑换码页</div>
+      <div class="tool-desc">完整版兑换码列表</div>
+    </a>
+    <a href="wash-stats.html" class="tool-entry">
+      <div class="tool-icon">&#128296;</div>
+      <div class="tool-name">洗炼查询器</div>
+      <div class="tool-desc">完整版洗炼数据</div>
+    </a>
+    <a href="recommend.html" class="tool-entry">
+      <div class="tool-icon">&#127919;</div>
+      <div class="tool-name">智能推荐</div>
+      <div class="tool-desc">按偏好推荐配装</div>
+    </a>
+    <a href="compare.html" class="tool-entry">
+      <div class="tool-icon">&#9878;</div>
+      <div class="tool-name">配装对比</div>
+      <div class="tool-desc">完整版对比工具</div>
+    </a>
+    <a href="guides.html" class="tool-entry">
+      <div class="tool-icon">&#128218;</div>
+      <div class="tool-name">攻略大全</div>
+      <div class="tool-desc">完整版攻略列表</div>
+    </a>
+    <a href="guild.html" class="tool-entry">
+      <div class="tool-icon">&#127942;</div>
+      <div class="tool-name">公会中心</div>
+      <div class="tool-desc">成员/战报/活动</div>
+    </a>
+    <a href="library.html" class="tool-entry">
+      <div class="tool-icon">&#128218;</div>
+      <div class="tool-name">资料库</div>
+      <div class="tool-desc">配装/图鉴大全</div>
+    </a>
+  </div>
+</div>
+
+<noscript>
+<div style="padding:20px;">
+<h2>工具箱 - 天涯若比邻公会</h2>
+<h3>兑换码（9个）</h3>
+<ul>
+<li>社区周礼包 - 7T4b6UtRw0 - 有效期至2026-09-27</li>
+<li>中秋礼包 - f4720Cc52r - 有效期至2026-10-01</li>
+<li>秋分礼包 - 02S0k57j85 - 有效期至2026-09-29</li>
+<li>新手礼包 - MYS1225 - 长期有效</li>
+<li>活跃礼包 - MYS666 - 长期有效</li>
+<li>福利礼包 - MYS888 - 长期有效</li>
+<li>惊喜礼包 - VIP666 - 长期有效</li>
+<li>惊喜礼包 - VIP777 - 长期有效</li>
+<li>惊喜礼包 - VIP888 - 长期有效</li>
+</ul>
+<h3>攻略大全（10个分类）</h3>
+<ul>
+<li>刻印攻略 - 已上线</li>
+<li>新手入门 - 即将上线</li>
+<li>首领打法 - 即将上线</li>
+<li>神殿纷争 - 即将上线</li>
+<li>资源获取 - 即将上线</li>
+<li>遗物攻略 - 即将上线</li>
+<li>侍从攻略 - 即将上线</li>
+<li>洗炼攻略 - 即将上线</li>
+<li>悬赏赛 - 即将上线</li>
+<li>战力提升 - 即将上线</li>
+</ul>
+<h3>洗炼查询（300个词条，12个部位）</h3>
+<p>武器/头盔/护肩/胸甲/护手/护腿/靴子/护腕/腰带/项链/护符/戒指，更多词条请在页面中查看</p>
+<h3>配装推荐（24条，3场景）</h3>
+<p>PVE推图11条，首领打桩9条，PVP竞技4条</p>
+</div>
+</noscript>
+
+<script src="builds-data.js"></script>
+<script src="redeem-data.js"></script>
+<script src="guides-data.js"></script>
+<script src="wash-data.js"></script>
+<script src="recommend-data.js"></script>
+<script>
+// ===== 工具函数 =====
+function escapeHtml(str){return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+// ===== 状态管理（tabState统一对象，不用let变量） =====
+var tabState = {
+  redeem: {search:'', filter:'all'},
+  guides: {search:''},
+  wash: {search:'', filter:'all'},
+  recommend: {search:'', filter:'all'}
+};
+
+// ===== Tab切换 =====
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('.tab-btn[data-tab="'+tab+'"]').classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-'+tab).classList.add('active');
+  // 重置其他Tab状态
+  if(tab!=='redeem'){tabState.redeem={search:'',filter:'all'};document.getElementById('redeemSearch').value='';filterRedeem('all');}
+  if(tab!=='guides'){tabState.guides={search:''};document.getElementById('guidesSearch').value='';renderGuides();}
+  if(tab!=='wash'){tabState.wash={search:'',filter:'all'};document.getElementById('washSearch').value='';filterWash('all');}
+  if(tab!=='recommend'){tabState.recommend={search:'',filter:'all'};document.getElementById('recSearch').value='';filterRec('all');}
+}
+
+// ===== 兑换码渲染 =====
+function renderRedeem(){
+  var list = REDEEM_DATA.slice();
+  var s = tabState.redeem.search.toLowerCase();
+  var f = tabState.redeem.filter;
+  if(s) list = list.filter(function(c){return (c.name||'').toLowerCase().indexOf(s)>-1||(c.code||'').toLowerCase().indexOf(s)>-1||(c.reward||'').toLowerCase().indexOf(s)>-1;});
+  if(f!=='all') list = list.filter(function(c){return c.type===f;});
+  document.getElementById('redeemCount').textContent = list.length+' 个兑换码';
+  var empty = document.getElementById('redeemEmpty');
+  var container = document.getElementById('redeemList');
+  if(list.length===0){empty.style.display='block';container.innerHTML='';return;}
+  empty.style.display='none';
+  container.innerHTML = list.map(function(c){
+    var deadlineText = c.is_permanent?'长期有效':'有效期至 '+c.deadline;
+    return '<div class="redeem-card">'+
+      '<button class="copy-btn" onclick="copyCode(\''+c.code+'\')">复制</button>'+
+      '<div class="redeem-code">'+escapeHtml(c.code)+'</div>'+
+      '<div class="redeem-reward">'+escapeHtml(c.reward)+'</div>'+
+      '<div class="redeem-meta">'+
+        '<span class="redeem-type type-'+escapeHtml(c.type)+'">'+escapeHtml(c.type)+'</span>'+
+        '<span>'+deadlineText+'</span>'+
+        (c.desc?'<span>'+escapeHtml(c.desc)+'</span>':'')+
+      '</div></div>';
+  }).join('');
+}
+function copyCode(code){
+  var ta = document.createElement('textarea');
+  ta.value = code;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  alert('已复制：'+code);
+}
+function filterRedeem(f){
+  tabState.redeem.filter = f;
+  document.querySelectorAll('#redeemFilter .filter-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('#redeemFilter .filter-btn[data-filter="'+f+'"]').classList.add('active');
+  renderRedeem();
+}
+
+// ===== 攻略大全渲染 =====
+function renderGuides(){
+  var list = GUIDES_DATA.slice();
+  var s = tabState.guides.search.toLowerCase();
+  if(s) list = list.filter(function(g){return (g.name||'').toLowerCase().indexOf(s)>-1||(g.category||'').toLowerCase().indexOf(s)>-1||(g.desc||'').toLowerCase().indexOf(s)>-1;});
+  document.getElementById('guidesCount').textContent = list.length+' 个分类';
+  var empty = document.getElementById('guidesEmpty');
+  var grid = document.getElementById('guidesGrid');
+  if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
+  empty.style.display='none';
+  grid.innerHTML = list.map(function(g){
+    var isOnline = g.status==='已上线';
+    var onclick = isOnline?'onclick="window.location.href=\''+g.url+'\'"':'';
+    var cls = isOnline?'guide-card':'guide-card wip';
+    var statusCls = isOnline?'status-online':'status-wip';
+    return '<div class="'+cls+'" '+onclick+'>'+
+      '<div class="guide-icon">'+(isOnline?'&#128218;':'&#128274;')+'</div>'+
+      '<div class="guide-title">'+escapeHtml(g.name)+'</div>'+
+      '<div class="guide-desc">'+(g.desc?escapeHtml(g.desc):'敬请期待')+'</div>'+
+      '<span class="guide-status '+statusCls+'">'+escapeHtml(g.status)+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+// ===== 洗炼查询渲染 =====
+function renderWash(){
+  var list = WASH_DATA.slice();
+  var s = tabState.wash.search.toLowerCase();
+  var f = tabState.wash.filter;
+  if(s) list = list.filter(function(w){return (w.name||'').toLowerCase().indexOf(s)>-1;});
+  if(f!=='all') list = list.filter(function(w){return w.slot===f;});
+  document.getElementById('washCount').textContent = list.length+' 个词条';
+  var empty = document.getElementById('washEmpty');
+  var grid = document.getElementById('washGrid');
+  if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
+  empty.style.display='none';
+  grid.innerHTML = list.map(function(w){
+    var specialCls = w.special?'wash-special':'wash-normal';
+    var specialText = w.special?'铸造强化':'普通';
+    return '<div class="wash-card">'+
+      '<div class="wash-name">'+escapeHtml(w.name)+'</div>'+
+      '<div class="wash-slot">部位：'+escapeHtml(w.slot)+'</div>'+
+      '<span class="'+specialCls+'">'+specialText+'</span>'+
+      '<span class="wash-count">出现'+w.count+'次</span>'+
+    '</div>';
+  }).join('');
+}
+function filterWash(f){
+  tabState.wash.filter = f;
+  document.querySelectorAll('#washFilter .filter-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('#washFilter .filter-btn[data-filter="'+f+'"]').classList.add('active');
+  renderWash();
+}
+
+// ===== 配装对比 =====
+function initCompare(){
+  var selA = document.getElementById('compareA');
+  var selB = document.getElementById('compareB');
+  BUILDS_DATA.forEach(function(b){
+    var optA = document.createElement('option');
+    optA.value = b.id;
+    optA.textContent = b.name+' ('+b.class+')';
+    selA.appendChild(optA);
+    var optB = document.createElement('option');
+    optB.value = b.id;
+    optB.textContent = b.name+' ('+b.class+')';
+    selB.appendChild(optB);
+  });
+}
+function doCompare(){
+  var idA = document.getElementById('compareA').value;
+  var idB = document.getElementById('compareB').value;
+  renderCompareCard('compareAResult', idA);
+  renderCompareCard('compareBResult', idB);
+}
+function renderCompareCard(elId, buildId){
+  var el = document.getElementById(elId);
+  if(!buildId){el.innerHTML='<div style="color:var(--text-dim);text-align:center;padding:20px;">请选择配装</div>';return;}
+  var b = BUILDS_DATA.find(function(x){return x.id===buildId;});
+  if(!b){el.innerHTML='<div style="color:var(--red);text-align:center;padding:20px;">配装不存在</div>';return;}
+  var tags = (b.tags||[]).map(function(t){return '<span class="compare-tag">'+escapeHtml(t)+'</span>';}).join('');
+  el.innerHTML = '<h3>'+escapeHtml(b.name)+'</h3>'+
+    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">职业：'+escapeHtml(b.class)+'</div>'+
+    '<div class="compare-tags">'+tags+'</div>'+
+    '<div class="compare-desc">'+escapeHtml(b.desc||'')+'</div>'+
+    '<a class="compare-link" href="'+escapeHtml(b.url)+'" target="_blank">查看详情 →</a>';
+}
+
+// ===== 配装推荐渲染 =====
+function renderRec(){
+  var list = RECOMMEND_DATA.slice();
+  var s = tabState.recommend.search.toLowerCase();
+  var f = tabState.recommend.filter;
+  if(s) list = list.filter(function(r){return (r.desc||'').toLowerCase().indexOf(s)>-1||(r.scene||'').toLowerCase().indexOf(s)>-1;});
+  if(f!=='all') list = list.filter(function(r){return r.scene===f;});
+  document.getElementById('recCount').textContent = list.length+' 条推荐';
+  var empty = document.getElementById('recEmpty');
+  var grid = document.getElementById('recGrid');
+  if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
+  empty.style.display='none';
+  grid.innerHTML = list.map(function(r){
+    var builds = (r.build_ids||[]).map(function(bid){
+      var b = BUILDS_DATA.find(function(x){return x.id===bid;});
+      return b?escapeHtml(b.name):bid;
+    }).join('、');
+    return '<div class="guide-card" onclick="window.location.href=\''+(BUILDS_DATA.find(function(x){return x.id===r.build_ids[0]})||{}).url+'\'">'+
+      '<div class="guide-icon">&#127919;</div>'+
+      '<div class="guide-title">'+escapeHtml(builds)+'</div>'+
+      '<span class="rec-scene scene-'+escapeHtml(r.scene)+'">'+escapeHtml(r.scene)+'</span>'+
+      '<span class="cls-'+escapeHtml(r.class)+'" style="font-size:10px;padding:2px 8px;border-radius:4px;margin-left:4px;">'+escapeHtml(r.class)+'</span>'+
+      '<div class="guide-desc" style="margin-top:8px;">'+escapeHtml(r.desc||'')+'</div>'+
+    '</div>';
+  }).join('');
+}
+function filterRec(f){
+  tabState.recommend.filter = f;
+  document.querySelectorAll('#recFilter .filter-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('#recFilter .filter-btn[data-filter="'+f+'"]').classList.add('active');
+  renderRec();
+}
+
+// ===== 搜索绑定（只绑addEventListener，不用oninput） =====
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('redeemSearch').addEventListener('input', function(){tabState.redeem.search=this.value;renderRedeem();});
+  document.getElementById('guidesSearch').addEventListener('input', function(){tabState.guides.search=this.value;renderGuides();});
+  document.getElementById('washSearch').addEventListener('input', function(){tabState.wash.search=this.value;renderWash();});
+  document.getElementById('recSearch').addEventListener('input', function(){tabState.recommend.search=this.value;renderRec();});
+  // 初始化
+  renderRedeem();
+  renderGuides();
+  renderWash();
+  initCompare();
+  renderRec();
+});
+</script>
+
+<!-- 底部导航 -->
 <div class="bottom-nav">
-  <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span>首页</a>
-  <a href="library.html" class="nav-item"><span class="nav-icon">📚</span>资料库</a>
-  <a href="guild.html" class="nav-item"><span class="nav-icon">⚔️</span>公会</a>
-  <a href="tools.html" class="nav-item active"><span class="nav-icon">🔧</span>工具</a>
+  <a href="index.html"><span class="icon">&#127968;</span>首页</a>
+  <a href="library.html"><span class="icon">&#128218;</span>资料库</a>
+  <a href="guild.html"><span class="icon">&#127942;</span>公会</a>
+  <a href="tools.html" class="active"><span class="icon">&#128295;</span>工具</a>
 </div>
+
 </body>
 </html>
