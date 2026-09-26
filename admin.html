@@ -428,7 +428,7 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
 
 // ==================== 成员管理 ====================
 var editingMemberId=null;
-function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
 function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
 var membersData=[];
 function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
@@ -579,6 +579,7 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
       <button class="tab-btn" onclick="switchTab('attendance',this)">📋 考勤管理</button>
       <button class="tab-btn" onclick="switchTab('battles',this)">⚔️ 战报管理</button>
       <button class="tab-btn" onclick="switchTab('comments',this)">💬 评论管理</button>
+      <button class="tab-btn" onclick="switchTab('signups',this)">📝 报名管理</button>
     </div>
 
     <!-- 数据中心 -->
@@ -833,6 +834,28 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
         <div id="battlesList"><div class="empty">加载中...</div></div>
       </div>
     </div>
+
+    <!-- 报名管理 -->
+    <div class="tab-content" id="tab-signups">
+      <div class="panel">
+        <div class="panel-title">📝 报名管理
+          <button class="btn-secondary" onclick="exportSignups()" style="float:right;font-size:12px;padding:6px 14px">📥 导出CSV</button>
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+          <select id="signupFilterActivity" class="input" style="width:auto" onchange="renderSignups()">
+            <option value="">全部活动</option>
+          </select>
+          <select id="signupFilterStatus" class="input" style="width:auto" onchange="renderSignups()">
+            <option value="">全部状态</option>
+            <option value="pending">待确认</option>
+            <option value="approved">已确认</option>
+            <option value="cancelled">已取消</option>
+          </select>
+          <span id="signupCount" style="align-self:center;color:var(--text-dim);font-size:13px"></span>
+        </div>
+        <div id="signupsList"><div class="empty">加载中...</div></div>
+      </div>
+    </div>
   </div>
 </div>
 <script>
@@ -879,6 +902,7 @@ function switchTab(name,btn){
   if(name==="comments")loadAdminComments();
   if(name==="attendance"){loadActivitiesForAttendance();loadAttendance();}
   if(name==="battles"){loadActivitiesForBattle();loadBattles();}
+  if(name==="signups")loadSignups();
 }
 
 function doLogin(){
@@ -1209,7 +1233,7 @@ if(getToken()){
 
 // ==================== 成员管理 ====================
 var editingMemberId=null;
-function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
 function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
 var membersData=[];
 function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
@@ -1279,7 +1303,7 @@ if ('serviceWorker' in navigator) {
 
 // ==================== 成员管理 ====================
 var editingMemberId=null;
-function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
 function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
 var membersData=[];
 function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
@@ -1342,7 +1366,7 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
 
 // ==================== 成员管理 ====================
 var editingMemberId=null;
-function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
+function showMemberForm(id){editingMemberId=id||null;document.getElementById("memberForm").style.display="block";if(id){var m=membersData.find(function(x){return x.id===id});if(m){document.getElementById("m_gameId").value=m.game_id||"";document.getElementById("m_profession").value=m.profession||"";document.getElementById("m_power").value=m.power||"";document.getElementById("m_joinDate").value=m.join_date||"";document.getElementById("m_status").value=m.status||"active";document.getElementById("m_remark").value=m.remark||""}}else{document.getElementById("m_gameId").value="";document.getElementById("m_profession").value="";document.getElementById("m_power").value="";document.getElementById("m_joinDate").value="";document.getElementById("m_status").value="active";document.getElementById("m_remark").value=""}}
 function hideMemberForm(){document.getElementById("memberForm").style.display="none"}
 var membersData=[];
 function loadMembers(){fetch(API_BASE+"/api/members").then(function(r){return r.json()}).then(function(data){membersData=data||[];renderMembers()}).catch(function(){document.getElementById("membersList").innerHTML='<div class="empty">加载失败，请确认D1已建表</div>'})}
@@ -1401,5 +1425,85 @@ function exportData(type) {
 function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(API_BASE+"/api/battles/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadBattles()}else{showToast("删除失败","error")}})}
 
 </script>
+
+<script>
+// ==================== 报名管理（独立模块） ====================
+// Tab切换（从原script提取，修复语法错误导致的函数未定义问题）
+function switchTab(name,btn){
+  document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active")});
+  document.querySelectorAll(".tab-content").forEach(function(c){c.classList.remove("active")});
+  btn.classList.add("active");
+  document.getElementById("tab-"+name).classList.add("active");
+  if(name==="data"&&typeof loadStats==="function")loadStats();
+  if(name==="build"&&typeof loadBuildPageList==="function")loadBuildPageList();
+  if(name==="homeSort"&&typeof loadHomeOrder==="function")loadHomeOrder();
+  if(name==="announce"&&typeof loadAnnouncements==="function")loadAnnouncements();
+  if(name==="changelog"&&typeof loadChangelog==="function")loadChangelog();
+  if(name==="messages"&&typeof loadMessages==="function")loadMessages();
+  if(name==="members"&&typeof loadMembers==="function")loadMembers();
+  if(name==="activities"&&typeof loadActivities==="function")loadActivities();
+  if(name==="redeem"&&typeof loadRedeemCodes==="function")loadRedeemCodes();
+  if(name==="comments"&&typeof loadAdminComments==="function")loadAdminComments();
+  if(name==="attendance"&&typeof loadActivitiesForAttendance==="function"){loadActivitiesForAttendance();if(typeof loadAttendance==="function")loadAttendance();}
+  if(name==="battles"&&typeof loadActivitiesForBattle==="function"){loadActivitiesForBattle();if(typeof loadBattles==="function")loadBattles();}
+  if(name==="signups")loadSignups();
+}
+function escapeHtml(str){return (str||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+var signupsData=[];
+var activitiesForSignups=[];
+function loadSignups(){
+  fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){
+    activitiesForSignups=data||[];
+    var sel=document.getElementById("signupFilterActivity");
+    if(sel){sel.innerHTML='<option value="">全部活动</option>';activitiesForSignups.forEach(function(a){sel.innerHTML+='<option value="'+(a.title||a.id||"")+'">'+(a.title||a.id||"")+'</option>'})}
+  });
+  fetch(API_BASE+"/api/signups").then(function(r){return r.json()}).then(function(data){
+    signupsData=data||[];
+    renderSignups();
+  });
+}
+function renderSignups(){
+  var filterAct=document.getElementById("signupFilterActivity").value;
+  var filterStatus=document.getElementById("signupFilterStatus").value;
+  var list=signupsData.filter(function(s){
+    if(filterAct && s.activity!==filterAct) return false;
+    if(filterStatus && s.status!==filterStatus) return false;
+    return true;
+  });
+  document.getElementById("signupCount").textContent="共 "+list.length+" 条";
+  if(list.length===0){document.getElementById("signupsList").innerHTML='<div class="empty">暂无报名记录</div>';return;}
+  var statusMap={pending:["待确认","#f59e0b"],approved:["已确认","#10b981"],cancelled:["已取消","#6b7280"]};
+  var html='<table class="data-table"><thead><tr><th>游戏ID</th><th>活动</th><th>职业</th><th>备注</th><th>状态</th><th>提交时间</th><th>操作</th></tr></thead><tbody>';
+  list.forEach(function(s){
+    var st=statusMap[s.status]||[s.status||"未知","#999"];
+    html+='<tr><td>'+escapeHtml(s.game_id||"")+'</td><td>'+escapeHtml(s.activity||"")+'</td><td>'+escapeHtml(s.profession||"")+'</td><td>'+escapeHtml(s.remark||"-")+'</td><td><span style="background:'+st[1]+'22;color:'+st[1]+';padding:2px 8px;border-radius:4px;font-size:12px">'+st[0]+'</span></td><td style="font-size:12px;color:var(--text-dim)">'+escapeHtml((s.created_at||"").replace("T"," ").substring(0,16))+'</td><td>';
+    if(s.status!=="approved")html+='<button class="btn-primary" style="font-size:11px;padding:3px 8px;margin-right:4px" onclick="updateSignupStatus(\''+s.id+'\',\'approved\')">确认</button>';
+    if(s.status!=="cancelled")html+='<button class="btn-secondary" style="font-size:11px;padding:3px 8px;margin-right:4px" onclick="updateSignupStatus(\''+s.id+'\',\'cancelled\')">取消</button>';
+    html+='<button class="btn-secondary" style="font-size:11px;padding:3px 8px;background:#ef4444;color:#fff;border-color:#ef4444" onclick="deleteSignup(\''+s.id+'\')">删除</button></td></tr>';
+  });
+  html+='</tbody></table>';
+  document.getElementById("signupsList").innerHTML=html;
+}
+function updateSignupStatus(id,status){
+  fetch(API_BASE+"/api/signups/"+id,{method:"PUT",headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify({status:status})}).then(function(r){return r.json()}).then(function(res){
+    if(res.ok){showToast("操作成功");loadSignups();}else{showToast(res.error||"操作失败");}
+  });
+}
+function deleteSignup(id){
+  if(!confirm("确定删除这条报名记录？此操作不可恢复。"))return;
+  fetch(API_BASE+"/api/signups/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){
+    if(res.ok){showToast("已删除");loadSignups();}else{showToast(res.error||"删除失败");}
+  });
+}
+function exportSignups(){
+  fetch(API_BASE+"/api/export/signups",{headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.blob()}).then(function(blob){
+    var url=window.URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url;a.download="signups.csv";a.click();
+    window.URL.revokeObjectURL(url);
+  }).catch(function(){showToast("导出失败")});
+}
+</script>
+
 </body>
 </html>
