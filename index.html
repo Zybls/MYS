@@ -918,6 +918,131 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 
 
 .empty-state{text-align:center;padding:20px;color:var(--text-dim);font-size:14px}
+
+/* ===== 首页新布局样式 ===== */
+.home-main { max-width: 1280px; margin: 0 auto; padding: 0 16px 40px; }
+
+/* Hero区 */
+.hero-section { position: relative; margin: 0 -16px 20px; padding: 40px 20px 32px; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.05) 50%, rgba(168,85,247,0.1)); z-index: 0; }
+.hero-content { position: relative; z-index: 1; text-align: center; }
+.hero-badge-wrap { position: relative; display: inline-block; margin-bottom: 16px; }
+.hero-badge { width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(245,158,11,0.5); box-shadow: 0 0 30px rgba(245,158,11,0.3); }
+.hero-level-badge { position: absolute; bottom: -4px; right: -4px; background: linear-gradient(135deg,#f59e0b,#d97706); color: #1a1a2e; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+.hero-title { font-size: 28px; font-weight: 900; color: var(--gold); margin-bottom: 6px; letter-spacing: 2px; }
+.hero-subtitle { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+.hero-stats { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 24px; }
+.hero-stat { text-align: center; }
+.hero-stat-value { font-size: 18px; font-weight: 700; color: var(--text); }
+.hero-stat-label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+.hero-stat-divider { width: 1px; height: 32px; background: var(--border); }
+.hero-actions { display: flex; gap: 12px; justify-content: center; }
+.hero-btn { padding: 10px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-block; transition: all 0.2s; }
+.hero-btn.primary { background: linear-gradient(135deg,#f59e0b,#d97706); color: #1a1a2e; }
+.hero-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(245,158,11,0.4); }
+.hero-btn.secondary { background: rgba(245,158,11,0.1); color: var(--gold); border: 1px solid rgba(245,158,11,0.3); }
+.hero-btn.secondary:hover { background: rgba(245,158,11,0.2); }
+
+/* 公告栏 */
+.announcement-bar { background: linear-gradient(90deg, rgba(245,158,11,0.1), rgba(245,158,11,0.05)); border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.announcement-icon { font-size: 16px; flex-shrink: 0; }
+.announcement-scroll { flex: 1; overflow: hidden; }
+.announcement-track { display: flex; gap: 40px; animation: scroll-left 20s linear infinite; }
+.announcement-text { white-space: nowrap; font-size: 13px; color: var(--text-dim); }
+@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* 快捷入口 */
+.quick-nav-section { margin-bottom: 24px; }
+.quick-nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.quick-nav-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 8px; text-align: center; transition: all 0.2s; text-decoration: none; }
+.quick-nav-item:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(245,158,11,0.15); }
+.quick-nav-icon { font-size: 24px; margin-bottom: 6px; }
+.quick-nav-text { font-size: 12px; color: var(--text); font-weight: 500; }
+
+/* 内容区块 */
+.content-section { margin-bottom: 24px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.section-title { font-size: 17px; font-weight: 700; color: var(--text); }
+.section-more { font-size: 12px; color: var(--gold); text-decoration: none; }
+
+/* 活动卡片 */
+.activity-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.activity-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; position: relative; overflow: hidden; }
+.activity-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
+.activity-badge.battle { background: rgba(239,68,68,0.15); color: #ef4444; }
+.activity-badge.league { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.activity-badge.recruit { background: rgba(34,197,94,0.15); color: #22c55e; }
+.activity-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; padding-right: 40px; }
+.activity-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 10px; }
+.activity-meta { display: flex; gap: 8px; align-items: center; }
+.activity-date { font-size: 11px; color: var(--text-dim); }
+.activity-tag { font-size: 10px; padding: 2px 6px; background: var(--bg-card2); border-radius: 4px; color: var(--text-dim); }
+
+/* 数据看板 */
+.dashboard-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.dashboard-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.stat-item { text-align: center; }
+.stat-value { font-size: 22px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
+.stat-label { font-size: 11px; color: var(--text-dim); }
+
+/* 战术库入口 */
+.tactics-entry-card { display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(245,158,11,0.03)); border: 1px solid rgba(245,158,11,0.3); border-radius: 16px; padding: 20px; text-decoration: none; transition: all 0.2s; }
+.tactics-entry-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.tactics-entry-icon { font-size: 36px; flex-shrink: 0; }
+.tactics-entry-content { flex: 1; }
+.tactics-entry-content h3 { font-size: 17px; color: var(--gold); margin-bottom: 4px; }
+.tactics-entry-content p { font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
+.tactics-entry-tags { display: flex; gap: 6px; }
+.tactics-entry-tags span { font-size: 10px; padding: 2px 8px; background: rgba(245,158,11,0.15); color: var(--gold); border-radius: 4px; }
+.tactics-entry-arrow { font-size: 24px; color: var(--gold); flex-shrink: 0; }
+
+/* 福利卡片 */
+.welfare-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.welfare-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.welfare-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
+.welfare-icon { font-size: 16px; }
+
+/* 加入公会 */
+.signup-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.signup-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; text-align: center; }
+.signup-form { display: flex; flex-direction: column; gap: 10px; }
+.signup-input { padding: 12px 16px; background: var(--bg-card2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-family: inherit; }
+.signup-input:focus { outline: none; border-color: var(--gold); }
+.signup-btn { padding: 12px; background: linear-gradient(135deg,#f59e0b,#d97706); color: #1a1a2e; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.signup-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(245,158,11,0.3); }
+
+/* 页脚 */
+.site-footer { border-top: 1px solid var(--border); padding: 24px 16px; text-align: center; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 12px; }
+.footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copyright { font-size: 11px; color: var(--text-dim); opacity: 0.6; }
+
+/* ===== 首页移动端适配 ===== */
+@media (max-width: 768px) {
+  .home-main { padding: 0 12px 32px; }
+  .hero-section { margin: 0 -12px 16px; padding: 28px 16px 24px; }
+  .hero-badge { width: 64px; height: 64px; }
+  .hero-title { font-size: 22px; }
+  .hero-subtitle { font-size: 12px; }
+  .hero-stats { gap: 14px; }
+  .hero-stat-value { font-size: 15px; }
+  .activity-cards { grid-template-columns: 1fr; }
+  .dashboard-stats { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .quick-nav-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .quick-nav-item { padding: 12px 4px; }
+  .quick-nav-icon { font-size: 20px; }
+  .quick-nav-text { font-size: 11px; }
+}
+@media (max-width: 480px) {
+  .hero-stats { gap: 10px; }
+  .hero-stat-value { font-size: 14px; }
+  .hero-actions { flex-direction: column; padding: 0 20px; }
+  .hero-btn { width: 100%; text-align: center; }
+  .tactics-entry-card { flex-direction: column; text-align: center; }
+  .tactics-entry-tags { justify-content: center; }
+}
+
 </style>
         <link rel="manifest" href="manifest.json">
         <meta name="theme-color" content="#f59e0b">
