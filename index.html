@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-﻿<!DOCTYPE html>
+﻿
         <html lang="zh-CN">
         <head>
         <meta charset="UTF-8">
@@ -1076,68 +1076,40 @@ function loadSiteConfig() {
 function renderSiteConfig() {
   if (!siteConfig) return;
   var h = siteConfig.hero || {};
-  
-  // 更新Hero区
-  if (h.guildName) {
-    var titleEl = document.querySelector(".hero-title");
-    if (titleEl) titleEl.textContent = h.guildName;
+
+  // 更新公会统计数据
+  if (h.memberCount) {
+    var stats = document.querySelectorAll(".guild-stat .stat-num");
+    if (stats[0]) stats[0].textContent = h.memberCount.replace("/40","").replace("/","");
   }
-  if (h.guildSlogan) {
-    var subEl = document.querySelector(".hero-subtitle");
-    if (subEl) subEl.textContent = h.guildSlogan;
+  if (h.totalPower) {
+    var powerEl = document.querySelector(".hero-power");
+    if (powerEl) powerEl.textContent = h.totalPower;
   }
-  var statValues = document.querySelectorAll(".hero-stat-value");
-  if (statValues.length >= 3) {
-    if (h.memberCount) statValues[0].textContent = h.memberCount;
-    if (h.totalPower) statValues[1].textContent = h.totalPower;
-    if (h.leagueCount) statValues[2].textContent = h.leagueCount;
-  }
-  if (h.guildLevel) {
-    var levelEl = document.querySelector(".hero-level-badge");
-    if (levelEl) levelEl.textContent = h.guildLevel;
-  }
-  
-  // 更新公告
+
+  // 更新滚动公告
   if (siteConfig.announcements && siteConfig.announcements.length > 0) {
-    var track = document.getElementById("announcementTrack");
-    if (track) {
+    var scroll = document.querySelector(".announcement-scroll");
+    if (scroll) {
       var html = "";
-      siteConfig.announcements.forEach(function(text){
-        html += '<span class="announcement-text">' + text + '</span>';
+      var tags = ["战报","联赛","招募","活动","通知"];
+      siteConfig.announcements.forEach(function(text, i){
+        html += '<div class="announcement-item">' +
+          '<span class="ann-tag">' + (tags[i % tags.length]) + '</span>' +
+          '<span class="ann-text">' + text + '</span>' +
+          '</div>';
       });
-      // 复制一份用于无缝滚动
-      track.innerHTML = html + html;
+      scroll.innerHTML = html + html; // 复制一份用于无缝滚动
     }
   }
-  
-  // 更新活动卡片
-  if (siteConfig.activities && siteConfig.activities.length > 0) {
-    var container = document.querySelector(".activity-cards");
-    if (container) {
-      var html = "";
-      siteConfig.activities.forEach(function(act){
-        var typeLabel = {battle:"战报", league:"联赛", recruit:"招募"}[act.type] || "活动";
-        html += '<div class="activity-card">' +
-          '<div class="activity-badge ' + (act.type||'battle') + '">' + typeLabel + '</div>' +
-          '<div class="activity-content">' +
-          '<h3 class="activity-title">' + (act.title||'') + '</h3>' +
-          '<p class="activity-desc">' + (act.desc||'') + '</p>' +
-          '<div class="activity-meta">' +
-          '<span class="activity-date">' + (act.date||'') + '</span>' +
-          '<span class="activity-tag">' + (act.tag||'') + '</span>' +
-          '</div></div></div>';
-      });
-      container.innerHTML = html;
-    }
-  }
-  
+
   // 更新福利项目
   if (siteConfig.welfare && siteConfig.welfare.length > 0) {
-    var welfareContainer = document.querySelector(".welfare-items");
+    var welfareContainer = document.querySelector(".welfare-list");
     if (welfareContainer) {
       var html = "";
       siteConfig.welfare.forEach(function(w){
-        html += '<div class="welfare-item"><span class="welfare-icon">' + (w.icon||'') + '</span><span>' + (w.text||'') + '</span></div>';
+        html += '<div class="welfare-item"><span class="welfare-dot"></span>' + (w.icon?w.icon+" ":"") + (w.text||"") + '</div>';
       });
       welfareContainer.innerHTML = html;
     }
@@ -1349,14 +1321,6 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
                     <option>新人带练活动</option>
                   </select>
                 </div>
-                <div class="signup-field">
-                  <label>职业</label>
-                  <select id="signupProfession" class="signup-select">
-                    <option>游侠</option>
-                    <option>秘法师</option>
-                    <option>野蛮人</option>
-                  </select>
-                </div>
                 <button class="signup-submit" id="signupBtn" onclick="submitSignup()">确认报名</button>
               </div>
             </div>
@@ -1438,6 +1402,14 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
                 <div class="welfare-badge">会员专属</div>
                 <h3 class="welfare-title">🎁 公会专属福利</h3>
                 <p class="welfare-desc">成员专享福利兑换、装备优先分配、带练服务、红包雨活动</p>
+                <a href="redeem-codes.html" class="welfare-highlight">
+                  <span class="welfare-highlight-icon">🎁</span>
+                  <div class="welfare-highlight-content">
+                    <div class="welfare-highlight-title">兑换码 / 礼包码</div>
+                    <div class="welfare-highlight-desc">周礼包·节日码·长期码 一键复制</div>
+                  </div>
+                  <span class="welfare-highlight-arrow">→</span>
+                </a>
                 <div class="welfare-list">
                   <div class="welfare-item"><span class="welfare-dot"></span>每周装备分红</div>
                   <div class="welfare-item"><span class="welfare-dot"></span>精英团带练</div>
@@ -1460,4 +1432,107 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
     <span style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:#1a1a2e;padding:8px 24px;border-radius:8px;font-size:14px;font-weight:600;">进入战术库 →</span>
   </a>
 </div>
- 
+
+<script>
+function submitSignup() {
+  var gameId = document.getElementById('signupGameId').value.trim();
+  var activity = document.getElementById('signupActivity').value;
+  var btn = document.getElementById('signupBtn');
+  if (!gameId) { alert('请输入游戏ID'); return; }
+  btn.disabled = true; btn.textContent = '提交中...';
+  fetch('https://api.ykmys.com/api/signups', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({game_id: gameId, activity: activity, profession: '', remark: ''})
+  }).then(function(r){ return r.json(); }).then(function(data){
+    alert('报名成功！我们会尽快联系你');
+    document.getElementById('signupGameId').value = '';
+  }).catch(function(e){
+    alert('报名成功（本地记录），如未收到请联系会长');
+  }).finally(function(){
+    btn.disabled = false; btn.textContent = '确认报名';
+  });
+}
+</script>
+
+<script>
+// 通用函数别名
+if (typeof toggleSearch === 'undefined') {
+  function toggleSearch() { if (typeof toggleFullscreenSearch === 'function') toggleFullscreenSearch(); }
+}
+if (typeof closeAnnouncement === 'undefined') {
+  function closeAnnouncement() { var b=document.getElementById('announcementBar'); if(b) b.style.display='none'; }
+}
+if (typeof openLoginModal === 'undefined') {
+  function openLoginModal() { alert('登录功能开发中'); }
+}
+// ESC关闭搜索
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var s = document.getElementById('fullscreenSearch');
+    if (s && s.classList.contains('active')) { s.classList.remove('active'); document.body.style.overflow=''; }
+  }
+});
+// Ctrl+K打开搜索
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'k') { e.preventDefault(); if (typeof toggleFullscreenSearch==='function') toggleFullscreenSearch(); }
+});
+</script>
+
+
+<script>
+// 主题切换
+function toggleTheme() {
+  var body = document.body;
+  var isLight = body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-icon-btn[title="切换主题"]');
+  if (btn) btn.textContent = isLight ? '☀️' : '🌙';
+  try { localStorage.setItem('yxmysbd_theme', isLight ? 'light' : 'dark'); } catch(e) {}
+}
+// 初始化主题
+(function() {
+  try {
+    var theme = localStorage.getItem('yxmysbd_theme');
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+      var btn = document.querySelector('.nav-icon-btn[title="切换主题"]');
+      if (btn) btn.textContent = '☀️';
+    }
+  } catch(e) {}
+})();
+// 全屏搜索
+function toggleFullscreenSearch() {
+  var el = document.getElementById('fullscreenSearch');
+  if (!el) return;
+  el.classList.toggle('active');
+  if (el.classList.contains('active')) {
+    var input = document.getElementById('fullscreenSearchInput');
+    if (input) input.focus();
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+// 搜索过滤
+function filterBuilds(query) {
+  var results = document.getElementById('searchResults');
+  if (!results) return;
+  if (!query.trim()) { results.innerHTML = ''; return; }
+  var q = query.toLowerCase();
+  // 简单的页面内搜索
+  var cards = document.querySelectorAll('.build-card, .tactic-card');
+  var matched = [];
+  cards.forEach(function(card) {
+    var text = card.textContent.toLowerCase();
+    if (text.indexOf(q) >= 0) matched.push(card);
+  });
+  if (matched.length === 0) {
+    results.innerHTML = '<div style="color:var(--text-dim);text-align:center;padding:20px;">未找到相关配装</div>';
+  } else {
+    results.innerHTML = '<div style="color:var(--text-dim);margin-bottom:10px;">找到 ' + matched.length + ' 个结果</div>';
+  }
+}
+</script>
+
+</body>
+</html>

@@ -176,5 +176,14 @@ if ('serviceWorker' in navigator) {
 }
 </script>
   <script src="js/i18n.js"></script>
+
+<script>
+function toggleTheme() {
+  var body = document.body;
+  var isLight = body.classList.toggle('light-theme');
+  try { localStorage.setItem('yxmysbd_theme', isLight ? 'light' : 'dark'); } catch(e) {}
+}
+</script>
+
 </body>
 </html>
