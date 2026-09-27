@@ -1412,6 +1412,6 @@ function exportData(type) {
 function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(API_BASE+"/api/battles/"+id,{method:"DELETE",headers:{"X-Admin-Token":getToken()}}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("已删除");loadBattles()}else{showToast("删除失败","error")}})}
 
 </script>
-<script src="music-player.js"></script>
+<script src="music-player.js?v=20260927b"></script>
 </body>
 </html>

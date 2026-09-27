@@ -15,6 +15,7 @@
 
   // 注入CSS
   var css = `
+  /* ===== 移动端/默认：fixed悬浮播放器 ===== */
   .music-player{position:fixed;bottom:12px;right:12px;z-index:999;display:flex;align-items:center;gap:8px;background:rgba(26,26,46,.92);border:1px solid rgba(245,158,11,.3);border-radius:24px;padding:6px 12px 6px 6px;backdrop-filter:blur(8px);transition:all .2s}
   .music-player:hover{border-color:rgba(245,158,11,.6)}
   .music-btn{width:32px;height:32px;border-radius:50%;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#f59e0b;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
@@ -38,15 +39,31 @@
   .music-title{font-size:11px;color:#f59e0b;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80px}
   .music-status{font-size:9px;color:#8888a0}
   @media (max-width:768px){.music-info{display:none}.music-player{bottom:85px!important;right:12px!important}}
-  @media (min-width:769px){.music-player{bottom:20px!important;top:auto!important;right:20px!important}}
+
+  /* ===== PC端：导航栏紧凑播放器 ===== */
+  .nav-music{display:none;align-items:center;gap:6px;margin-left:8px}
+  .nav-music-btn{width:30px;height:30px;border-radius:50%;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);color:#f59e0b;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-size:14px}
+  .nav-music-btn:hover{background:rgba(245,158,11,.25);transform:scale(1.08)}
+  .nav-music-btn.playing{animation:pulse 2s infinite}
+  .nav-music-btn svg{display:block;width:13px;height:13px}
+  .nav-music-viz{display:flex;align-items:flex-end;gap:2px;height:14px}
+  .nav-music-viz .music-bar{width:2px}
+  .nav-music-title{font-size:11px;color:rgba(245,158,11,.8);white-space:nowrap;max-width:70px;overflow:hidden;text-overflow:ellipsis}
+  @media (min-width:769px){
+    body:not(.no-nav-music) .nav-music{display:flex}
+    body:not(.no-nav-music) .music-player{display:none!important}
+  }
   `;
   var styleEl = document.createElement('style');
   styleEl.textContent = css;
   document.head.appendChild(styleEl);
 
-  // 注入HTML
+  // 注入audio
+  var audioHTML = '<audio id="bgmPlayer" preload="none"></audio>';
+  document.body.insertAdjacentHTML('beforeend', audioHTML);
+
+  // 注入移动端fixed播放器
   var playerHTML = `
-  <audio id="bgmPlayer" preload="none"></audio>
   <div class="music-player" id="musicPlayer">
     <button class="music-nav-btn" id="musicPrev" title="上一首">⏮</button>
     <button class="music-btn" id="musicBtn" title="播放/暂停">
@@ -65,41 +82,77 @@
   </div>`;
   document.body.insertAdjacentHTML('beforeend', playerHTML);
 
+  // PC端：尝试注入导航栏紧凑播放器
+  var navRight = document.querySelector('.guild-nav-right');
+  var navMusicBtn = null;
+  if (navRight) {
+    var navMusicHTML = `
+    <div class="nav-music" id="navMusic">
+      <span class="nav-music-title" id="navMusicTitle">` + PLAYLIST[currentIndex].name + `</span>
+      <div class="nav-music-viz" id="navMusicViz">
+        <div class="music-bar"></div><div class="music-bar"></div>
+        <div class="music-bar"></div><div class="music-bar"></div>
+      </div>
+      <button class="nav-music-btn" id="navMusicBtn" title="播放/暂停">
+        <svg class="play-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="pause-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+    </div>`;
+    navRight.insertAdjacentHTML('beforeend', navMusicHTML);
+    navMusicBtn = document.getElementById('navMusicBtn');
+  } else {
+    // 无导航栏的页面（旧页/404/后台），PC端保留fixed播放器
+    document.body.classList.add('no-nav-music');
+  }
+
   // 初始化
   var bgm = document.getElementById('bgmPlayer');
   var musicBtn = document.getElementById('musicBtn');
   var musicPlayer = document.getElementById('musicPlayer');
   var musicStatus = document.getElementById('musicStatus');
   var musicTitle = document.getElementById('musicTitle');
+  var navMusicTitle = document.getElementById('navMusicTitle');
+  var navMusic = document.getElementById('navMusic');
   var isPlaying = false;
+
+  function updateUI(playing) {
+    var playIcons = document.querySelectorAll('.play-icon');
+    var pauseIcons = document.querySelectorAll('.pause-icon');
+    playIcons.forEach(function(el){ el.style.display = playing ? 'none' : 'block'; });
+    pauseIcons.forEach(function(el){ el.style.display = playing ? 'block' : 'none'; });
+    if (playing) {
+      musicPlayer.classList.add('playing');
+      if (navMusic) navMusic.querySelector('.nav-music-btn').classList.add('playing');
+      if (musicStatus) musicStatus.textContent = '播放中';
+    } else {
+      musicPlayer.classList.remove('playing');
+      if (navMusic) navMusic.querySelector('.nav-music-btn').classList.remove('playing');
+      if (musicStatus) musicStatus.textContent = '已暂停';
+    }
+  }
 
   function loadTrack(index) {
     currentIndex = index;
     bgm.src = PLAYLIST[index].src;
-    musicTitle.textContent = PLAYLIST[index].name;
+    if (musicTitle) musicTitle.textContent = PLAYLIST[index].name;
+    if (navMusicTitle) navMusicTitle.textContent = PLAYLIST[index].name;
     localStorage.setItem('music_index', index);
   }
 
   function play() {
     bgm.play().then(function() {
       isPlaying = true;
-      musicBtn.querySelector('.play-icon').style.display = 'none';
-      musicBtn.querySelector('.pause-icon').style.display = 'block';
-      musicPlayer.classList.add('playing');
-      musicStatus.textContent = '播放中';
+      updateUI(true);
       localStorage.setItem('music_playing', '1');
     }).catch(function() {
-      musicStatus.textContent = '加载失败';
+      if (musicStatus) musicStatus.textContent = '加载失败';
     });
   }
 
   function pause() {
     bgm.pause();
     isPlaying = false;
-    musicBtn.querySelector('.play-icon').style.display = 'block';
-    musicBtn.querySelector('.pause-icon').style.display = 'none';
-    musicPlayer.classList.remove('playing');
-    musicStatus.textContent = '已暂停';
+    updateUI(false);
     localStorage.setItem('music_playing', '0');
   }
 
@@ -119,10 +172,16 @@
     if (isPlaying) play();
   }
 
-  // 事件绑定
+  // 事件绑定（移动端播放器）
   musicBtn.addEventListener('click', toggle);
   document.getElementById('musicPrev').addEventListener('click', prevTrack);
   document.getElementById('musicNext').addEventListener('click', nextTrack);
+
+  // 事件绑定（PC端导航栏播放器）
+  if (navMusicBtn) {
+    navMusicBtn.addEventListener('click', toggle);
+  }
+
   bgm.addEventListener('ended', nextTrack); // 自动下一首
 
   // 加载当前曲目
@@ -130,14 +189,10 @@
 
   // 如果之前在播放，尝试恢复（浏览器可能阻止自动播放，需要用户交互）
   if (savedPlaying) {
-    musicStatus.textContent = '点击继续播放';
-    // 尝试自动播放，如果被阻止则等待用户点击
+    if (musicStatus) musicStatus.textContent = '点击继续播放';
     bgm.play().then(function() {
       isPlaying = true;
-      musicBtn.querySelector('.play-icon').style.display = 'none';
-      musicBtn.querySelector('.pause-icon').style.display = 'block';
-      musicPlayer.classList.add('playing');
-      musicStatus.textContent = '播放中';
+      updateUI(true);
     }).catch(function() {
       // 自动播放被阻止，等待用户点击
     });
