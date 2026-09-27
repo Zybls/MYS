@@ -93,6 +93,9 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .redeem-content{flex:1;min-width:0;}
 .redeem-meta{display:flex;gap:12px;font-size:11px;color:var(--text-dim);flex-wrap:wrap;}
 .redeem-type{padding:2px 8px;border-radius:4px;font-weight:600;}
+.redeem-card.expired .redeem-code { color:#64748b; text-decoration:line-through; }
+.redeem-card.expired .redeem-reward { color:#64748b; }
+.expired-text { color:#94a3b8; }
 .type-周礼包{background:rgba(96,165,250,0.15);color:#60a5fa;}
 .type-节日礼包{background:rgba(251,191,36,0.15);color:#fbbf24;}
 .copy-btn{background:rgba(167,139,250,0.15);border:1px solid var(--purple);color:var(--purple);padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer;flex-shrink:0;align-self:flex-start;white-space:nowrap;}
@@ -501,20 +504,30 @@ function renderRedeem(){
   var f = tabState.redeem.filter;
   if(s) list = list.filter(function(c){return (c.name||'').toLowerCase().indexOf(s)>-1||(c.code||'').toLowerCase().indexOf(s)>-1||(c.reward||'').toLowerCase().indexOf(s)>-1;});
   if(f!=='all') list = list.filter(function(c){return c.type===f;});
+  // 按有效性优先级排序：有效期内(按截止升序) + 已过期(按截止降序)
+  var now = new Date();
+  var today = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+  var valid = list.filter(function(c){ return c.deadline && c.deadline >= today; });
+  var expired = list.filter(function(c){ return c.deadline && c.deadline < today; });
+  valid.sort(function(a,b){ return a.deadline.localeCompare(b.deadline); });
+  expired.sort(function(a,b){ return b.deadline.localeCompare(a.deadline); });
+  list = valid.concat(expired);
   document.getElementById('redeemCount').textContent = list.length+' 个兑换码';
   var empty = document.getElementById('redeemEmpty');
   var container = document.getElementById('redeemList');
   if(list.length===0){empty.style.display='block';container.innerHTML='';return;}
   empty.style.display='none';
   container.innerHTML = list.map(function(c){
-    var deadlineText = '有效期至 '+c.deadline;
-    return '<div class="redeem-card">'+
+    var isExpired = c.deadline && c.deadline < today;
+    var deadlineText = isExpired ? '已过期' : '有效期至 '+c.deadline;
+    var cardClass = isExpired ? 'redeem-card expired' : 'redeem-card';
+    return '<div class="'+cardClass+'">'+
       '<div class="redeem-content">'+
         '<div class="redeem-code">'+escapeHtml(c.code)+'</div>'+
         '<div class="redeem-reward">'+escapeHtml(c.reward)+'</div>'+
         '<div class="redeem-meta">'+
           '<span class="redeem-type type-'+escapeHtml(c.type)+'">'+escapeHtml(c.type)+'</span>'+
-          '<span>'+deadlineText+'</span>'+
+          '<span class="'+(isExpired?'expired-text':'')+'">'+deadlineText+'</span>'+
           (c.desc?'<span>'+escapeHtml(c.desc)+'</span>':'')+
         '</div>'+
       '</div>'+

@@ -1579,7 +1579,7 @@ function renderHomeRedeem() {
     return;
   }
   // 按有效性优先级排序：有效期内(按截止升序) + 已过期(按截止降序)，取前3条
-  var today = new Date().toISOString().split('T')[0];
+  var now = new Date(); var today = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
   var valid = REDEEM_DATA.filter(function(r){ return r.deadline && r.deadline >= today; });
   var expired = REDEEM_DATA.filter(function(r){ return r.deadline && r.deadline < today; });
   valid.sort(function(a,b){ return a.deadline.localeCompare(b.deadline); });
