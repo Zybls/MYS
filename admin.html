@@ -876,6 +876,30 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
         <div id="signupsList"><div class="empty">加载中...</div></div>
       </div>
     </div>
+      <!-- 修改密码 -->
+      <div class="tab-content" id="tab-password">
+        <div class="panel">
+          <div class="panel-title">🔑 修改管理员密码</div>
+          <div style="max-width:400px;margin:20px 0">
+            <div style="margin-bottom:16px">
+              <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">当前密码</label>
+              <input type="password" id="oldPassword" placeholder="输入当前密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
+            </div>
+            <div style="margin-bottom:16px">
+              <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">新密码（至少8位）</label>
+              <input type="password" id="newPassword" placeholder="输入新密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
+            </div>
+            <div style="margin-bottom:20px">
+              <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">确认新密码</label>
+              <input type="password" id="confirmPassword" placeholder="再次输入新密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
+            </div>
+            <button onclick="changePassword()" style="padding:10px 24px;background:var(--accent);color:#1a1a2e;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">确认修改</button>
+          </div>
+          <div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--text-dim)">
+            ⚠️ 密码存储在 D1 数据库中，修改后立即生效。环境变量 ADMIN_TOKEN 作为 fallback 保留。
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 <script>
@@ -1502,31 +1526,5 @@ function changePassword() {
 }
 </script>
 
-    <!-- 修改密码 -->
-    <div class="tab-content" id="tab-password">
-      <div class="panel">
-        <div class="panel-title">🔑 修改管理员密码</div>
-        <div style="max-width:400px;margin:20px 0">
-          <div style="margin-bottom:16px">
-            <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">当前密码</label>
-            <input type="password" id="oldPassword" placeholder="输入当前密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
-          </div>
-          <div style="margin-bottom:16px">
-            <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">新密码（至少8位）</label>
-            <input type="password" id="newPassword" placeholder="输入新密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
-          </div>
-          <div style="margin-bottom:20px">
-            <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">确认新密码</label>
-            <input type="password" id="confirmPassword" placeholder="再次输入新密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
-          </div>
-          <button onclick="changePassword()" style="padding:10px 24px;background:var(--accent);color:#1a1a2e;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">确认修改</button>
-        </div>
-        <div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--text-dim)">
-          ⚠️ 密码存储在 D1 数据库中，修改后立即生效。环境变量 ADMIN_TOKEN 作为 fallback 保留。
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
