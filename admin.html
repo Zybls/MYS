@@ -1190,7 +1190,7 @@ function addAnnouncement(){
   var content=document.getElementById("annContent").value.trim();
   var type=document.getElementById("annType").value;
   if(!title||!content){showToast("请填写标题和内容","error");return}
-  fetch(API_BASE+"/api/announcements",{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify({title:title,content:content,type:type})})
+  fetch(API_BASE+"/api/announcements",{method:"POST",headers:{"Content-Type":"application/json; charset=utf-8","X-Admin-Token":getToken()},body:JSON.stringify({title:title,content:content,type:type})})
     .then(function(r){return r.json()}).then(function(data){
       if(data.id){showToast("公告发布成功！");document.getElementById("annTitle").value="";document.getElementById("annContent").value="";loadAnnouncements()}
       else{showToast("发布失败","error")}
