@@ -20,15 +20,15 @@
         <style>
 
 :root {
-    --bg: #0b0b12;
-    --bg-card: #15151f;
-    --bg-card2: #1c1c2a;
-    --bg-card-hover: #1e1e30;
-    --border: #2a2a3e;
-    --border-hover: #3d3d5c;
-    --gold: #f59e0b;
-    --gold-dim: #b45309;
-    --gold-glow: rgba(245, 158, 11, 0.15);
+    --bg: #0f0f18;
+    --bg-card: #181826;
+    --bg-card2: #1f1f30;
+    --bg-card-hover: #222238;
+    --border: #2e2e44;
+    --border-hover: #424260;
+    --gold: #e8b84b;
+    --gold-dim: #a88a35;
+    --gold-glow: rgba(232, 184, 75, 0.15);
     --cyan: #06b6d4;
     --red: #ef4444;
     --orange: #f97316;
@@ -47,7 +47,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   line-height: 1.6;
   padding: 0 14px;
   padding-bottom: 100px;
@@ -55,7 +55,7 @@ body {
   margin: 0 auto;
   padding-top: 58px !important;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,158,11,0.08), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232, 184, 75,0.08), transparent),
     radial-gradient(ellipse 60% 40% at 80% 10%, rgba(168,85,247,0.05), transparent);
   background-attachment: fixed;
 }
@@ -66,7 +66,7 @@ body {
   background: rgba(11,11,18,0.88);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(245,158,11,0.12);
+  border-bottom: 1px solid rgba(232, 184, 75,0.12);
 }
 .nav-inner {
   max-width: 1280px; margin: 0 auto;
@@ -91,7 +91,7 @@ body {
   padding: 6px 12px; border-radius: 8px; transition: all 0.2s;
   white-space: nowrap; flex-shrink: 0; font-weight: 500;
 }
-.nav-link:hover { color: var(--gold); background: rgba(245,158,11,0.08); }
+.nav-link:hover { color: var(--gold); background: rgba(232, 184, 75,0.08); }
 .nav-link-btn { color: var(--cyan); }
 .nav-link-btn:hover { color: #22d3ee; background: rgba(6,182,212,0.08); }
 .nav-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -116,13 +116,13 @@ body {
 .hero {
   text-align: center; padding: 36px 20px 28px; margin-bottom: 24px;
   position: relative; border-radius: 0 0 24px 24px;
-  background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, rgba(245,158,11,0.02) 50%, transparent 100%);
-  border-bottom: 1px solid rgba(245,158,11,0.12);
+  background: linear-gradient(180deg, rgba(232, 184, 75,0.06) 0%, rgba(232, 184, 75,0.02) 50%, transparent 100%);
+  border-bottom: 1px solid rgba(232, 184, 75,0.12);
 }
 .hero h1 {
   font-size: 28px; color: var(--gold); letter-spacing: 4px; margin-bottom: 10px;
   font-weight: 800;
-  background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
+  background: linear-gradient(135deg, #e8b84b, #fbbf24, #e8b84b);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -146,11 +146,11 @@ body {
   border-radius: 20px; color: var(--text-dim); font-size: 13px; cursor: pointer;
   transition: all 0.2s; font-family: inherit; min-height: 34px; font-weight: 500;
 }
-.filter-btn:hover { border-color: rgba(245,158,11,0.5); color: var(--gold); background: var(--gold-glow); }
+.filter-btn:hover { border-color: rgba(232, 184, 75,0.5); color: var(--gold); background: var(--gold-glow); }
 .filter-btn.active {
   background: linear-gradient(135deg, var(--gold), #d97706);
   color: #1a1a2e; border-color: var(--gold); font-weight: 700;
-  box-shadow: 0 2px 12px rgba(245,158,11,0.3);
+  box-shadow: 0 2px 12px rgba(232, 184, 75,0.3);
 }
 .usage-filter .filter-btn.active {
   background: linear-gradient(135deg, var(--cyan), #0891b2);
@@ -204,13 +204,13 @@ body {
 .build-card:hover {
   border-color: var(--border-hover); background: var(--bg-card-hover);
   transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(245,158,11,0.1);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(232, 184, 75,0.1);
 }
 .build-card.ranger { border-left-color: var(--green); }
 .build-card.mage { border-left-color: var(--purple); }
 .build-card.warrior { border-left-color: var(--orange); }
 .build-card.t0 { border-left-color: var(--gold); }
-.build-card.t0:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 20px rgba(245,158,11,0.15); }
+.build-card.t0:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 20px rgba(232, 184, 75,0.15); }
 
 /* 卡片头部 */
 .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; gap: 8px; }
@@ -242,7 +242,7 @@ body {
 .tag-pk { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
 .tag-boss { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
 .tag-dual { background: rgba(6,182,212,0.12); color: #22d3ee; border: 1px solid rgba(6,182,212,0.25); }
-.tag-t0 { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.tag-t0 { background: rgba(232, 184, 75,0.12); color: #fbbf24; border: 1px solid rgba(232, 184, 75,0.3); }
 
 /* 推荐语 */
 .card-recommend {
@@ -257,7 +257,7 @@ body {
   background: var(--bg-card2); border: 1px solid var(--border);
   color: var(--text-dim); white-space: nowrap; font-weight: 500;
 }
-.core-tag.weapon { color: #fbbf24; border-color: rgba(245,158,11,0.25); background: rgba(245,158,11,0.06); }
+.core-tag.weapon { color: #fbbf24; border-color: rgba(232, 184, 75,0.25); background: rgba(232, 184, 75,0.06); }
 .core-tag.engrave { color: #c084fc; border-color: rgba(168,85,247,0.25); background: rgba(168,85,247,0.06); }
 
 /* 卡片底部 */
@@ -299,7 +299,7 @@ body {
   width: 28px; height: 28px; border-radius: 8px; display: flex;
   align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;
 }
-.rank-num.top1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1a2e; box-shadow: 0 2px 8px rgba(245,158,11,0.4); }
+.rank-num.top1 { background: linear-gradient(135deg, #fbbf24, #e8b84b); color: #1a1a2e; box-shadow: 0 2px 8px rgba(232, 184, 75,0.4); }
 .rank-num.top2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #1a1a2e; }
 .rank-num.top3 { background: linear-gradient(135deg, #fb923c, #ea580c); color: #fff; }
 .rank-num.normal { background: var(--bg-card2); color: var(--text-dim); }
@@ -320,7 +320,7 @@ body {
 .changelog-tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-right: 5px; }
 .tag-new { background: rgba(34,197,94,0.12); color: #4ade80; }
 .tag-fix { background: rgba(239,68,68,0.12); color: #f87171; }
-.tag-update { background: rgba(245,158,11,0.12); color: #fbbf24; }
+.tag-update { background: rgba(232, 184, 75,0.12); color: #fbbf24; }
 
 /* ===== 留言板 & 免责声明 ===== */
 .comment-section { max-width: 1280px; margin: 28px auto; padding: 0; }
@@ -332,7 +332,7 @@ body {
 
 .disclaimer-section { max-width: 1280px; margin: 20px auto 28px; padding: 0; }
 .disclaimer-box {
-  background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.2);
+  background: rgba(232, 184, 75,0.05); border: 1px solid rgba(232, 184, 75,0.2);
   border-radius: var(--radius); padding: 16px 20px;
 }
 .disclaimer-title { color: var(--gold); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
@@ -567,7 +567,7 @@ body.light-theme {
   --bg-card-hover: #fafafe; --text: #1a1a2e; --text-dim: #64748b;
   --text-bright: #0f0f1a; --border: #e2e2ec; --border-hover: #c8c8d8;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,158,11,0.06), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232, 184, 75,0.06), transparent),
     radial-gradient(ellipse 60% 40% at 80% 10%, rgba(168,85,247,0.03), transparent);
 }
 body.light-theme .site-nav { background: rgba(244,244,248,0.92); border-bottom-color: rgba(0,0,0,0.06); }
@@ -576,8 +576,8 @@ body.light-theme .nav-link { color: #475569; }
 body.light-theme .nav-link:hover { color: #d97706; background: rgba(217,119,6,0.06); }
 body.light-theme .lang-switch { background: #e8e8f0; }
 body.light-theme .lang-btn.active { color: #fff; }
-body.light-theme .hero { background: linear-gradient(180deg, rgba(245,158,11,0.05), transparent); }
-body.light-theme .hero h1 { background: linear-gradient(135deg, #d97706, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+body.light-theme .hero { background: linear-gradient(180deg, rgba(232, 184, 75,0.05), transparent); }
+body.light-theme .hero h1 { background: linear-gradient(135deg, #d97706, #e8b84b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 body.light-theme .build-card { box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
 body.light-theme .build-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
@@ -632,7 +632,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   border: none; border-radius: 8px; color: #1a1a2e; font-size: 15px;
   font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 6px;
 }
-.contact-form-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+.contact-form-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
 .contact-form-submit:active { transform: none; }
 
 
@@ -642,7 +642,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   background: rgba(11,11,18,0.92);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(245,158,11,0.15);
+  border-bottom: 1px solid rgba(232, 184, 75,0.15);
 }
 .guild-nav-inner {
   max-width: 1280px; margin: 0 auto;
@@ -653,8 +653,8 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .guild-logo-wrap { display: flex; align-items: center; }
 .guild-logo {
   width: 44px; height: 44px; border-radius: 50%;
-  border: 2px solid rgba(245,158,11,0.4);
-  box-shadow: 0 0 12px rgba(245,158,11,0.2);
+  border: 2px solid rgba(232, 184, 75,0.4);
+  box-shadow: 0 0 12px rgba(232, 184, 75,0.2);
   object-fit: cover;
 }
 .guild-nav-info { display: flex; flex-direction: column; }
@@ -669,7 +669,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   padding: 7px 14px; border-radius: 8px; transition: all 0.2s;
   font-weight: 500; white-space: nowrap;
 }
-.guild-nav-link:hover { color: var(--gold); background: rgba(245,158,11,0.08); }
+.guild-nav-link:hover { color: var(--gold); background: rgba(232, 184, 75,0.08); }
 .guild-nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .recruit-status {
   display: flex; align-items: center; gap: 6px;
@@ -687,7 +687,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   border: none; color: #1a1a2e; font-size: 13px; font-weight: 700;
   padding: 7px 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
 }
-.guild-login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+.guild-login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
 
 /* ===== 公会Hero公告 ===== */
 .guild-hero {
@@ -696,7 +696,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .guild-hero-bg {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(245,158,11,0.08), transparent),
+    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(232, 184, 75,0.08), transparent),
     radial-gradient(ellipse 50% 70% at 80% 30%, rgba(168,85,247,0.06), transparent);
   pointer-events: none;
 }
@@ -796,7 +796,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
   background: var(--bg-card2); color: var(--text-dim); flex-shrink: 0;
 }
-.attendance-rank.gold { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1a2e; }
+.attendance-rank.gold { background: linear-gradient(135deg, #fbbf24, #e8b84b); color: #1a1a2e; }
 .attendance-rank.silver { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #1a1a2e; }
 .attendance-rank.bronze { background: linear-gradient(135deg, #fb923c, #ea580c); color: #1a1a2e; }
 .attendance-name { flex: 1; font-size: 13px; color: var(--text); }
@@ -816,7 +816,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   border: none; border-radius: 8px; color: #1a1a2e; font-size: 14px;
   font-weight: 700; cursor: pointer; transition: all 0.2s;
 }
-.signup-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+.signup-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
 
 /* ===== 战术库标题 ===== */
 .tactics-header {
@@ -882,12 +882,12 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 /* 福利卡片 */
 .welfare-card {
   position: relative; border-radius: var(--radius); overflow: hidden;
-  border: 1px solid rgba(245,158,11,0.25);
+  border: 1px solid rgba(232, 184, 75,0.25);
 }
 .welfare-bg {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   background:
-    radial-gradient(ellipse at top right, rgba(245,158,11,0.15), transparent 60%),
+    radial-gradient(ellipse at top right, rgba(232, 184, 75,0.15), transparent 60%),
     radial-gradient(ellipse at bottom left, rgba(168,85,247,0.1), transparent 50%),
     linear-gradient(145deg, var(--bg-card), var(--bg-card2));
 }
@@ -911,7 +911,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 }
 .welfare-dot {
   width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
-  box-shadow: 0 0 6px rgba(245,158,11,0.5);
+  box-shadow: 0 0 6px rgba(232, 184, 75,0.5);
 }
 .welfare-btn {
   margin-top: auto; padding: 10px;
@@ -919,22 +919,22 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   border: none; border-radius: 8px; color: #1a1a2e; font-size: 13px;
   font-weight: 700; cursor: pointer; transition: all 0.2s;
 }
-.welfare-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(245,158,11,0.35); }
+.welfare-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(232, 184, 75,0.35); }
 
 
 /* 音乐播放器 */
 .music-btn svg { display: block; }
-.music-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(245,158,11,0.5); }
+.music-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(232, 184, 75,0.5); }
 .music-btn.playing { animation: pulse 2s infinite; }
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); }
-  50% { box-shadow: 0 0 0 8px rgba(245,158,11,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 184, 75,0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(232, 184, 75,0); }
 }
 .music-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.music-title { font-size: 11px; color: #f59e0b; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
+.music-title { font-size: 11px; color: #e8b84b; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
 .music-status { font-size: 9px; color: #8888a0; }
 .music-visualizer { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
-.music-bar { width: 3px; background: #f59e0b; border-radius: 1px; transition: height 0.1s; }
+.music-bar { width: 3px; background: #e8b84b; border-radius: 1px; transition: height 0.1s; }
 .music-bar:nth-child(1) { height: 40%; }
 .music-bar:nth-child(2) { height: 70%; }
 .music-bar:nth-child(3) { height: 50%; }
@@ -955,7 +955,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   .guild-logo { width: 36px; height: 36px; }
   .guild-nav-name { font-size: 14px; }
   .guild-nav-slogan { display: none; }
-  .guild-nav-links { order: 3; width: 100%; justify-content: center; gap: 12px; padding: 4px 0; border-top: 1px solid rgba(245,158,11,0.1); }
+  .guild-nav-links { order: 3; width: 100%; justify-content: center; gap: 12px; padding: 4px 0; border-top: 1px solid rgba(232, 184, 75,0.1); }
   .guild-nav-link { font-size: 12px; }
   .guild-nav-right { gap: 6px; }
   .guild-login-btn { font-size: 12px; padding: 5px 10px; }
@@ -1015,8 +1015,8 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 /* ===== 首页兑换码卡片 ===== */
 .redeem-section { max-width:1280px; margin:0 auto 20px; padding:0 20px; }
 .redeem-card {
-  background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(245,158,11,0.03));
-  border:1px solid rgba(245,158,11,0.25); border-radius:12px; padding:16px 20px;
+  background:linear-gradient(135deg,rgba(232, 184, 75,0.08),rgba(232, 184, 75,0.03));
+  border:1px solid rgba(232, 184, 75,0.25); border-radius:12px; padding:16px 20px;
 }
 .redeem-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
 .redeem-title { font-size:15px; font-weight:700; color:var(--gold); display:flex; align-items:center; gap:6px; }
@@ -1037,11 +1037,11 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .redeem-item.expired .redeem-code { color:#64748b; text-decoration:line-through; }
 .redeem-item.expired .redeem-name { color:#64748b; }
 .redeem-copy {
-  background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); color:var(--gold);
+  background:rgba(232, 184, 75,0.15); border:1px solid rgba(232, 184, 75,0.3); color:var(--gold);
   font-size:11px; padding:4px 10px; border-radius:6px; cursor:pointer; flex-shrink:0;
   transition:all 0.2s;
 }
-.redeem-copy:hover { background:rgba(245,158,11,0.3); }
+.redeem-copy:hover { background:rgba(232, 184, 75,0.3); }
 .redeem-copy.copied { background:rgba(34,197,94,0.2); color:#4ade80; border-color:rgba(34,197,94,0.3); }
 .redeem-empty { text-align:center; color:var(--text-dim); font-size:13px; padding:16px; }
 @media (max-width:639px) {
@@ -1386,11 +1386,11 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
 <main id="mainContent">
 <!-- 战术库入口 -->
 <div class="tactics-entry" style="max-width:1280px;margin:0 auto 24px;padding:0 20px;">
-  <a href="tactics.html" style="display:block;text-decoration:none;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.05));border:1px solid rgba(245,158,11,0.3);border-radius:16px;padding:24px;text-align:center;transition:all 0.3s;">
+  <a href="tactics.html" style="display:block;text-decoration:none;background:linear-gradient(135deg,rgba(232, 184, 75,0.1),rgba(232, 184, 75,0.05));border:1px solid rgba(232, 184, 75,0.3);border-radius:16px;padding:24px;text-align:center;transition:all 0.3s;">
     <div style="font-size:32px;margin-bottom:8px;">📖</div>
     <h3 style="font-size:20px;color:var(--gold);margin-bottom:6px;">公会战术库</h3>
     <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px;">全职业流派配装 · 公会精英实战验证 · 18套配装</p>
-    <span style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:#1a1a2e;padding:8px 24px;border-radius:8px;font-size:14px;font-weight:600;">进入战术库 →</span>
+    <span style="display:inline-block;background:linear-gradient(135deg,#e8b84b,#d97706);color:#1a1a2e;padding:8px 24px;border-radius:8px;font-size:14px;font-weight:600;">进入战术库 →</span>
   </a>
 </div>
 
