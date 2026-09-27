@@ -6,6 +6,7 @@ Thumbs.db
 # 敏感文件（绝对不能提交）
 .env
 .env.*
+admin-token.txt
 *.pem
 *.key
 *.crt
