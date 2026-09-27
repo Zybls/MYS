@@ -580,6 +580,7 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
       <button class="tab-btn" onclick="switchTab('battles',this)">⚔️ 战报管理</button>
       <button class="tab-btn" onclick="switchTab('comments',this)">💬 评论管理</button>
       <button class="tab-btn" onclick="switchTab('signups',this)">📝 报名管理</button>
+      <button class="tab-btn" onclick="switchTab('password',this)">🔑 修改密码</button>
     </div>
 
     <!-- 数据中心 -->
@@ -1503,7 +1504,71 @@ function exportSignups(){
     window.URL.revokeObjectURL(url);
   }).catch(function(){showToast("导出失败")});
 }
+
+function changePassword() {
+  var oldPwd = document.getElementById("oldPassword").value.trim();
+  var newPwd = document.getElementById("newPassword").value.trim();
+  var confirmPwd = document.getElementById("confirmPassword").value.trim();
+  if (!oldPwd) { showToast("请输入当前密码", "error"); return; }
+  if (!newPwd || newPwd.length < 8) { showToast("新密码至少8位", "error"); return; }
+  if (newPwd !== confirmPwd) { showToast("两次输入的新密码不一致", "error"); return; }
+  // 先验证当前密码
+  fetch(API_BASE + "/api/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: oldPwd })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (!data.ok) { showToast("当前密码错误", "error"); return; }
+    // 验证通过，修改密码
+    return fetch(API_BASE + "/api/admin/token", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", "X-Admin-Token": getToken() },
+      body: JSON.stringify({ new_token: newPwd })
+    });
+  })
+  .then(function(r) { if (r) return r.json(); })
+  .then(function(data) {
+    if (data && data.ok) {
+      showToast("密码修改成功，请使用新密码重新登录", "success");
+      setToken(newPwd);
+      document.getElementById("oldPassword").value = "";
+      document.getElementById("newPassword").value = "";
+      document.getElementById("confirmPassword").value = "";
+    } else if (data) {
+      showToast(data.error || "修改失败", "error");
+    }
+  })
+  .catch(function() { showToast("网络错误", "error"); });
+}
 </script>
 
+    <!-- 修改密码 -->
+    <div class="tab-content" id="tab-password">
+      <div class="panel">
+        <div class="panel-title">🔑 修改管理员密码</div>
+        <div style="max-width:400px;margin:20px 0">
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">当前密码</label>
+            <input type="password" id="oldPassword" placeholder="输入当前密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
+          </div>
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">新密码（至少8位）</label>
+            <input type="password" id="newPassword" placeholder="输入新密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
+          </div>
+          <div style="margin-bottom:20px">
+            <label style="display:block;margin-bottom:6px;color:var(--text-dim);font-size:13px">确认新密码</label>
+            <input type="password" id="confirmPassword" placeholder="再次输入新密码" style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
+          </div>
+          <button onclick="changePassword()" style="padding:10px 24px;background:var(--accent);color:#1a1a2e;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">确认修改</button>
+        </div>
+        <div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--text-dim)">
+          ⚠️ 密码存储在 D1 数据库中，修改后立即生效。环境变量 ADMIN_TOKEN 作为 fallback 保留。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
