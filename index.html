@@ -730,6 +730,15 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .announcement-item:nth-child(3) .ann-tag { background: rgba(34,197,94,0.15); color: #4ade80; }
 .ann-text { font-size: 13px; color: var(--text); flex: 1; }
 .ann-date { font-size: 12px; color: var(--text-dim); flex-shrink: 0; }
+/* 公告 type 标签颜色 */
+.ann-tag-battle { background: rgba(239,68,68,0.15); color: #f87171; }
+.ann-tag-league { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.ann-tag-recruit { background: rgba(34,197,94,0.15); color: #4ade80; }
+.ann-tag-notice { background: rgba(168,85,247,0.15); color: #c084fc; }
+.ann-tag-update { background: rgba(234,179,8,0.15); color: #facc15; }
+.ann-tag-info { background: rgba(168,85,247,0.15); color: #c084fc; }
+.announcement-loading { font-size: 13px; color: var(--text-dim); padding: 8px 12px; }
+
 .guild-stats {
   display: flex; gap: 16px; align-items: center;
   background: var(--bg-card); border: 1px solid var(--border);
@@ -1095,7 +1104,42 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   }}
 
 // 页面加载完成后加载配置
-document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
+
+  // 从 D1 API 拉取公告，覆盖硬编码内容
+  function renderAnnouncementsFromAPI() {
+    var scroll = document.getElementById("announcementScroll");
+    if (!scroll) return;
+    fetch("/api/announcements")
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data || !data.length) return;
+        var active = data.filter(function(a){ return a.active !== false; });
+        if (!active.length) return;
+        var typeMap = {
+          battle: "战报", league: "联赛", recruit: "招募",
+          notice: "通知", update: "更新", info: "通知"
+        };
+        var html = "";
+        active.slice(0, 3).forEach(function(a){
+          var type = a.type || "info";
+          var tag = typeMap[type] || "通知";
+          var date = "";
+          if (a.createdAt) {
+            try { date = a.createdAt.substring(5, 10); } catch(e) {}
+          }
+          var text = a.title || a.content || "";
+          html += '<div class="announcement-item">' +
+            '<span class="ann-tag ann-tag-' + type + '">' + escapeHtml(tag) + '</span>' +
+            '<span class="ann-text">' + escapeHtml(text) + '</span>' +
+            (date ? '<span class="ann-date">' + date + '</span>' : '') +
+            '</div>';
+        });
+        if (html) scroll.innerHTML = html;
+      })
+      .catch(function(){ /* API 失败时保留硬编码兜底内容 */ });
+  }
+
+document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); renderAnnouncementsFromAPI(); });
 
 </script>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/index.html" />
@@ -1151,7 +1195,7 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
           <div class="guild-hero-content">
             <div class="guild-announcement">
               <div class="announcement-label">📢 公会公告</div>
-              <div class="announcement-scroll">
+              <div class="announcement-scroll" id="announcementScroll">
                 <div class="announcement-item">
                   <span class="ann-tag">战报</span>
                   <span class="ann-text">8.22神殿纷争 15000:60 大胜暗影军团！35人参战，总功勋522,750</span>
