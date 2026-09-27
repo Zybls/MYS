@@ -86,16 +86,17 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 
 /* ===== tools专用样式 ===== */
-.redeem-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;transition:all 0.2s;}
+.redeem-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;transition:all 0.2s;display:flex;align-items:flex-start;gap:16px;}
 .redeem-card:hover{border-color:var(--purple);transform:translateX(4px);}
 .redeem-code{font-family:'Courier New',monospace;font-size:20px;font-weight:700;color:var(--purple);letter-spacing:2px;margin-bottom:6px;user-select:all;}
 .redeem-reward{font-size:14px;color:var(--text);margin-bottom:4px;}
+.redeem-content{flex:1;min-width:0;}
 .redeem-meta{display:flex;gap:12px;font-size:11px;color:var(--text-dim);flex-wrap:wrap;}
 .redeem-type{padding:2px 8px;border-radius:4px;font-weight:600;}
 .type-周礼包{background:rgba(96,165,250,0.15);color:#60a5fa;}
 .type-节日礼包{background:rgba(251,191,36,0.15);color:#fbbf24;}
 .type-长期礼包{background:rgba(52,211,153,0.15);color:#34d399;}
-.copy-btn{background:rgba(167,139,250,0.15);border:1px solid var(--purple);color:var(--purple);padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;float:right;margin-top:-30px;}
+.copy-btn{background:rgba(167,139,250,0.15);border:1px solid var(--purple);color:var(--purple);padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer;flex-shrink:0;align-self:flex-start;white-space:nowrap;}
 .copy-btn:hover{background:rgba(167,139,250,0.3);}
 .guide-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
 .guide-card:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
@@ -135,7 +136,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 @media(max-width:768px){
   .compare-container{grid-template-columns:1fr;}
   .redeem-code{font-size:16px;}
-  .copy-btn{float:none;margin-top:8px;display:block;width:100%;}
+  .copy-btn{width:100%;margin-top:8px;}
 }
 
 
@@ -516,14 +517,17 @@ function renderRedeem(){
   container.innerHTML = list.map(function(c){
     var deadlineText = c.is_permanent?'长期有效':'有效期至 '+c.deadline;
     return '<div class="redeem-card">'+
+      '<div class="redeem-content">'+
+        '<div class="redeem-code">'+escapeHtml(c.code)+'</div>'+
+        '<div class="redeem-reward">'+escapeHtml(c.reward)+'</div>'+
+        '<div class="redeem-meta">'+
+          '<span class="redeem-type type-'+escapeHtml(c.type)+'">'+escapeHtml(c.type)+'</span>'+
+          '<span>'+deadlineText+'</span>'+
+          (c.desc?'<span>'+escapeHtml(c.desc)+'</span>':'')+
+        '</div>'+
+      '</div>'+
       '<button class="copy-btn" onclick="copyCode(\''+c.code+'\')">复制</button>'+
-      '<div class="redeem-code">'+escapeHtml(c.code)+'</div>'+
-      '<div class="redeem-reward">'+escapeHtml(c.reward)+'</div>'+
-      '<div class="redeem-meta">'+
-        '<span class="redeem-type type-'+escapeHtml(c.type)+'">'+escapeHtml(c.type)+'</span>'+
-        '<span>'+deadlineText+'</span>'+
-        (c.desc?'<span>'+escapeHtml(c.desc)+'</span>':'')+
-      '</div></div>';
+    '</div>';
   }).join('');
 }
 function copyCode(code){
