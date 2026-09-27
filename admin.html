@@ -503,7 +503,9 @@ function deleteAdminComment(id){
 function loadActivitiesForAttendance(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){var sel=document.getElementById("attendanceActivity");if(sel){sel.innerHTML='<option value="">选择活动</option>';(data||[]).forEach(function(a){sel.innerHTML+='<option value="'+a.id+'">'+(a.title||'')+' ('+(a.date||'')+')</option>'})}})}
 var attendanceData=[];
 function loadAttendance(){var activityId=document.getElementById("attendanceActivity").value;if(!activityId){document.getElementById("attendanceList").innerHTML='<div class="empty">请先选择活动</div>';document.getElementById("attendanceStats").innerHTML='';return}fetch(API_BASE+"/api/attendance/stats?activity_id="+activityId).then(function(r){return r.json()}).then(function(data){attendanceData=data||[];renderAttendance()}).catch(function(){document.getElementById("attendanceList").innerHTML='<div class="empty">加载失败</div>'})}
-function renderAttendance(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:center;padding:8px">参加</th><th style="text-align:left;padding:8px">功勋</th></tr>';var attended=0,totalMerit=0;attendanceData.forEach(function(m,idx){var isAttended=m.attended===1||m.attended===true;if(isAttended)attended++;totalMerit+=parseInt(m.merit)||0;html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px;text-align:center"><input type="checkbox" '+(isAttended?'checked':'')+' onchange="attendanceData['+idx+'].attended=this.checked?1:0"></td><td style="padding:8px"><input type="number" value="'+(m.merit||0)+'" style="width:80px;padding:4px" onchange="attendanceData['+idx+'].merit=parseInt(this.value)||0"></td></tr>'});html+='</table>';document.getElementById("attendanceList").innerHTML=html;var total=attendanceData.length;var rate=total>0?Math.round(attended/total*100):0;document.getElementById("attendanceStats").innerHTML='📊 参战率: '+attended+'/'+total+' ('+rate+'%) | 总功勋: '+totalMerit+' | 人均功勋: '+(total>0?Math.round(totalMerit/total):0)+''}
+function renderAttendance(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:center;padding:8px">参加</th><th style="text-align:left;padding:8px">功勋</th></tr>';var attended=0,totalMerit=0;attendanceData.forEach(function(m,idx){if(m.attended===undefined||m.attended===null){m.attended=1}var isAttended=m.attended===1||m.attended===true;if(isAttended)attended++;totalMerit+=parseInt(m.merit)||0;html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px;text-align:center"><input type="checkbox" '+(isAttended?'checked':'')+' onchange="attendanceData['+idx+'].attended=this.checked?1:0"></td><td style="padding:8px"><input type="number" value="'+(m.merit||0)+'" style="width:80px;padding:4px" onchange="attendanceData['+idx+'].merit=parseInt(this.value)||0"></td></tr>'});html+='</table>';document.getElementById("attendanceList").innerHTML=html;var total=attendanceData.length;var rate=total>0?Math.round(attended/total*100):0;document.getElementById("attendanceStats").innerHTML='📊 参战率: '+attended+'/'+total+' ('+rate+'%) | 总功勋: '+totalMerit+' | 人均功勋: '+(total>0?Math.round(totalMerit/total):0)+''}
+function clearAllAttendance(){attendanceData.forEach(function(m){m.attended=0});renderAttendance();showToast('已全部取消勾选')}
+function importFromSignups(){showToast('从报名导入功能即将上线','info')}
 function saveAttendance(){var activityId=document.getElementById("attendanceActivity").value;if(!activityId){showToast("请先选择活动","error");return}var records=attendanceData.map(function(m){return{member_id:m.id,attended:m.attended===1||m.attended===true,merit:parseInt(m.merit)||0}});fetch(API_BASE+"/api/attendance/batch",{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify({activity_id:activityId,records:records})}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("考勤已保存，共"+res.count+"条");loadAttendance()}else{showToast(res.error||"保存失败","error")}})}
 
 // ==================== 战报管理 ====================
@@ -571,7 +573,6 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('data',this)">📊 数据中心</button>
       <button class="tab-btn" onclick="switchTab('build',this)">✏️ 配装管理</button>
-      <button class="tab-btn" onclick="switchTab('homeSort',this)">🔄 首页排序</button>
       <button class="tab-btn" onclick="switchTab('announce',this)">📢 公告管理</button>
       <button class="tab-btn" onclick="switchTab('changelog',this)">📋 更新日志</button>
       <button class="tab-btn" onclick="switchTab('siteContent',this)">🎨 网站内容</button>
@@ -579,7 +580,6 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
       <button class="tab-btn" onclick="switchTab('activities',this)">🎯 活动管理</button>
       <button class="tab-btn" onclick="switchTab('attendance',this)">📋 考勤管理</button>
       <button class="tab-btn" onclick="switchTab('battles',this)">⚔️ 战报管理</button>
-      <button class="tab-btn" onclick="switchTab('comments',this)">💬 评论管理</button>
       <button class="tab-btn" onclick="switchTab('signups',this)">📝 报名管理</button>
       <button class="tab-btn" onclick="switchTab('password',this)">🔑 修改密码</button>
     </div>
@@ -627,14 +627,6 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
       </div>
     </div>
 
-    <!-- 首页排序 -->
-    <div class="tab-content" id="tab-homeSort">
-      <div class="panel">
-        <div class="panel-title">🔄 首页卡片排序（拖拽调整顺序）</div>
-        <div class="sort-list" id="sortList"><div class="empty">加载中...</div></div>
-        <div class="sort-actions"><button onclick="saveHomeOrder()">💾 保存排序</button></div>
-      </div>
-    </div>
 
     <!-- 公告管理 -->
     <div class="tab-content" id="tab-announce">
@@ -677,6 +669,13 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
       <h3>🎨 网站内容可视化编辑</h3>
       <p class="hint">编辑首页显示内容，保存后立即生效</p>
       
+      <!-- 首页卡片排序（从首页排序合并而来） -->
+      <div class="editor-section">
+        <h4>🔄 首页卡片排序（拖拽调整顺序）</h4>
+        <div class="sort-list" id="sortList"><div class="empty">加载中...</div></div>
+        <div class="sort-actions"><button onclick="saveHomeOrder()">💾 保存排序</button></div>
+      </div>
+      
       <!-- Hero区编辑 -->
       <div class="editor-section">
         <h4>🏰 Hero公会信息</h4>
@@ -714,6 +713,23 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
         <h4>🎁 福利项目</h4>
         <div id="welfareEditor"></div>
         <button class="mini-btn add" onclick="addWelfareItem()">+ 添加福利</button>
+      </div>
+
+      <!-- 评论管理（二级折叠区域） -->
+      <div class="editor-section" style="margin-top:24px;border-top:2px solid var(--border);padding-top:16px">
+        <h4 onclick="document.getElementById('commentsCollapse').style.display=document.getElementById('commentsCollapse').style.display==='none'?'block':'none'" style="cursor:pointer">💬 评论管理 <span style="font-size:12px;color:var(--text-dim)">（点击展开/收起）</span></h4>
+        <div id="commentsCollapse" style="display:none;margin-top:12px">
+          <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+            <select id="commentPageFilter" class="input" style="width:auto" onchange="loadAdminComments()">
+              <option value="">全部页面</option>
+            </select>
+            <span style="align-self:center;color:var(--text-dim);font-size:13px">
+              总数:<span id="commentTotal">0</span> | 今日:<span id="commentToday">0</span> | 活跃:<span id="commentActive">0</span>
+            </span>
+            <button class="btn-secondary" onclick="loadAdminComments()" style="font-size:12px;padding:6px 12px">🔄 刷新</button>
+          </div>
+          <div id="commentAdminList"><div class="empty">加载中...</div></div>
+        </div>
       </div>
 
       <div class="editor-actions">
@@ -801,6 +817,8 @@ function deleteBattle(id){if(!confirm("确定删除该战报？"))return;fetch(A
         <div class="panel-title">📋 考勤管理
           <div style="float:right">
             <button onclick="exportData('attendance')" style="font-size:12px;padding:6px 12px;margin-right:8px">📥 导出CSV</button>
+            <button onclick="clearAllAttendance()" style="font-size:12px;padding:6px 12px;margin-right:8px;background:#e74c3c;color:#fff;border:none;border-radius:6px;cursor:pointer">✖ 批量取消</button>
+            <button onclick="importFromSignups()" style="font-size:12px;padding:6px 12px;margin-right:8px;background:#95a5a6;color:#fff;border:none;border-radius:6px;cursor:pointer" title="即将上线">📋 从报名导入</button>
             <select id="attendanceActivity" class="input" style="width:200px;display:inline-block" onchange="loadAttendance()">
               <option value="">选择活动</option>
             </select>
@@ -894,14 +912,13 @@ function switchTab(name,btn){
   document.getElementById("tab-"+name).classList.add("active");
   if(name==="data")loadStats();
   if(name==="build")loadBuildPageList();
-  if(name==="homeSort")loadHomeOrder();
+  if(name==="siteContent"){loadSiteConfig();loadHomeOrder();}
   if(name==="announce")loadAnnouncements();
   if(name==="changelog")loadChangelog();
   if(name==="messages")loadMessages();
   if(name==="members")loadMembers();
   if(name==="activities")loadActivities();
   if(name==="redeem")loadRedeemCodes();
-  if(name==="comments")loadAdminComments();
   if(name==="attendance"){loadActivitiesForAttendance();loadAttendance();}
   if(name==="battles"){loadActivitiesForBattle();loadBattles();}
   if(name==="signups")loadSignups();
@@ -1258,7 +1275,9 @@ var editingRedeemId=null;
 function loadActivitiesForAttendance(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){var sel=document.getElementById("attendanceActivity");if(sel){sel.innerHTML='<option value="">选择活动</option>';(data||[]).forEach(function(a){sel.innerHTML+='<option value="'+a.id+'">'+(a.title||'')+' ('+(a.date||'')+')</option>'})}})}
 var attendanceData=[];
 function loadAttendance(){var activityId=document.getElementById("attendanceActivity").value;if(!activityId){document.getElementById("attendanceList").innerHTML='<div class="empty">请先选择活动</div>';document.getElementById("attendanceStats").innerHTML='';return}fetch(API_BASE+"/api/attendance/stats?activity_id="+activityId).then(function(r){return r.json()}).then(function(data){attendanceData=data||[];renderAttendance()}).catch(function(){document.getElementById("attendanceList").innerHTML='<div class="empty">加载失败</div>'})}
-function renderAttendance(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:center;padding:8px">参加</th><th style="text-align:left;padding:8px">功勋</th></tr>';var attended=0,totalMerit=0;attendanceData.forEach(function(m,idx){var isAttended=m.attended===1||m.attended===true;if(isAttended)attended++;totalMerit+=parseInt(m.merit)||0;html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px;text-align:center"><input type="checkbox" '+(isAttended?'checked':'')+' onchange="attendanceData['+idx+'].attended=this.checked?1:0"></td><td style="padding:8px"><input type="number" value="'+(m.merit||0)+'" style="width:80px;padding:4px" onchange="attendanceData['+idx+'].merit=parseInt(this.value)||0"></td></tr>'});html+='</table>';document.getElementById("attendanceList").innerHTML=html;var total=attendanceData.length;var rate=total>0?Math.round(attended/total*100):0;document.getElementById("attendanceStats").innerHTML='📊 参战率: '+attended+'/'+total+' ('+rate+'%) | 总功勋: '+totalMerit+' | 人均功勋: '+(total>0?Math.round(totalMerit/total):0)+''}
+function renderAttendance(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:center;padding:8px">参加</th><th style="text-align:left;padding:8px">功勋</th></tr>';var attended=0,totalMerit=0;attendanceData.forEach(function(m,idx){if(m.attended===undefined||m.attended===null){m.attended=1}var isAttended=m.attended===1||m.attended===true;if(isAttended)attended++;totalMerit+=parseInt(m.merit)||0;html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px;text-align:center"><input type="checkbox" '+(isAttended?'checked':'')+' onchange="attendanceData['+idx+'].attended=this.checked?1:0"></td><td style="padding:8px"><input type="number" value="'+(m.merit||0)+'" style="width:80px;padding:4px" onchange="attendanceData['+idx+'].merit=parseInt(this.value)||0"></td></tr>'});html+='</table>';document.getElementById("attendanceList").innerHTML=html;var total=attendanceData.length;var rate=total>0?Math.round(attended/total*100):0;document.getElementById("attendanceStats").innerHTML='📊 参战率: '+attended+'/'+total+' ('+rate+'%) | 总功勋: '+totalMerit+' | 人均功勋: '+(total>0?Math.round(totalMerit/total):0)+''}
+function clearAllAttendance(){attendanceData.forEach(function(m){m.attended=0});renderAttendance();showToast('已全部取消勾选')}
+function importFromSignups(){showToast('从报名导入功能即将上线','info')}
 function saveAttendance(){var activityId=document.getElementById("attendanceActivity").value;if(!activityId){showToast("请先选择活动","error");return}var records=attendanceData.map(function(m){return{member_id:m.id,attended:m.attended===1||m.attended===true,merit:parseInt(m.merit)||0}});fetch(API_BASE+"/api/attendance/batch",{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify({activity_id:activityId,records:records})}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("考勤已保存，共"+res.count+"条");loadAttendance()}else{showToast(res.error||"保存失败","error")}})}
 
 // ==================== 战报管理 ====================
@@ -1328,7 +1347,9 @@ var editingRedeemId=null;
 function loadActivitiesForAttendance(){fetch(API_BASE+"/api/activities").then(function(r){return r.json()}).then(function(data){var sel=document.getElementById("attendanceActivity");if(sel){sel.innerHTML='<option value="">选择活动</option>';(data||[]).forEach(function(a){sel.innerHTML+='<option value="'+a.id+'">'+(a.title||'')+' ('+(a.date||'')+')</option>'})}})}
 var attendanceData=[];
 function loadAttendance(){var activityId=document.getElementById("attendanceActivity").value;if(!activityId){document.getElementById("attendanceList").innerHTML='<div class="empty">请先选择活动</div>';document.getElementById("attendanceStats").innerHTML='';return}fetch(API_BASE+"/api/attendance/stats?activity_id="+activityId).then(function(r){return r.json()}).then(function(data){attendanceData=data||[];renderAttendance()}).catch(function(){document.getElementById("attendanceList").innerHTML='<div class="empty">加载失败</div>'})}
-function renderAttendance(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:center;padding:8px">参加</th><th style="text-align:left;padding:8px">功勋</th></tr>';var attended=0,totalMerit=0;attendanceData.forEach(function(m,idx){var isAttended=m.attended===1||m.attended===true;if(isAttended)attended++;totalMerit+=parseInt(m.merit)||0;html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px;text-align:center"><input type="checkbox" '+(isAttended?'checked':'')+' onchange="attendanceData['+idx+'].attended=this.checked?1:0"></td><td style="padding:8px"><input type="number" value="'+(m.merit||0)+'" style="width:80px;padding:4px" onchange="attendanceData['+idx+'].merit=parseInt(this.value)||0"></td></tr>'});html+='</table>';document.getElementById("attendanceList").innerHTML=html;var total=attendanceData.length;var rate=total>0?Math.round(attended/total*100):0;document.getElementById("attendanceStats").innerHTML='📊 参战率: '+attended+'/'+total+' ('+rate+'%) | 总功勋: '+totalMerit+' | 人均功勋: '+(total>0?Math.round(totalMerit/total):0)+''}
+function renderAttendance(){var html='<table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px">游戏ID</th><th style="text-align:left;padding:8px">职业</th><th style="text-align:center;padding:8px">参加</th><th style="text-align:left;padding:8px">功勋</th></tr>';var attended=0,totalMerit=0;attendanceData.forEach(function(m,idx){if(m.attended===undefined||m.attended===null){m.attended=1}var isAttended=m.attended===1||m.attended===true;if(isAttended)attended++;totalMerit+=parseInt(m.merit)||0;html+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">'+(m.game_id||'')+'</td><td style="padding:8px">'+(m.profession||'')+'</td><td style="padding:8px;text-align:center"><input type="checkbox" '+(isAttended?'checked':'')+' onchange="attendanceData['+idx+'].attended=this.checked?1:0"></td><td style="padding:8px"><input type="number" value="'+(m.merit||0)+'" style="width:80px;padding:4px" onchange="attendanceData['+idx+'].merit=parseInt(this.value)||0"></td></tr>'});html+='</table>';document.getElementById("attendanceList").innerHTML=html;var total=attendanceData.length;var rate=total>0?Math.round(attended/total*100):0;document.getElementById("attendanceStats").innerHTML='📊 参战率: '+attended+'/'+total+' ('+rate+'%) | 总功勋: '+totalMerit+' | 人均功勋: '+(total>0?Math.round(totalMerit/total):0)+''}
+function clearAllAttendance(){attendanceData.forEach(function(m){m.attended=0});renderAttendance();showToast('已全部取消勾选')}
+function importFromSignups(){showToast('从报名导入功能即将上线','info')}
 function saveAttendance(){var activityId=document.getElementById("attendanceActivity").value;if(!activityId){showToast("请先选择活动","error");return}var records=attendanceData.map(function(m){return{member_id:m.id,attended:m.attended===1||m.attended===true,merit:parseInt(m.merit)||0}});fetch(API_BASE+"/api/attendance/batch",{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Token":getToken()},body:JSON.stringify({activity_id:activityId,records:records})}).then(function(r){return r.json()}).then(function(res){if(res.ok){showToast("考勤已保存，共"+res.count+"条");loadAttendance()}else{showToast(res.error||"保存失败","error")}})}
 
 // ==================== 战报管理 ====================
