@@ -251,9 +251,10 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
           </div>
           <div class="guild-nav-links">
             <a href="index.html" class="guild-nav-link">首页</a>
+            <a href="builds-guides.html" class="guild-nav-link">配装攻略</a>
             <a href="library.html" class="guild-nav-link">资料库</a>
             <a href="guild.html" class="guild-nav-link">公会</a>
-            <a href="tools.html" class="guild-nav-link">工具</a>
+            <a href="tools.html" class="guild-nav-link active">工具</a>
           </div>
           <div class="guild-nav-right">
             <div class="recruit-status" title="招募中">
@@ -283,7 +284,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 
 <div class="tab-bar">
   <button class="tab-btn active" data-tab="redeem" onclick="switchTab('redeem')">兑换码</button>
-  <button class="tab-btn" data-tab="guides" onclick="switchTab('guides')">攻略大全</button>
   <button class="tab-btn" data-tab="wash" onclick="switchTab('wash')">洗炼查询</button>
   <button class="tab-btn" data-tab="compare" onclick="switchTab('compare')">配装对比</button>
   <button class="tab-btn" data-tab="recommend" onclick="switchTab('recommend')">配装推荐</button>
@@ -309,22 +309,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   <div class="empty-state" id="redeemEmpty" style="display:none;">
     <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
     <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的兑换码</div>
-  </div>
-</div>
-
-<!-- ===== 攻略大全Tab ===== -->
-<div class="tab-panel" id="panel-guides">
-  <div class="catalog-toolbar">
-    <div class="catalog-search-box">
-      <span class="search-icon">&#128269;</span>
-      <input type="text" id="guidesSearch" placeholder="搜索攻略分类..." class="catalog-search-input">
-    </div>
-    <div class="catalog-count" id="guidesCount">10 个分类</div>
-  </div>
-  <div class="engraving-grid" id="guidesGrid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));"></div>
-  <div class="empty-state" id="guidesEmpty" style="display:none;">
-    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
-    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的攻略</div>
   </div>
 </div>
 
@@ -488,17 +472,18 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 
 <script src="builds-data.js?v=20260927"></script>
 <script src="redeem-data.js?v=20260927"></script>
-<script src="guides-data.js?v=20260927"></script>
 <script src="wash-data.js?v=20260927"></script>
 <script src="recommend-data.js?v=20260927"></script>
 <script>
 // ===== 工具函数 =====
 function escapeHtml(str){return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
+// 旧链接兼容：#攻略 → builds-guides.html
+if(location.hash==='#攻略'||location.hash==='#guides'){location.href='builds-guides.html';}
+
 // ===== 状态管理（tabState统一对象，不用let变量） =====
 var tabState = {
   redeem: {search:'', filter:'all'},
-  guides: {search:''},
   wash: {search:'', filter:'all'},
   recommend: {search:'', filter:'all'}
 };
@@ -511,7 +496,6 @@ function switchTab(tab){
   document.getElementById('panel-'+tab).classList.add('active');
   // 重置其他Tab状态
   if(tab!=='redeem'){tabState.redeem={search:'',filter:'all'};document.getElementById('redeemSearch').value='';filterRedeem('all');}
-  if(tab!=='guides'){tabState.guides={search:''};document.getElementById('guidesSearch').value='';renderGuides();}
   if(tab!=='wash'){tabState.wash={search:'',filter:'all'};document.getElementById('washSearch').value='';filterWash('all');}
   if(tab!=='recommend'){tabState.recommend={search:'',filter:'all'};document.getElementById('recSearch').value='';filterRec('all');}
 }
@@ -555,30 +539,6 @@ function filterRedeem(f){
   document.querySelectorAll('#redeemFilter .filter-btn').forEach(function(b){b.classList.remove('active');});
   document.querySelector('#redeemFilter .filter-btn[data-filter="'+f+'"]').classList.add('active');
   renderRedeem();
-}
-
-// ===== 攻略大全渲染 =====
-function renderGuides(){
-  var list = GUIDES_DATA.slice();
-  var s = tabState.guides.search.toLowerCase();
-  if(s) list = list.filter(function(g){return (g.name||'').toLowerCase().indexOf(s)>-1||(g.category||'').toLowerCase().indexOf(s)>-1||(g.desc||'').toLowerCase().indexOf(s)>-1;});
-  document.getElementById('guidesCount').textContent = list.length+' 个分类';
-  var empty = document.getElementById('guidesEmpty');
-  var grid = document.getElementById('guidesGrid');
-  if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
-  empty.style.display='none';
-  grid.innerHTML = list.map(function(g){
-    var isOnline = g.status==='已上线';
-    var onclick = isOnline?'onclick="window.location.href=\''+g.url+'\'"':'';
-    var cls = isOnline?'guide-card':'guide-card wip';
-    var statusCls = isOnline?'status-online':'status-wip';
-    return '<div class="'+cls+'" '+onclick+'>'+
-      '<div class="guide-icon">'+(isOnline?'&#128218;':'&#128274;')+'</div>'+
-      '<div class="guide-title">'+escapeHtml(g.name)+'</div>'+
-      '<div class="guide-desc">'+(g.desc?escapeHtml(g.desc):'敬请期待')+'</div>'+
-      '<span class="guide-status '+statusCls+'">'+escapeHtml(g.status)+'</span>'+
-    '</div>';
-  }).join('');
 }
 
 // ===== 洗炼查询渲染 =====
@@ -686,7 +646,6 @@ function filterRec(f){
 // ===== 搜索绑定（只绑addEventListener，不用oninput） =====
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('redeemSearch').addEventListener('input', function(){tabState.redeem.search=this.value;renderRedeem();});
-  document.getElementById('guidesSearch').addEventListener('input', function(){tabState.guides.search=this.value;renderGuides();});
   document.getElementById('washSearch').addEventListener('input', function(){tabState.wash.search=this.value;renderWash();});
   document.getElementById('recSearch').addEventListener('input', function(){tabState.recommend.search=this.value;renderRec();});
   // 初始化
@@ -701,8 +660,9 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- 底部导航 -->
 <div class="bottom-nav">
   <a href="index.html"><span class="icon">&#127968;</span>首页</a>
-  <a href="library.html"><span class="icon">&#128218;</span>资料库</a>
-  <a href="guild.html"><span class="icon">&#127942;</span>公会</a>
+  <a href="builds-guides.html"><span class="icon">&#9876;</span>配装</a>
+  <a href="library.html"><span class="icon">&#128218;</span>资料</a>
+  <a href="guild.html"><span class="icon">&#128101;</span>公会</a>
   <a href="tools.html" class="active"><span class="icon">&#128295;</span>工具</a>
 </div>
 

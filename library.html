@@ -197,7 +197,8 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
           </div>
           <div class="guild-nav-links">
             <a href="index.html" class="guild-nav-link">首页</a>
-            <a href="library.html" class="guild-nav-link">资料库</a>
+            <a href="builds-guides.html" class="guild-nav-link">配装攻略</a>
+            <a href="library.html" class="guild-nav-link active">资料库</a>
             <a href="guild.html" class="guild-nav-link">公会</a>
             <a href="tools.html" class="guild-nav-link">工具</a>
           </div>
@@ -228,36 +229,13 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 </div>
 
 <div class="tab-bar">
-  <button class="tab-btn active" data-tab="build" onclick="switchTab('build')">配装</button>
-  <button class="tab-btn" data-tab="engraving" onclick="switchTab('engraving')">刻印</button>
+  <button class="tab-btn active" data-tab="engraving" onclick="switchTab('engraving')">刻印</button>
   <button class="tab-btn" data-tab="skill" onclick="switchTab('skill')">技能</button>
   <button class="tab-btn" data-tab="rune" onclick="switchTab('rune')">遗物</button>
   <button class="tab-btn" data-tab="symbol" onclick="switchTab('symbol')">符文</button>
   <button class="tab-btn" data-tab="sage" onclick="switchTab('sage')">贤者</button>
   <button class="tab-btn" data-tab="armor" onclick="switchTab('armor')">暗能</button>
   <button class="tab-btn" data-tab="pet" onclick="switchTab('pet')">侍从</button>
-</div>
-
-<!-- ===== 配装Tab ===== -->
-<div class="tab-panel" id="panel-build">
-  <div class="catalog-toolbar">
-    <div class="catalog-search-box">
-      <span class="search-icon">&#128269;</span>
-      <input type="text" id="buildSearch" placeholder="搜索配装名称/流派..." class="catalog-search-input">
-    </div>
-    <div class="catalog-filter-group" id="buildFilter">
-      <button class="filter-btn active" data-filter="all" onclick="filterBuilds('all')">全部</button>
-      <button class="filter-btn" data-filter="野蛮人" onclick="filterBuilds('野蛮人')">野蛮人</button>
-      <button class="filter-btn" data-filter="秘法师" onclick="filterBuilds('秘法师')">秘法师</button>
-      <button class="filter-btn" data-filter="游侠" onclick="filterBuilds('游侠')">游侠</button>
-    </div>
-    <div class="catalog-count" id="buildCount">18 套配装</div>
-  </div>
-  <div class="build-grid" id="buildGrid"></div>
-  <div class="empty-state" id="buildEmpty" style="display:none;">
-    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
-    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的配装</div>
-  </div>
 </div>
 
 <!-- ===== 刻印Tab ===== -->
@@ -728,12 +706,12 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 
 <div class="bottom-nav">
   <a href="index.html"><span class="icon">&#127968;</span>首页</a>
-  <a href="library.html" class="active"><span class="icon">&#128218;</span>资料库</a>
-  <a href="guild.html"><span class="icon">&#9876;</span>公会</a>
+  <a href="builds-guides.html"><span class="icon">&#9876;</span>配装</a>
+  <a href="library.html" class="active"><span class="icon">&#128218;</span>资料</a>
+  <a href="guild.html"><span class="icon">&#128101;</span>公会</a>
   <a href="tools.html"><span class="icon">&#128295;</span>工具</a>
 </div>
 
-<script src="builds-data.js?v=20260927"></script>
 <script src="engravings-data.js?v=20260927"></script>
 <script src="skills-data.js?v=20260927"></script>
 <script src="runes-data.js?v=20260927"></script>
@@ -745,6 +723,8 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 <script>
 
 // ===== 公共工具：HTML转义（防XSS） =====
+// 旧链接兼容：#配装 → builds-guides.html
+if(location.hash==='#配装'||location.hash==='#build'){location.href='builds-guides.html';}
 function escapeHtml(str) {
   return (str || '').replace(/[&<>"']/g, c => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -843,27 +823,7 @@ document.addEventListener('keydown', e => {
 });
 
 
-// ===== 配装Tab逻辑（点击跳转详情页） =====
-let currentBuildFilter='all', buildSearchTimer=null;
-function renderBuilds() {
-  const grid=document.getElementById('buildGrid'),empty=document.getElementById('buildEmpty');
-  const search=(document.getElementById('buildSearch').value||'').toLowerCase().trim();
-  let list=BUILDS_DATA;
-  if(currentBuildFilter!=='all') list=list.filter(e=>e.class===currentBuildFilter);
-  if(search) list=list.filter(e=>(e.name||'').toLowerCase().includes(search)||(e.desc||'').toLowerCase().includes(search)||(e.tags||[]).some(t=>t.toLowerCase().includes(search)));
-  document.getElementById('buildCount').textContent=`${list.length} 套配装`;
-  if(list.length===0){grid.style.display='none';empty.style.display='block';return;}
-  grid.style.display='grid';empty.style.display='none';
-  grid.innerHTML=list.map(e=>`<a href="${e.url}" class="build-card" data-id="${e.id}" style="text-decoration:none;color:inherit;">
-    <div class="build-icon">&#9876;</div>
-    <div class="build-name">${escapeHtml(e.name)}</div>
-    <span class="build-class cls-${escapeHtml(e.class)}">${e.class}</span>
-    <div class="build-tags">${(e.tags||[]).map(t=>`<span class="build-tag">${escapeHtml(t)}</span>`).join('')}</div>
-    <div class="build-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div></a>`).join('');
-}
-function filterBuilds(filter){currentBuildFilter=filter;document.querySelectorAll('#buildFilter .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));renderBuilds();}
-function initBuildTab(){renderBuilds();}
-document.addEventListener('DOMContentLoaded',function(){const i=document.getElementById('buildSearch');if(i)i.addEventListener('input',function(){clearTimeout(buildSearchTimer);buildSearchTimer=setTimeout(renderBuilds,300);});});
+
 
 
 // ===== 刻印Tab逻辑（改用统一弹窗） =====
@@ -1383,7 +1343,6 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
   resetTabState(tab);
-  if (tab === 'build') initBuildTab();
   if (tab === 'engraving') initEngravingsTab();
   if (tab === 'skill') initSkillTab();
   if (tab === 'rune') initRuneTab();
@@ -1392,9 +1351,9 @@ function switchTab(tab) {
   if (tab === 'armor') initArmorTab();
   if (tab === 'pet') initPetTab();
 }
-// 默认显示配装Tab
+// 默认显示刻印Tab
 document.addEventListener('DOMContentLoaded', function() {
-  switchTab('build');
+  switchTab('engraving');
 });
 
 </script>
