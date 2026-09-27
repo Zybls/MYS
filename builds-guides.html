@@ -305,7 +305,7 @@ function switchTab(tab){
   if(tab==='guides') renderGuides();
 }
 
-// ===== 配装Tab逻辑（点击跳转详情页） =====
+// ===== 配装Tab逻辑 =====
 let currentBuildFilter='all', buildSearchTimer=null;
 function renderBuilds() {
   const grid=document.getElementById('buildGrid'),empty=document.getElementById('buildEmpty');
@@ -324,8 +324,6 @@ function renderBuilds() {
     <div class="build-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div></a>`).join('');
 }
 function filterBuilds(filter){currentBuildFilter=filter;document.querySelectorAll('#buildFilter .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));renderBuilds();}
-function initBuildTab(){renderBuilds();}
-document.addEventListener('DOMContentLoaded',function(){const i=document.getElementById('buildSearch');if(i)i.addEventListener('input',function(){clearTimeout(buildSearchTimer);buildSearchTimer=setTimeout(renderBuilds,300);});
 
 // ===== 攻略大全渲染 =====
 function renderGuides(){
@@ -351,129 +349,36 @@ function renderGuides(){
   }).join('');
 }
 
-// ===== 洗炼查询渲染 =====
-function renderWash(){
-  var list = WASH_DATA.slice();
-  var s = tabState.wash.search.toLowerCase();
-  var f = tabState.wash.filter;
-  if(s) list = list.filter(function(w){return (w.name||'').toLowerCase().indexOf(s)>-1;});
-  if(f!=='all') list = list.filter(function(w){return w.slot===f;});
-  document.getElementById('washCount').textContent = list.length+' 个词条';
-  var empty = document.getElementById('washEmpty');
-  var grid = document.getElementById('washGrid');
-  if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
-  empty.style.display='none';
-  grid.innerHTML = list.map(function(w){
-    var specialCls = w.special?'wash-special':'wash-normal';
-    var specialText = w.special?'铸造强化':'普通';
-    return '<div class="wash-card">'+
-      '<div class="wash-name">'+escapeHtml(w.name)+'</div>'+
-      '<div class="wash-slot">部位：'+escapeHtml(w.slot)+'</div>'+
-      '<span class="'+specialCls+'">'+specialText+'</span>'+
-      '<span class="wash-count">出现'+w.count+'次</span>'+
-    '</div>';
-  }).join('');
+// ===== 公共函数（顶部导航用） =====
+function openLoginModal(){ window.location.href='admin.html'; }
+function toggleTheme(){
+  var body=document.body;
+  if(body.dataset.theme==='light'){body.dataset.theme='dark';localStorage.setItem('theme','dark');}
+  else{body.dataset.theme='light';localStorage.setItem('theme','light');}
 }
-function filterWash(f){
-  tabState.wash.filter = f;
-  document.querySelectorAll('#washFilter .filter-btn').forEach(function(b){b.classList.remove('active');});
-  document.querySelector('#washFilter .filter-btn[data-filter="'+f+'"]').classList.add('active');
-  renderWash();
+function toggleFullscreenSearch(){
+  var fs=document.getElementById('fullscreenSearch');
+  if(!fs)return;
+  if(fs.style.display==='flex'){fs.style.display='none';}
+  else{fs.style.display='flex';var inp=document.getElementById('fullscreenSearchInput');if(inp)inp.focus();}
 }
 
-// ===== 配装对比 =====
-function initCompare(){
-  var selA = document.getElementById('compareA');
-  var selB = document.getElementById('compareB');
-  BUILDS_DATA.forEach(function(b){
-    var optA = document.createElement('option');
-    optA.value = b.id;
-    optA.textContent = b.name+' ('+b.class+')';
-    selA.appendChild(optA);
-    var optB = document.createElement('option');
-    optB.value = b.id;
-    optB.textContent = b.name+' ('+b.class+')';
-    selB.appendChild(optB);
-  });
-}
-function doCompare(){
-  var idA = document.getElementById('compareA').value;
-  var idB = document.getElementById('compareB').value;
-  renderCompareCard('compareAResult', idA);
-  renderCompareCard('compareBResult', idB);
-}
-function renderCompareCard(elId, buildId){
-  var el = document.getElementById(elId);
-  if(!buildId){el.innerHTML='<div style="color:var(--text-dim);text-align:center;padding:20px;">请选择配装</div>';return;}
-  var b = BUILDS_DATA.find(function(x){return x.id===buildId;});
-  if(!b){el.innerHTML='<div style="color:var(--red);text-align:center;padding:20px;">配装不存在</div>';return;}
-  var tags = (b.tags||[]).map(function(t){return '<span class="compare-tag">'+escapeHtml(t)+'</span>';}).join('');
-  el.innerHTML = '<h3>'+escapeHtml(b.name)+'</h3>'+
-    '<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">职业：'+escapeHtml(b.class)+'</div>'+
-    '<div class="compare-tags">'+tags+'</div>'+
-    '<div class="compare-desc">'+escapeHtml(b.desc||'')+'</div>'+
-    '<a class="compare-link" href="'+escapeHtml(b.url)+'" target="_blank">查看详情 →</a>';
-}
+// ===== 主题初始化 =====
+(function(){try{var t=localStorage.getItem('theme');if(t==='light')document.body.dataset.theme='light';}catch(e){}})();
 
-// ===== 配装推荐渲染 =====
-function renderRec(){
-  var list = RECOMMEND_DATA.slice();
-  var s = tabState.recommend.search.toLowerCase();
-  var f = tabState.recommend.filter;
-  var buildsById = {};
-  BUILDS_DATA.forEach(function(b){ buildsById[b.id]=b; });
-  if(s) list = list.filter(function(r){
-    var builds = (r.build_ids||[]).map(function(bid){return buildsById[bid]?buildsById[bid].name:'';}).join(' ');
-    return (r.desc||'').toLowerCase().indexOf(s)>-1
-      || (r.scene||'').toLowerCase().indexOf(s)>-1
-      || (r.class||'').toLowerCase().indexOf(s)>-1
-      || builds.toLowerCase().indexOf(s)>-1;
-  });
-  if(f!=='all') list = list.filter(function(r){return r.scene===f;});
-  document.getElementById('recCount').textContent = list.length+' 条推荐';
-  var empty = document.getElementById('recEmpty');
-  var grid = document.getElementById('recGrid');
-  if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
-  empty.style.display='none';
-  grid.innerHTML = list.map(function(r){
-    var builds = (r.build_ids||[]).map(function(bid){return buildsById[bid]?escapeHtml(buildsById[bid].name):bid;}).join('、');
-    return '<div class="guide-card" onclick="window.location.href=\''+(buildsById[r.build_ids[0]]||{}).url+'\'">'+
-      '<div class="guide-icon">&#127919;</div>'+
-      '<div class="guide-title">'+escapeHtml(builds)+'</div>'+
-      '<span class="rec-scene scene-'+escapeHtml(r.scene)+'">'+escapeHtml(r.scene)+'</span>'+
-      '<span class="cls-'+escapeHtml(r.class)+'" style="font-size:10px;padding:2px 8px;border-radius:4px;margin-left:4px;">'+escapeHtml(r.class)+'</span>'+
-      '<div class="guide-desc" style="margin-top:8px;">'+escapeHtml(r.desc||'')+'</div>'+
-    '</div>';
-  }).join('');
-}
-function filterRec(f){
-  tabState.recommend.filter = f;
-  document.querySelectorAll('#recFilter .filter-btn').forEach(function(b){b.classList.remove('active');});
-  document.querySelector('#recFilter .filter-btn[data-filter="'+f+'"]').classList.add('active');
-  renderRec();
-}
-
-// ===== 搜索绑定（只绑addEventListener，不用oninput） =====
-document.addEventListener('DOMContentLoaded', function(){
-  document.getElementById('redeemSearch').addEventListener('input', function(){tabState.redeem.search=this.value;renderRedeem();});
-  document.getElementById('guidesSearch').addEventListener('input', function(){tabState.guides.search=this.value;renderGuides();
-
-
-
-
-
-
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeCatalogModal();
+// ===== 键盘事件 =====
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){var fs=document.getElementById('fullscreenSearch');if(fs)fs.style.display='none';}
+  if(e.ctrlKey&&e.key==='k'){e.preventDefault();toggleFullscreenSearch();}
 });
 
-// 默认显示配装Tab
+// ===== 页面初始化 =====
 document.addEventListener('DOMContentLoaded', function(){
+  var bs=document.getElementById('buildSearch');
+  if(bs) bs.addEventListener('input', function(){clearTimeout(buildSearchTimer);buildSearchTimer=setTimeout(renderBuilds,300);});
+  var gs=document.getElementById('guidesSearch');
+  if(gs) gs.addEventListener('input', renderGuides);
   switchTab('build');
-  // 攻略搜索绑定
-  var gs = document.getElementById('guidesSearch');
-  if(gs) gs.addEventListener('input', function(){ renderGuides(); });
 });
 </script>
 </body>
