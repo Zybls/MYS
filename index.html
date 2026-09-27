@@ -507,13 +507,6 @@ body {
   }
 
   /* 5. FAB音乐按钮位置 */
-  .music-btn {
-    bottom: 20px !important;
-    right: 20px !important;
-    z-index: 999 !important;
-    width: 48px !important;
-    height: 48px !important;
-  }
 
   /* 6. 通用：取消固定宽度，全部100% */
   .guild-activities, .guild-dashboard-section, .tactics-header,
@@ -930,21 +923,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 
 
 /* 音乐播放器 */
-.music-player {
-  position: fixed; bottom: 20px; right: 20px; z-index: 9998;
-  background: rgba(22,22,31,0.95); backdrop-filter: blur(10px);
-  border: 1px solid rgba(245,158,11,0.3); border-radius: 50px;
-  padding: 8px 16px 8px 8px; display: flex; align-items: center; gap: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5); transition: all 0.3s;
-}
-.music-player:hover { border-color: rgba(245,158,11,0.6); }
-.music-btn {
-  width: 36px; height: 36px; border-radius: 50%; border: none;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #1a1a2e; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s; flex-shrink: 0; padding: 0;
-}
 .music-btn svg { display: block; }
 .music-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(245,158,11,0.5); }
 .music-btn.playing { animation: pulse 2s infinite; }
@@ -1034,230 +1012,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 }
 
 @media (max-width: 639px) {
-  .music-player { bottom: 12px; right: 12px; padding: 6px 12px 6px 6px; }
-  .music-info { display: none; }
-}
-
-  
-/* ===== 亮色主题 ===== */
-[data-theme="light"] { --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa; --bg-card-hover:#f0f0f5; --border:#e0e0e8; --border-hover:#c8c8d0; --gold:#d97706; --gold-dim:#b45309; --gold-glow:rgba(217,119,6,.1); --text:#1a1a2e; --text-dim:#5a5a6e; --text-bright:#0a0a15; }
-[data-theme="light"] body { background:var(--bg) !important; color:var(--text) !important; }
-[data-theme="light"] .guild-nav { background:rgba(255,255,255,.95) !important; backdrop-filter:blur(12px); border-bottom:1px solid #e0e0e8 !important; }
-[data-theme="light"] .guild-nav-name, [data-theme="light"] .guild-name { color:#78350f !important; }
-[data-theme="light"] .guild-nav-slogan, [data-theme="light"] .guild-slogan { color:#92400e !important; }
-[data-theme="light"] .guild-nav-link, [data-theme="light"] .nav-link { color:#1a1a2e !important; }
-[data-theme="light"] .guild-nav-link:hover, [data-theme="light"] .nav-link:hover { color:#d97706 !important; }
-[data-theme="light"] .hero-section, [data-theme="light"] .hero { background:linear-gradient(135deg,#fef3c7,#fde68a 50%,#fcd34d) !important; }
-[data-theme="light"] .hero-title, [data-theme="light"] .hero h1 { color:#78350f !important; }
-[data-theme="light"] .hero-subtitle, [data-theme="light"] .hero p { color:#92400e !important; }
-[data-theme="light"] .section-title, [data-theme="light"] h2 { color:#1a1a2e !important; }
-[data-theme="light"] .card, [data-theme="light"] .build-card, [data-theme="light"] .member-card, [data-theme="light"] .timeline-item { background:#fff !important; border:1px solid #e0e0e8 !important; }
-[data-theme="light"] .card:hover, [data-theme="light"] .build-card:hover { border-color:#d97706 !important; box-shadow:0 4px 20px rgba(217,119,6,.15) !important; }
-[data-theme="light"] .stat-value { color:#d97706 !important; }
-[data-theme="light"] .music-player { background:rgba(255,255,255,.95) !important; border:1px solid #e0e0e8 !important; }
-[data-theme="light"] .music-player .song-name { color:#1a1a2e !important; }
-[data-theme="light"] .announcement-bar { background:linear-gradient(90deg,#fef3c7,#fde68a) !important; color:#78350f !important; }
-[data-theme="light"] .progress-bar { background:#e0e0e8 !important; }
-[data-theme="light"] .progress-fill { background:linear-gradient(90deg,#fbbf24,#f59e0b) !important; }
-[data-theme="light"] .guild-login-btn, [data-theme="light"] .login-btn { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
-[data-theme="light"] .nav-icon-btn, [data-theme="light"] .theme-toggle { background:#f0f0f5 !important; color:#1a1a2e !important; }
-[data-theme="light"] .quick-nav a { background:#fff !important; border:1px solid #e0e0e8 !important; color:#1a1a2e !important; }
-[data-theme="light"] .quick-nav a:hover { border-color:#d97706 !important; color:#d97706 !important; }
-[data-theme="light"] .badge-gold { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
-[data-theme="light"] .badge-silver { background:linear-gradient(135deg,#e5e7eb,#d1d5db) !important; color:#374151 !important; }
-[data-theme="light"] .badge-bronze { background:linear-gradient(135deg,#fdba74,#fb923c) !important; color:#7c2d12 !important; }
-[data-theme="light"] .recruit-text { color:#16a34a !important; }
-[data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
-
-
-.empty-state{text-align:center;padding:20px;color:var(--text-dim);font-size:14px}
-
-/* ===== 首页新布局样式 ===== */
-.home-main { max-width: 1280px; margin: 0 auto; padding: 0 16px 40px; }
-
-/* Hero区 */
-.hero-section { position: relative; margin: 0 -16px 20px; padding: 40px 20px 32px; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.05) 50%, rgba(168,85,247,0.1)); z-index: 0; }
-.hero-content { position: relative; z-index: 1; text-align: center; }
-.hero-badge-wrap { position: relative; display: inline-block; margin-bottom: 16px; }
-.hero-badge { width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(245,158,11,0.5); box-shadow: 0 0 30px rgba(245,158,11,0.3); }
-.hero-level-badge { position: absolute; bottom: -4px; right: -4px; background: linear-gradient(135deg,#f59e0b,#d97706); color: #1a1a2e; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
-.hero-title { font-size: 28px; font-weight: 900; color: var(--gold); margin-bottom: 6px; letter-spacing: 2px; }
-.hero-subtitle { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
-.hero-stats { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 24px; }
-.hero-stat { text-align: center; }
-.hero-stat-value { font-size: 18px; font-weight: 700; color: var(--text); }
-.hero-stat-label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-.hero-stat-divider { width: 1px; height: 32px; background: var(--border); }
-.hero-actions { display: flex; gap: 12px; justify-content: center; }
-.hero-btn { padding: 10px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-block; transition: all 0.2s; }
-.hero-btn.primary { background: linear-gradient(135deg,#f59e0b,#d97706); color: #1a1a2e; }
-.hero-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(245,158,11,0.4); }
-.hero-btn.secondary { background: rgba(245,158,11,0.1); color: var(--gold); border: 1px solid rgba(245,158,11,0.3); }
-.hero-btn.secondary:hover { background: rgba(245,158,11,0.2); }
-
-/* 公告栏 */
-.announcement-bar { background: linear-gradient(90deg, rgba(245,158,11,0.1), rgba(245,158,11,0.05)); border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-.announcement-icon { font-size: 16px; flex-shrink: 0; }
-.announcement-scroll { flex: 1; overflow: hidden; }
-.announcement-track { display: flex; gap: 40px; animation: scroll-left 20s linear infinite; }
-.announcement-text { white-space: nowrap; font-size: 13px; color: var(--text-dim); }
-@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* 快捷入口 */
-.quick-nav-section { margin-bottom: 24px; }
-.quick-nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.quick-nav-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 8px; text-align: center; transition: all 0.2s; text-decoration: none; }
-.quick-nav-item:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(245,158,11,0.15); }
-.quick-nav-icon { font-size: 24px; margin-bottom: 6px; }
-.quick-nav-text { font-size: 12px; color: var(--text); font-weight: 500; }
-
-/* 内容区块 */
-.content-section { margin-bottom: 24px; }
-.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.section-title { font-size: 17px; font-weight: 700; color: var(--text); }
-.section-more { font-size: 12px; color: var(--gold); text-decoration: none; }
-
-/* 活动卡片 */
-.activity-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.activity-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; position: relative; overflow: hidden; }
-.activity-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
-.activity-badge.battle { background: rgba(239,68,68,0.15); color: #ef4444; }
-.activity-badge.league { background: rgba(59,130,246,0.15); color: #3b82f6; }
-.activity-badge.recruit { background: rgba(34,197,94,0.15); color: #22c55e; }
-.activity-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; padding-right: 40px; }
-.activity-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 10px; }
-.activity-meta { display: flex; gap: 8px; align-items: center; }
-.activity-date { font-size: 11px; color: var(--text-dim); }
-.activity-tag { font-size: 10px; padding: 2px 6px; background: var(--bg-card2); border-radius: 4px; color: var(--text-dim); }
-
-/* 数据看板 */
-.dashboard-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-.dashboard-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.stat-item { text-align: center; }
-.stat-value { font-size: 22px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
-.stat-label { font-size: 11px; color: var(--text-dim); }
-
-/* 战术库入口 */
-.tactics-entry-card { display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(245,158,11,0.03)); border: 1px solid rgba(245,158,11,0.3); border-radius: 16px; padding: 20px; text-decoration: none; transition: all 0.2s; }
-.tactics-entry-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-.tactics-entry-icon { font-size: 36px; flex-shrink: 0; }
-.tactics-entry-content { flex: 1; }
-.tactics-entry-content h3 { font-size: 17px; color: var(--gold); margin-bottom: 4px; }
-.tactics-entry-content p { font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
-.tactics-entry-tags { display: flex; gap: 6px; }
-.tactics-entry-tags span { font-size: 10px; padding: 2px 8px; background: rgba(245,158,11,0.15); color: var(--gold); border-radius: 4px; }
-.tactics-entry-arrow { font-size: 24px; color: var(--gold); flex-shrink: 0; }
-
-/* 福利卡片 */
-.welfare-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-.welfare-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.welfare-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
-.welfare-icon { font-size: 16px; }
-
-/* 加入公会 */
-.signup-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-.signup-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; text-align: center; }
-.signup-form { display: flex; flex-direction: column; gap: 10px; }
-.signup-input { padding: 12px 16px; background: var(--bg-card2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-family: inherit; }
-.signup-input:focus { outline: none; border-color: var(--gold); }
-.signup-btn { padding: 12px; background: linear-gradient(135deg,#f59e0b,#d97706); color: #1a1a2e; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.signup-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(245,158,11,0.3); }
-
-/* 页脚 */
-.site-footer { border-top: 1px solid var(--border); padding: 24px 16px; text-align: center; }
-.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 12px; }
-.footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; }
-.footer-links a:hover { color: var(--gold); }
-.footer-copyright { font-size: 11px; color: var(--text-dim); opacity: 0.6; }
-
-/* ===== 首页移动端适配 ===== */
-@media (max-width: 768px) {
-  .home-main { padding: 0 12px 32px; }
-  .hero-section { margin: 0 -12px 16px; padding: 28px 16px 24px; }
-  .hero-badge { width: 64px; height: 64px; }
-  .hero-title { font-size: 22px; }
-  .hero-subtitle { font-size: 12px; }
-  .hero-stats { gap: 14px; }
-  .hero-stat-value { font-size: 15px; }
-  .activity-cards { grid-template-columns: 1fr; }
-  .dashboard-stats { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .quick-nav-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .quick-nav-item { padding: 12px 4px; }
-  .quick-nav-icon { font-size: 20px; }
-  .quick-nav-text { font-size: 11px; }
-}
-@media (max-width: 480px) {
-  .hero-stats { gap: 10px; }
-  .hero-stat-value { font-size: 14px; }
-  .hero-actions { flex-direction: column; padding: 0 20px; }
-  .hero-btn { width: 100%; text-align: center; }
-  .tactics-entry-card { flex-direction: column; text-align: center; }
-  .tactics-entry-tags { justify-content: center; }
-}
-
-
-/* 福利高亮入口（兑换码） */
-.welfare-highlight { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05)); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; text-decoration: none; transition: all 0.2s; }
-.welfare-highlight:hover { border-color: var(--gold); transform: translateY(-1px); }
-.welfare-highlight-icon { font-size: 28px; flex-shrink: 0; }
-.welfare-highlight-content { flex: 1; }
-.welfare-highlight-title { font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 2px; }
-.welfare-highlight-desc { font-size: 11px; color: var(--text-dim); }
-.welfare-highlight-arrow { font-size: 20px; color: var(--gold); flex-shrink: 0; }
-
-
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
-.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
-.nav-item.active{color:#60a5fa}
-.nav-item .nav-icon{font-size:20px}
-
-
-/* PC端隐藏底部导航（移动端专用） */
-@media (min-width: 769px) {
-  .bottom-nav { display: none !important; }
-  body { padding-bottom: 0 !important; }
-  .main-content { padding-bottom: 0 !important; }
-  .container { padding-bottom: 0 !important; }
-  /* PC端播放器移到右上角，避免遮挡底部内容 */
-  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
-}
-
-</style>
-        <link rel="manifest" href="manifest.json">
-        <meta name="theme-color" content="#f59e0b">
-          <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "英雄没有闪S2赛季配装攻略", "url": "https://ykmys.com", "description": "英雄没有闪S2赛季全职业配装攻略大全，含法师、游侠、蛮子的推图、首领、PK配装，技能装备刻印侍从完整搭配", "potentialAction": {"@type": "SearchAction", "target": "https://ykmys.com/?q={search_term_string}", "query-input": "required name=search_term_string"}}
-/* ===== 从API加载网站配置并动态渲染 ===== */
-var API_BASE = "https://api.ykmys.com";
-var siteConfig = null;
-
-function escapeHtml(str) {
-  return (str || '').replace(/[&<>"']/g, function(c) {
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-  });
-}
-
-function loadSiteConfig() {
-  fetch(API_BASE + "/api/home-config")
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if (data && data.hero && Object.keys(data.hero).length > 0) {
-        siteConfig = data;
-        renderSiteConfig();
-      }
-    })
-    .catch(function(){ /* API不可用时使用默认内容 */ });
-}
-
-function renderSiteConfig() {
-  if (!siteConfig) return;
-  var h = siteConfig.hero || {};
-
-  // 更新公会统计数据
-  if (h.memberCount) {
-    var stats = document.querySelectorAll(".guild-stat .stat-num");
-    if (stats[0]) stats[0].textContent = h.memberCount.replace("/40","").replace("/","");
-  }
   if (h.totalPower) {
     var powerEl = document.querySelector(".hero-power");
     if (powerEl) powerEl.textContent = h.totalPower;
@@ -1686,54 +1440,6 @@ function filterBuilds(query) {
 </script>
 
 
-<!-- 音乐播放器 -->
-<audio id="bgmPlayer" loop preload="none">
-  <source src="home-bgm.mp3" type="audio/mpeg">
-</audio>
-<div class="music-player" id="musicPlayer">
-  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-    <svg class="play-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    <svg class="pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-  </button>
-  <div class="music-visualizer" id="musicViz">
-    <div class="music-bar"></div><div class="music-bar"></div>
-    <div class="music-bar"></div><div class="music-bar"></div>
-  </div>
-  <div class="music-info">
-    <div class="music-title">公会主题曲</div>
-    <div class="music-status" id="musicStatus">点击播放</div>
-  </div>
-</div>
-<script>
-var bgm = document.getElementById('bgmPlayer');
-var musicBtn = document.getElementById('musicBtn');
-var musicPlayer = document.getElementById('musicPlayer');
-var musicStatus = document.getElementById('musicStatus');
-var isPlaying = false;
-function toggleMusic() {
-  var playIcon = musicBtn.querySelector('.play-icon');
-  var pauseIcon = musicBtn.querySelector('.pause-icon');
-  if (isPlaying) {
-    bgm.pause();
-    isPlaying = false;
-    playIcon.style.display = 'block';
-    pauseIcon.style.display = 'none';
-    musicPlayer.classList.remove('playing');
-    musicStatus.textContent = '已暂停';
-  } else {
-    bgm.play().then(function() {
-      isPlaying = true;
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
-      musicPlayer.classList.add('playing');
-      musicStatus.textContent = '播放中';
-    }).catch(function(e) {
-      musicStatus.textContent = '加载失败';
-    });
-  }
-}
-</script>
-
 <script>
 // 活动区从API动态加载
 function loadActivities() {
@@ -1802,5 +1508,6 @@ if(document.readyState === 'loading') {
 })();
 </script>
 
+<script src="music-player.js"></script>
 </body>
 </html>

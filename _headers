@@ -10,9 +10,9 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# 数据文件缓存1小时
+# 数据文件短缓存（1分钟），避免更新后用户拿到旧数据
 /*-data.js
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=60, must-revalidate
 
 # HTML页面不缓存
 /*.html
