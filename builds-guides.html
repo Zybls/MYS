@@ -287,8 +287,8 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   <a href="guild.html"><span class="icon">👥</span>公会</a>
   <a href="tools.html"><span class="icon">🔧</span>工具</a>
 </div>
-<script src="builds-data.js?v=20260927"></script>
-<script src="guides-data.js?v=20260927"></script>
+<script src="builds-data.js?v=20260927b"></script>
+<script src="guides-data.js?v=20260927b"></script>
 <script src="search-data.js"></script>
 <script src="music-player.js"></script>
 <script>
@@ -373,13 +373,18 @@ document.addEventListener('keydown', function(e){
 });
 
 // ===== 页面初始化 =====
-document.addEventListener('DOMContentLoaded', function(){
+function initBuildsGuides(){
   var bs=document.getElementById('buildSearch');
   if(bs) bs.addEventListener('input', function(){clearTimeout(buildSearchTimer);buildSearchTimer=setTimeout(renderBuilds,300);});
   var gs=document.getElementById('guidesSearch');
   if(gs) gs.addEventListener('input', renderGuides);
   switchTab('build');
-});
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', initBuildsGuides);
+}else{
+  initBuildsGuides();
+}
 </script>
 </body>
 </html>
