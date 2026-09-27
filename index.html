@@ -1011,6 +1011,40 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   body { padding-top: 110px !important; }
 }
 
+
+/* ===== 首页兑换码卡片 ===== */
+.redeem-section { max-width:1280px; margin:0 auto 20px; padding:0 20px; }
+.redeem-card {
+  background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(245,158,11,0.03));
+  border:1px solid rgba(245,158,11,0.25); border-radius:12px; padding:16px 20px;
+}
+.redeem-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.redeem-title { font-size:15px; font-weight:700; color:var(--gold); display:flex; align-items:center; gap:6px; }
+.redeem-more { font-size:12px; color:var(--text-dim); text-decoration:none; }
+.redeem-more:hover { color:var(--gold); }
+.redeem-list { display:flex; gap:12px; flex-wrap:wrap; }
+.redeem-item {
+  flex:1; min-width:200px; background:var(--bg-card); border:1px solid var(--border);
+  border-radius:8px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+}
+.redeem-info { flex:1; min-width:0; }
+.redeem-name { font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.redeem-code { font-size:12px; color:var(--gold); font-family:monospace; letter-spacing:0.5px; }
+.redeem-tag { font-size:10px; padding:1px 6px; border-radius:3px; margin-left:6px; }
+.redeem-tag.limited { background:rgba(239,68,68,0.15); color:#f87171; }
+.redeem-tag.permanent { background:rgba(34,197,94,0.15); color:#4ade80; }
+.redeem-copy {
+  background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); color:var(--gold);
+  font-size:11px; padding:4px 10px; border-radius:6px; cursor:pointer; flex-shrink:0;
+  transition:all 0.2s;
+}
+.redeem-copy:hover { background:rgba(245,158,11,0.3); }
+.redeem-copy.copied { background:rgba(34,197,94,0.2); color:#4ade80; border-color:rgba(34,197,94,0.3); }
+.redeem-empty { text-align:center; color:var(--text-dim); font-size:13px; padding:16px; }
+@media (max-width:639px) {
+  .redeem-item { min-width:100%; }
+}
+
 </style>
 
 <script>
@@ -1150,6 +1184,20 @@ document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
     <button class="ann-close" onclick="closeAnnouncement()">&times;</button>
   </div>
 </div>
+
+<!-- 首页兑换码卡片 -->
+<div class="redeem-section">
+  <div class="redeem-card">
+    <div class="redeem-header">
+      <div class="redeem-title">🎁 最新兑换码</div>
+      <a href="tools.html#redeem" class="redeem-more">查看更多 →</a>
+    </div>
+    <div class="redeem-list" id="homeRedeemList">
+      <div class="redeem-empty">加载中...</div>
+    </div>
+  </div>
+</div>
+
 <!-- 公会活动区 -->
         <section class="guild-activities" id="activities">
           <div class="section-title-row">
@@ -1489,6 +1537,7 @@ if(document.readyState === 'loading') {
   loadActivities();
 }
 </script>
+<script src="redeem-data.js"></script>
 <script src="search-data.js"></script>
 <script src="search.js"></script>
 
@@ -1510,6 +1559,54 @@ if(document.readyState === 'loading') {
 })();
 </script>
 
-<script src="music-player.js"></script>
+<script src="music-player.js">
+
+// 首页兑换码渲染
+function renderHomeRedeem() {
+  var list = document.getElementById('homeRedeemList');
+  if (!list) return;
+  if (typeof REDEEM_DATA === 'undefined' || !REDEEM_DATA || REDEEM_DATA.length === 0) {
+    list.innerHTML = '<div class="redeem-empty">暂无可用兑换码</div>';
+    return;
+  }
+  // 优先显示限时礼包（未过期），然后长期礼包，最多3条
+  var today = new Date().toISOString().split('T')[0];
+  var limited = REDEEM_DATA.filter(function(r){ return !r.is_permanent && r.deadline && r.deadline >= today; });
+  var permanent = REDEEM_DATA.filter(function(r){ return r.is_permanent; });
+  var show = limited.slice(0,2).concat(permanent.slice(0,1));
+  if (show.length === 0) show = REDEEM_DATA.slice(0,3);
+  
+  list.innerHTML = show.map(function(r){
+    var tagClass = r.is_permanent ? 'permanent' : 'limited';
+    var tagText = r.is_permanent ? '长期' : (r.deadline || '限时');
+    return '<div class="redeem-item">' +
+      '<div class="redeem-info">' +
+        '<div class="redeem-name">' + (r.name || '') + '<span class="redeem-tag ' + tagClass + '">' + tagText + '</span></div>' +
+        '<div class="redeem-code">' + (r.code || '') + '</div>' +
+      '</div>' +
+      '<button class="redeem-copy" onclick="copyRedeemCode(this, \'' + (r.code || '') + '\')">复制</button>' +
+    '</div>';
+  }).join('');
+}
+function copyRedeemCode(btn, code) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(function(){
+      btn.textContent = '已复制'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+    });
+  } else {
+    var ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    btn.textContent = '已复制'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderHomeRedeem);
+} else {
+  renderHomeRedeem();
+}
+
+</script>
 </body>
 </html>
