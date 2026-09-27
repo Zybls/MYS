@@ -138,6 +138,17 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   .copy-btn{float:none;margin-top:8px;display:block;width:100%;}
 }
 
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
 </style>
 </head>
 <body>

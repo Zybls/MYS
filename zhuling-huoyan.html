@@ -581,6 +581,17 @@ body.light-theme .action-btn:hover {
 .nav-item.active{color:#60a5fa}
 .nav-item .nav-icon{font-size:20px}
 
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "英雄没有闪 · S2赛季法师-咒灵火眼首领-持续伤害天花板", "description": "在《英雄没有闪》S2赛季中，法师咒灵火眼首领配装，持续伤害天花板，专为挑战首领设计，助你在副本中无敌。", "articleSection": "法师", "url": "https://ykmys.com/zhuling-huoyan.html", "publisher": {"@type": "Organization", "name": "英雄没有闪配装攻略站"}}</script>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/zhuling-huoyan.html" />

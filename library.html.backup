@@ -84,17 +84,6 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   .modal-body{padding:16px;}
   .modal-header{flex-direction:column;text-align:center;}
 }
-
-/* PC端隐藏底部导航（移动端专用） */
-@media (min-width: 769px) {
-  .bottom-nav { display: none !important; }
-  body { padding-bottom: 0 !important; }
-  .main-content { padding-bottom: 0 !important; }
-  .container { padding-bottom: 0 !important; }
-  /* PC端播放器移到右上角，避免遮挡底部内容 */
-  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
-}
-
 </style>
 </head>
 <body>
@@ -109,8 +98,6 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <button class="tab-btn" data-tab="engraving" onclick="switchTab('engraving')">刻印</button>
   <button class="tab-btn" data-tab="skill" onclick="switchTab('skill')">技能</button>
   <button class="tab-btn" data-tab="rune" onclick="switchTab('rune')">遗物</button>
-  <button class="tab-btn" data-tab="symbol" onclick="switchTab('symbol')">符文</button>
-  <button class="tab-btn" data-tab="sage" onclick="switchTab('sage')">贤者</button>
   <button class="tab-btn" data-tab="armor" onclick="switchTab('armor')">暗能</button>
   <button class="tab-btn" data-tab="pet" onclick="switchTab('pet')">侍从</button>
 </div>
@@ -143,6 +130,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="catalog-search-box">
       <span class="search-icon">&#128269;</span>
       <input type="text" id="engravingSearch" placeholder="搜索刻印名称/效果..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="engravingFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterEngravings('all')">全部</button>
+      <button class="filter-btn" data-filter="野蛮人" onclick="filterEngravings('野蛮人')">野蛮人</button>
+      <button class="filter-btn" data-filter="秘法师" onclick="filterEngravings('秘法师')">秘法师</button>
+      <button class="filter-btn" data-filter="通用" onclick="filterEngravings('通用')">通用</button>
     </div>
     <div class="catalog-count" id="engravingCount">48 个刻印</div>
   </div>
@@ -290,7 +283,13 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <span class="search-icon">🔍</span>
       <input type="text" id="runeSearch" placeholder="搜索遗物名称/效果..." class="catalog-search-input">
     </div>
-    <div class="catalog-count" id="runeCount">274 个遗物</div>
+    <div class="catalog-filter-group" id="runeFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterRune('all')">全部</button><button class="filter-btn" data-filter="野蛮人" onclick="filterRune('野蛮人')">野蛮人</button><button class="filter-btn" data-filter="秘法师" onclick="filterRune('秘法师')">秘法师</button><button class="filter-btn" data-filter="通用" onclick="filterRune('通用')">通用</button>
+    </div>
+    <div class="catalog-filter-group" id="runeCategoryFilter">
+      <button class="filter-btn active" data-cat="all" onclick="filterRuneCategory('all')">全部</button><button class="filter-btn" data-cat="符文" onclick="filterRuneCategory('符文')">符文</button><button class="filter-btn" data-cat="贤者" onclick="filterRuneCategory('贤者')">贤者</button><button class="filter-btn" data-cat="遗物" onclick="filterRuneCategory('遗物')">遗物</button>
+    </div>
+    <div class="catalog-count" id="runeCount">381 个遗物（含遗物/符文/贤者）</div>
   </div>
   <div class="rune-grid" id="runeGrid"></div>
   <div class="empty-state" id="runeEmpty" style="display:none;">
@@ -301,7 +300,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 <noscript>
   <div style="padding:20px;">
-    <h2>遗物图鉴（274个）</h2>
+    <h2>遗物图鉴（381个，含遗物274/符文72/贤者35）</h2>
     <ul>
       <li>重砍·排山 - 野蛮人 - 符文</li>
       <li>沉思坐垫 - 通用 - 遗物</li>
@@ -353,97 +352,10 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <li>维蕾娅 - 通用 - 贤者</li>
       <li>奋勇冲击·擂鼓 - 野蛮人 - 符文</li>
       <li>反省日记 - 通用 - 遗物</li>
-      <li>更多遗物请在页面中查看（共274个）</li>
+      <li>更多遗物请在页面中查看（共381个，含遗物274/符文72/贤者35）</li>
     </ul>
   </div>
 </noscript>
-<!-- ===== 符文Tab ===== -->
-<div class="tab-panel" id="panel-symbol">
-  <div class="catalog-toolbar">
-    <div class="catalog-search-box">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="symbolSearch" placeholder="搜索符文名称/效果..." class="catalog-search-input">
-    </div>
-    <div class="catalog-filter-group" id="symbolFilter">
-      <button class="filter-btn active" data-filter="all" onclick="filterSymbol('all')">全部</button><button class="filter-btn" data-filter="野蛮人" onclick="filterSymbol('野蛮人')">野蛮人</button><button class="filter-btn" data-filter="秘法师" onclick="filterSymbol('秘法师')">秘法师</button>
-    </div>
-    <div class="catalog-count" id="symbolCount">72 个符文</div>
-  </div>
-  <div class="rune-grid" id="symbolGrid"></div>
-  <div class="empty-state" id="symbolEmpty" style="display:none;">
-    <div style="font-size:40px;margin-bottom:8px;">🔍</div>
-    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的符文</div>
-  </div>
-</div>
-
-<noscript>
-  <div style="padding:20px;">
-    <h2>符文图鉴（72个）</h2>
-    <ul>
-      <li>重砍·排山 - 野蛮人 - 符文</li>
-      <li>重砍·刚毅 - 野蛮人 - 符文</li>
-      <li>疯刃·叠刺 - 野蛮人 - 符文</li>
-      <li>疯刃·难遏 - 野蛮人 - 符文</li>
-      <li>破伤·粉碎 - 野蛮人 - 符文</li>
-      <li>破伤·双重 - 野蛮人 - 符文</li>
-      <li>旋风斩·滚雷 - 野蛮人 - 符文</li>
-      <li>旋风斩·火怒 - 野蛮人 - 符文</li>
-      <li>旋风斩·荆棘 - 野蛮人 - 符文</li>
-      <li>无情收割·炎刃 - 野蛮人 - 符文</li>
-      <li>无情收割·狂电 - 野蛮人 - 符文</li>
-      <li>无情收割·祭刀 - 野蛮人 - 符文</li>
-      <li>原力锤·狱火 - 野蛮人 - 符文</li>
-      <li>原力锤·冰爆 - 野蛮人 - 符文</li>
-      <li>原力锤·雷霆 - 野蛮人 - 符文</li>
-      <li>奋勇冲击·擂鼓 - 野蛮人 - 符文</li>
-      <li>更多符文请在页面中查看（共72个）</li>
-    </ul>
-  </div>
-</noscript>
-
-<!-- ===== 贤者Tab ===== -->
-<div class="tab-panel" id="panel-sage">
-  <div class="catalog-toolbar">
-    <div class="catalog-search-box">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="sageSearch" placeholder="搜索贤者名称/效果..." class="catalog-search-input">
-    </div>
-    <div class="catalog-count" id="sageCount">35 个贤者</div>
-  </div>
-  <div class="rune-grid" id="sageGrid"></div>
-  <div class="empty-state" id="sageEmpty" style="display:none;">
-    <div style="font-size:40px;margin-bottom:8px;">🔍</div>
-    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的贤者</div>
-  </div>
-</div>
-
-<noscript>
-  <div style="padding:20px;">
-    <h2>贤者图鉴（35个）</h2>
-    <ul>
-      <li>阿尔卡撒 - 通用 - 贤者</li>
-      <li>卡米拉 - 通用 - 贤者</li>
-      <li>拉维斯 - 通用 - 贤者</li>
-      <li>格兰特 - 通用 - 贤者</li>
-      <li>凯西娅 - 通用 - 贤者</li>
-      <li>鲁弗斯 - 通用 - 贤者</li>
-      <li>伊莱拉 - 通用 - 贤者</li>
-      <li>卡塞尔 - 通用 - 贤者</li>
-      <li>阿兹尔沃德 - 通用 - 贤者</li>
-      <li>莱夫 - 通用 - 贤者</li>
-      <li>沃尔特 - 通用 - 贤者</li>
-      <li>瓦莱瑞亚 - 通用 - 贤者</li>
-      <li>埃弗拉德 - 通用 - 贤者</li>
-      <li>路维茜 - 通用 - 贤者</li>
-      <li>索恩·格雷姆斯 - 通用 - 贤者</li>
-      <li>希格露恩 - 通用 - 贤者</li>
-      <li>席勒 - 通用 - 贤者</li>
-      <li>维蕾娅 - 通用 - 贤者</li>
-      <li>更多贤者请在页面中查看（共35个）</li>
-    </ul>
-  </div>
-</noscript>
-
 <!-- ===== 暗能装备Tab ===== -->
 <div class="tab-panel" id="panel-armor">
   <div class="catalog-toolbar">
@@ -530,6 +442,9 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="catalog-search-box">
       <span class="search-icon">🔍</span>
       <input type="text" id="petSearch" placeholder="搜索侍从名称/效果..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="petFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterPet('all')">全部</button>
     </div>
     <div class="catalog-count" id="petCount">45 个侍从</div>
   </div>
@@ -853,16 +768,32 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// ===== 遗物Tab逻辑（纯遗物274条，无职业筛选） =====
+// ===== 遗物Tab逻辑 =====
+let currentRuneFilter = 'all';
+let currentRuneCategory = 'all';
 let runeSearchTimer = null;
+
+function getAllRunes() {
+  return [].concat(
+    typeof RUNES_DATA !== 'undefined' ? RUNES_DATA : [],
+    typeof RUNE_SYMBOLS_DATA !== 'undefined' ? RUNE_SYMBOLS_DATA : [],
+    typeof SAGES_DATA !== 'undefined' ? SAGES_DATA : []
+  );
+}
 
 function renderRune() {
   const grid = document.getElementById('runeGrid');
   const empty = document.getElementById('runeEmpty');
   const search = (document.getElementById('runeSearch').value || '').toLowerCase().trim();
   
-  let list = typeof RUNES_DATA !== 'undefined' ? RUNES_DATA : [];
+  let list = getAllRunes();
   
+  if (currentRuneFilter !== 'all') {
+    list = list.filter(e => e.class === currentRuneFilter);
+  }
+  if (currentRuneCategory !== 'all') {
+    list = list.filter(e => (e.category || e.part || '') === currentRuneCategory);
+  }
   if (search) {
     list = list.filter(e => 
       (e.name || '').toLowerCase().includes(search) || 
@@ -888,18 +819,34 @@ function renderRune() {
       </div>
       <div class="rune-name">${escapeHtml(e.name)}</div>
       <span class="rune-class cls-${e.class}">${e.class}</span>
+      <span class="rune-cat">${e.category}</span>
       <div class="rune-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div>
     </div>
   `).join('');
 }
 
 function showRuneModalById(id) {
-  const item = (typeof RUNES_DATA !== 'undefined' ? RUNES_DATA : []).find(e => e.id === id);
+  const item = getAllRunes().find(e => e.id === id);
   if (!item) return;
-  showCatalogModal(item, '遗物', 'rune');
+  showCatalogModal(item, item.category || '遗物', 'rune');
 }
 
 function filterRune(filter) {
+  currentRuneFilter = filter;
+  document.querySelectorAll('#runeFilter .filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === filter);
+  });
+  renderRune();
+}
+
+function filterRuneCategory(cat) {
+  currentRuneCategory = cat;
+  const el = document.getElementById('runeCategoryFilter');
+  if (el) {
+    el.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+  }
   renderRune();
 }
 
@@ -914,142 +861,6 @@ document.addEventListener('DOMContentLoaded', function() {
     input.addEventListener('input', function() {
       clearTimeout(runeSearchTimer);
       runeSearchTimer = setTimeout(renderRune, 300);
-    });
-  }
-});
-
-// ===== 符文Tab逻辑（72条，保留职业筛选） =====
-let currentSymbolFilter = 'all';
-let symbolSearchTimer = null;
-
-function renderSymbol() {
-  const grid = document.getElementById('symbolGrid');
-  const empty = document.getElementById('symbolEmpty');
-  const search = (document.getElementById('symbolSearch').value || '').toLowerCase().trim();
-  
-  let list = typeof RUNE_SYMBOLS_DATA !== 'undefined' ? RUNE_SYMBOLS_DATA : [];
-  
-  if (currentSymbolFilter !== 'all') {
-    list = list.filter(e => e.class === currentSymbolFilter);
-  }
-  if (search) {
-    list = list.filter(e => 
-      (e.name || '').toLowerCase().includes(search) || 
-      (e.desc || '').toLowerCase().includes(search)
-    );
-  }
-  
-  document.getElementById('symbolCount').textContent = `${list.length} 个符文`;
-  
-  if (list.length === 0) {
-    grid.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  grid.style.display = 'grid';
-  empty.style.display = 'none';
-  
-  grid.innerHTML = list.map(e => `
-    <div class="rune-card" data-id="${e.id}" onclick="showSymbolModalById('${e.id}')">
-      <div class="rune-icon">
-        <img src="${e.icon}" alt="${e.name}" loading="lazy" 
-             onerror="this.style.display='none';this.parentElement.innerHTML='🔮'">
-      </div>
-      <div class="rune-name">${escapeHtml(e.name)}</div>
-      <span class="rune-class cls-${e.class}">${e.class}</span>
-      <div class="rune-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div>
-    </div>
-  `).join('');
-}
-
-function showSymbolModalById(id) {
-  const item = (typeof RUNE_SYMBOLS_DATA !== 'undefined' ? RUNE_SYMBOLS_DATA : []).find(e => e.id === id);
-  if (!item) return;
-  showCatalogModal(item, '符文', 'symbol');
-}
-
-function filterSymbol(filter) {
-  currentSymbolFilter = filter;
-  document.querySelectorAll('#symbolFilter .filter-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.filter === filter);
-  });
-  renderSymbol();
-}
-
-function initSymbolTab() {
-  renderSymbol();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  const input = document.getElementById('symbolSearch');
-  if (input) {
-    input.addEventListener('input', function() {
-      clearTimeout(symbolSearchTimer);
-      symbolSearchTimer = setTimeout(renderSymbol, 300);
-    });
-  }
-});
-
-// ===== 贤者Tab逻辑（35条，无职业筛选） =====
-let sageSearchTimer = null;
-
-function renderSage() {
-  const grid = document.getElementById('sageGrid');
-  const empty = document.getElementById('sageEmpty');
-  const search = (document.getElementById('sageSearch').value || '').toLowerCase().trim();
-  
-  let list = typeof SAGES_DATA !== 'undefined' ? SAGES_DATA : [];
-  
-  if (search) {
-    list = list.filter(e => 
-      (e.name || '').toLowerCase().includes(search) || 
-      (e.desc || '').toLowerCase().includes(search)
-    );
-  }
-  
-  document.getElementById('sageCount').textContent = `${list.length} 个贤者`;
-  
-  if (list.length === 0) {
-    grid.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  grid.style.display = 'grid';
-  empty.style.display = 'none';
-  
-  grid.innerHTML = list.map(e => `
-    <div class="rune-card" data-id="${e.id}" onclick="showSageModalById('${e.id}')">
-      <div class="rune-icon">
-        <img src="${e.icon}" alt="${e.name}" loading="lazy" 
-             onerror="this.style.display='none';this.parentElement.innerHTML='🔮'">
-      </div>
-      <div class="rune-name">${escapeHtml(e.name)}</div>
-      <span class="rune-class cls-${e.class}">${e.class}</span>
-      <div class="rune-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div>
-    </div>
-  `).join('');
-}
-
-function showSageModalById(id) {
-  const item = (typeof SAGES_DATA !== 'undefined' ? SAGES_DATA : []).find(e => e.id === id);
-  if (!item) return;
-  showCatalogModal(item, '贤者', 'sage');
-}
-
-function filterSage(filter) {
-  renderSage();
-}
-
-function initSageTab() {
-  renderSage();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  const input = document.getElementById('sageSearch');
-  if (input) {
-    input.addEventListener('input', function() {
-      clearTimeout(sageSearchTimer);
-      sageSearchTimer = setTimeout(renderSage, 300);
     });
   }
 });
@@ -1244,8 +1055,6 @@ function resetTabState(tab) {
     engraving: {search:'engravingSearch', fn:'filterEngravings'},
     skill: {search:'skillSearch', fn:'filterSkill'},
     rune: {search:'runeSearch', fn:'filterRune'},
-    symbol: {search:'symbolSearch', fn:'filterSymbol'},
-    sage: {search:'sageSearch', fn:'filterSage'},
     armor: {search:'armorSearch', fn:'filterArmor'},
     pet: {search:'petSearch', fn:'filterPet'}
   };
@@ -1264,8 +1073,6 @@ function switchTab(tab) {
   if (tab === 'engraving') initEngravingsTab();
   if (tab === 'skill') initSkillTab();
   if (tab === 'rune') initRuneTab();
-  if (tab === 'symbol') initSymbolTab();
-  if (tab === 'sage') initSageTab();
   if (tab === 'armor') initArmorTab();
   if (tab === 'pet') initPetTab();
 }

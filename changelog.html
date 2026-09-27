@@ -202,6 +202,17 @@ body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
 .nav-item.active{color:#60a5fa}
 .nav-item .nav-icon{font-size:20px}
 
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#f59e0b">
