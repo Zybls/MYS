@@ -1616,6 +1616,13 @@ if (document.readyState === 'loading') {
 } else {
   renderHomeRedeem();
 }
+// 兜底：3秒后如果还是"加载中..."，强制渲染一次（防止数据文件加载慢）
+setTimeout(function(){
+  var list = document.getElementById('homeRedeemList');
+  if (list && list.innerHTML.indexOf('加载中') >= 0) {
+    renderHomeRedeem();
+  }
+}, 3000);
 
 </script>
 </body>
