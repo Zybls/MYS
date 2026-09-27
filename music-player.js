@@ -38,7 +38,7 @@
   .music-title{font-size:11px;color:#f59e0b;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80px}
   .music-status{font-size:9px;color:#8888a0}
   @media (max-width:768px){.music-info{display:none}}
-  @media (min-width:769px){.music-player{bottom:auto!important;top:80px!important;right:20px!important}}
+  @media (min-width:769px){.music-player{bottom:20px!important;top:auto!important;right:20px!important}}
   `;
   var styleEl = document.createElement('style');
   styleEl.textContent = css;

@@ -1045,6 +1045,14 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   .redeem-item { min-width:100%; }
 }
 
+
+/* ===== 底部导航（移动端专用） ===== */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(26,26,46,.95);border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100;backdrop-filter:blur(10px)}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--text-dim);font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:var(--gold)}
+.nav-item .nav-icon{font-size:20px}
+@media (min-width:769px){.bottom-nav{display:none!important}body{padding-bottom:0!important}}
+@media (max-width:768px){body{padding-bottom:70px}}
 </style>
 
 <script>
@@ -1561,8 +1569,8 @@ if(document.readyState === 'loading') {
 })();
 </script>
 
-<script src="music-player.js">
-
+<script src="music-player.js"></script>
+<script>
 // 首页兑换码渲染
 function renderHomeRedeem() {
   var list = document.getElementById('homeRedeemList');
