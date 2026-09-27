@@ -46,6 +46,8 @@
   .nav-music-btn:hover{background:rgba(245,158,11,.25);transform:scale(1.08)}
   .nav-music-btn.playing{animation:pulse 2s infinite}
   .nav-music-btn svg{display:block;width:13px;height:13px}
+  .nav-music-btn.nav-music-nav{width:26px;height:26px;background:rgba(245,158,11,.08)}
+  .nav-music-btn.nav-music-nav svg{width:11px;height:11px}
   .nav-music-viz{display:flex;align-items:flex-end;gap:2px;height:14px}
   .nav-music-viz .music-bar{width:2px}
   .nav-music-title{font-size:11px;color:rgba(245,158,11,.8);white-space:nowrap;max-width:70px;overflow:hidden;text-overflow:ellipsis}
@@ -93,9 +95,15 @@
         <div class="music-bar"></div><div class="music-bar"></div>
         <div class="music-bar"></div><div class="music-bar"></div>
       </div>
+      <button class="nav-music-btn nav-music-nav" id="navMusicPrev" title="上一首">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
       <button class="nav-music-btn" id="navMusicBtn" title="播放/暂停">
         <svg class="play-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         <svg class="pause-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <button class="nav-music-btn nav-music-nav" id="navMusicNext" title="下一首">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
       </button>
     </div>`;
     navRight.insertAdjacentHTML('beforeend', navMusicHTML);
@@ -181,6 +189,10 @@
   if (navMusicBtn) {
     navMusicBtn.addEventListener('click', toggle);
   }
+  var navMusicPrev = document.getElementById('navMusicPrev');
+  var navMusicNext = document.getElementById('navMusicNext');
+  if (navMusicPrev) navMusicPrev.addEventListener('click', prevTrack);
+  if (navMusicNext) navMusicNext.addEventListener('click', nextTrack);
 
   bgm.addEventListener('ended', nextTrack); // 自动下一首
 
