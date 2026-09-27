@@ -287,8 +287,8 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   <a href="guild.html"><span class="icon">👥</span>公会</a>
   <a href="tools.html"><span class="icon">🔧</span>工具</a>
 </div>
-<script src="builds-data.js?v=20260927b"></script>
-<script src="guides-data.js?v=20260927b"></script>
+<script src="builds-data.js?v=20260927c"></script>
+<script src="guides-data.js?v=20260927c"></script>
 <script src="search-data.js"></script>
 <script src="music-player.js"></script>
 <script>
@@ -327,13 +327,20 @@ function filterBuilds(filter){currentBuildFilter=filter;document.querySelectorAl
 
 // ===== 攻略大全渲染 =====
 function renderGuides(){
+  if(typeof GUIDES_DATA==='undefined'||!GUIDES_DATA){
+    document.getElementById('guidesCount').textContent='数据加载中...';
+    document.getElementById('guidesEmpty').style.display='block';
+    document.getElementById('guidesEmpty').querySelector('div:last-child').textContent='数据加载中，请刷新页面';
+    document.getElementById('guidesGrid').innerHTML='';
+    return;
+  }
   var list = GUIDES_DATA.slice();
   var s = (document.getElementById('guidesSearch').value||'').toLowerCase();
   if(s) list = list.filter(function(g){return (g.name||'').toLowerCase().indexOf(s)>-1||(g.category||'').toLowerCase().indexOf(s)>-1||(g.desc||'').toLowerCase().indexOf(s)>-1;});
   document.getElementById('guidesCount').textContent = list.length+' 个分类';
   var empty = document.getElementById('guidesEmpty');
   var grid = document.getElementById('guidesGrid');
-  if(list.length===0){empty.style.display='block';grid.innerHTML='';return;}
+  if(list.length===0){empty.style.display='block';empty.querySelector('div:last-child').textContent='没有找到匹配的攻略';grid.innerHTML='';return;}
   empty.style.display='none';
   grid.innerHTML = list.map(function(g){
     var isOnline = g.status==='已上线';
