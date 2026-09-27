@@ -420,7 +420,7 @@ body {
   /* 1. 全局布局：所有多列改单列 */
   .guild-hero-content {
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 8px !important;
   }
   .guild-announcement {
     width: 100% !important;
@@ -439,7 +439,7 @@ body {
   /* 2. 三列卡片改单列：近期活动/功勋榜/快速报名 */
   .activity-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 8px !important;
   }
   .activity-card {
     width: 100% !important;
@@ -474,11 +474,11 @@ body {
   /* 3. 数据看板两列改单列 */
   .dashboard-layout {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 8px !important;
   }
   .two-col-layout {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 8px !important;
   }
   .dashboard-grid {
     grid-template-columns: 1fr !important;
@@ -536,7 +536,7 @@ body {
   /* 9. 配装卡片网格 */
   .build-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 8px !important;
   }
 
   /* 10. Hero区优化 */
@@ -558,8 +558,7 @@ body {
   .btn-primary, .signup-submit {
     width: 100% !important;
     box-sizing: border-box !important;
-  }
-}
+  }}
 
 /* ===== 亮色主题 ===== */
 body.light-theme {
@@ -970,9 +969,9 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   .hero p { font-size: 13px; }
   
   /* 数据看板 */
-  .dashboard-grid { grid-template-columns: 1fr; gap: 12px; }
+  .dashboard-grid { grid-template-columns: 1fr; gap: 8px; }
   .dashboard-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .stat-card { padding: 12px 8px; }
+  .stat-card { padding: 16px; }
   .stat-value { font-size: 20px; }
   .stat-label { font-size: 12px; }
   
@@ -981,14 +980,14 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   .activity-title { font-size: 16px; }
   
   /* 战术库/配装卡片 */
-  .builds-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .builds-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .build-card { padding: 12px 10px; }
   .build-card h3 { font-size: 14px; }
   .build-tags { gap: 4px; }
   .build-tag { font-size: 12px; padding: 2px 6px; }
   
   /* 福利入口 */
-  .welfare-list { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .welfare-list { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .welfare-item { padding: 16px 10px; }
   
   /* 公告栏 */
@@ -996,8 +995,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   
   /* 页脚 */
   .footer { padding: 20px 14px; }
-  .footer-links { flex-wrap: wrap; gap: 12px; }
-}
+  .footer-links { flex-wrap: wrap; gap: 12px; }}
 
 @media (max-width: 480px) {
   .guild-nav-name { font-size: 13px; }
@@ -1055,7 +1053,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .nav-item.active{color:var(--gold)}
 .nav-item .nav-icon{font-size:20px}
 @media (min-width:769px){.bottom-nav{display:none!important}body{padding-bottom:0!important}}
-@media (max-width:768px){body{padding-bottom:70px}}
+@media (max-width: 768px) {body{padding-bottom:70px}}
 </style>
 
 <script>
@@ -1090,8 +1088,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
       });
       welfareContainer.innerHTML = html;
     }
-  }
-}
+  }}
 
 // 页面加载完成后加载配置
 document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); });
