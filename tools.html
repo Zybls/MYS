@@ -12,7 +12,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding-bottom:80px;}
 .header{background:var(--bg-card);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.header h1{font-size:18px;font-weight:700;}
+.header h1{font-size: 20px;font-weight:700;}
 .header .search-btn{background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;}
 .tab-bar{display:flex;gap:4px;padding:10px 16px;background:var(--bg-card);border-bottom:1px solid var(--border);overflow-x:auto;}
 .tab-btn{padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;border:none;color:var(--text-dim);white-space:nowrap;transition:all 0.2s;}
@@ -35,11 +35,11 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .engraving-icon,.skill-icon,.rune-icon,.armor-icon,.pet-icon,.build-icon{width:56px;height:56px;margin:0 auto 8px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:28px;}
 .engraving-icon img,.skill-icon img,.rune-icon img,.armor-icon img,.pet-icon img{width:100%;height:100%;object-fit:contain;}
 .engraving-name,.skill-name,.rune-name,.armor-name,.pet-name,.build-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.engraving-class,.skill-class,.rune-class,.armor-class,.pet-class,.build-class{font-size:10px;padding:2px 8px;border-radius:4px;display:inline-block;margin:2px;}
+.engraving-class,.skill-class,.rune-class,.armor-class,.pet-class,.build-class{font-size: 12px;padding:2px 8px;border-radius:4px;display:inline-block;margin:2px;}
 .build-tags{margin-top:4px;}
-.build-tag{font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(96,165,250,0.1);color:#60a5fa;display:inline-block;margin:1px;}
+.build-tag{font-size: 12px;padding:1px 5px;border-radius:3px;background:rgba(96,165,250,0.1);color:#60a5fa;display:inline-block;margin:1px;}
 .pet-card-tags{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
-.pet-tag{font-size:10px;padding:2px 6px;border-radius:4px;}
+.pet-tag{font-size: 12px;padding:2px 6px;border-radius:4px;}
 .pet-quality{background:rgba(251,191,36,0.15);color:#fbbf24;}
 .pet-bond{background:rgba(167,139,250,0.15);color:#a78bfa;}
 .modal-kv-list{background:var(--bg-card2);border-radius:8px;padding:10px 14px;}
@@ -51,8 +51,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .cls-秘法师{background:rgba(96,165,250,0.15);color:#60a5fa;}
 .cls-游侠{background:rgba(52,211,153,0.15);color:#34d399;}
 .cls-通用{background:rgba(148,163,184,0.15);color:#94a3b8;}
-.skill-cat,.rune-cat,.armor-part,.armor-quality,.pet-quality{font-size:10px;padding:1px 6px;border-radius:3px;display:inline-block;margin:2px;background:rgba(167,139,250,0.1);color:#a78bfa;}
-.engraving-desc-preview,.skill-desc-preview,.rune-desc-preview,.armor-desc-preview,.pet-desc-preview,.build-desc-preview{font-size:10px;color:var(--text-dim);margin-top:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.skill-cat,.rune-cat,.armor-part,.armor-quality,.pet-quality{font-size: 12px;padding:1px 6px;border-radius:3px;display:inline-block;margin:2px;background:rgba(167,139,250,0.1);color:#a78bfa;}
+.engraving-desc-preview,.skill-desc-preview,.rune-desc-preview,.armor-desc-preview,.pet-desc-preview,.build-desc-preview{font-size: 12px;color:var(--text-dim);margin-top:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .empty-state{text-align:center;padding:40px 20px;}
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
@@ -70,7 +70,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .modal-section-content{font-size:14px;color:var(--text);line-height:1.8;background:var(--bg-card2);padding:12px 14px;border-radius:8px;}
 .modal-detail-img{width:100%;border-radius:10px;margin-top:8px;}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0;z-index:99;}
-.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--text-dim);text-decoration:none;font-size:11px;padding:4px 12px;}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--text-dim);text-decoration:none;font-size: 12px;padding:4px 12px;}
 .bottom-nav a.active{color:var(--purple);}
 .bottom-nav .icon{font-size:20px;}
 @media(max-width:768px){
@@ -91,7 +91,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .redeem-code{font-family:'Courier New',monospace;font-size:20px;font-weight:700;color:var(--purple);letter-spacing:2px;margin-bottom:6px;user-select:all;}
 .redeem-reward{font-size:14px;color:var(--text);margin-bottom:4px;}
 .redeem-content{flex:1;min-width:0;}
-.redeem-meta{display:flex;gap:12px;font-size:11px;color:var(--text-dim);flex-wrap:wrap;}
+.redeem-meta{display:flex;gap:12px;font-size: 12px;color:var(--text-dim);flex-wrap:wrap;}
 .redeem-type{padding:2px 8px;border-radius:4px;font-weight:600;}
 .redeem-card.expired .redeem-code { color:#64748b; text-decoration:line-through; }
 .redeem-card.expired .redeem-reward { color:#64748b; }
@@ -104,37 +104,37 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .guide-card:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
 .guide-card.wip{opacity:0.6;cursor:not-allowed;}
 .guide-card.wip:hover{transform:none;box-shadow:none;}
-.guide-icon{width:48px;height:48px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:10px;}
-.guide-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.guide-icon{width:48px;height:48px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;font-size: 20px;margin-bottom:10px;}
+.guide-title{font-size: 14px;font-weight:700;margin-bottom:4px;}
 .guide-desc{font-size:12px;color:var(--text-dim);line-height:1.5;margin-bottom:8px;}
-.guide-status{font-size:10px;padding:2px 8px;border-radius:4px;display:inline-block;}
+.guide-status{font-size: 12px;padding:2px 8px;border-radius:4px;display:inline-block;}
 .status-online{background:rgba(52,211,153,0.15);color:#34d399;}
 .status-wip{background:rgba(148,163,184,0.15);color:#94a3b8;}
 .wash-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px;transition:all 0.2s;}
 .wash-card:hover{border-color:var(--blue);}
 .wash-name{font-size:13px;font-weight:600;margin-bottom:4px;}
-.wash-slot{font-size:10px;color:var(--text-dim);margin-bottom:4px;}
-.wash-special{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(251,191,36,0.15);color:#fbbf24;display:inline-block;}
-.wash-normal{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(148,163,184,0.15);color:#94a3b8;display:inline-block;}
-.wash-count{font-size:11px;color:var(--text-dim);float:right;}
+.wash-slot{font-size: 12px;color:var(--text-dim);margin-bottom:4px;}
+.wash-special{font-size: 12px;padding:1px 6px;border-radius:3px;background:rgba(251,191,36,0.15);color:#fbbf24;display:inline-block;}
+.wash-normal{font-size: 12px;padding:1px 6px;border-radius:3px;background:rgba(148,163,184,0.15);color:#94a3b8;display:inline-block;}
+.wash-count{font-size: 12px;color:var(--text-dim);float:right;}
 .compare-container{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .compare-select{width:100%;padding:10px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;margin-bottom:12px;}
 .compare-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;}
 .compare-card h3{font-size:16px;margin-bottom:8px;color:var(--purple);}
 .compare-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;}
-.compare-tag{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(96,165,250,0.1);color:#60a5fa;}
+.compare-tag{font-size: 12px;padding:2px 6px;border-radius:4px;background:rgba(96,165,250,0.1);color:#60a5fa;}
 .compare-desc{font-size:12px;color:var(--text-dim);line-height:1.6;}
 .compare-link{display:inline-block;margin-top:8px;font-size:12px;color:var(--blue);text-decoration:none;}
-.rec-scene{font-size:11px;padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:6px;}
+.rec-scene{font-size: 12px;padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:6px;}
 .scene-PVE推图{background:rgba(52,211,153,0.15);color:#34d399;}
 .scene-首领打桩{background:rgba(248,113,113,0.15);color:#f87171;}
 .scene-PVP竞技{background:rgba(167,139,250,0.15);color:#a78bfa;}
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
 .tool-entry{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;text-decoration:none;color:var(--text);display:block;}
 .tool-entry:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
-.tool-icon{font-size:32px;margin-bottom:8px;}
+.tool-icon{font-size: 28px;margin-bottom:8px;}
 .tool-name{font-size:14px;font-weight:600;margin-bottom:4px;}
-.tool-desc{font-size:11px;color:var(--text-dim);}
+.tool-desc{font-size: 12px;color:var(--text-dim);}
 @media(max-width:768px){
   .compare-container{grid-template-columns:1fr;}
   .redeem-code{font-size:16px;}
@@ -171,11 +171,11 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .search-box { position: relative; display: flex; align-items: center; }
 .search-close-btn {
   position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; color: var(--text-dim); font-size: 26px;
+  background: none; border: none; color: var(--text-dim); font-size: 20px;
   cursor: pointer; padding: 4px 8px; line-height: 1; z-index: 1;
 }
 .search-close-btn:hover { color: var(--text); }
-  .nav-icon-btn { font-size: 15px; padding: 6px 7px; }
+  .nav-icon-btn { font-size: 14px; padding: 6px 7px; }
 body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .guild-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
@@ -199,10 +199,10 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 }
 .guild-nav-info { display: flex; flex-direction: column; }
 .guild-nav-name {
-  font-size: 17px; font-weight: 800; color: var(--gold);
+  font-size: 16px; font-weight: 800; color: var(--gold);
   letter-spacing: 1px; line-height: 1.2;
 }
-.guild-nav-slogan { font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; }
+.guild-nav-slogan { font-size: 12px; color: var(--text-dim); letter-spacing: 0.5px; }
 .guild-nav-links { display: flex; gap: 4px; flex: 1; justify-content: center; }
 .guild-nav-link {
   color: var(--text-dim); font-size: 13px; text-decoration: none;
@@ -235,7 +235,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   .guild-nav-name { font-size: 13px; }
   .guild-logo { width: 32px; height: 32px; }
   .guild-nav-links { gap: 8px; }
-  .guild-nav-link { font-size: 11px; }
+  .guild-nav-link { font-size: 12px; }
 </style>
 </head>
 <body>
@@ -641,7 +641,7 @@ function renderRec(){
       '<div class="guide-icon">&#127919;</div>'+
       '<div class="guide-title">'+escapeHtml(builds)+'</div>'+
       '<span class="rec-scene scene-'+escapeHtml(r.scene)+'">'+escapeHtml(r.scene)+'</span>'+
-      '<span class="cls-'+escapeHtml(r.class)+'" style="font-size:10px;padding:2px 8px;border-radius:4px;margin-left:4px;">'+escapeHtml(r.class)+'</span>'+
+      '<span class="cls-'+escapeHtml(r.class)+'" style="font-size: 12px;padding:2px 8px;border-radius:4px;margin-left:4px;">'+escapeHtml(r.class)+'</span>'+
       '<div class="guide-desc" style="margin-top:8px;">'+escapeHtml(r.desc||'')+'</div>'+
     '</div>';
   }).join('');
