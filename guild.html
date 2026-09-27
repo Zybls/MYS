@@ -17,17 +17,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .guild-info span{font-size:12px;color:var(--text-dim);background:rgba(255,255,255,0.05);padding:4px 12px;border-radius:12px}
 .tabs{display:flex;overflow-x:auto;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 10px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;padding:14px 16px;font-size:14px;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.tab{flex:none;padding: 16px 16px;font-size:14px;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .tab:hover{color:var(--text)}
 .panel{display:none;padding:20px;max-width:800px;margin:0 auto}
 .panel.active{display:block}
-.empty-state{text-align:center;padding:60px 20px;color:var(--text-dim)}
+.empty-state{text-align:center;padding: 32px 20px;color:var(--text-dim)}
 .empty-state .icon{font-size: 40px;margin-bottom:16px;opacity:0.5}
 .empty-state h3{font-size:16px;margin-bottom:8px;color:var(--text)}
 .empty-state p{font-size:13px}
 .filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.filter-btn{padding:6px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;color:var(--text-dim);font-size:12px;cursor:pointer;transition:all .2s}
+.filter-btn{padding: 8px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;color:var(--text-dim);font-size:12px;cursor:pointer;transition:all .2s}
 .filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .filter-btn:hover{border-color:var(--accent)}
 .activity-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px}
@@ -38,7 +38,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .activity-card .act-status{display:inline-block;font-size: 12px;padding:2px 8px;border-radius:4px;margin-bottom:10px}
 .status-ended{background:rgba(52,211,153,0.15);color:var(--success)}
 .status-upcoming{background:rgba(96,165,250,0.15);color:var(--accent)}
-.signup-form{background:var(--bg3);border-radius:8px;padding:14px;margin-top:12px}
+.signup-form{background:var(--bg3);border-radius:8px;padding: 16px;margin-top:12px}
 .signup-form h4{font-size:13px;margin-bottom:10px;color:var(--accent)}
 .signup-form input{width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px}
 .signup-form input:focus{outline:none;border-color:var(--accent)}
@@ -50,7 +50,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .signup-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
 .signup-item .name{color:var(--text)}
 .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.member-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;transition:all .2s}
+.member-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding: 16px;transition:all .2s}
 .member-card:hover{border-color:var(--accent)}
 .member-card .m-rank{font-size: 12px;color:var(--text-dim);margin-bottom:4px}
 .member-card .m-name{font-size: 14px;font-weight:600;color:#fff;margin-bottom:4px}
@@ -74,17 +74,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .b-result-lose{background:rgba(248,113,113,0.15);color:var(--danger)}
 .battle-card .b-meta{font-size:12px;color:var(--text-dim);line-height:1.8}
 .battle-card .b-meta span{margin-right:12px}
-.news-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid var(--accent)}
+.news-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding: 16px;margin-bottom:10px;border-left:3px solid var(--accent)}
 .news-item .n-date{font-size: 12px;color:var(--text-dim);margin-bottom:4px}
 .news-item .n-tag{display:inline-block;font-size: 12px;padding:1px 6px;border-radius:3px;background:rgba(96,165,250,0.15);color:var(--accent);margin-right:6px}
 .news-item .n-content{font-size:13px;line-height:1.7;color:var(--text)}
 .comment-section{margin-bottom:20px}
 .comment-form{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px}
 .comment-form h4{font-size:14px;margin-bottom:12px;color:var(--accent)}
-.comment-form input,.comment-form textarea{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px;font-family:inherit}
+.comment-form input,.comment-form textarea{width:100%;padding: 12px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px;font-family:inherit}
 .comment-form textarea{min-height:80px;resize:vertical}
 .comment-form input:focus,.comment-form textarea:focus{outline:none;border-color:var(--accent)}
-.comment-list .comment-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px}
+.comment-list .comment-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding: 16px;margin-bottom:12px}
 .comment-item .c-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .comment-item .c-name{font-size:14px;font-weight:600;color:var(--accent)}
 .comment-item .c-time{font-size: 12px;color:var(--text-dim)}
@@ -96,12 +96,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--text-dim);font-size: 12px;gap:2px;flex:1}
 .nav-item.active{color:var(--accent)}
 .nav-item .nav-icon{font-size:20px}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--accent);color:var(--text);padding:10px 20px;border-radius:8px;font-size:13px;z-index:999;display:none}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--accent);color:var(--text);padding: 12px 20px;border-radius:8px;font-size:13px;z-index:999;display:none}
 .toast.show{display:block}
 @media(max-width:768px){
   .header h1{font-size: 20px}
   .guild-info span{font-size: 12px;padding:3px 8px}
-  .panel{padding:14px}
+  .panel{padding: 16px}
   .member-grid{grid-template-columns:1fr}
   .battle-card .b-our,.battle-card .b-enemy{font-size:20px}
 }
@@ -136,7 +136,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .timeline-tag{display:inline-block;font-size: 12px;padding:2px 8px;border-radius:4px;background:rgba(96,165,250,0.15);color:var(--accent);margin-bottom:4px}
 .timeline-content{font-size:13px;color:var(--text);line-height:1.6}
 /* 考勤空状态 */
-.attendance-placeholder{background:var(--bg2);border:1px dashed var(--border);border-radius:12px;padding:30px;text-align:center}
+.attendance-placeholder{background:var(--bg2);border:1px dashed var(--border);border-radius:12px;padding: 32px;text-align:center}
 .attendance-placeholder .ph-row{display:flex;gap:12px;margin-bottom:12px;justify-content:center}
 .attendance-placeholder .ph-box{flex:1;max-width:120px;height:60px;background:rgba(255,255,255,0.03);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-dim)}
 
@@ -155,7 +155,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 /* === 顶部导航 === */
 .nav-icon-btn {
   background: none; border: none; color: var(--text); font-size: 16px; cursor: pointer;
-  padding: 7px 9px; border-radius: 8px; transition: all 0.2s;
+  padding: 8px 9px; border-radius: 8px; transition: all 0.2s;
   display: inline-flex; align-items: center; justify-content: center;
 }
 .nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
@@ -174,7 +174,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   cursor: pointer; padding: 4px 8px; line-height: 1; z-index: 1;
 }
 .search-close-btn:hover { color: var(--text); }
-  .nav-icon-btn { font-size: 14px; padding: 6px 7px; }
+  .nav-icon-btn { font-size: 14px; padding: 8px 7px; }
 body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .guild-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
@@ -205,11 +205,11 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .guild-nav-links { display: flex; gap: 4px; flex: 1; justify-content: center; }
 .guild-nav-link {
   color: var(--text-dim); font-size: 13px; text-decoration: none;
-  padding: 7px 14px; border-radius: 8px; transition: all 0.2s;
+  padding: 8px 14px; border-radius: 8px; transition: all 0.2s;
   font-weight: 500; white-space: nowrap;
 }
 .guild-nav-link:hover { color: var(--gold); background: rgba(232, 184, 75,0.08); }
-.guild-nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.guild-nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .recruit-status {
   display: flex; align-items: center; gap: 6px;
   background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
@@ -218,10 +218,10 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 .guild-login-btn {
   background: linear-gradient(135deg, var(--gold), var(--gold-dim));
   border: none; color: #1a1a2e; font-size: 13px; font-weight: 700;
-  padding: 7px 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+  padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
 }
 .guild-login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
-  .guild-nav-inner { padding: 6px 12px; gap: 8px; flex-wrap: wrap; }
+  .guild-nav-inner { padding: 8px 12px; gap: 8px; flex-wrap: wrap; }
   .guild-nav-left { gap: 8px; }
   .guild-logo { width: 36px; height: 36px; }
   .guild-nav-name { font-size: 14px; }
@@ -229,8 +229,8 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   .guild-nav-links { order: 3; width: 100%; justify-content: center; gap: 12px; padding: 4px 0; border-top: 1px solid rgba(232, 184, 75,0.1); }
   .guild-nav-link { font-size: 12px; }
   .guild-nav-right { gap: 6px; }
-  .guild-login-btn { font-size: 12px; padding: 5px 10px; }
-  .nav-icon-btn { font-size: 16px; padding: 6px; }
+  .guild-login-btn { font-size: 12px; padding: 8px 10px; }
+  .nav-icon-btn { font-size: 16px; padding: 8px; }
   .guild-nav-name { font-size: 13px; }
   .guild-logo { width: 32px; height: 32px; }
   .guild-nav-links { gap: 8px; }
@@ -351,9 +351,9 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   <div class="message-form">
     <h4>私信会长</h4>
     <p>有问题想单独跟会长说？在这里留言，只有会长能看到。</p>
-    <input type="text" id="m-name" placeholder="你的游戏ID" maxlength="20" style="width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px">
-    <input type="text" id="m-contact" placeholder="联系方式（QQ/微信，选填）" maxlength="50" style="width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px">
-    <textarea id="m-content" placeholder="留言内容..." maxlength="500" style="width:100%;min-height:80px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px;font-family:inherit;resize:vertical"></textarea>
+    <input type="text" id="m-name" placeholder="你的游戏ID" maxlength="20" style="width:100%;padding: 12px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px">
+    <input type="text" id="m-contact" placeholder="联系方式（QQ/微信，选填）" maxlength="50" style="width:100%;padding: 12px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px">
+    <textarea id="m-content" placeholder="留言内容..." maxlength="500" style="width:100%;min-height:80px;padding: 12px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-bottom:10px;font-family:inherit;resize:vertical"></textarea>
     <button class="btn" onclick="submitMessage()" style="background:var(--accent2)">发送私信</button>
   </div>
 </div>
