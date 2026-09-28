@@ -1075,16 +1075,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   // XSS 防护
   function escapeHtml(str){return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
-  // 动态更新时间
-  (function(){
-    var el = document.getElementById("dashboardUpdate");
-    if(!el) return;
-    var d = new Date();
-    var mm = String(d.getMonth()+1).padStart(2,"0");
-    var dd = String(d.getDate()).padStart(2,"0");
-    el.textContent = "更新于 " + mm + "-" + dd;
-  })();
-
   // 从 D1 API 拉取公告，覆盖硬编码内容
   function renderAnnouncementsFromAPI() {
     var scroll = document.getElementById("announcementScroll");
@@ -1119,7 +1109,19 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
       .catch(function(){ /* API 失败时保留硬编码兜底内容 */ });
   }
 
-document.addEventListener("DOMContentLoaded", function(){ renderAnnouncementsFromAPI(); });
+document.addEventListener("DOMContentLoaded", function(){
+    renderAnnouncementsFromAPI();
+    // 动态更新时间：从 stats.json 读 data_date
+    fetch("data/stats.json")
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var el = document.getElementById("dashboardUpdate");
+        if(el && d && d.dashboard && d.dashboard.data_date) {
+          el.textContent = "更新于 " + d.dashboard.data_date.substring(5);
+        }
+      })
+      .catch(function(){ /* 失败时保留硬编码兜底 */ });
+  });
 
 </script>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/index.html" />
@@ -1188,7 +1190,7 @@ document.addEventListener("DOMContentLoaded", function(){ renderAnnouncementsFro
                 </div>
                 <div class="announcement-item">
                   <span class="ann-tag">招募</span>
-                  <span class="ann-text">招收活跃玩家，要求每日上线，战力不限，态度第一</span>
+                  <span class="ann-text">公会已满编（40/40），暂不招募新成员</span>
                   <span class="ann-date">持续</span>
                 </div>
               </div>
@@ -1199,7 +1201,7 @@ document.addEventListener("DOMContentLoaded", function(){ renderAnnouncementsFro
                 <div class="stat-label">公会成员</div>
               </div>
               <div class="guild-stat">
-                <div class="stat-num">17</div>
+                <div class="stat-num">18</div>
                 <div class="stat-label">战术配装</div>
               </div>
               <div class="guild-stat">
@@ -1380,7 +1382,7 @@ document.addEventListener("DOMContentLoaded", function(){ renderAnnouncementsFro
                 </div>
                 <div class="bar-item">
                   <div class="bar-label">
-                    <span>人均功勋</span>
+                    <span>人均功勋（÷40成员）</span>
                     <span class="bar-value">68,133</span>
                   </div>
                   <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
