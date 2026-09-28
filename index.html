@@ -1070,39 +1070,6 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 </style>
 
 <script>
-  if (h.totalPower) {
-    var powerEl = document.querySelector(".hero-power");
-    if (powerEl) powerEl.textContent = h.totalPower;
-  }
-
-  // 更新滚动公告
-  if (siteConfig.announcements && siteConfig.announcements.length > 0) {
-    var scroll = document.querySelector(".announcement-scroll");
-    if (scroll) {
-      var html = "";
-      var tags = ["战报","联赛","招募","活动","通知"];
-      siteConfig.announcements.forEach(function(text, i){
-        html += '<div class="announcement-item">' +
-          '<span class="ann-tag">' + escapeHtml(tags[i % tags.length]) + '</span>' +
-          '<span class="ann-text">' + escapeHtml(text) + '</span>' +
-          '</div>';
-      });
-      scroll.innerHTML = html + html; // 复制一份用于无缝滚动
-    }
-  }
-
-  // 更新福利项目
-  if (siteConfig.welfare && siteConfig.welfare.length > 0) {
-    var welfareContainer = document.querySelector(".welfare-list");
-    if (welfareContainer) {
-      var html = "";
-      siteConfig.welfare.forEach(function(w){
-        html += '<div class="welfare-item"><span class="welfare-dot"></span>' + (w.icon?escapeHtml(w.icon)+" ":"") + escapeHtml(w.text||"") + '</div>';
-      });
-      welfareContainer.innerHTML = html;
-    }
-  }}
-
 // 页面加载完成后加载配置
 
   // 从 D1 API 拉取公告，覆盖硬编码内容
@@ -1139,7 +1106,7 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
       .catch(function(){ /* API 失败时保留硬编码兜底内容 */ });
   }
 
-document.addEventListener("DOMContentLoaded", function(){ loadSiteConfig(); renderAnnouncementsFromAPI(); });
+document.addEventListener("DOMContentLoaded", function(){ renderAnnouncementsFromAPI(); });
 
 </script>
   <link rel="alternate" hreflang="zh" href="https://ykmys.com/index.html" />
