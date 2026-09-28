@@ -1075,6 +1075,16 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
   // XSS 防护
   function escapeHtml(str){return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
+  // 动态更新时间
+  (function(){
+    var el = document.getElementById("dashboardUpdate");
+    if(!el) return;
+    var d = new Date();
+    var mm = String(d.getMonth()+1).padStart(2,"0");
+    var dd = String(d.getDate()).padStart(2,"0");
+    el.textContent = "更新于 " + mm + "-" + dd;
+  })();
+
   // 从 D1 API 拉取公告，覆盖硬编码内容
   function renderAnnouncementsFromAPI() {
     var scroll = document.getElementById("announcementScroll");
@@ -1317,7 +1327,7 @@ document.addEventListener("DOMContentLoaded", function(){ renderAnnouncementsFro
               <div class="dashboard-header">
                 <span class="dashboard-icon">📊</span>
                 <span class="dashboard-title">公会数据看板</span>
-                <span class="dashboard-update">更新于 今日</span>
+                <span class="dashboard-update" id="dashboardUpdate">更新于 --</span>
               </div>
               <div class="dashboard-stats">
                 <div class="dash-stat">
@@ -1357,9 +1367,9 @@ document.addEventListener("DOMContentLoaded", function(){ renderAnnouncementsFro
                 <div class="bar-item">
                   <div class="bar-label">
                     <span>本届神殿排名</span>
-                    <span class="bar-value">全服第 1</span>
+                    <span class="bar-value">本届四强</span>
                   </div>
-                  <div class="bar-track"><div class="bar-fill" style="width:98%"></div></div>
+                  <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
                 </div>
                 <div class="bar-item">
                   <div class="bar-label">
