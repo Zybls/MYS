@@ -1,0 +1,51 @@
+name: CF Challenge Probe (dry-run, no deploy)
+
+# 决策 3 前置验证：GitHub Actions（数据中心出口 IP）能否正常访问 ykmys.com
+# 只读探测，不提交、不部署、不改任何东西。手动触发。
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl probe (status + cf-mitigated header + challenge strings)
+        run: |
+          set -u
+          for p in / /library /library.html /tools /guild /builds-guides /api/members; do
+            rm -f /tmp/h /tmp/b
+            code=$(curl -sS -D /tmp/h -o /tmp/b -w "%{http_code}" --max-time 25 "https://ykmys.com$p")
+            cfmit=$(grep -i "^cf-mitigated:" /tmp/h | head -1 | tr -d "\r")
+            size=$(wc -c < /tmp/b)
+            hits=$(grep -c -i -e "challenge-platform" -e "just a moment" -e "attention required" /tmp/b || true)
+            echo "RESULT $p status=$code bytes=$size cf_mitigated=[${cfmit:-none}] challenge_hits=$hits"
+          done
+          echo "判读：全部 status=200 + cf_mitigated=none + challenge_hits=0 => curl 层通过"
+
+      - name: Playwright probe (headless real render)
+        run: |
+          pip install playwright==1.63.0
+          playwright install chromium --with-deps
+          cat > /tmp/probe.py <<'PYEOF'
+          from playwright.sync_api import sync_playwright
+          UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+          with sync_playwright() as pw:
+              b = pw.chromium.launch(headless=True)
+              pg = b.new_page(user_agent=UA, viewport={"width": 1440, "height": 900})
+              pg.goto("https://ykmys.com/", wait_until="load", timeout=60000)
+              try:
+                  pg.wait_for_load_state("networkidle", timeout=20000)
+              except Exception:
+                  pass
+              pg.wait_for_timeout(2000)
+              html = pg.content()
+              title = pg.title()
+              print("TITLE:", title)
+              print("HAS_CHALLENGE:", ("challenge-platform" in html) or ("just a moment" in title.lower()))
+              print("HAS_DASHBOARD_UPDATE:", "dashboardUpdate" in html)
+              print("HAS_TOP5:", ("傲慢" in html and "50,650" in html))
+              b.close()
+          PYEOF
+          python /tmp/probe.py
+          echo "判读：HAS_CHALLENGE=False + HAS_DASHBOARD_UPDATE=True + HAS_TOP5=True => 渲染层通过"
