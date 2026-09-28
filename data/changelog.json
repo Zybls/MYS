@@ -1,0 +1,101 @@
+{
+  "source": "D:\\ZYB\\YKMYS\\公会资料\\guild_data\\changelog.md",
+  "source_mtime": "2026-09-26 22:26:47",
+  "generated_at": "2026-09-28 09:20:13",
+  "generator": "website/tools/md_to_json.py",
+  "count": 8,
+  "title": "公会动态日志",
+  "field_map": {
+    "日期": "date_text",
+    "标签": "tag",
+    "内容": "content"
+  },
+  "notes": [
+    "数据来源：神殿复盘PPT、2026-08-22周报及9/26成员战力截图。",
+    "按时间倒序排列（最新在前）；第五届场次具体周六日期未在资料中标注，填\"2026-08（具体未知）\"。"
+  ],
+  "entries": [
+    {
+      "id": "log_001",
+      "date": "2026-10-03",
+      "date_note": "周六·预告",
+      "tag": "赛事预告",
+      "content": "第六届季军赛：天涯+神话 vs 意气阁丶剑歌+无畏神殿（第五届冠军），争夺小组1铜牌",
+      "is_upcoming": true,
+      "line": 8
+    },
+    {
+      "id": "log_002",
+      "date": "2026-09-26",
+      "date_note": "",
+      "tag": "人员",
+      "content": "6进6出调整：新加入喜子、远方、老王、雲壹壹、金火、功德重在积累；移除李洛溪、Deeven、屠狗辈、Vic、狼巴子、刀剑神；总战力升至2266.14万兆",
+      "is_upcoming": false,
+      "line": 9
+    },
+    {
+      "id": "log_003",
+      "date": "2026-09-19",
+      "date_note": "周六",
+      "tag": "战报",
+      "content": "第六届半决赛2385:15000负于奶牛俱乐部+无畏圣殿，止步半决赛；MVP傲慢50,650；5人缺勤含第4高战杨大锤",
+      "is_upcoming": false,
+      "line": 10
+    },
+    {
+      "id": "log_004",
+      "date": "2026-09",
+      "date_note": "周六·约9/12",
+      "tag": "战报",
+      "content": "第六届第1周15000:13020胜刀剑神域+扫黑，险胜1,980分晋级半决赛；天涯人均38,230全场最高",
+      "is_upcoming": false,
+      "line": 11
+    },
+    {
+      "id": "log_005",
+      "date": "2026-08-22",
+      "date_note": "",
+      "tag": "周报",
+      "content": "数据周报：总战力1838.94万兆、40/40满编、建会535天；悬赏大赛全服第1",
+      "is_upcoming": false,
+      "line": 12
+    },
+    {
+      "id": "log_006",
+      "date": "2026-08",
+      "date_note": "周六·具体未知",
+      "tag": "战报",
+      "content": "第五届vs巅峰5195:15000负于巅峰+震爷英雄会丶；MVP醉摇摆92,150",
+      "is_upcoming": false,
+      "line": 13
+    },
+    {
+      "id": "log_007",
+      "date": "2026-08",
+      "date_note": "周六·具体未知",
+      "tag": "战报",
+      "content": "第五届季军赛15000:9290胜天外天（盟友养老院）",
+      "is_upcoming": false,
+      "line": 14
+    },
+    {
+      "id": "log_008",
+      "date": "2026-08",
+      "date_note": "周六·具体未知",
+      "tag": "战报",
+      "content": "第五届4强赛4415:15000负于意气阁丶剑歌+红浪漫",
+      "is_upcoming": false,
+      "line": 15
+    }
+  ],
+  "latest": {
+    "id": "log_001",
+    "date": "2026-10-03",
+    "date_note": "周六·预告",
+    "tag": "赛事预告",
+    "content": "第六届季军赛：天涯+神话 vs 意气阁丶剑歌+无畏神殿（第五届冠军），争夺小组1铜牌",
+    "is_upcoming": true,
+    "line": 8
+  },
+  "unparsed": []
+}
