@@ -1072,6 +1072,9 @@ body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
 <script>
 // 页面加载完成后加载配置
 
+  // XSS 防护
+  function escapeHtml(str){return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
   // 从 D1 API 拉取公告，覆盖硬编码内容
   function renderAnnouncementsFromAPI() {
     var scroll = document.getElementById("announcementScroll");
