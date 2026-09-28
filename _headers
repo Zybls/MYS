@@ -11,7 +11,32 @@
   Cache-Control: public, max-age=31536000, immutable
 
 # 数据文件短缓存（1分钟），避免更新后用户拿到旧数据
-/*-data.js
+# 注意：Cloudflare Pages _headers 不支持 /*-suffix 中间通配符，必须逐个精确匹配
+/engravings-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/skills-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/darkarmor-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/builds-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/guides-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/wash-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/recommend-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/runes-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/rune-symbols-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/sages-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/search-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/redeem-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/pets-data.js
   Cache-Control: public, max-age=60, must-revalidate
 
 # HTML页面不缓存
