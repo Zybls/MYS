@@ -21,7 +21,7 @@
   .music-btn{width:32px;height:32px;border-radius:50%;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#f59e0b;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
   .music-btn:hover{transform:scale(1.1);box-shadow:0 0 15px rgba(245,158,11,.5)}
   .music-btn svg{display:block}
-  .music-btn.playing{animation:pulse 2s infinite}
+  .music-btn.playing{background:rgba(245,158,11,.25);border-color:rgba(245,158,11,.6)}
   .music-nav-btn{width:24px;height:24px;font-size:12px;background:transparent;border:none;color:rgba(245,158,11,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s}
   .music-nav-btn:hover{color:#f59e0b}
   .music-visualizer{display:flex;align-items:flex-end;gap:2px;height:16px}
@@ -44,7 +44,7 @@
   .nav-music{display:none;align-items:center;gap:6px;margin-left:8px}
   .nav-music-btn{width:30px;height:30px;border-radius:50%;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);color:#f59e0b;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-size:14px}
   .nav-music-btn:hover{background:rgba(245,158,11,.25);transform:scale(1.08)}
-  .nav-music-btn.playing{animation:pulse 2s infinite}
+  .nav-music-btn.playing{background:rgba(245,158,11,.25);border-color:rgba(245,158,11,.6)}
   .nav-music-btn svg{display:block;width:13px;height:13px}
   .nav-music-btn.nav-music-nav{width:26px;height:26px;background:rgba(245,158,11,.08)}
   .nav-music-btn.nav-music-nav svg{width:11px;height:11px}
@@ -130,11 +130,11 @@
     pauseIcons.forEach(function(el){ el.style.display = playing ? 'block' : 'none'; });
     if (playing) {
       musicPlayer.classList.add('playing');
-      if (navMusic) navMusic.querySelector('.nav-music-btn').classList.add('playing');
+      if (navMusicBtn) navMusicBtn.classList.add('playing');
       if (musicStatus) musicStatus.textContent = '播放中';
     } else {
       musicPlayer.classList.remove('playing');
-      if (navMusic) navMusic.querySelector('.nav-music-btn').classList.remove('playing');
+      if (navMusicBtn) navMusicBtn.classList.remove('playing');
       if (musicStatus) musicStatus.textContent = '已暂停';
     }
   }
