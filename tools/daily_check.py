@@ -142,9 +142,35 @@ def cplus_fetch_via_evaluate(page, url: str):
 
 
 def cplus_fetch(page, url: str):
-    """同 context 内 evaluate(fetch)。返回 {status, len, text, error?}。
-    注：CI 环境下 evaluate(fetch) 会被 CF 403，需配合 cf_clearance 诊断。"""
-    return page.evaluate(_EVAL_FETCH, [url, FETCH_TIMEOUT_MS])
+    """E变体：ctx.new_page() 开独立页面 goto，不碰主 page。
+    若 403 → wait 3s 让质询 JS 执行 → 重试一次。
+    失败 → fallback 到 evaluate(fetch)。
+    返回 {status, len, text, error?}。"""
+    ctx = page.context
+    tmp = None
+    try:
+        tmp = ctx.new_page()
+        resp = tmp.goto(url, wait_until="domcontentloaded", timeout=15000)
+        status = resp.status if resp else 0
+        # 403 且是 CF 质询 → 等 3 秒让质询 JS 执行，重试一次
+        if status == 403:
+            tmp.wait_for_timeout(3000)
+            resp = tmp.goto(url, wait_until="domcontentloaded", timeout=15000)
+            status = resp.status if resp else 0
+        text = resp.text() if resp else ""
+        return {"status": status, "len": len(text), "text": text}
+    except Exception as e:
+        # goto 失败 → fallback 到 evaluate(fetch)
+        try:
+            return cplus_fetch_via_evaluate(page, url)
+        except Exception as e2:
+            return {"status": 0, "len": 0, "text": "", "error": str(e2)}
+    finally:
+        if tmp:
+            try:
+                tmp.close()
+            except Exception:
+                pass
 
 
 # ---------------------------------------------------------------- diff 工具
