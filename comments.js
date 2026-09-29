@@ -325,12 +325,6 @@
     }
   };
 
-  // 关闭搜索浮层（huodao-shouling.html 的 #search-overlay）
-  window.closeSearch = function() {
-    const overlay = document.getElementById('search-overlay');
-    if (overlay) overlay.style.display = 'none';
-  };
-
   // 页面加载时恢复点赞数和收藏状态
   async function restoreBuildActions() {
     // 恢复点赞数
