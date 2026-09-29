@@ -142,23 +142,9 @@ def cplus_fetch_via_evaluate(page, url: str):
 
 
 def cplus_fetch(page, url: str):
-    """主路径：主 page.goto 过 CF 质询（CI 环境 evaluate(fetch) 和新页面都会被 403）。
-    必须用主 page：初始 goto 首页已过质询，clearance cookie 在主 page context 中。
-    调用方需在渲染断言前重新 goto 首页（本函数会改变 page 位置）。
-    goto 失败/超时 → fallback 到 evaluate(fetch)。
-    返回 {status, len, text, error?}。"""
-    try:
-        resp = page.goto(url, wait_until="domcontentloaded", timeout=15000)
-        status = resp.status if resp else 0
-        # 用 resp.text() 取原始响应体（JSON 不被浏览器渲染成 HTML）
-        text = resp.text() if resp else ""
-        return {"status": status, "len": len(text), "text": text}
-    except Exception as e:
-        # goto 失败（超时/质询未过）→ fallback 到 evaluate(fetch)
-        try:
-            return cplus_fetch_via_evaluate(page, url)
-        except Exception as e2:
-            return {"status": 0, "len": 0, "text": "", "error": str(e2)}
+    """同 context 内 evaluate(fetch)。返回 {status, len, text, error?}。
+    注：CI 环境下 evaluate(fetch) 会被 CF 403，需配合 cf_clearance 诊断。"""
+    return page.evaluate(_EVAL_FETCH, [url, FETCH_TIMEOUT_MS])
 
 
 # ---------------------------------------------------------------- diff 工具
@@ -491,6 +477,17 @@ def main() -> int:
             page.wait_for_load_state("networkidle", timeout=20000)
         except Exception:  # noqa: BLE001
             pass
+
+        # [CF诊断] 检查 cf_clearance cookie 和页面状态
+        try:
+            cookies = page.context.cookies()
+            cf_clearance = [c for c in cookies if c["name"] == "cf_clearance"]
+            log("[CF诊断] cf_clearance 存在: %s (共%d个cookie)" % (bool(cf_clearance), len(cookies)))
+            log("[CF诊断] page.title: %s" % page.title())
+            log("[CF诊断] page.url: %s" % page.url)
+            log("[CF诊断] cookie列表: %s" % ", ".join(sorted(set(c["name"] for c in cookies))))
+        except Exception as _e:  # noqa: BLE001
+            log("[CF诊断] 诊断异常: %s" % _e)
         page.wait_for_timeout(NAV_WAIT_MS)   # C+：等质询 JS 执行完
 
         # --- 1. 核心页面（C+ fetch，自动跟随重定向到最终 200）
@@ -533,8 +530,6 @@ def main() -> int:
                               % (path, status))
 
         # --- 3. 渲染（同 context，不再新开浏览器）
-        # cplus_fetch 会改变 page 位置，渲染断言前重新导航回首页
-        page.goto(BASE + "/", wait_until="domcontentloaded", timeout=15000)
         log("\n[3/4] 渲染断言（同 context）")
         before = len(checks)
         render_checks(page, issues, checks)
