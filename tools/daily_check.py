@@ -136,9 +136,37 @@ _EVAL_FETCH = """async ([u, t]) => {
 }"""
 
 
-def cplus_fetch(page, url: str):
-    """同 context 内 evaluate(fetch)。返回 {status, len, text, error?}。"""
+def cplus_fetch_via_evaluate(page, url: str):
+    """fallback：同 context 内 evaluate(fetch)。返回 {status, len, text, error?}。"""
     return page.evaluate(_EVAL_FETCH, [url, FETCH_TIMEOUT_MS])
+
+
+def cplus_fetch(page, url: str):
+    """主路径：新页面 page.goto 过 CF 质询（CI 环境 evaluate(fetch) 会被 403）。
+    用 context.new_page() 临时页面，不影响主 page 位置（渲染断言依赖首页）。
+    goto 失败/超时 → fallback 到 evaluate(fetch)。
+    返回 {status, len, text, error?}。"""
+    ctx = page.context
+    tmp = None
+    try:
+        tmp = ctx.new_page()
+        resp = tmp.goto(url, wait_until="domcontentloaded", timeout=15000)
+        status = resp.status if resp else 0
+        # 用 resp.text() 取原始响应体（JSON 不被浏览器渲染成 HTML）
+        text = resp.text() if resp else ""
+        return {"status": status, "len": len(text), "text": text}
+    except Exception as e:
+        # goto 失败（超时/质询未过）→ fallback 到 evaluate(fetch)
+        try:
+            return cplus_fetch_via_evaluate(page, url)
+        except Exception as e2:
+            return {"status": 0, "len": 0, "text": "", "error": str(e2)}
+    finally:
+        if tmp is not None:
+            try:
+                tmp.close()
+            except Exception:
+                pass
 
 
 # ---------------------------------------------------------------- diff 工具
