@@ -32,6 +32,8 @@ jobs:
           SKIP_QWEN: "1"          # 兼容别名：跳过 Qwen 调用
           LOCAL_INDEX: "index.html"
           REPORT_DIR: "."
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: python tools/daily_check.py
 
       - name: Commit report to reports branch

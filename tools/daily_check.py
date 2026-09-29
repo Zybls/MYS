@@ -495,8 +495,14 @@ def main() -> int:
         from playwright.sync_api import sync_playwright
         pw = sync_playwright().start()
         browser = pw.chromium.launch(headless=True)
+        extra_headers = {}
+        if os.environ.get("CF_ACCESS_CLIENT_ID"):
+            extra_headers["CF-Access-Client-Id"] = os.environ["CF_ACCESS_CLIENT_ID"]
+        if os.environ.get("CF_ACCESS_CLIENT_SECRET"):
+            extra_headers["CF-Access-Client-Secret"] = os.environ["CF_ACCESS_CLIENT_SECRET"]
         ctx = browser.new_context(user_agent=UA,
-                                  viewport={"width": 1440, "height": 900})
+                                  viewport={"width": 1440, "height": 900},
+                                  extra_http_headers=extra_headers)
         page = ctx.new_page()
         page.goto(BASE + "/", wait_until="load", timeout=60000)
         try:
