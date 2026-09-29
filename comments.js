@@ -246,10 +246,130 @@
     } catch (e) {}
   }
 
+  // ===== 配装页交互函数（挂到 window 供 onclick 调用） =====
+
+  // 点赞：调 POST /api/likes/:page_id，更新计数，localStorage 防重复
+  window.toggleLike = async function(btn) {
+    if (!btn) return;
+    const countEl = btn.querySelector('.action-count');
+    const textEl = btn.querySelector('.action-text');
+    const storageKey = 'yxmysbd_liked_' + PAGE_ID;
+    const wasLiked = localStorage.getItem(storageKey) === '1';
+    const isActive = !wasLiked;
+
+    try {
+      const res = await fetch(API_BASE + '/api/likes/' + encodeURIComponent(PAGE_ID), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ liked: isActive })
+      });
+      const data = await res.json();
+      if (data.count !== undefined && countEl) countEl.textContent = data.count;
+      if (textEl) textEl.textContent = isActive ? '已赞' : '点赞';
+      btn.classList.toggle('active', isActive);
+      localStorage.setItem(storageKey, isActive ? '1' : '0');
+    } catch (e) {
+      // 网络失败时回滚 UI
+      btn.classList.toggle('active', wasLiked);
+      if (textEl) textEl.textContent = wasLiked ? '已赞' : '点赞';
+    }
+  };
+
+  // 滚动到评论区
+  window.scrollToComment = function() {
+    const el = document.getElementById('comments-section') || document.getElementById('comment-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // 收藏：localStorage 切换
+  window.toggleFav = function(btn) {
+    if (!btn) return;
+    const storageKey = 'yxmysbd_fav_' + PAGE_ID;
+    const wasFav = localStorage.getItem(storageKey) === '1';
+    const isFav = !wasFav;
+    const textEl = btn.querySelector('.action-text');
+    if (textEl) textEl.textContent = isFav ? '已收藏' : '收藏';
+    btn.classList.toggle('active', isFav);
+    localStorage.setItem(storageKey, isFav ? '1' : '0');
+  };
+
+  // 兼容 fashi-zhouling-huoyan.html 的命名
+  window.toggleFavorite = window.toggleFav;
+
+  // 分享：优先 navigator.share，降级 clipboard
+  window.shareBuild = async function() {
+    const url = location.href;
+    const title = document.title;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: title, url: url });
+        return;
+      } catch (e) {
+        // 用户取消分享不报错，其他错误降级到 clipboard
+        if (e.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      alert('链接已复制到剪贴板');
+    } catch (e) {
+      // 兜底：用临时 textarea
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); alert('链接已复制到剪贴板'); } catch (e2) { alert('复制失败，请手动复制：' + url); }
+      document.body.removeChild(ta);
+    }
+  };
+
+  // 关闭搜索浮层（huodao-shouling.html 的 #search-overlay）
+  window.closeSearch = function() {
+    const overlay = document.getElementById('search-overlay');
+    if (overlay) overlay.style.display = 'none';
+  };
+
+  // 页面加载时恢复点赞数和收藏状态
+  async function restoreBuildActions() {
+    // 恢复点赞数
+    try {
+      const res = await fetch(API_BASE + '/api/likes/all');
+      const data = await res.json();
+      const item = Array.isArray(data) ? data.find(function(d) { return d.page === PAGE_ID; }) : null;
+      if (item) {
+        const countEl = document.querySelector('.like-btn .action-count');
+        if (countEl) countEl.textContent = item.count;
+      }
+    } catch (e) {}
+
+    // 恢复点赞按钮状态
+    if (localStorage.getItem('yxmysbd_liked_' + PAGE_ID) === '1') {
+      const btn = document.querySelector('.like-btn');
+      if (btn) {
+        btn.classList.add('active');
+        const textEl = btn.querySelector('.action-text');
+        if (textEl) textEl.textContent = '已赞';
+      }
+    }
+
+    // 恢复收藏按钮状态
+    if (localStorage.getItem('yxmysbd_fav_' + PAGE_ID) === '1') {
+      const btn = document.querySelector('.fav-btn') || document.querySelector('[onclick*="toggleFav"]') || document.querySelector('[onclick*="toggleFavorite"]');
+      if (btn) {
+        btn.classList.add('active');
+        const textEl = btn.querySelector('.action-text');
+        if (textEl) textEl.textContent = '已收藏';
+      }
+    }
+  }
+
   // 启动
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function() { init(); restoreBuildActions(); });
   } else {
     init();
+    restoreBuildActions();
   }
 })();

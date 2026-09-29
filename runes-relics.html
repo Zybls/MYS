@@ -2278,7 +2278,7 @@ document.getElementById('runes').style.display = '';
 function showDetail(item) {
   var icons = {"符文": "🔷", "遗物": "🏺", "贤者": "🧙"};
   var icon = icons[item.category] || "📦";
-  var imgHtml = item.local_img ? '<img loading="lazy" src="' + item.local_img + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">' + icon + '</div>';
+  var imgHtml = item.local_img ? '<img loading="lazy" src="' + item.local_img + '" alt="' + (item.name||'') + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">' + icon + '</div>';
   
   var html = '<div class="detail-header">' + imgHtml +
     '<div class="detail-info">' +

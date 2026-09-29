@@ -4890,7 +4890,7 @@ var partIcons = {"武器": "⚔️", "头盔": "⛑️", "护肩": "🛡️", "�
 function showDetail(item) {
   var color = qualityColors[item.quality] || '#6b7280';
   var icon = partIcons[item.part] || '📦';
-  var imgHtml = item.local_img ? '<img loading="lazy" src="' + item.local_img + '" class="detail-img" style="border-color:' + color + '">' : '<div class="detail-img" style="border-color:' + color + ';display:flex;align-items:center;justify-content:center;font-size:32px;">' + icon + '</div>';
+  var imgHtml = item.local_img ? '<img loading="lazy" src="' + item.local_img + '" alt="' + (item.name||'') + '" class="detail-img" style="border-color:' + color + '">' : '<div class="detail-img" style="border-color:' + color + ';display:flex;align-items:center;justify-content:center;font-size:32px;">' + icon + '</div>';
   
   var html = '<div class="detail-header">' + imgHtml +
     '<div class="detail-info">' +

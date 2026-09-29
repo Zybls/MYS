@@ -1,4 +1,4 @@
-﻿// 全站搜索组件
+// 全站搜索组件
 (function() {
   // 搜索弹窗HTML
   const searchModalHTML = `
@@ -75,7 +75,10 @@
   };
 
   window.closeSearch = function() {
-    document.getElementById('searchModal').style.display = 'none';
+    var modal = document.getElementById('searchModal');
+    if (modal) modal.style.display = 'none';
+    var overlay = document.getElementById('search-overlay');
+    if (overlay) overlay.style.display = 'none';
   };
 
   // 点击遮罩关闭

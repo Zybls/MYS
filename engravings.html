@@ -627,7 +627,7 @@ var posMap = {"property_1": "主刻印", "property_2": "副刻印", "property_3"
 
 function showEngravingDetail(eng) {
   var posName = posMap[eng.position] || '通用';
-  var imgHtml = eng.local_img ? '<img loading="lazy" src="' + eng.local_img + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚡</div>';
+  var imgHtml = eng.local_img ? '<img loading="lazy" src="' + eng.local_img + '" alt="' + (eng.name||'') + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚡</div>';
   
   var html = '<div class="detail-header">' + imgHtml +
     '<div class="detail-info">' +
