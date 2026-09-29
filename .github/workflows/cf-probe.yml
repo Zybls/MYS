@@ -1,0 +1,61 @@
+name: CF Challenge Probe v2 (UA variants + APIRequest)
+
+# 第二轮：定位 CF 质询的精确边界
+#  1) 裸 curl（对照组，预期 403）
+#  2) curl + Chrome UA（验证 UA 能否救）
+#  3) curl + Chrome UA + Referer（验证再加 Referer 能否救）
+#  4) Playwright 浏览器内 request（APIRequestContext，验证轻量 API 检查可行路径）
+#  5) Playwright 页面渲染（对照组，第一轮已过）
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl variants
+        run: |
+          set -u
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+          probe() {
+            label="$1"; shift
+            rm -f /tmp/h /tmp/b
+            code=$(curl -sS -D /tmp/h -o /tmp/b -w "%{http_code}" --max-time 25 "$@" "https://ykmys.com/api/members")
+            cfmit=$(grep -i "^cf-mitigated:" /tmp/h | head -1 | tr -d "\r")
+            echo "VARIANT $label status=$code cf_mitigated=[${cfmit:-none}]"
+          }
+          probe "1-bare-curl"
+          probe "2-curl+UA" -A "$UA"
+          probe "3-curl+UA+Referer" -A "$UA" -e "https://www.google.com/"
+          probe "4-curl+UA+Accept" -A "$UA" -H "Accept: text/html,application/json"
+
+      - name: Playwright render + APIRequest
+        run: |
+          pip install playwright==1.63.0
+          playwright install chromium --with-deps
+          cat > /tmp/probe2.py <<'PYEOF'
+          from playwright.sync_api import sync_playwright
+          UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+          with sync_playwright() as pw:
+              b = pw.chromium.launch(headless=True)
+              # A) 浏览器内 API 请求（轻量检查的可行路径验证）
+              ctx = b.new_context(user_agent=UA)
+              r = ctx.request.get("https://ykmys.com/api/members", timeout=30000)
+              body = r.text()[:200]
+              print("API_REQUEST_STATUS:", r.status)
+              print("API_REQUEST_HEAD:", body.replace(chr(10), " ")[:160])
+              # B) 页面渲染（对照）
+              pg = ctx.new_page()
+              pg.goto("https://ykmys.com/", wait_until="load", timeout=60000)
+              try:
+                  pg.wait_for_load_state("networkidle", timeout=20000)
+              except Exception:
+                  pass
+              pg.wait_for_timeout(2000)
+              html = pg.content()
+              print("RENDER_HAS_DASHBOARD:", "dashboardUpdate" in html)
+              print("RENDER_HAS_TOP5:", ("傲慢" in html and "50,650" in html))
+              b.close()
+          PYEOF
+          python /tmp/probe2.py

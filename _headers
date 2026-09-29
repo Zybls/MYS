@@ -1,0 +1,44 @@
+# Cloudflare Pages Headers
+# Security headers
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Static assets long cache
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Data files short cache (60s)
+# Note: Cloudflare Pages _headers does NOT support /*-suffix mid-wildcards, must match each file exactly
+/engravings-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/skills-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/darkarmor-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/builds-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/guides-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/wash-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/recommend-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/runes-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/rune-symbols-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/sages-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/search-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/redeem-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+/pets-data.js
+  Cache-Control: public, max-age=60, must-revalidate
+
+# HTML pages no cache
+/*.html
+  Cache-Control: no-cache

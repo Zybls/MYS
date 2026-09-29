@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英雄没有闪新手指南 | 入门攻略 | 天涯若比邻公会</title>
+<meta property="og:title" content="新手入门指南">
+<meta property="og:description" content="新手入门指南 - 英雄没有闪快速上手攻略">
+<meta property="og:image" content="https://ykmys.com/guild-badge.png">
+<meta property="og:url" content="https://ykmys.com/guide.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="英雄没有闪S2赛季新手入门指南，职业选择、核心机制、配装思路、常见误区一文搞懂。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8E%AF%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --blue: #3b82f6; --red: #ef4444; --purple: #a855f7; --orange: #f97316;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.8; padding: 16px; max-width: 900px; margin: 0 auto; font-size: 16px;
+}
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn, .nav-link { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover, .nav-link:hover { color: var(--gold); }
+.nav-game-name { color: var(--text-dim); font-size: 15px; }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+body { padding-top: 68px; }
+
+.breadcrumb { margin-bottom: 12px; font-size: 13px; color: var(--text-dim); }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 8px; color: #4a5568; }
+.breadcrumb .current { color: var(--gold); }
+
+.hero { text-align: center; padding: 32px 20px 24px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 24px; }
+.hero h1 { font-size: 28px; color: var(--gold); margin-bottom: 8px; }
+.hero .subtitle { color: var(--text-dim); font-size: 14px; }
+
+.toc { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; }
+.toc-title { font-size: 16px; font-weight: bold; color: var(--gold); margin-bottom: 12px; }
+.toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.toc-list a { color: var(--text-dim); text-decoration: none; font-size: 14px; padding: 6px 10px; border-radius: 6px; display: block; }
+.toc-list a:hover { color: var(--gold); background: var(--bg-card2); }
+.toc-list .num { color: var(--gold); font-weight: bold; margin-right: 6px; }
+
+.guide-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.section-icon { font-size: 28px; }
+.section-title { font-size: 20px; font-weight: bold; color: var(--text); }
+.section-num { font-size: 14px; color: var(--gold); background: rgba(245,158,11,0.15); padding: 4px 12px; border-radius: 12px; }
+.guide-section p { margin-bottom: 12px; color: var(--text-dim); font-size: 15px; }
+.guide-section p strong { color: var(--text); }
+.guide-section ul { padding-left: 24px; margin-bottom: 12px; }
+.guide-section li { margin-bottom: 6px; color: var(--text-dim); font-size: 15px; }
+.guide-section li strong { color: var(--text); }
+
+.class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 16px 0; }
+.class-card { background: var(--bg-card2); border-radius: 8px; padding: 16px; border-left: 4px solid; }
+.class-card.warrior { border-left-color: var(--orange); }
+.class-card.mage { border-left-color: var(--purple); }
+.class-card.ranger { border-left-color: var(--green); }
+.class-card h4 { font-size: 16px; margin-bottom: 8px; }
+.class-card.warrior h4 { color: var(--orange); }
+.class-card.mage h4 { color: var(--purple); }
+.class-card.ranger h4 { color: var(--green); }
+.class-card p { font-size: 13px; margin-bottom: 0; }
+
+.tip-box { background: rgba(45,212,191,0.08); border: 1px solid rgba(45,212,191,0.2); border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+.tip-box .tip-title { color: var(--green); font-weight: bold; font-size: 14px; margin-bottom: 6px; }
+.tip-box p { font-size: 14px; margin-bottom: 0; color: var(--text-dim); }
+.warn-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+.warn-box .warn-title { color: var(--red); font-weight: bold; font-size: 14px; margin-bottom: 6px; }
+.warn-box p { font-size: 14px; margin-bottom: 0; color: var(--text-dim); }
+
+.quick-links { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 24px; }
+.quick-links h3 { font-size: 18px; color: var(--gold); margin-bottom: 16px; }
+.links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.link-card { background: var(--bg-card2); border-radius: 8px; padding: 14px; text-align: center; text-decoration: none; color: var(--text); transition: all 0.2s; }
+.link-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.link-card .icon { font-size: 24px; display: block; margin-bottom: 6px; }
+.link-card .name { font-size: 13px; }
+
+@media (max-width: 768px) {
+  body { font-size: 15px; padding: 12px; }
+  .hero h1 { font-size: 22px; }
+  .guide-section { padding: 18px; }
+  .section-title { font-size: 18px; }
+  .nav-game-name { display: none; }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+
+  /* 语言切换按钮 */
+  .lang-btn { background: none; border: 1px solid rgba(240,176,64,0.3); color: var(--text-dim); 
+    font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; 
+    transition: all 0.2s; min-width: 28px; text-align: center; }
+  .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
+  .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
+
+/* ===== 公会导航（统一） ===== */
+.guild-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(11,11,18,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(245,158,11,0.15);
+}
+.guild-nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; gap: 12px;
+}
+.guild-nav-left { display: flex; align-items: center; gap: 12px; }
+.guild-logo-wrap { display: flex; align-items: center; }
+.guild-logo {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid rgba(245,158,11,0.4);
+  box-shadow: 0 0 10px rgba(245,158,11,0.2);
+  object-fit: cover;
+}
+.guild-nav-info { display: flex; flex-direction: column; }
+.guild-nav-name {
+  font-size: 15px; font-weight: 800; color: var(--gold);
+  letter-spacing: 0.5px; line-height: 1.2;
+}
+.guild-nav-slogan { font-size: 10px; color: var(--text-dim); }
+.guild-back-btn {
+  color: var(--text-dim); font-size: 12px; text-decoration: none;
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+  transition: all 0.2s; margin-left: 4px;
+}
+.guild-back-btn:hover { color: var(--gold); border-color: var(--gold); background: rgba(245,158,11,0.08); }
+.guild-nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.recruit-status {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+  padding: 3px 9px; border-radius: 20px;
+}
+.recruit-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.recruit-text { font-size: 10px; color: #4ade80; font-weight: 600; }
+.nav-icon-btn {
+  background: none; border: none; color: var(--text); font-size: 15px; cursor: pointer;
+  padding: 6px 8px; border-radius: 6px; transition: all 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+.lang-switch { display: flex; gap: 2px; background: var(--bg-card2); border-radius: 6px; padding: 2px; }
+.lang-switch .lang-btn {
+  background: none; border: none; color: var(--text-dim);
+  font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 4px;
+  transition: all 0.2s; min-width: 26px; text-align: center; font-weight: 600;
+}
+.lang-switch .lang-btn:hover { color: var(--gold); }
+.lang-switch .lang-btn.active { background: var(--gold); color: #1a1a2e; }
+@media (max-width: 639px) {
+  .guild-nav-inner { padding: 6px 12px; gap: 8px; }
+  .guild-logo { width: 34px; height: 34px; }
+  .guild-nav-name { font-size: 13px; }
+  .guild-nav-slogan { display: none; }
+  .guild-back-btn { font-size: 11px; padding: 4px 8px; }
+  .recruit-text { display: none; }
+  .nav-icon-btn { font-size: 14px; padding: 5px 6px; }
+}
+
+
+/* ===== 亮色主题 ===== */
+[data-theme="light"] { --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa; --bg-card-hover:#f0f0f5; --border:#e0e0e8; --border-hover:#c8c8d0; --gold:#d97706; --gold-dim:#b45309; --gold-glow:rgba(217,119,6,.1); --text:#1a1a2e; --text-dim:#5a5a6e; --text-bright:#0a0a15; }
+[data-theme="light"] body { background:var(--bg) !important; color:var(--text) !important; }
+[data-theme="light"] .guild-nav { background:rgba(255,255,255,.95) !important; backdrop-filter:blur(12px); border-bottom:1px solid #e0e0e8 !important; }
+[data-theme="light"] .guild-nav-name, [data-theme="light"] .guild-name { color:#78350f !important; }
+[data-theme="light"] .guild-nav-slogan, [data-theme="light"] .guild-slogan { color:#92400e !important; }
+[data-theme="light"] .guild-nav-link, [data-theme="light"] .nav-link { color:#1a1a2e !important; }
+[data-theme="light"] .guild-nav-link:hover, [data-theme="light"] .nav-link:hover { color:#d97706 !important; }
+[data-theme="light"] .hero-section, [data-theme="light"] .hero { background:linear-gradient(135deg,#fef3c7,#fde68a 50%,#fcd34d) !important; }
+[data-theme="light"] .hero-title, [data-theme="light"] .hero h1 { color:#78350f !important; }
+[data-theme="light"] .hero-subtitle, [data-theme="light"] .hero p { color:#92400e !important; }
+[data-theme="light"] .section-title, [data-theme="light"] h2 { color:#1a1a2e !important; }
+[data-theme="light"] .card, [data-theme="light"] .build-card, [data-theme="light"] .member-card, [data-theme="light"] .timeline-item { background:#fff !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .card:hover, [data-theme="light"] .build-card:hover { border-color:#d97706 !important; box-shadow:0 4px 20px rgba(217,119,6,.15) !important; }
+[data-theme="light"] .stat-value { color:#d97706 !important; }
+[data-theme="light"] .music-player { background:rgba(255,255,255,.95) !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .music-player .song-name { color:#1a1a2e !important; }
+[data-theme="light"] .announcement-bar { background:linear-gradient(90deg,#fef3c7,#fde68a) !important; color:#78350f !important; }
+[data-theme="light"] .progress-bar { background:#e0e0e8 !important; }
+[data-theme="light"] .progress-fill { background:linear-gradient(90deg,#fbbf24,#f59e0b) !important; }
+[data-theme="light"] .guild-login-btn, [data-theme="light"] .login-btn { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .nav-icon-btn, [data-theme="light"] .theme-toggle { background:#f0f0f5 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a { background:#fff !important; border:1px solid #e0e0e8 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a:hover { border-color:#d97706 !important; color:#d97706 !important; }
+[data-theme="light"] .badge-gold { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .badge-silver { background:linear-gradient(135deg,#e5e7eb,#d1d5db) !important; color:#374151 !important; }
+[data-theme="light"] .badge-bronze { background:linear-gradient(135deg,#fdba74,#fb923c) !important; color:#7c2d12 !important; }
+[data-theme="light"] .recruit-text { color:#16a34a !important; }
+[data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
+
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:#60a5fa}
+.nav-item .nav-icon{font-size:20px}
+
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
+</style>
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/guide.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/guide.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/guide.html" />
+  <link rel="canonical" href="https://ykmys.com/guide.html">
+</head>
+<body>
+
+<div class="guild-nav">
+  <div class="guild-nav-inner">
+    <div class="guild-nav-left">
+      <a href="index.html" class="guild-logo-wrap">
+        <img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+      </a>
+      <div class="guild-nav-info">
+        <div class="guild-nav-name">天涯若比邻</div>
+        <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+      </div>
+      <a href="index.html" class="guild-back-btn">← 首页</a>
+    </div>
+    <div class="guild-nav-right">
+      <div class="recruit-status"><span class="recruit-dot"></span><span class="recruit-text">招募中</span></div>
+      <button class="nav-icon-btn" onclick="toggleSearch()" title="搜索">🔍</button>
+      <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="zh" title="中文">中</button>
+        <button class="lang-btn" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="index.html">🏠 首页</a>
+  <span class="sep">/</span>
+  <span class="current">🎯 新手入门指南</span>
+</div>
+
+<div class="hero">
+  <h1>🎯 新手入门指南</h1>
+  <div class="subtitle">S2赛季从零开始，一文搞懂配装思路</div>
+</div>
+
+<div class="toc">
+  <div class="toc-title">📑 快速导航</div>
+  <ul class="toc-list">
+    <li><a href="#sec1"><span class="num">01</span>游戏简介</a></li>
+    <li><a href="#sec2"><span class="num">02</span>职业选择</a></li>
+    <li><a href="#sec3"><span class="num">03</span>核心机制</a></li>
+    <li><a href="#sec4"><span class="num">04</span>前期建议</a></li>
+    <li><a href="#sec5"><span class="num">05</span>配装思路</a></li>
+    <li><a href="#sec6"><span class="num">06</span>常见误区</a></li>
+  </ul>
+</div>
+
+<div class="guide-section" id="sec1">
+  <div class="section-header">
+    <span class="section-icon">🎮</span>
+    <span class="section-title">游戏简介</span>
+    <span class="section-num">01</span>
+  </div>
+  <p>《英雄没有闪》是一款<strong>暗黑类ARPG手游</strong>，核心玩法是刷装备、配技能、打首领。游戏有三个职业：野蛮人、秘法师、游侠，每个职业都有独特的技能体系和配装方向。</p>
+  <p>S2赛季引入了<strong>暗能装备、刻印、侍从、共鸣</strong>等系统，配装深度大幅提升。新手不需要全部搞懂，先跟着成熟配装抄作业，玩着玩着自然就理解了。</p>
+  <div class="tip-box">
+    <div class="tip-title">💡 新手建议</div>
+    <p>开局先选一个职业玩到底，不要频繁换职业。每个职业的装备和技能都是独立的，换职业等于从零开始。</p>
+  </div>
+</div>
+
+<div class="guide-section" id="sec2">
+  <div class="section-header">
+    <span class="section-icon">⚔️</span>
+    <span class="section-title">职业选择</span>
+    <span class="section-num">02</span>
+  </div>
+  <div class="class-grid">
+    <div class="class-card warrior">
+      <h4>⚔️ 野蛮人</h4>
+      <p>近战物理输出，血厚防高，操作简单。代表流派：火刀、雷锤、电刀。适合喜欢贴脸输出、手感扎实的玩家。新手友好度最高。</p>
+    </div>
+    <div class="class-card mage">
+      <h4>🔮 秘法师</h4>
+      <p>远程法术输出，伤害爆炸，身板较脆。代表流派：炎爆、雷拳、冰焰。适合喜欢远程施法、大范围清怪的玩家。需要一定走位。</p>
+    </div>
+    <div class="class-card ranger">
+      <h4>🏹 游侠</h4>
+      <p>远程物理输出，灵活多变，机制复杂。代表流派：感电、荆棘。适合喜欢研究机制、追求极限输出的玩家。新手建议后期再尝试。</p>
+    </div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">💡 推荐顺序</div>
+    <p>新手推荐：<strong>野蛮人 → 秘法师 → 游侠</strong>。野蛮人最容易上手，等理解游戏机制后再尝试其他职业。</p>
+  </div>
+</div>
+
+<div class="guide-section" id="sec3">
+  <div class="section-header">
+    <span class="section-icon">⚙️</span>
+    <span class="section-title">核心机制</span>
+    <span class="section-num">03</span>
+  </div>
+  <p><strong>暗能装备</strong>：游戏的核心装备系统，每件装备有固定词条和洗炼词条。套装效果强大，散件词条灵活。新手前期优先凑套装，后期再追求极品散件。</p>
+  <p><strong>刻印</strong>：装备上的特殊增益，分为主刻印和副刻印。主刻印影响核心玩法，副刻印提供数值加成。一套配装通常围绕1-2个核心刻印构建。</p>
+  <p><strong>侍从</strong>：跟随角色的宠物，提供光环加成和自动技能。主战侍从放在中间，提供主要增益；其他侍从提供羁绊加成。</p>
+  <p><strong>共鸣</strong>：通过装备特定组合触发的额外效果，如"共鸣12电12火"。共鸣能大幅提升伤害，是配装的重要组成部分。</p>
+</div>
+
+<div class="guide-section" id="sec4">
+  <div class="section-header">
+    <span class="section-icon">🚀</span>
+    <span class="section-title">前期建议</span>
+    <span class="section-num">04</span>
+  </div>
+  <ul>
+    <li><strong>先推图</strong>：前期优先推主线，解锁更多玩法和资源。打不过了就回来刷装备。</li>
+    <li><strong>抄作业</strong>：直接用本站的成熟配装，不要自己瞎搭配。等理解了机制再调整。</li>
+    <li><strong>资源分配</strong>：金币优先洗炼核心装备的关键词条，材料优先升级主战侍从。不要平均分配。</li>
+    <li><strong>装备品质</strong>：远古传奇 > 传奇 > 稀有。前期有啥用啥，后期再追求远古/太古。</li>
+    <li><strong>技能等级</strong>：核心技能优先升满，辅助技能够用就行。技能书是稀缺资源。</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠️ 注意</div>
+    <p>不要浪费资源在过渡装备上！前期装备更新很快，等确定了终局配装再投入大量资源洗炼。</p>
+  </div>
+</div>
+
+<div class="guide-section" id="sec5">
+  <div class="section-header">
+    <span class="section-icon">📋</span>
+    <span class="section-title">配装思路</span>
+    <span class="section-num">05</span>
+  </div>
+  <p>看一套配装好不好，重点看这几个方面：</p>
+  <ul>
+    <li><strong>核心技能</strong>：这套配装靠什么技能输出？技能机制是否契合你的玩法？</li>
+    <li><strong>核心刻印</strong>：主刻印决定了配装的核心玩法，副刻印提供增伤。</li>
+    <li><strong>装备套装</strong>：套装效果是否强力？散件词条是否互补？</li>
+    <li><strong>侍从搭配</strong>：主战侍从是否提供关键光环？羁绊是否凑齐？</li>
+    <li><strong>共鸣系统</strong>：是否触发了高价值的共鸣效果？</li>
+  </ul>
+  <p>配装不是一成不变的，可以根据自己的装备情况灵活调整。核心思路不变，细节可以微调。</p>
+</div>
+
+<div class="guide-section" id="sec6">
+  <div class="section-header">
+    <span class="section-icon">❌</span>
+    <span class="section-title">常见误区</span>
+    <span class="section-num">06</span>
+  </div>
+  <ul>
+    <li><strong>盲目追求高战力</strong>：战力高不代表伤害高，词条搭配比战力更重要。</li>
+    <li><strong>什么都想堆</strong>：伤害类型要专一，堆一种伤害比平均堆多种强得多。</li>
+    <li><strong>忽视防御</strong>：首领战中活着才有输出，适当堆一些生存词条。</li>
+    <li><strong>频繁换流派</strong>：每个流派的装备和技能都是独立的，换流派成本很高。</li>
+    <li><strong>只看装备不看技能</strong>：技能等级和天赋对伤害的影响不亚于装备。</li>
+    <li><strong>洗炼追求全橙</strong>：橙色词条不一定适合你的流派，合适的比稀有的更重要。</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 最后一句话</div>
+    <p>配装是死的，人是活的。参考别人的配装，但要根据自己的装备和手感调整。适合自己的才是最好的。</p>
+  </div>
+</div>
+
+<div class="quick-links">
+  <h3>🔗 快速入口</h3>
+  <div class="links-grid">
+    <a href="index.html" class="link-card"><span class="icon">🏠</span><span class="name">配装首页</span></a>
+    <a href="compare.html" class="link-card"><span class="icon">⚖️</span><span class="name">配装对比</span></a>
+    <a href="skills.html" class="link-card"><span class="icon">⚔️</span><span class="name">技能图鉴</span></a>
+    <a href="engravings.html" class="link-card"><span class="icon">⚡</span><span class="name">刻印图鉴</span></a>
+    <a href="dark-armor.html" class="link-card"><span class="icon">📦</span><span class="name">装备图鉴</span></a>
+    <a href="pets.html" class="link-card"><span class="icon">🐾</span><span class="name">侍从图鉴</span></a>
+  </div>
+</div>
+
+<div style="text-align:center; margin-top:30px; padding:20px; color:var(--text-dim); font-size:13px;">
+  祝大家游戏愉快，有问题欢迎反馈 💪
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+// PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
+</script>
+  <script src="js/i18n.js"></script>
+
+<script>
+// 通用函数别名
+if (typeof toggleSearch === 'undefined') {
+  function toggleSearch() { if (typeof toggleFullscreenSearch === 'function') toggleFullscreenSearch(); }
+}
+if (typeof closeAnnouncement === 'undefined') {
+  function closeAnnouncement() { var b=document.getElementById('announcementBar'); if(b) b.style.display='none'; }
+}
+if (typeof openLoginModal === 'undefined') {
+  function openLoginModal() { alert('登录功能开发中'); }
+}
+// ESC关闭搜索
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var s = document.getElementById('fullscreenSearch');
+    if (s && s.classList.contains('active')) { s.classList.remove('active'); document.body.style.overflow=''; }
+  }
+});
+// Ctrl+K打开搜索
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'k') { e.preventDefault(); if (typeof toggleFullscreenSearch==='function') toggleFullscreenSearch(); }
+});
+</script>
+
+<script src="search-data.js"></script>
+<script src="search.js"></script>
+
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item" data-page="index"><span class="nav-icon">🏠</span>首页</a>
+  <a href="builds-guides.html" class="nav-item" data-page="builds"><span class="nav-icon">⚔️</span>配装</a>
+  <a href="library.html" class="nav-item" data-page="library"><span class="nav-icon">📚</span>资料</a>
+  <a href="guild.html" class="nav-item" data-page="guild"><span class="nav-icon">👥</span>公会</a>
+  <a href="tools.html" class="nav-item" data-page="tools"><span class="nav-icon">🔧</span>工具</a>
+</div>
+<script>
+(function(){
+  var path = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'index','builds-guides.html':'builds','library.html':'library','guild.html':'guild','tools.html':'tools'};
+  var page = map[path] || '';
+  if(page){
+    var item = document.querySelector('.bottom-nav .nav-item[data-page="'+page+'"]');
+    if(item) item.classList.add('active');
+  }
+})();
+</script>
+
+<script src="music-player.js?v=20260927c"></script>
+</body>
+</html>

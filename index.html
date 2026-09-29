@@ -1,0 +1,1661 @@
+﻿<!DOCTYPE html>
+        <html lang="zh-CN">
+        <head>
+        <meta charset="UTF-8">
+<meta name="google-site-verification" content="VeZYEMrQILnjda4okOCbRgQwaZSpp3-a_1TwPFaEYHg">
+<meta name="msvalidate.01" content="8AD26AE84711BD0622938A13440070F7">
+<meta name="baidu-site-verification" content="codeva-AyrZcb5itK">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>天涯若比邻 · 公会作战指挥中心 | 英雄没有闪配装攻略</title>
+  <meta name="description" content="天涯若比邻公会官方网站 - 英雄没有闪S2赛季全职业配装攻略、神殿纷争战术库、公会活动报名、成员专属福利、兑换码礼包">
+  <meta name="keywords" content="天涯若比邻,英雄没有闪,公会,配装攻略,S2赛季,神殿纷争,战术库,兑换码">
+  <meta property="og:title" content="天涯若比邻 · 公会作战指挥中心">
+  <meta property="og:description" content="天涯若比邻公会官方网站 - 英雄没有闪配装攻略、神殿纷争战术、公会活动、专属福利">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="天涯若比邻 · 公会作战指挥中心">
+  <meta name="twitter:description" content="天涯若比邻公会官方网站 - 英雄没有闪配装攻略、神殿纷争战术、公会活动、专属福利">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E">
+        <style>
+
+:root {
+    --bg: #0f0f18;
+    --bg-card: #181826;
+    --bg-card2: #1f1f30;
+    --bg-card-hover: #222238;
+    --border: #2e2e44;
+    --border-hover: #424260;
+    --gold: #e8b84b;
+    --gold-dim: #a88a35;
+    --gold-glow: rgba(232, 184, 75, 0.15);
+    --cyan: #06b6d4;
+    --red: #ef4444;
+    --orange: #f97316;
+    --green: #22c55e;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --text: #d8d8e8;
+    --text-dim: #8892a8;
+    --text-bright: #f1f5f9;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+/* 全局链接样式 - 修复浏览器默认蓝 */
+a { color: var(--gold); text-decoration: none; transition: color .2s; }
+a:hover { color: var(--gold-dim); }
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.6;
+  padding: 0 14px;
+  padding-bottom: 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 58px !important;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232, 184, 75,0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(168,85,247,0.05), transparent);
+  background-attachment: fixed;
+}
+
+/* ===== 导航栏 ===== */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(11,11,18,0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(232, 184, 75,0.12);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 56px; gap: 16px;
+}
+.nav-brand { flex-shrink: 0; }
+.nav-logo {
+  color: var(--gold); font-size: 20px; font-weight: 800; text-decoration: none;
+  display: flex; align-items: center; gap: 7px;
+  letter-spacing: 0.5px;
+}
+.nav-logo .logo-icon { font-size: 16px; }
+.nav-links {
+  display: flex; align-items: center; gap: 2px;
+  overflow-x: auto; scrollbar-width: none; flex: 1; justify-content: center;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  color: var(--text-dim); font-size: 13px; text-decoration: none; cursor: pointer;
+  background: none; border: none; font-family: inherit;
+  padding: 8px 12px; border-radius: 8px; transition: all 0.2s;
+  white-space: nowrap; flex-shrink: 0; font-weight: 500;
+}
+.nav-link:hover { color: var(--gold); background: rgba(232, 184, 75,0.08); }
+.nav-link-btn { color: var(--cyan); }
+.nav-link-btn:hover { color: #22d3ee; background: rgba(6,182,212,0.08); }
+.nav-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.nav-icon-btn {
+  background: none; border: none; color: var(--text); font-size: 16px; cursor: pointer;
+  padding: 8px 9px; border-radius: 8px; transition: all 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+
+/* 语言切换 */
+.lang-switch { display: flex; gap: 2px; background: var(--bg-card2); border-radius: 8px; padding: 2px; }
+.lang-btn {
+  background: none; border: none; color: var(--text-dim);
+  font-size: 12px; cursor: pointer; padding: 4px 10px; border-radius: 6px;
+  transition: all 0.2s; min-width: 32px; text-align: center; font-weight: 600;
+}
+.lang-btn:hover { color: var(--gold); }
+.lang-btn.active { background: var(--gold); color: #1a1a2e; }
+
+/* ===== Hero区域 ===== */
+.hero {
+  text-align: center; padding: 32px 20px 28px; margin-bottom: 24px;
+  position: relative; border-radius: 0 0 24px 24px;
+  background: linear-gradient(180deg, rgba(232, 184, 75,0.06) 0%, rgba(232, 184, 75,0.02) 50%, transparent 100%);
+  border-bottom: 1px solid rgba(232, 184, 75,0.12);
+}
+.hero h1 {
+  font-size: 28px; color: var(--gold); letter-spacing: 4px; margin-bottom: 10px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e8b84b, #fbbf24, #e8b84b);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 18px; }
+.hero .meta {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+}
+.hero .meta span {
+  padding: 8px 14px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 20px; font-size: 12px; color: var(--text-dim); font-weight: 600;
+}
+.hero .meta span strong { color: var(--gold); font-weight: 700; }
+
+/* ===== 筛选按钮 ===== */
+.quick-filter, .usage-filter {
+  max-width: 1280px; margin: 0 auto 10px; padding: 0;
+  display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+}
+.filter-btn {
+  padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 20px; color: var(--text-dim); font-size: 13px; cursor: pointer;
+  transition: all 0.2s; font-family: inherit; min-height: 34px; font-weight: 500;
+}
+.filter-btn:hover { border-color: rgba(232, 184, 75,0.5); color: var(--gold); background: var(--gold-glow); }
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  color: #1a1a2e; border-color: var(--gold); font-weight: 700;
+  box-shadow: 0 2px 12px rgba(232, 184, 75,0.3);
+}
+.usage-filter .filter-btn.active {
+  background: linear-gradient(135deg, var(--cyan), #0891b2);
+  color: #fff; border-color: var(--cyan);
+  box-shadow: 0 2px 12px rgba(6,182,212,0.3);
+}
+.fav-filter.active {
+  background: linear-gradient(135deg, var(--red), #dc2626) !important;
+  border-color: var(--red) !important; color: #fff !important;
+  box-shadow: 0 2px 12px rgba(239,68,68,0.3) !important;
+}
+
+/* ===== 职业分区标题 ===== */
+.class-section { margin-bottom: 32px; }
+.class-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  padding: 12px 16px; background: var(--bg-card); border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.class-icon {
+  width: 36px; height: 36px; border-radius: 10px; display: flex;
+  align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.class-icon.ranger { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05)); border: 1px solid rgba(34,197,94,0.4); }
+.class-icon.mage { background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(168,85,247,0.05)); border: 1px solid rgba(168,85,247,0.4); }
+.class-icon.warrior { background: linear-gradient(135deg, rgba(249,115,22,0.2), rgba(249,115,22,0.05)); border: 1px solid rgba(249,115,22,0.4); }
+.class-name { font-size: 20px; font-weight: 700; }
+.class-name.ranger { color: var(--green); }
+.class-name.mage { color: var(--purple); }
+.class-name.warrior { color: var(--orange); }
+.class-count {
+  font-size: 12px; color: var(--text-dim); margin-left: auto;
+  background: var(--bg-card2); padding: 4px 12px; border-radius: 12px; font-weight: 600;
+}
+
+/* ===== 配装卡片网格 ===== */
+.build-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+.build-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; text-decoration: none; color: inherit;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: block;
+  position: relative; overflow: hidden;
+  border-left: 3px solid var(--border);
+}
+.build-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+}
+.build-card:active { transform: scale(0.98); }
+.build-card:hover {
+  border-color: var(--border-hover); background: var(--bg-card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(232, 184, 75,0.1);
+}
+.build-card.ranger { border-left-color: var(--green); }
+.build-card.mage { border-left-color: var(--purple); }
+.build-card.warrior { border-left-color: var(--orange); }
+.build-card.t0 { border-left-color: var(--gold); }
+.build-card.t0:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 20px rgba(232, 184, 75,0.15); }
+
+/* 卡片头部 */
+.card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; gap: 8px; }
+.build-name {
+  font-size: 16px; font-weight: 700; color: var(--text-bright);
+  flex: 1; line-height: 1.3; min-width: 0;
+}
+.build-likes {
+  font-size: 12px; color: var(--text-dim); display: flex; align-items: center;
+  gap: 3px; background: var(--bg-card2); padding: 3px 9px; border-radius: 10px;
+  flex-shrink: 0; font-weight: 500;
+}
+.fav-btn {
+  background: none; border: none; cursor: pointer; font-size: 14px; padding: 2px;
+  flex-shrink: 0; opacity: 0.4; transition: all 0.2s; color: var(--text-dim);
+  width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center;
+}
+.fav-btn::before { content: '♡'; }
+.fav-btn.active::before { content: '♥'; color: var(--red); }
+.fav-btn:hover { opacity: 1; transform: scale(1.15); color: var(--red); }
+
+/* 标签 */
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.build-tag {
+  display: inline-block; font-size: 12px; padding: 3px 9px; border-radius: 5px;
+  font-weight: 600; letter-spacing: 0.3px;
+}
+.tag-pve { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+.tag-pk { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+.tag-boss { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
+.tag-dual { background: rgba(6,182,212,0.12); color: #22d3ee; border: 1px solid rgba(6,182,212,0.25); }
+.tag-t0 { background: rgba(232, 184, 75,0.12); color: #fbbf24; border: 1px solid rgba(232, 184, 75,0.3); }
+
+/* 推荐语 */
+.card-recommend {
+  font-size: 13px; color: var(--gold); margin-bottom: 10px; font-weight: 500;
+  line-height: 1.4; opacity: 0.9;
+}
+
+/* 核心关键词 */
+.card-core { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.core-tag {
+  font-size: 12px; padding: 4px 10px; border-radius: 6px;
+  background: var(--bg-card2); border: 1px solid var(--border);
+  color: var(--text-dim); white-space: nowrap; font-weight: 500;
+}
+.core-tag.weapon { color: #fbbf24; border-color: rgba(232, 184, 75,0.25); background: rgba(232, 184, 75,0.06); }
+.core-tag.engrave { color: #c084fc; border-color: rgba(168,85,247,0.25); background: rgba(168,85,247,0.06); }
+
+/* 卡片底部 */
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 10px; border-top: 1px solid var(--border);
+}
+.build-source {
+  font-size: 12px; color: var(--cyan); display: flex; align-items: center;
+  gap: 4px; opacity: 0.85; font-weight: 500;
+}
+.build-source .source-icon { font-size: 12px; }
+
+/* ===== 热门排行 & 更新日志 ===== */
+.two-col-layout {
+  max-width: 1280px; margin: 0 auto 28px; padding: 0;
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+}
+.hot-rank-section, .changelog-section { max-width: 100%; margin: 0; padding: 0; }
+.section-title-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+}
+.section-title-row .icon { font-size: 20px; }
+.section-title-row .title { font-size: 16px; font-weight: 700; color: var(--text-bright); }
+.section-title-row .count {
+  margin-left: auto; font-size: 12px; color: var(--text-dim);
+  background: var(--bg-card2); padding: 3px 10px; border-radius: 10px; font-weight: 600;
+}
+
+.hot-rank-list { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.hot-rank-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); text-decoration: none; transition: all 0.2s;
+}
+.hot-rank-item:hover { border-color: var(--border-hover); background: var(--bg-card-hover); transform: translateX(3px); }
+.rank-num {
+  width: 28px; height: 28px; border-radius: 8px; display: flex;
+  align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;
+}
+.rank-num.top1 { background: linear-gradient(135deg, #fbbf24, #e8b84b); color: #1a1a2e; box-shadow: 0 2px 8px rgba(232, 184, 75,0.4); }
+.rank-num.top2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #1a1a2e; }
+.rank-num.top3 { background: linear-gradient(135deg, #fb923c, #ea580c); color: #fff; }
+.rank-num.normal { background: var(--bg-card2); color: var(--text-dim); }
+.rank-info { flex: 1; min-width: 0; }
+.rank-name { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rank-likes { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+.changelog-list {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px; max-height: 320px; overflow-y: auto;
+}
+.changelog-list::-webkit-scrollbar { width: 4px; }
+.changelog-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.changelog-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.changelog-item:last-child { border-bottom: none; }
+.changelog-date { flex-shrink: 0; width: 70px; font-size: 12px; color: var(--gold); font-weight: 600; padding-top: 2px; }
+.changelog-content { flex: 1; font-size: 13px; color: var(--text); line-height: 1.6; }
+.changelog-tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+.tag-new { background: rgba(34,197,94,0.12); color: #4ade80; }
+.tag-fix { background: rgba(239,68,68,0.12); color: #f87171; }
+.tag-update { background: rgba(232, 184, 75,0.12); color: #fbbf24; }
+
+/* ===== 留言板 & 免责声明 ===== */
+.comment-section { max-width: 1280px; margin: 28px auto; padding: 0; }
+.comment-section .section-title {
+  color: var(--text-bright); font-size: 20px; font-weight: 700;
+  margin-bottom: 14px; padding-left: 12px; border-left: 3px solid var(--orange);
+}
+.comment-box { background: var(--bg-card) !important; border: 1px solid var(--border) !important; border-radius: var(--radius) !important; padding: 16px !important; }
+
+.disclaimer-section { max-width: 1280px; margin: 20px auto 28px; padding: 0; }
+.disclaimer-box {
+  background: rgba(232, 184, 75,0.05); border: 1px solid rgba(232, 184, 75,0.2);
+  border-radius: var(--radius); padding: 16px 20px;
+}
+.disclaimer-title { color: var(--gold); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.disclaimer-text { color: var(--text-dim); font-size: 12px; line-height: 1.6; }
+
+.footer {
+  text-align: center; padding: 32px 16px; color: var(--text-dim);
+  font-size: 12px; border-top: 1px solid var(--border); margin-top: 28px; line-height: 1.6;
+}
+
+/* ===== 全屏搜索 ===== */
+.fullscreen-search {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(5,5,10,0.96); z-index: 10000;
+  align-items: flex-start; justify-content: center; padding-top: 100px;
+  backdrop-filter: blur(8px);
+}
+.fullscreen-search.active { display: flex; }
+.search-container { width: 90%; max-width: 600px; }
+.search-box { position: relative; display: flex; align-items: center; }
+.search-icon { position: absolute; left: 16px; font-size: 20px; z-index: 1; }
+.search-input {
+  width: 100%; padding: 16px 50px 16px 48px;
+  background: var(--bg-card); border: 2px solid var(--gold);
+  border-radius: 12px; color: var(--text); font-size: 16px; outline: none;
+  font-family: inherit;
+}
+.search-input::placeholder { color: var(--text-dim); }
+.search-close-btn {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--text-dim); font-size: 20px;
+  cursor: pointer; padding: 4px 8px; line-height: 1; z-index: 1;
+}
+.search-close-btn:hover { color: var(--text); }
+.search-hint { text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 16px; }
+.search-hint kbd {
+  background: var(--bg-card2); padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--border); font-family: monospace; font-size: 12px;
+}
+
+/* ===== 工具类 ===== */
+.hidden { display: none !important; }
+.rank-loading { text-align: center; padding: 32px; color: var(--text-dim); font-size: 14px; }
+.search-result-info { text-align: center; color: var(--text-dim); font-size: 13px; margin-bottom: 18px; min-height: 18px; }
+
+/* ===== 平板 (≥640px) ===== */
+@media (min-width: 640px) {
+  body { padding: 0 18px; padding-top: 58px !important; }
+  .build-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .hero h1 { font-size: 28px; letter-spacing: 5px; }
+}
+
+/* ===== PC (≥960px) ===== */
+@media (min-width: 960px) {
+  body { padding: 0 24px; padding-top: 58px !important; }
+  .build-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .two-col-layout { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .hero h1 { font-size: 28px; letter-spacing: 6px; }
+  .hero .meta span { font-size: 13px; padding: 8px 16px; }
+  .filter-btn { padding: 8px 18px; font-size: 13px; }
+  .build-name { font-size: 16px; }
+  .changelog-list { max-height: 380px; }
+}
+
+/* ===== 手机优化 (<640px) ===== */
+@media (max-width: 639px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+  .welfare-list { grid-template-columns: 1fr; }
+  .nav-inner { padding: 0 12px; height: 52px; gap: 8px; }
+  .nav-logo { font-size: 14px; }
+  .nav-logo .logo-icon { font-size: 16px; }
+  .nav-link { font-size: 12px; padding: 8px 9px; }
+  .nav-icon-btn { font-size: 16px; padding: 8px 7px; }
+  .lang-btn { font-size: 12px; padding: 3px 8px; min-width: 28px; }
+  .hero { padding: 32px 14px 22px; }
+  .hero h1 { font-size: 20px; letter-spacing: 2px; }
+  .hero .subtitle { font-size: 13px; }
+  .class-header { padding: 12px 12px; }
+  .build-card { padding: 16px; }
+}
+
+/* ===== 移动端全面适配 (<=768px) ===== */
+@media (max-width: 768px) {
+  /* 1. 全局布局：所有多列改单列 */
+  .guild-hero-content {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .guild-announcement {
+    width: 100% !important;
+    flex: none !important;
+    padding: 16px 16px !important;
+  }
+  .announcement-item {
+    line-height: 1.6 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+  .announcement-scroll {
+    gap: 8px !important;
+  }
+
+  /* 2. 三列卡片改单列：近期活动/功勋榜/快速报名 */
+  .activity-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .activity-card {
+    width: 100% !important;
+    padding: 16px !important;
+  }
+
+  /* 功勋榜游戏ID不换行 */
+  .attendance-item {
+    width: 100% !important;
+    padding: 8px 10px !important;
+  }
+  .attendance-name {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  /* 快速报名表单加背景和边框 */
+  .signup-form {
+    background: var(--bg) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+  }
+  .signup-input, .signup-select {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 3. 数据看板两列改单列 */
+  .dashboard-layout {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .two-col-layout {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* 4. 导航栏横向滚动 */
+  .nav-inner {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links {
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  .nav-link {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* 5. FAB音乐按钮位置 */
+
+  /* 6. 通用：取消固定宽度，全部100% */
+  .guild-activities, .guild-dashboard-section, .tactics-header,
+  .hot-rank-section, .changelog-section, .comment-section, .disclaimer-section {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* 7. 活动列表项优化 */
+  .activity-item {
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+  .activity-info {
+    min-width: 0 !important;
+  }
+  .activity-name {
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  /* 8. 福利区单列 */
+  .welfare-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 9. 配装卡片网格 */
+  .build-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* 10. Hero区优化 */
+  .hero {
+    padding: 24px 14px 20px !important;
+  }
+  .hero h1 {
+    font-size: 20px !important;
+  }
+
+  /* 11. 表格横向滚动 */
+  table {
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* 12. 按钮和输入框全宽 */
+  .btn-primary, .signup-submit {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }}
+
+/* ===== 亮色主题 ===== */
+body.light-theme {
+  --bg: #f4f4f8; --bg-card: #ffffff; --bg-card2: #f0f0f5;
+  --bg-card-hover: #fafafe; --text: #1a1a2e; --text-dim: #64748b;
+  --text-bright: #0f0f1a; --border: #e2e2ec; --border-hover: #c8c8d8;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232, 184, 75,0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(168,85,247,0.03), transparent);
+}
+body.light-theme .site-nav { background: rgba(244,244,248,0.92); border-bottom-color: rgba(0,0,0,0.06); }
+body.light-theme .nav-logo { color: #d97706; }
+body.light-theme .nav-link { color: #475569; }
+body.light-theme .nav-link:hover { color: #d97706; background: rgba(217,119,6,0.06); }
+body.light-theme .lang-switch { background: #e8e8f0; }
+body.light-theme .lang-btn.active { color: #fff; }
+body.light-theme .hero { background: linear-gradient(180deg, rgba(232, 184, 75,0.05), transparent); }
+body.light-theme .hero h1 { background: linear-gradient(135deg, #d97706, #e8b84b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+body.light-theme .build-card { box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+body.light-theme .build-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
+
+/* ===== 打印优化 ===== */
+@media print {
+  .site-nav, .quick-filter, .usage-filter, .comment-section, .disclaimer-section, .footer, .build-likes, .fav-btn { display: none !important; }
+  body { background: #fff !important; color: #000 !important; padding-top: 0 !important; }
+  .build-card { break-inside: avoid; border: 1px solid #ccc !important; box-shadow: none !important; }
+}
+
+
+/* ===== 请求新功能模态框 ===== */
+.contact-modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  z-index: 10000; display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.contact-modal-overlay.active { display: flex; }
+.contact-modal-box {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px; width: 100%; max-width: 440px;
+  position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  animation: modalIn 0.25s ease;
+}
+@keyframes modalIn { from { opacity: 0; transform: translateY(20px) scale(0.96); } to { opacity: 1; transform: none; } }
+.contact-modal-close {
+  position: absolute; top: 14px; right: 16px; font-size: 20px;
+  color: var(--text-dim); cursor: pointer; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center; border-radius: 8px;
+  transition: all 0.2s; line-height: 1;
+}
+.contact-modal-close:hover { background: var(--bg-card2); color: var(--text); }
+.contact-modal-title { font-size: 20px; color: var(--gold); margin: 0 0 8px; font-weight: 700; }
+.contact-modal-desc { font-size: 13px; color: var(--text-dim); margin: 0 0 20px; line-height: 1.6; }
+.contact-form-group { margin-bottom: 14px; }
+.contact-form-label { display: block; font-size: 13px; color: var(--text); margin-bottom: 6px; font-weight: 500; }
+.contact-form-label .optional { color: var(--text-dim); font-weight: 400; font-size: 12px; }
+.contact-form-input, .contact-form-textarea {
+  width: 100%; padding: 12px 12px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 8px; color: var(--text);
+  font-size: 14px; font-family: inherit; box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.contact-form-input:focus, .contact-form-textarea:focus {
+  outline: none; border-color: var(--gold);
+}
+.contact-form-textarea { resize: vertical; min-height: 90px; }
+.contact-form-submit {
+  width: 100%; padding: 12px; background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  border: none; border-radius: 8px; color: #1a1a2e; font-size: 14px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 6px;
+}
+.contact-form-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
+.contact-form-submit:active { transform: none; }
+
+
+/* ===== 公会导航 ===== */
+.guild-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(11,11,18,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(232, 184, 75,0.15);
+}
+.guild-nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; gap: 16px;
+}
+.guild-nav-left { display: flex; align-items: center; gap: 12px; }
+.guild-logo-wrap { display: flex; align-items: center; }
+.guild-logo {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid rgba(232, 184, 75,0.4);
+  box-shadow: 0 0 12px rgba(232, 184, 75,0.2);
+  object-fit: cover;
+}
+.guild-nav-info { display: flex; flex-direction: column; }
+.guild-nav-name {
+  font-size: 16px; font-weight: 800; color: var(--gold);
+  letter-spacing: 1px; line-height: 1.2;
+}
+.guild-nav-slogan { font-size: 12px; color: var(--text-dim); letter-spacing: 0.5px; }
+.guild-nav-links { display: flex; gap: 8px; flex: 1; justify-content: center; }
+.guild-nav-link {
+  color: var(--text-dim); font-size: 13px; text-decoration: none;
+  padding: 8px 14px; border-radius: 8px; transition: all 0.2s;
+  font-weight: 500; white-space: nowrap;
+}
+.guild-nav-link:hover { color: var(--gold); background: rgba(232, 184, 75,0.08); }
+.guild-nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.recruit-status {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+  padding: 6px 12px; border-radius: 20px;
+}
+.recruit-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.recruit-text { font-size: 12px; color: #4ade80; font-weight: 600; }
+.guild-login-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  border: none; color: #1a1a2e; font-size: 13px; font-weight: 700;
+  padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+}
+.guild-login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
+
+/* ===== 公会Hero公告 ===== */
+.guild-hero {
+  position: relative; padding: 32px 20px 30px; overflow: hidden;
+}
+.guild-hero-bg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(232, 184, 75,0.08), transparent),
+    radial-gradient(ellipse 50% 70% at 80% 30%, rgba(168,85,247,0.06), transparent);
+  pointer-events: none;
+}
+.guild-hero-content {
+  max-width: 1280px; margin: 0 auto; position: relative;
+  display: flex; gap: 20px; align-items: stretch;
+}
+.guild-announcement {
+  flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 20px;
+  border-left: 3px solid var(--gold);
+}
+.announcement-label {
+  font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.announcement-scroll { display: flex; flex-direction: column; gap: 12px; }
+.announcement-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 12px; background: var(--bg); border-radius: 8px;
+}
+.ann-tag {
+  font-size: 12px; padding: 2px 8px; border-radius: 4px; font-weight: 700;
+  background: rgba(239,68,68,0.15); color: #f87171; flex-shrink: 0;
+}
+.ann-tag:nth-child(1) { }
+.announcement-item:nth-child(2) .ann-tag { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.announcement-item:nth-child(3) .ann-tag { background: rgba(34,197,94,0.15); color: #4ade80; }
+.ann-text { font-size: 13px; color: var(--text); flex: 1; }
+.ann-date { font-size: 12px; color: var(--text-dim); flex-shrink: 0; }
+/* 公告 type 标签颜色 */
+.ann-tag-battle { background: rgba(239,68,68,0.15); color: #f87171; }
+.ann-tag-league { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.ann-tag-recruit { background: rgba(34,197,94,0.15); color: #4ade80; }
+.ann-tag-notice { background: rgba(168,85,247,0.15); color: #c084fc; }
+.ann-tag-update { background: rgba(234,179,8,0.15); color: #facc15; }
+.ann-tag-info { background: rgba(168,85,247,0.15); color: #c084fc; }
+.announcement-loading { font-size: 13px; color: var(--text-dim); padding: 8px 12px; }
+
+.guild-stats {
+  display: flex; gap: 16px; align-items: center;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 24px;
+}
+.guild-stat { text-align: center; }
+.stat-num {
+  font-size: 28px; font-weight: 800; color: var(--gold);
+  background: linear-gradient(135deg, var(--gold), #fde68a);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+/* ===== 公会活动区 ===== */
+.guild-activities { max-width: 1280px; margin: 0 auto; padding: 12px 20px 20px; }
+.section-title-row {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+}
+.section-title { font-size: 16px; font-weight: 700; color: var(--text); margin: 0; }
+.section-more { font-size: 12px; color: var(--text-dim); cursor: pointer; }
+.section-more:hover { color: var(--gold); }
+.activity-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 16px;
+}
+.activity-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+}
+.activity-card-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+}
+.activity-icon { font-size: 20px; }
+.activity-card-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.activity-list { display: flex; flex-direction: column; gap: 12px; }
+.activity-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px; background: var(--bg); border-radius: 8px;
+  transition: all 0.2s;
+}
+.activity-item:hover { background: var(--bg-card2); }
+.activity-date {
+  text-align: center; flex-shrink: 0; width: 42px;
+  background: var(--bg-card2); border-radius: 6px; padding: 4px 0;
+}
+.activity-day { font-size: 20px; font-weight: 800; color: var(--gold); line-height: 1; }
+.activity-month { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.activity-info { flex: 1; min-width: 0; }
+.activity-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.activity-meta { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.activity-status {
+  font-size: 12px; padding: 3px 8px; border-radius: 10px; font-weight: 600;
+  flex-shrink: 0;
+}
+.activity-status.upcoming { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.activity-status.signup { background: rgba(34,197,94,0.15); color: #4ade80; }
+.activity-status.planned { background: rgba(148,163,184,0.15); color: #94a3b8; }
+
+/* 考勤榜 */
+.attendance-list { display: flex; flex-direction: column; gap: 8px; }
+.attendance-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 10px; background: var(--bg); border-radius: 6px;
+}
+.attendance-rank {
+  width: 22px; height: 22px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+  background: var(--bg-card2); color: var(--text-dim); flex-shrink: 0;
+}
+.attendance-rank.gold { background: linear-gradient(135deg, #fbbf24, #e8b84b); color: #1a1a2e; }
+.attendance-rank.silver { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #1a1a2e; }
+.attendance-rank.bronze { background: linear-gradient(135deg, #fb923c, #ea580c); color: #1a1a2e; }
+.attendance-name { flex: 1; font-size: 13px; color: var(--text); }
+.attendance-count { font-size: 12px; color: var(--gold); font-weight: 600; }
+
+/* 报名表单 */
+.signup-form { display: flex; flex-direction: column; gap: 12px; }
+.signup-field { display: flex; flex-direction: column; gap: 4px; }
+.signup-field label { font-size: 12px; color: var(--text-dim); font-weight: 500; }
+.signup-input, .signup-select {
+  padding: 8px 10px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text); font-size: 13px; font-family: inherit;
+}
+.signup-input:focus, .signup-select:focus { outline: none; border-color: var(--gold); }
+.signup-submit {
+  margin-top: 4px; padding: 12px; background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  border: none; border-radius: 8px; color: #1a1a2e; font-size: 14px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.signup-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
+
+/* ===== 战术库标题 ===== */
+.tactics-header {
+  max-width: 1280px; margin: 0 auto; padding: 20px 20px 10px;
+  text-align: center;
+}
+.tactics-title {
+  font-size: 20px; font-weight: 800; color: var(--text); margin: 0;
+}
+.tactics-subtitle { font-size: 13px; color: var(--text-dim); margin: 6px 0 0; }
+
+
+/* ===== 公会数据看板 + 福利 ===== */
+.guild-dashboard-section { max-width: 1280px; margin: 0 auto; padding: 0 20px 20px; }
+.dashboard-grid {
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px;
+}
+.dashboard-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+}
+.dashboard-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.dashboard-icon { font-size: 20px; }
+.dashboard-title { font-size: 14px; font-weight: 700; color: var(--text); flex: 1; }
+.dashboard-update { font-size: 12px; color: var(--text-dim); }
+.dashboard-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px;
+}
+.dash-stat {
+  background: var(--bg); border-radius: 10px; padding: 12px 10px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  position: relative;
+}
+.dash-stat-icon { font-size: 20px; margin-bottom: 6px; }
+.dash-stat-num {
+  font-size: 20px; font-weight: 800; color: var(--gold);
+  background: linear-gradient(135deg, var(--gold), #fde68a);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.dash-stat-label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.dash-trend {
+  position: absolute; top: 6px; right: 6px; font-size: 12px; font-weight: 600;
+}
+.dash-trend.up { color: #4ade80; }
+.dashboard-bars { display: flex; flex-direction: column; gap: 12px; }
+.bar-item { }
+.bar-label {
+  display: flex; justify-content: space-between; font-size: 12px;
+  color: var(--text-dim); margin-bottom: 4px;
+}
+.bar-value { color: var(--gold); font-weight: 600; }
+.bar-track {
+  height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  border-radius: 3px; transition: width 0.5s ease;
+}
+
+/* 福利卡片 */
+.welfare-card {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid rgba(232, 184, 75,0.25);
+}
+.welfare-bg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at top right, rgba(232, 184, 75,0.15), transparent 60%),
+    radial-gradient(ellipse at bottom left, rgba(168,85,247,0.1), transparent 50%),
+    linear-gradient(145deg, var(--bg-card), var(--bg-card2));
+}
+.welfare-content {
+  position: relative; padding: 20px; height: 100%;
+  display: flex; flex-direction: column;
+}
+.welfare-badge {
+  display: inline-block; align-self: flex-start;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  color: #1a1a2e; font-size: 12px; font-weight: 700;
+  padding: 3px 10px; border-radius: 10px; margin-bottom: 10px;
+}
+.welfare-title { font-size: 20px; font-weight: 800; color: var(--text); margin: 0 0 6px; }
+.welfare-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; margin: 0 0 14px; }
+.welfare-list {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;
+}
+.welfare-item {
+  display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text);
+}
+.welfare-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+  box-shadow: 0 0 6px rgba(232, 184, 75,0.5);
+}
+.welfare-btn {
+  margin-top: auto; padding: 12px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  border: none; border-radius: 8px; color: #1a1a2e; font-size: 13px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.welfare-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(232, 184, 75,0.35); }
+
+
+/* 音乐播放器 */
+.music-btn svg { display: block; }
+.music-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(232, 184, 75,0.5); }
+.music-btn.playing { animation: pulse 2s infinite; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 184, 75,0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(232, 184, 75,0); }
+}
+.music-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.music-title { font-size: 12px; color: #e8b84b; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
+.music-status { font-size: 12px; color: #8888a0; }
+.music-visualizer { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
+.music-bar { width: 3px; background: #e8b84b; border-radius: 1px; transition: height 0.1s; }
+.music-bar:nth-child(1) { height: 40%; }
+.music-bar:nth-child(2) { height: 70%; }
+.music-bar:nth-child(3) { height: 50%; }
+.music-bar:nth-child(4) { height: 80%; }
+.playing .music-bar { animation: visualize 0.8s infinite ease-in-out; }
+.playing .music-bar:nth-child(1) { animation-delay: 0s; }
+.playing .music-bar:nth-child(2) { animation-delay: 0.1s; }
+.playing .music-bar:nth-child(3) { animation-delay: 0.2s; }
+.playing .music-bar:nth-child(4) { animation-delay: 0.3s; }
+@keyframes visualize {
+  0%, 100% { height: 30%; }
+  50% { height: 100%; }
+}
+@media (max-width: 768px) {
+  /* 公会导航栏 */
+  .guild-nav-inner { padding: 8px 12px; gap: 8px; flex-wrap: wrap; }
+  .guild-nav-left { gap: 8px; }
+  .guild-logo { width: 36px; height: 36px; }
+  .guild-nav-name { font-size: 14px; }
+  .guild-nav-slogan { display: none; }
+  .guild-nav-links { order: 3; width: 100%; justify-content: center; gap: 12px; padding: 4px 0; border-top: 1px solid rgba(232, 184, 75,0.1); }
+  .guild-nav-link { font-size: 12px; }
+  .guild-nav-right { gap: 6px; }
+  .guild-login-btn { font-size: 12px; padding: 8px 10px; }
+  .recruit-text { display: none; }
+  .nav-icon-btn { font-size: 16px; padding: 8px; }
+  .lang-switch { display: none; }
+  
+  /* 主体内容 */
+  body { padding-top: 100px !important; }
+  .hero { padding: 20px 14px; }
+  .hero h1 { font-size: 20px; }
+  .hero p { font-size: 13px; }
+  
+  /* 数据看板 */
+  .dashboard-grid { grid-template-columns: 1fr; gap: 8px; }
+  .dashboard-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stat-card { padding: 16px; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 12px; }
+  
+  /* 活动区域 */
+  .activity-card { padding: 16px; }
+  .activity-title { font-size: 16px; }
+  
+  /* 战术库/配装卡片 */
+  .builds-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .build-card { padding: 12px 10px; }
+  .build-card h3 { font-size: 14px; }
+  .build-tags { gap: 4px; }
+  .build-tag { font-size: 12px; padding: 2px 6px; }
+  
+  /* 福利入口 */
+  .welfare-list { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .welfare-item { padding: 16px 10px; }
+  
+  /* 公告栏 */
+  .announcement-bar { padding: 12px 14px; font-size: 13px; }
+  
+  /* 页脚 */
+  .footer { padding: 20px 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; }}
+
+@media (max-width: 480px) {
+  .guild-nav-name { font-size: 13px; }
+  .guild-logo { width: 32px; height: 32px; }
+  .guild-nav-links { gap: 8px; }
+  .guild-nav-link { font-size: 12px; }
+  .hero h1 { font-size: 20px; }
+  .builds-grid { grid-template-columns: 1fr; }
+  .dashboard-stats { grid-template-columns: repeat(3, 1fr); }
+  .stat-value { font-size: 20px; }
+  body { padding-top: 110px !important; }
+}
+
+
+/* ===== 首页兑换码卡片 ===== */
+.redeem-section { max-width:1280px; margin:0 auto 20px; padding:0 20px; }
+.redeem-card {
+  background:linear-gradient(135deg,rgba(232, 184, 75,0.08),rgba(232, 184, 75,0.03));
+  border:1px solid rgba(232, 184, 75,0.25); border-radius:12px; padding:16px 20px;
+}
+.redeem-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.redeem-title { font-size: 14px; font-weight:700; color:var(--gold); display:flex; align-items:center; gap:6px; }
+.redeem-more { font-size:12px; color:var(--text-dim); text-decoration:none; }
+.redeem-more:hover { color:var(--gold); }
+.redeem-list { display:flex; gap:12px; flex-wrap:wrap; }
+.redeem-item {
+  flex:1; min-width:200px; background:var(--bg-card); border:1px solid var(--border);
+  border-radius:8px; padding: 12px 14px; display:flex; align-items:center; justify-content:space-between; gap: 12px;
+}
+.redeem-info { flex:1; min-width:0; }
+.redeem-name { font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.redeem-code { font-size:12px; color:var(--gold); font-family:monospace; letter-spacing:0.5px; }
+.redeem-tag { font-size: 12px; padding:1px 6px; border-radius:3px; margin-left:6px; }
+.redeem-tag.limited { background:rgba(239,68,68,0.15); color:#f87171; }
+.redeem-tag.permanent { background:rgba(34,197,94,0.15); color:#4ade80; }
+.redeem-tag.expired { background:rgba(100,116,139,0.2); color:#94a3b8; }
+.redeem-item.expired .redeem-code { color:#64748b; text-decoration:line-through; }
+.redeem-item.expired .redeem-name { color:#64748b; }
+.redeem-copy {
+  background:rgba(232, 184, 75,0.15); border:1px solid rgba(232, 184, 75,0.3); color:var(--gold);
+  font-size: 12px; padding:4px 10px; border-radius:6px; cursor:pointer; flex-shrink:0;
+  transition:all 0.2s;
+}
+.redeem-copy:hover { background:rgba(232, 184, 75,0.3); }
+.redeem-copy.copied { background:rgba(34,197,94,0.2); color:#4ade80; border-color:rgba(34,197,94,0.3); }
+.redeem-empty { text-align:center; color:var(--text-dim); font-size:13px; padding:16px; }
+@media (max-width:639px) {
+  .redeem-item { min-width:100%; }
+}
+
+
+/* ===== 底部导航（移动端专用） ===== */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(26,26,46,.95);border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100;backdrop-filter:blur(10px)}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--text-dim);font-size: 12px;gap:2px;flex:1}
+.nav-item.active{color:var(--gold)}
+.nav-item .nav-icon{font-size:20px}
+@media (min-width:769px){.bottom-nav{display:none!important}body{padding-bottom:0!important}}
+@media (max-width: 768px) {body{padding-bottom:70px}}
+</style>
+
+<script>
+// 页面加载完成后加载配置
+
+  // XSS 防护
+  function escapeHtml(str){return (str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+  // 从 D1 API 拉取公告，覆盖硬编码内容
+  function renderAnnouncementsFromAPI() {
+    var scroll = document.getElementById("announcementScroll");
+    if (!scroll) return;
+    fetch("/api/announcements")
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data || !data.length) return;
+        var active = data.filter(function(a){ return a.active !== false; });
+        if (!active.length) return;
+        var typeMap = {
+          battle: "战报", league: "联赛", recruit: "招募",
+          notice: "通知", update: "更新", info: "通知"
+        };
+        var html = "";
+        active.slice(0, 3).forEach(function(a){
+          var type = a.type || "info";
+          var tag = typeMap[type] || "通知";
+          var date = "";
+          if (a.createdAt) {
+            try { date = a.createdAt.substring(5, 10); } catch(e) {}
+          }
+          var text = a.title || a.content || "";
+          html += '<div class="announcement-item">' +
+            '<span class="ann-tag ann-tag-' + type + '">' + escapeHtml(tag) + '</span>' +
+            '<span class="ann-text">' + escapeHtml(text) + '</span>' +
+            (date ? '<span class="ann-date">' + date + '</span>' : '') +
+            '</div>';
+        });
+        if (html) scroll.innerHTML = html;
+      })
+      .catch(function(){ /* API 失败时保留硬编码兜底内容 */ });
+  }
+
+document.addEventListener("DOMContentLoaded", function(){
+    renderAnnouncementsFromAPI();
+    // 动态更新时间：从 stats.json 读 data_date
+    fetch("data/stats.json")
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var el = document.getElementById("dashboardUpdate");
+        if(el && d && d.dashboard && d.dashboard.data_date) {
+          el.textContent = "更新于 " + d.dashboard.data_date.substring(5);
+        }
+      })
+      .catch(function(){ /* 失败时保留硬编码兜底 */ });
+  });
+
+</script>
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/index.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/index.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/index.html" />
+  <link rel="canonical" href="https://ykmys.com/index.html">
+</head>
+        <body>
+<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">天涯若比邻公会 - 英雄没有闪配装攻略与神殿纷争战术中心</h1>
+        <nav class="guild-nav">
+        <div class="guild-nav-inner">
+          <div class="guild-nav-left">
+            <a href="index.html" class="guild-logo-wrap">
+              <img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+            </a>
+            <div class="guild-nav-info">
+              <div class="guild-nav-name">天涯若比邻</div>
+              <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+            </div>
+          </div>
+          <div class="guild-nav-links">
+            <a href="index.html" class="guild-nav-link active">首页</a>
+            <a href="builds-guides.html" class="guild-nav-link">配装攻略</a>
+            <a href="library.html" class="guild-nav-link">资料库</a>
+            <a href="guild.html" class="guild-nav-link">公会</a>
+            <a href="tools.html" class="guild-nav-link">工具</a>
+          </div>
+          <div class="guild-nav-right">
+            <div class="recruit-status" title="已满编 40/40">
+              <span class="recruit-dot"></span>
+              <span class="recruit-text">已满编</span>
+            </div>
+            <button class="guild-login-btn" onclick="openLoginModal()">登录</button>
+            <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+            <button class="nav-icon-btn" onclick="toggleFullscreenSearch()" title="搜索">🔍</button>
+          </div>
+        </div>
+        </nav>
+        <!-- 全屏搜索框 -->
+        <div class="fullscreen-search" id="fullscreenSearch">
+        <div class="search-container">
+        <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="fullscreenSearchInput" placeholder="搜索流派名称..." oninput="filterBuilds(this.value)">
+        <button class="search-close-btn" onclick="toggleFullscreenSearch()">&times;</button>
+        </div>
+        <div class="search-hint">按 <kbd>ESC</kbd> 关闭 &nbsp;|&nbsp; 按 <kbd>Ctrl+K</kbd> 快速打开搜索</div>
+        </div>
+        </div>
+        <!-- 公会公告 Hero -->
+        <section class="guild-hero">
+          <div class="guild-hero-bg"></div>
+          <div class="guild-hero-content">
+            <div class="guild-announcement">
+              <div class="announcement-label">📢 公会公告</div>
+              <div class="announcement-scroll" id="announcementScroll">
+                <div class="announcement-item">
+                  <span class="ann-tag">战报</span>
+                  <span class="ann-text">09-19神殿半决赛 2385:15000 负奶牛俱乐部+无畏圣殿，天涯35人/联盟68人，总功勋588,350</span>
+                  <span class="ann-date">09-19</span>
+                </div>
+                <div class="announcement-item">
+                  <span class="ann-tag">联赛</span>
+                  <span class="ann-text">10-03第六届季军赛预告：天涯+神话 vs 意气阁丶剑歌+无畏神殿</span>
+                  <span class="ann-date">10-03</span>
+                </div>
+                <div class="announcement-item">
+                  <span class="ann-tag">招募</span>
+                  <span class="ann-text">公会已满编（40/40），暂不招募新成员</span>
+                  <span class="ann-date">持续</span>
+                </div>
+              </div>
+            </div>
+            <div class="guild-stats">
+              <div class="guild-stat">
+                <div class="stat-num">40</div>
+                <div class="stat-label">公会成员</div>
+              </div>
+              <div class="guild-stat">
+                <div class="stat-num">18</div>
+                <div class="stat-label">战术配装</div>
+              </div>
+              <div class="guild-stat">
+                <div class="stat-num">6届</div>
+                <div class="stat-label">神殿联赛</div>
+              </div>
+            </div>
+          </div>
+        </section>
+<!-- 公告栏 -->
+<div class="announcement-bar" id="announcementBar" style="display:none;">
+  <div class="announcement-box" id="announcementBox">
+    <span class="ann-icon" id="annIcon">📢</span>
+    <div class="ann-body">
+      <div class="ann-title" id="annTitle"></div>
+      <div class="ann-content" id="annContent"></div>
+      <div class="ann-date" id="annDate"></div>
+    </div>
+    <button class="ann-close" onclick="closeAnnouncement()">&times;</button>
+  </div>
+</div>
+
+<!-- 首页兑换码卡片 -->
+<div class="redeem-section">
+  <div class="redeem-card">
+    <div class="redeem-header">
+      <div class="redeem-title">🎁 最新兑换码</div>
+      <a href="tools.html#redeem" class="redeem-more">查看更多 →</a>
+    </div>
+    <div class="redeem-list" id="homeRedeemList">
+      <div class="redeem-empty">加载中...</div>
+    </div>
+  </div>
+</div>
+
+<!-- 公会活动区 -->
+        <section class="guild-activities" id="activities">
+          <div class="section-title-row">
+            <h2 class="section-title">⚔️ 公会活动 · 神殿纷争</h2>
+            <span class="section-more">更多 ›</span>
+          </div>
+          <div class="activity-grid">
+            <!-- 活动日程 -->
+            <div class="activity-card">
+              <div class="activity-card-header">
+                <span class="activity-icon">📅</span>
+                <span class="activity-card-title">近期活动</span>
+              </div>
+              <div class="activity-list" id="activityList">
+                <div class="activity-item">
+                  <div class="activity-date">
+                    <div class="activity-day">03</div>
+                    <div class="activity-month">10月</div>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-name">神殿联赛 · 第六届季军赛</div>
+                    <div class="activity-meta">周六 20:00 · 全员参加</div>
+                  </div>
+                  <span class="activity-status upcoming">即将开始</span>
+                </div>
+              </div>
+            </div>
+            <!-- 考勤排行 -->
+            <div class="activity-card">
+              <div class="activity-card-header">
+                <span class="activity-icon">🏆</span>
+                <span class="activity-card-title">09-19功勋榜</span>
+              </div>
+              <div class="attendance-list">
+                <div class="attendance-item">
+                  <span class="attendance-rank gold">1</span>
+                  <span class="attendance-name">天涯丶傲慢</span>
+                  <span class="attendance-count">50,650</span>
+                </div>
+                <div class="attendance-item">
+                  <span class="attendance-rank silver">2</span>
+                  <span class="attendance-name">天涯丶醉摇摆</span>
+                  <span class="attendance-count">47,750</span>
+                </div>
+                <div class="attendance-item">
+                  <span class="attendance-rank bronze">3</span>
+                  <span class="attendance-name">天涯丶手插兜</span>
+                  <span class="attendance-count">39,450</span>
+                </div>
+                <div class="attendance-item">
+                  <span class="attendance-rank">4</span>
+                  <span class="attendance-name">天涯丶烬</span>
+                  <span class="attendance-count">36,750</span>
+                </div>
+                <div class="attendance-item">
+                  <span class="attendance-rank">5</span>
+                  <span class="attendance-name">天涯丶本射</span>
+                  <span class="attendance-count">34,000</span>
+                </div>
+              </div>
+            </div>
+            <!-- 快速报名 -->
+            <div class="activity-card signup-card" id="signupSection">
+              <div class="activity-card-header">
+                <span class="activity-icon">✍️</span>
+                <span class="activity-card-title">快速报名</span>
+              </div>
+              <div class="signup-form">
+                <div class="signup-field">
+                  <label>游戏ID</label>
+                  <input type="text" id="signupGameId" placeholder="请输入游戏ID" class="signup-input">
+                </div>
+                <div class="signup-field">
+                  <label>参加活动</label>
+                  <select id="signupActivity" class="signup-select">
+                    <option>加载中...</option>
+                  </select>
+                </div>
+                <button class="signup-submit" id="signupBtn" onclick="submitSignup()">确认报名</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 公会数据看板 + 专属福利 -->
+        <section class="guild-dashboard-section">
+          <div class="dashboard-grid">
+            <!-- 数据看板 -->
+            <div class="dashboard-card">
+              <div class="dashboard-header">
+                <span class="dashboard-icon">📊</span>
+                <span class="dashboard-title">公会数据看板</span>
+                <span class="dashboard-update" id="dashboardUpdate">更新于 2026-09-26</span>
+              </div>
+              <div class="dashboard-stats">
+                <div class="dash-stat">
+                  <div class="dash-stat-icon">⚔️</div>
+                  <div class="dash-stat-info">
+                    <div class="dash-stat-num">2,725,300</div>
+                    <div class="dash-stat-label">神殿总功勋</div>
+                  </div>
+                  <div class="dash-trend up">↑ 3.2%</div>
+                </div>
+                <div class="dash-stat">
+                  <div class="dash-stat-icon">👥</div>
+                  <div class="dash-stat-info">
+                    <div class="dash-stat-num">40</div>
+                    <div class="dash-stat-label">公会成员</div>
+                  </div>
+                  <div class="dash-trend up">↑ 5</div>
+                </div>
+                <div class="dash-stat">
+                  <div class="dash-stat-icon">💪</div>
+                  <div class="dash-stat-info">
+                    <div class="dash-stat-num">2265.95万兆</div>
+                    <div class="dash-stat-label">公会总战力</div>
+                  </div>
+                  <div class="dash-trend up">↑ 23%</div>
+                </div>
+                <div class="dash-stat">
+                  <div class="dash-stat-icon">✅</div>
+                  <div class="dash-stat-info">
+                    <div class="dash-stat-num">85%</div>
+                    <div class="dash-stat-label">神殿参战率</div>
+                  </div>
+                  <div class="dash-trend up">↑ 5%</div>
+                </div>
+                              </div>
+              <div class="dashboard-bars">
+                <div class="bar-item">
+                  <div class="bar-label">
+                    <span>本届神殿排名</span>
+                    <span class="bar-value">本届四强</span>
+                  </div>
+                  <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+                </div>
+                <div class="bar-item">
+                  <div class="bar-label">
+                    <span>神殿参战率(天涯口径)</span>
+                    <span class="bar-value">85%</span>
+                  </div>
+                  <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+                </div>
+                <div class="bar-item">
+                  <div class="bar-label">
+                    <span>人均功勋（÷40成员）</span>
+                    <span class="bar-value">68,133</span>
+                  </div>
+                  <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+                </div>
+              </div>
+            </div>
+            <!-- 专属福利入口 -->
+            <div class="welfare-card">
+              <div class="welfare-bg"></div>
+              <div class="welfare-content">
+                <div class="welfare-badge">会员专属</div>
+                <h3 class="welfare-title">🎁 公会专属福利</h3>
+                <p class="welfare-desc">成员专享福利兑换、装备优先分配</p>
+                <a href="redeem-codes.html" class="welfare-highlight">
+                  <span class="welfare-highlight-icon">🎁</span>
+                  <div class="welfare-highlight-content">
+                    <div class="welfare-highlight-title">兑换码 / 礼包码</div>
+                    <div class="welfare-highlight-desc">周礼包·节日码 一键复制</div>
+                  </div>
+                  <span class="welfare-highlight-arrow">→</span>
+                </a>
+                <div class="welfare-list">
+                  <div class="welfare-item"><span class="welfare-dot"></span>⚔️ 组队试炼：高战力带两个低战力，共三个位置</div>
+                </div>
+                <button class="welfare-btn" onclick="alert('福利中心开发中，敬请期待！')">进入福利中心 →</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<main id="mainContent">
+<!-- 战术库入口 -->
+<div class="tactics-entry" style="max-width:1280px;margin:0 auto 24px;padding:0 20px;">
+  <a href="tactics.html" style="display:block;text-decoration:none;background:linear-gradient(135deg,rgba(232, 184, 75,0.1),rgba(232, 184, 75,0.05));border:1px solid rgba(232, 184, 75,0.3);border-radius:16px;padding:24px;text-align:center;transition:all 0.3s;">
+    <div style="font-size: 28px;margin-bottom:8px;">📖</div>
+    <h3 style="font-size:20px;color:var(--gold);margin-bottom:6px;">公会战术库</h3>
+    <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px;">全职业流派配装 · 公会精英实战验证 · 18套配装</p>
+    <span style="display:inline-block;background:linear-gradient(135deg,#e8b84b,#d97706);color:#1a1a2e;padding:8px 24px;border-radius:8px;font-size:14px;font-weight:600;">进入战术库 →</span>
+  </a>
+</div>
+
+<script>
+function submitSignup() {
+  var gameId = document.getElementById('signupGameId').value.trim();
+  var activity = document.getElementById('signupActivity').value;
+  var btn = document.getElementById('signupBtn');
+  if (!gameId) { alert('请输入游戏ID'); return; }
+  btn.disabled = true; btn.textContent = '提交中...';
+  fetch('https://api.ykmys.com/api/signups', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({game_id: gameId, activity: activity, profession: '', remark: ''})
+  }).then(function(r){ return r.json(); }).then(function(data){
+    alert('报名成功！我们会尽快联系你');
+    document.getElementById('signupGameId').value = '';
+  }).catch(function(e){
+    alert('报名失败，请稍后重试或联系会长');
+  }).finally(function(){
+    btn.disabled = false; btn.textContent = '确认报名';
+  });
+}
+</script>
+
+<script>
+// 通用函数别名
+if (typeof toggleSearch === 'undefined') {
+  function toggleSearch() { if (typeof toggleFullscreenSearch === 'function') toggleFullscreenSearch(); }
+}
+if (typeof closeAnnouncement === 'undefined') {
+  function closeAnnouncement() { var b=document.getElementById('announcementBar'); if(b) b.style.display='none'; }
+}
+if (typeof openLoginModal === 'undefined') {
+  function openLoginModal() { alert('登录功能开发中'); }
+}
+// ESC关闭搜索
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var s = document.getElementById('fullscreenSearch');
+    if (s && s.classList.contains('active')) { s.classList.remove('active'); document.body.style.overflow=''; }
+  }
+});
+// Ctrl+K打开搜索
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'k') { e.preventDefault(); if (typeof toggleFullscreenSearch==='function') toggleFullscreenSearch(); }
+});
+</script>
+
+
+<script>
+// 主题切换
+function toggleTheme() {
+  var body = document.body;
+  var isLight = body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-icon-btn[title="切换主题"]');
+  if (btn) btn.textContent = isLight ? '☀️' : '🌙';
+  try { localStorage.setItem('yxmysbd_theme', isLight ? 'light' : 'dark'); } catch(e) {}
+}
+// 初始化主题
+(function() {
+  try {
+    var theme = localStorage.getItem('yxmysbd_theme');
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+      var btn = document.querySelector('.nav-icon-btn[title="切换主题"]');
+      if (btn) btn.textContent = '☀️';
+    }
+  } catch(e) {}
+})();
+// 全屏搜索
+function toggleFullscreenSearch() {
+  var el = document.getElementById('fullscreenSearch');
+  if (!el) return;
+  el.classList.toggle('active');
+  if (el.classList.contains('active')) {
+    var input = document.getElementById('fullscreenSearchInput');
+    if (input) input.focus();
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+// 搜索过滤
+function filterBuilds(query) {
+  var results = document.getElementById('searchResults');
+  if (!results) return;
+  if (!query.trim()) { results.innerHTML = ''; return; }
+  var q = query.toLowerCase();
+  // 简单的页面内搜索
+  var cards = document.querySelectorAll('.build-card, .tactic-card');
+  var matched = [];
+  cards.forEach(function(card) {
+    var text = card.textContent.toLowerCase();
+    if (text.indexOf(q) >= 0) matched.push(card);
+  });
+  if (matched.length === 0) {
+    results.innerHTML = '<div style="color:var(--text-dim);text-align:center;padding:20px;">未找到相关配装</div>';
+  } else {
+    results.innerHTML = '<div style="color:var(--text-dim);margin-bottom:10px;">找到 ' + matched.length + ' 个结果</div>';
+  }
+}
+</script>
+
+
+<script>
+// 活动区从API动态加载
+function loadActivities() {
+  fetch('https://api.ykmys.com/api/activities')
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var list = document.getElementById('activityList');
+      var select = document.getElementById('signupActivity');
+      if(!data || data.length === 0) {
+        if(list) list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:13px">暂无活动安排</div>';
+        if(select) select.innerHTML = '<option>暂无活动</option>';
+        return;
+      }
+      if(list) {
+        var html = '';
+        var statusMap = {upcoming:'即将开始',ongoing:'进行中',finished:'已结束'};
+        var statusClass = {upcoming:'upcoming',ongoing:'signup',finished:'planned'};
+        data.slice(0,5).forEach(function(a){
+          var dateStr = a.date || '';
+          var parts = dateStr.split('-');
+          var day = parts.length === 3 ? parts[2] : '?';
+          var month = parts.length >= 2 ? parseInt(parts[1]) + '月' : '';
+          html += '<div class="activity-item">' +
+            '<div class="activity-date"><div class="activity-day">' + day + '</div><div class="activity-month">' + month + '</div></div>' +
+            '<div class="activity-info"><div class="activity-name">' + (a.title||'') + '</div>' +
+            '<div class="activity-meta">' + (a.time||'') + ' · ' + (a.type||'') + '</div></div>' +
+            '<span class="activity-status ' + (statusClass[a.status]||'planned') + '">' + (statusMap[a.status]||'计划中') + '</span>' +
+            '</div>';
+        });
+        list.innerHTML = html;
+      }
+      if(select) {
+        var options = '<option value="">请选择活动</option>';
+        data.filter(function(a){return a.status !== 'finished'}).forEach(function(a){
+          options += '<option value="' + (a.title||'') + '">' + (a.title||'') + ' (' + (a.date||'') + ')</option>';
+        });
+        select.innerHTML = options;
+      }
+    })
+    .catch(function(){});
+}
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadActivities);
+} else {
+  loadActivities();
+}
+</script>
+<script src="redeem-data.js?v=20260927c"></script>
+<script src="search-data.js"></script>
+<script src="search.js"></script>
+
+</main>
+
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item" data-page="index"><span class="nav-icon">🏠</span>首页</a>
+  <a href="builds-guides.html" class="nav-item" data-page="builds"><span class="nav-icon">⚔️</span>配装</a>
+  <a href="library.html" class="nav-item" data-page="library"><span class="nav-icon">📚</span>资料</a>
+  <a href="guild.html" class="nav-item" data-page="guild"><span class="nav-icon">👥</span>公会</a>
+  <a href="tools.html" class="nav-item" data-page="tools"><span class="nav-icon">🔧</span>工具</a>
+</div>
+<script>
+(function(){
+  var path = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'index','builds-guides.html':'builds','library.html':'library','guild.html':'guild','tools.html':'tools'};
+  var page = map[path] || '';
+  if(page){
+    var item = document.querySelector('.bottom-nav .nav-item[data-page="'+page+'"]');
+    if(item) item.classList.add('active');
+  }
+})();
+</script>
+
+<script src="music-player.js?v=20260927c"></script>
+<script>
+// 首页兑换码渲染
+function renderHomeRedeem() {
+  var list = document.getElementById('homeRedeemList');
+  if (!list) return;
+  if (typeof REDEEM_DATA === 'undefined' || !REDEEM_DATA || REDEEM_DATA.length === 0) {
+    list.innerHTML = '<div class="redeem-empty">暂无可用兑换码</div>';
+    return;
+  }
+  // 按有效性优先级排序：有效期内(按截止升序) + 已过期(按截止降序)，取前3条
+  var now = new Date(); var today = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+  var valid = REDEEM_DATA.filter(function(r){ return r.deadline && r.deadline >= today; });
+  var expired = REDEEM_DATA.filter(function(r){ return r.deadline && r.deadline < today; });
+  valid.sort(function(a,b){ return a.deadline.localeCompare(b.deadline); });
+  expired.sort(function(a,b){ return b.deadline.localeCompare(a.deadline); });
+  var show = valid.concat(expired).slice(0,3);
+
+  list.innerHTML = show.map(function(r){
+    var isExpired = r.deadline < today;
+    var tagClass = isExpired ? 'expired' : 'limited';
+    var tagText = isExpired ? '已过期' : ('截止 ' + r.deadline);
+    var itemClass = isExpired ? 'redeem-item expired' : 'redeem-item';
+    return '<div class="' + itemClass + '">' +
+      '<div class="redeem-info">' +
+        '<div class="redeem-name">' + (r.name || '') + '<span class="redeem-tag ' + tagClass + '">' + tagText + '</span></div>' +
+        '<div class="redeem-code">' + (r.code || '') + '</div>' +
+      '</div>' +
+      '<button class="redeem-copy" onclick="copyRedeemCode(this, \'' + (r.code || '') + '\')">复制</button>' +
+    '</div>';
+  }).join('');
+}
+function copyRedeemCode(btn, code) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(function(){
+      btn.textContent = '已复制'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+    });
+  } else {
+    var ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    btn.textContent = '已复制'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderHomeRedeem);
+} else {
+  renderHomeRedeem();
+}
+// 兜底：3秒后如果还是"加载中..."，强制渲染一次（防止数据文件加载慢）
+setTimeout(function(){
+  var list = document.getElementById('homeRedeemList');
+  if (list && list.innerHTML.indexOf('加载中') >= 0) {
+    renderHomeRedeem();
+  }
+}, 3000);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>公会历史 · 天涯若比邻</title>
+<link rel="alternate" hreflang="zh" href="https://ykmys.com/guild-history.html">
+<link rel="alternate" hreflang="en" href="https://ykmys.com/guild-history.html?lang=en">
+<meta property="og:title" content="公会战报历史">
+<meta property="og:description" content="公会战报历史 - 天涯若比邻神殿纷争战绩回顾">
+<meta property="og:image" content="https://ykmys.com/guild-badge.png">
+<meta property="og:url" content="https://ykmys.com/guild-history.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="天涯若比邻公会历届神殿纷争战报，战绩历史，灾厄枷锁18服">
+  <link rel="icon" href="guild-badge.png" type="image/png">
+  <style>
+    :root {
+      --bg: #0b0b12; --bg-card: #16161f; --bg-card2: #1e1e2a;
+      --border: #2a2a3a; --text: #e8e8f0; --text-dim: #8888a0;
+      --gold: #f59e0b; --gold-dim: #d97706;
+      --green: #22c55e; --red: #ef4444; --purple: #a855f7;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+      padding-top: 64px;
+    }
+    .guild-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(11,11,18,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245,158,11,0.15);
+    }
+    .guild-nav-inner {
+      max-width: 1280px; margin: 0 auto; display: flex; align-items: center;
+      justify-content: space-between; padding: 8px 20px; gap: 12px;
+    }
+    .guild-nav-left { display: flex; align-items: center; gap: 12px; }
+    .guild-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(245,158,11,0.4); }
+    .guild-nav-name { font-size: 15px; font-weight: 800; color: var(--gold); }
+    .guild-nav-slogan { font-size: 10px; color: var(--text-dim); }
+    .guild-back-btn { color: var(--text-dim); font-size: 12px; text-decoration: none; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); }
+    .guild-back-btn:hover { color: var(--gold); border-color: var(--gold); }
+    .nav-icon-btn { background: none; border: none; color: var(--text); font-size: 15px; cursor: pointer; padding: 6px 8px; border-radius: 6px; }
+    .nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+    .page-header { text-align: center; margin-bottom: 24px; }
+    .page-title { font-size: 28px; font-weight: 800; color: var(--gold); margin-bottom: 6px; }
+    .page-subtitle { font-size: 13px; color: var(--text-dim); }
+    .page-server { font-size: 11px; color: var(--text-dim); margin-top: 4px; opacity: 0.7; }
+
+    /* 公会概况 */
+    .guild-overview {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px; margin-bottom: 24px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    }
+    .overview-item { text-align: center; }
+    .overview-num { font-size: 18px; font-weight: 700; color: var(--gold); }
+    .overview-label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+    /* 总战绩统计 */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+    .stat-num { font-size: 26px; font-weight: 800; color: var(--gold); }
+    .stat-num.win { color: var(--green); }
+    .stat-num.lose { color: var(--red); }
+    .stat-label { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+    /* 分区标题 */
+    .section-title { font-size: 18px; font-weight: 700; margin: 28px 0 14px; display: flex; align-items: center; gap: 8px; }
+    .section-title::before { content: ''; width: 4px; height: 18px; background: var(--gold); border-radius: 2px; }
+
+    /* 时间线 */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 11px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--gold), var(--border));
+    }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-dot {
+      position: absolute; left: -32px; top: 16px; width: 24px; height: 24px;
+      border-radius: 50%; background: var(--bg); border: 3px solid var(--gold);
+      display: flex; align-items: center; justify-content: center; font-size: 10px;
+    }
+    .timeline-dot.win { border-color: var(--green); }
+    .timeline-dot.lose { border-color: var(--red); }
+    .timeline-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px; transition: all 0.2s;
+    }
+    .timeline-card:hover { border-color: var(--gold); transform: translateX(4px); }
+    .timeline-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .timeline-date { font-size: 12px; color: var(--text-dim); }
+    .timeline-result { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
+    .timeline-result.win { background: rgba(34,197,94,0.15); color: var(--green); }
+    .timeline-result.bigwin { background: rgba(245,158,11,0.2); color: var(--gold); }
+    .timeline-result.lose { background: rgba(239,68,68,0.15); color: var(--red); }
+    .timeline-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .timeline-score { font-size: 20px; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+    .timeline-meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .timeline-meta span { display: flex; align-items: center; gap: 4px; }
+    .timeline-detail { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+    .mvp-tag { display: inline-block; background: rgba(245,158,11,0.15); color: var(--gold); font-size: 10px; padding: 2px 7px; border-radius: 4px; margin-right: 5px; font-weight: 600; }
+
+    /* 荣誉墙 */
+    .honor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .honor-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; text-align: center;
+    }
+    .honor-icon { font-size: 28px; margin-bottom: 6px; }
+    .honor-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .honor-value { font-size: 16px; font-weight: 800; color: var(--gold); }
+    .honor-desc { font-size: 10px; color: var(--text-dim); margin-top: 4px; }
+
+    @media (max-width: 639px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .guild-overview { grid-template-columns: repeat(2, 1fr); }
+      .guild-nav-slogan { display: none; }
+      .timeline { padding-left: 28px; }
+      .timeline-dot { left: -28px; width: 20px; height: 20px; }
+    }
+  
+/* 音乐播放器 */
+.music-player {
+  position: fixed; bottom: 20px; right: 20px; z-index: 9998;
+  background: rgba(22,22,31,0.95); backdrop-filter: blur(10px);
+  border: 1px solid rgba(245,158,11,0.3); border-radius: 50px;
+  padding: 8px 16px 8px 8px; display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5); transition: all 0.3s;
+}
+.music-player:hover { border-color: rgba(245,158,11,0.6); }
+.music-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: none;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #000; font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.music-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(245,158,11,0.5); }
+.music-btn.playing { animation: pulse 2s infinite; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(245,158,11,0); }
+}
+.music-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.music-title { font-size: 11px; color: #f59e0b; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
+.music-status { font-size: 9px; color: #8888a0; }
+.music-visualizer { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
+.music-bar { width: 3px; background: #f59e0b; border-radius: 1px; transition: height 0.1s; }
+.music-bar:nth-child(1) { height: 40%; }
+.music-bar:nth-child(2) { height: 70%; }
+.music-bar:nth-child(3) { height: 50%; }
+.music-bar:nth-child(4) { height: 80%; }
+.playing .music-bar { animation: visualize 0.8s infinite ease-in-out; }
+.playing .music-bar:nth-child(1) { animation-delay: 0s; }
+.playing .music-bar:nth-child(2) { animation-delay: 0.1s; }
+.playing .music-bar:nth-child(3) { animation-delay: 0.2s; }
+.playing .music-bar:nth-child(4) { animation-delay: 0.3s; }
+@keyframes visualize {
+  0%, 100% { height: 30%; }
+  50% { height: 100%; }
+}
+@media (max-width: 639px) {
+  .music-player { bottom: 12px; right: 12px; padding: 6px 12px 6px 6px; }
+  .music-info { display: none; }
+}
+
+  
+/* ===== 亮色主题 ===== */
+[data-theme="light"] { --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa; --bg-card-hover:#f0f0f5; --border:#e0e0e8; --border-hover:#c8c8d0; --gold:#d97706; --gold-dim:#b45309; --gold-glow:rgba(217,119,6,.1); --text:#1a1a2e; --text-dim:#5a5a6e; --text-bright:#0a0a15; }
+[data-theme="light"] body { background:var(--bg) !important; color:var(--text) !important; }
+[data-theme="light"] .guild-nav { background:rgba(255,255,255,.95) !important; backdrop-filter:blur(12px); border-bottom:1px solid #e0e0e8 !important; }
+[data-theme="light"] .guild-nav-name, [data-theme="light"] .guild-name { color:#78350f !important; }
+[data-theme="light"] .guild-nav-slogan, [data-theme="light"] .guild-slogan { color:#92400e !important; }
+[data-theme="light"] .guild-nav-link, [data-theme="light"] .nav-link { color:#1a1a2e !important; }
+[data-theme="light"] .guild-nav-link:hover, [data-theme="light"] .nav-link:hover { color:#d97706 !important; }
+[data-theme="light"] .hero-section, [data-theme="light"] .hero { background:linear-gradient(135deg,#fef3c7,#fde68a 50%,#fcd34d) !important; }
+[data-theme="light"] .hero-title, [data-theme="light"] .hero h1 { color:#78350f !important; }
+[data-theme="light"] .hero-subtitle, [data-theme="light"] .hero p { color:#92400e !important; }
+[data-theme="light"] .section-title, [data-theme="light"] h2 { color:#1a1a2e !important; }
+[data-theme="light"] .card, [data-theme="light"] .build-card, [data-theme="light"] .member-card, [data-theme="light"] .timeline-item { background:#fff !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .card:hover, [data-theme="light"] .build-card:hover { border-color:#d97706 !important; box-shadow:0 4px 20px rgba(217,119,6,.15) !important; }
+[data-theme="light"] .stat-value { color:#d97706 !important; }
+[data-theme="light"] .music-player { background:rgba(255,255,255,.95) !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .music-player .song-name { color:#1a1a2e !important; }
+[data-theme="light"] .announcement-bar { background:linear-gradient(90deg,#fef3c7,#fde68a) !important; color:#78350f !important; }
+[data-theme="light"] .progress-bar { background:#e0e0e8 !important; }
+[data-theme="light"] .progress-fill { background:linear-gradient(90deg,#fbbf24,#f59e0b) !important; }
+[data-theme="light"] .guild-login-btn, [data-theme="light"] .login-btn { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .nav-icon-btn, [data-theme="light"] .theme-toggle { background:#f0f0f5 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a { background:#fff !important; border:1px solid #e0e0e8 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a:hover { border-color:#d97706 !important; color:#d97706 !important; }
+[data-theme="light"] .badge-gold { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .badge-silver { background:linear-gradient(135deg,#e5e7eb,#d1d5db) !important; color:#374151 !important; }
+[data-theme="light"] .badge-bronze { background:linear-gradient(135deg,#fdba74,#fb923c) !important; color:#7c2d12 !important; }
+[data-theme="light"] .recruit-text { color:#16a34a !important; }
+[data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
+
+
+/* ===== 战报数据图表 ===== */
+.data-charts-section { margin: 30px 0; padding: 24px; background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border); }
+.data-charts-title { font-size: 18px; font-weight: 700; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-box { background: var(--bg-card2); border-radius: 10px; padding: 16px; border: 1px solid var(--border); }
+.chart-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 12px; text-align: center; }
+.chart-container { width: 100%; height: 280px; }
+@media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } .chart-container { height: 240px; } }
+
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:#60a5fa}
+.nav-item .nav-icon{font-size:20px}
+
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <link rel="manifest" href="manifest.json">
+  <link rel="canonical" href="https://ykmys.com/guild-history.html">
+</head>
+<body style="padding-bottom:80px">
+  <div class="guild-nav">
+    <div class="guild-nav-inner">
+      <div class="guild-nav-left">
+        <a href="index.html"><img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo"></a>
+        <div>
+          <div class="guild-nav-name">天涯若比邻</div>
+          <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+        </div>
+        <a href="index.html" class="guild-back-btn">← 首页</a>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="nav-icon-btn" onclick="toggleTheme()">🌙</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">🏆 公会战报</h1>
+      <p class="page-subtitle">天涯若比邻 · 历届神殿纷争与联赛战绩历史</p>
+      <p class="page-server">灾厄枷锁18服 · 公会编号 630131800002 · 建会535天</p>
+    </div>
+
+    <!-- 公会概况 -->
+    <div class="guild-overview">
+      <div class="overview-item"><div class="overview-num">40/40</div><div class="overview-label">成员满员</div></div>
+      <div class="overview-item"><div class="overview-num">1838万兆</div><div class="overview-label">总战力</div></div>
+      <div class="overview-item"><div class="overview-num">21级</div><div class="overview-label">公会等级</div></div>
+      <div class="overview-item"><div class="overview-num">S级×2</div><div class="overview-label">标杆成员</div></div>
+    </div>
+
+    <!-- 总战绩 -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num win">3胜</div><div class="stat-label">神殿纷争连胜</div></div>
+      <div class="stat-card"><div class="stat-num">522,750</div><div class="stat-label">单场最高功勋</div></div>
+      <div class="stat-card"><div class="stat-num">全服第1</div><div class="stat-label">悬赏大赛排名</div></div>
+      <div class="stat-card"><div class="stat-num">670层</div><div class="stat-label">秘境全服第1</div></div>
+    </div>
+
+    <!-- 神殿纷争战绩 -->
+    <div class="section-title">⚔️ 神殿纷争战绩</div>
+    <div class="timeline">
+      <!-- 8.22 大胜 -->
+      <div class="timeline-item">
+        <div class="timeline-dot win">✓</div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-date">2026年8月22日 周六 20:00</span>
+            <span class="timeline-result bigwin">大胜</span>
+          </div>
+          <div class="timeline-title">圣光军团 vs 暗影军团</div>
+          <div class="timeline-score">15,000 : 60</div>
+          <div class="timeline-meta">
+            <span>👥 35/40参战</span>
+            <span>⚔️ 总功勋522,750</span>
+            <span>📊 人均14,936</span>
+            <span>🏅 全服117人参战</span>
+          </div>
+          <div class="timeline-detail">
+            <span class="mvp-tag">MVP</span>天涯丶本射 28,500功勋（全服第1）<br>
+            天涯丶醉摇摆 24,200功勋（全服第5）<br>
+            天涯丶沦落人 22,800功勋（全服第7）<br>
+            全服前10占3席，前20占10席，碾压级胜利！
+          </div>
+        </div>
+      </div>
+
+      <!-- 8.16 胜利 -->
+      <div class="timeline-item">
+        <div class="timeline-dot win">✓</div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-date">2026年8月16日 周六 20:00</span>
+            <span class="timeline-result win">胜利</span>
+          </div>
+          <div class="timeline-title">暗影军团 vs 圣光军团</div>
+          <div class="timeline-score">15,000 : 11,025</div>
+          <div class="timeline-meta">
+            <span>👥 参战</span>
+            <span>🏅 全服145人参战</span>
+          </div>
+          <div class="timeline-detail">
+            圣光军团获胜，天涯若比邻公会表现稳定，持续输出。
+          </div>
+        </div>
+      </div>
+
+      <!-- 8.8 胜利 -->
+      <div class="timeline-item">
+        <div class="timeline-dot win">✓</div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-date">2026年8月8日 周六 20:00</span>
+            <span class="timeline-result win">胜利</span>
+          </div>
+          <div class="timeline-title">圣光军团 vs 暗影军团</div>
+          <div class="timeline-score">15,000 : 7,965</div>
+          <div class="timeline-meta">
+            <span>👥 参战</span>
+            <span>🏅 全服147人参战</span>
+          </div>
+          <div class="timeline-detail">
+            圣光军团获胜，天涯若比邻公会贡献突出。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 神殿联赛战绩 -->
+    <div class="section-title">🏰 神殿联赛战绩</div>
+    <div class="timeline">
+      <!-- 第六届第1周 胜利 -->
+      <div class="timeline-item">
+        <div class="timeline-dot win">✓</div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-date">2026年9月20日</span>
+            <span class="timeline-result win">胜利</span>
+          </div>
+          <div class="timeline-title">第六届神殿联赛 · 第1周</div>
+          <div class="timeline-score">天涯若比邻 vs 刀剑神域</div>
+          <div class="timeline-meta">
+            <span>🏆 取得开门红</span>
+          </div>
+          <div class="timeline-detail">
+            第六届神殿联赛首战告捷，战胜对手刀剑神域，取得赛季开门红！
+          </div>
+        </div>
+      </div>
+
+      <!-- 联赛失败 -->
+      <div class="timeline-item">
+        <div class="timeline-dot lose">✗</div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-date">2026年9月13日</span>
+            <span class="timeline-result lose">失败</span>
+          </div>
+          <div class="timeline-title">神殿联赛 · 天涯若比邻+争 vs 巅峰+震爷英雄会</div>
+          <div class="timeline-score">5,195 : 15,000</div>
+          <div class="timeline-meta">
+            <span>👥 127人参战</span>
+            <span>📊 我方人均17,316功勋</span>
+          </div>
+          <div class="timeline-detail">
+            <span class="mvp-tag">MVP</span>天涯丶醉摇摆 92,150功勋（全场第1，49击杀）<br>
+            正视差距：据点占领仅为敌方51%，高端战力断层。<br>
+            改进方向：强化据点争夺、培养中端战力、优化盟友选择。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 荣誉墙 -->
+    <div class="section-title">🌟 公会荣誉墙</div>
+    <div class="honor-grid">
+      <div class="honor-card">
+        <div class="honor-icon">🏆</div>
+        <div class="honor-title">悬赏大赛</div>
+        <div class="honor-value">全服第1</div>
+        <div class="honor-desc">总积分275,020 · 断层领先</div>
+      </div>
+      <div class="honor-card">
+        <div class="honor-icon">📚</div>
+        <div class="honor-title">研读大会</div>
+        <div class="honor-value">1036万分</div>
+        <div class="honor-desc">35人上榜 · 包揽全服2-4名</div>
+      </div>
+      <div class="honor-card">
+        <div class="honor-icon">🗼</div>
+        <div class="honor-title">赛季秘境</div>
+        <div class="honor-value">670层</div>
+        <div class="honor-desc">醉摇摆全服第1 · 20人上榜</div>
+      </div>
+      <div class="honor-card">
+        <div class="honor-icon">⚔️</div>
+        <div class="honor-title">穹顶之战</div>
+        <div class="honor-value">40/40</div>
+        <div class="honor-desc">全员参与 · 总积分235,480</div>
+      </div>
+      <div class="honor-card">
+        <div class="honor-icon">🛡️</div>
+        <div class="honor-title">公会攻防战</div>
+        <div class="honor-value">95%</div>
+        <div class="honor-desc">38/40参战 · 最高★13星</div>
+      </div>
+      <div class="honor-card">
+        <div class="honor-icon">👑</div>
+        <div class="honor-title">三冠王</div>
+        <div class="honor-value">醉摇摆</div>
+        <div class="honor-desc">战力/秘境/至高战神全服第1</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() { document.body.classList.toggle('light-theme'); }
+  </script>
+
+<!-- 音乐播放器 -->
+<audio id="bgmPlayer" loop preload="none">
+  <source src="history-bgm.mp3" type="audio/mpeg">
+</audio>
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+  <div class="music-visualizer" id="musicViz">
+    <div class="music-bar"></div><div class="music-bar"></div>
+    <div class="music-bar"></div><div class="music-bar"></div>
+  </div>
+  <div class="music-info">
+    <div class="music-title">史诗战歌</div>
+    <div class="music-status" id="musicStatus">点击播放</div>
+  </div>
+</div>
+<script>
+var bgm = document.getElementById('bgmPlayer');
+var musicBtn = document.getElementById('musicBtn');
+var musicPlayer = document.getElementById('musicPlayer');
+var musicStatus = document.getElementById('musicStatus');
+var isPlaying = false;
+function toggleMusic() {
+  if (isPlaying) { bgm.pause(); musicBtn.textContent = '▶'; musicPlayer.classList.remove('playing'); musicStatus.textContent = '已暂停'; isPlaying = false; }
+  else { bgm.play().then(function(){ musicBtn.textContent = '⏸'; musicPlayer.classList.add('playing'); musicStatus.textContent = '播放中'; isPlaying = true; }).catch(function(e){ musicStatus.textContent = '加载失败'; }); }
+}
+</script>
+
+
+<script>
+(function() {
+    function initCharts() {
+        // 比分对比图
+        var scoreChart = echarts.init(document.getElementById('scoreChart'));
+        scoreChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { data: ['我方', '对手'], textStyle: { color: '#8892a8' }, top: 0 },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', data: ['8.8', '8.16', '8.22'], axisLabel: { color: '#8892a8' }, axisLine: { lineStyle: { color: '#2a2a3e' } } },
+            yAxis: { type: 'value', axisLabel: { color: '#8892a8' }, splitLine: { lineStyle: { color: '#1c1c2a' } } },
+            series: [
+                { name: '我方', type: 'bar', data: [15000, 15000, 15000], itemStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#fbbf24'},{offset:1,color:'#f59e0b'}]), borderRadius: [4,4,0,0] }, barWidth: '30%' },
+                { name: '对手', type: 'bar', data: [7965, 11025, 60], itemStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#ef4444'},{offset:1,color:'#dc2626'}]), borderRadius: [4,4,0,0] }, barWidth: '30%' }
+            ]
+        });
+        
+        // 对手得分趋势图
+        var trendChart = echarts.init(document.getElementById('trendChart'));
+        trendChart.setOption({
+            tooltip: { trigger: 'axis' },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', data: ['8.8', '8.16', '8.22'], boundaryGap: false, axisLabel: { color: '#8892a8' }, axisLine: { lineStyle: { color: '#2a2a3e' } } },
+            yAxis: { type: 'value', axisLabel: { color: '#8892a8' }, splitLine: { lineStyle: { color: '#1c1c2a' } } },
+            series: [{
+                name: '对手得分', type: 'line', data: [7965, 11025, 60],
+                smooth: true, symbol: 'circle', symbolSize: 10,
+                lineStyle: { width: 3, color: '#06b6d4' },
+                itemStyle: { color: '#06b6d4', borderColor: '#fff', borderWidth: 2 },
+                areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(6,182,212,0.3)'},{offset:1,color:'rgba(6,182,212,0)'}]) }
+            }]
+        });
+        
+        window.addEventListener('resize', function() { scoreChart.resize(); trendChart.resize(); });
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initCharts); }
+    else { initCharts(); }
+})();
+</script>
+
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(() => {});
+}
+</script>
+<script src="search-data.js"></script>
+<script src="search.js"></script>
+
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item" data-page="index"><span class="nav-icon">🏠</span>首页</a>
+  <a href="builds-guides.html" class="nav-item" data-page="builds"><span class="nav-icon">⚔️</span>配装</a>
+  <a href="library.html" class="nav-item" data-page="library"><span class="nav-icon">📚</span>资料</a>
+  <a href="guild.html" class="nav-item" data-page="guild"><span class="nav-icon">👥</span>公会</a>
+  <a href="tools.html" class="nav-item" data-page="tools"><span class="nav-icon">🔧</span>工具</a>
+</div>
+<script>
+(function(){
+  var path = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'index','builds-guides.html':'builds','library.html':'library','guild.html':'guild','tools.html':'tools'};
+  var page = map[path] || '';
+  if(page){
+    var item = document.querySelector('.bottom-nav .nav-item[data-page="'+page+'"]');
+    if(item) item.classList.add('active');
+  }
+})();
+</script>
+
+<script src="music-player.js?v=20260927c"></script>
+</body>
+</html>

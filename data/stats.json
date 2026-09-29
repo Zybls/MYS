@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-09-28 09:20:13",
+  "generator": "website/tools/calc_guild_stats.py",
+  "sources": {
+    "members": "D:\\ZYB\\YKMYS\\公会资料\\guild_data\\members.md",
+    "battles": "D:\\ZYB\\YKMYS\\公会资料\\guild_data\\battles.md",
+    "activities": "D:\\ZYB\\YKMYS\\公会资料\\guild_data\\activities.md"
+  },
+  "roster_max": 40,
+  "members": {
+    "total_members": 40,
+    "roster_max": 40,
+    "roster_text": "40/40",
+    "total_power_wan_zhao": 2265.95,
+    "avg_power_wan_zhao": 56.65,
+    "max_power_game_id": "天涯丶醉摇摆",
+    "max_power_wan_zhao": 119.62,
+    "power_counted": 40,
+    "new_joins": [
+      "喜子",
+      "远方",
+      "老王",
+      "雲壹壹",
+      "金火",
+      "功德重在积累"
+    ],
+    "snapshot_date": "2026-09-26"
+  },
+  "battles": {
+    "total_battles": 5,
+    "wins": 2,
+    "losses": 3,
+    "total_honor": 2725300,
+    "honor_counted_battles": 3,
+    "honor_unknown_battles": 2,
+    "avg_guild_attendance_rate": 0.85,
+    "avg_guild_attendance_percent": 85.0,
+    "attendance_sample_size": 4,
+    "attendance_skipped_battles": 1,
+    "latest_battle": {
+      "match": "第六届半决赛",
+      "opponent": "奶牛俱乐部+无畏圣殿",
+      "our_alliance": "天涯若比邻+神话",
+      "our_score": 2385,
+      "enemy_score": 15000,
+      "score_text": "2385:15000",
+      "result": "负",
+      "date": "2026-09-19",
+      "date_note": "",
+      "mvp": "天涯丶傲慢",
+      "guild_honor": 588350,
+      "guild_participants": 35
+    }
+  },
+  "upcoming_activities": [
+    {
+      "title": "第六届季军赛",
+      "date": "2026-10-03",
+      "date_note": "周六",
+      "type": "神殿纷争",
+      "description": "我方天涯+神话 vs 意气阁丶剑歌+无畏神殿，争夺铜牌"
+    }
+  ],
+  "dashboard": {
+    "total_power_wan_zhao": 2265.95,
+    "total_members": 40,
+    "roster_text": "40/40",
+    "avg_power_wan_zhao": 56.65,
+    "total_battles": 5,
+    "wins": 2,
+    "losses": 3,
+    "record_text": "2胜3负",
+    "total_honor": 2725300,
+    "avg_guild_attendance_percent": 85.0,
+    "latest_match": "第六届半决赛",
+    "latest_date": "2026-09-19",
+    "data_date": "2026-09-26"
+  }
+}

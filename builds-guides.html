@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://ykmys.com/builds-guides.html">
+
+<meta name="description" content="英雄没有闪配装攻略 - 三职业配装大全、新手入门、首领打法、神殿纷争、资源获取等完整攻略">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>配装攻略 - 天涯若比邻公会</title>
+<style>
+:root{--bg:#0f0f18;--bg-card:#181826;--bg-card2:#252540;--border:#2e2e44;--text:#e8e8f0;--text-dim:#8888aa;--purple:#a78bfa;--blue:#60a5fa;--red:#f87171;--green:#34d399;--gold:#e8b84b;--gold-dim:#a88a35;}
+/* 全局链接样式 - 修复浏览器默认蓝 */
+a { color: var(--gold); text-decoration: none; transition: color .2s; }
+a:hover { color: var(--gold-dim); }
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding-bottom:80px;}
+.header{background:var(--bg-card);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.header h1{font-size: 20px;font-weight:700;}
+.header .search-btn{background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;}
+.tab-bar{display:flex;gap:4px;padding: 12px 16px;background:var(--bg-card);border-bottom:1px solid var(--border);overflow-x:auto;}
+.tab-btn{padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;border:none;color:var(--text-dim);white-space:nowrap;transition:all 0.2s;}
+.tab-btn.active{background:rgba(167,139,250,0.15);color:var(--purple);font-weight:600;}
+.tab-panel{display:none;padding:16px;}
+.tab-panel.active{display:block;}
+.catalog-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.catalog-search-box{position:relative;flex:1;min-width:200px;max-width:360px;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;opacity:0.5;}
+.catalog-search-input{width:100%;padding: 12px 12px 9px 36px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;}
+.catalog-search-input:focus{border-color:var(--blue);}
+.catalog-filter-group{display:flex;gap:6px;flex-wrap:wrap;}
+.filter-btn{padding: 8px 14px;border-radius:20px;font-size:12px;cursor:pointer;background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);}
+.filter-btn:hover{border-color:var(--blue);}
+.filter-btn.active{background:rgba(96,165,250,0.15);border-color:var(--blue);color:var(--blue);font-weight:600;}
+.catalog-count{margin-left:auto;font-size:12px;color:var(--text-dim);white-space:nowrap;}
+.engraving-grid,.skill-grid,.rune-grid,.armor-grid,.pet-grid,.build-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap: 12px;}
+.engraving-card,.skill-card,.rune-card,.armor-card,.pet-card,.build-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding: 16px;text-align:center;cursor:pointer;transition:all 0.2s;display:block;}
+.engraving-card:hover,.skill-card:hover,.rune-card:hover,.armor-card:hover,.pet-card:hover,.build-card:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
+.engraving-icon,.skill-icon,.rune-icon,.armor-icon,.pet-icon,.build-icon{width:56px;height:56px;margin:0 auto 8px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:28px;}
+.engraving-icon img,.skill-icon img,.rune-icon img,.armor-icon img,.pet-icon img{width:100%;height:100%;object-fit:contain;}
+.engraving-name,.skill-name,.rune-name,.armor-name,.pet-name,.build-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.engraving-class,.skill-class,.rune-class,.armor-class,.pet-class,.build-class{font-size: 12px;padding:2px 8px;border-radius:4px;display:inline-block;margin:2px;}
+.build-tags{margin-top:4px;}
+.build-tag{font-size: 12px;padding:1px 5px;border-radius:3px;background:rgba(96,165,250,0.1);color:#60a5fa;display:inline-block;margin:1px;}
+.pet-card-tags{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+.pet-tag{font-size: 12px;padding:2px 6px;border-radius:4px;}
+.pet-quality{background:rgba(251,191,36,0.15);color:#fbbf24;}
+.pet-bond{background:rgba(167,139,250,0.15);color:#a78bfa;}
+.modal-kv-list{background:var(--bg-card2);border-radius:8px;padding: 12px 14px;}
+.modal-kv{display:flex;justify-content:space-between;padding: 8px 0;border-bottom:1px solid var(--border);}
+.modal-kv:last-child{border-bottom:none;}
+.modal-kv-label{font-size:13px;color:var(--text-dim);}
+.modal-kv-value{font-size:13px;color:var(--text);font-weight:600;}
+.cls-野蛮人{background:rgba(248,113,113,0.15);color:#f87171;}
+.cls-秘法师{background:rgba(96,165,250,0.15);color:#60a5fa;}
+.cls-游侠{background:rgba(52,211,153,0.15);color:#34d399;}
+.cls-通用{background:rgba(148,163,184,0.15);color:#94a3b8;}
+.skill-cat,.rune-cat,.armor-part,.armor-quality,.pet-quality{font-size: 12px;padding:1px 6px;border-radius:3px;display:inline-block;margin:2px;background:rgba(167,139,250,0.1);color:#a78bfa;}
+.engraving-desc-preview,.skill-desc-preview,.rune-desc-preview,.armor-desc-preview,.pet-desc-preview,.build-desc-preview{font-size: 12px;color:var(--text-dim);margin-top:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.empty-state{text-align:center;padding: 32px 20px;}
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal-content{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;position:relative;animation:modalIn 0.25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;z-index:1;}
+.modal-body{padding:24px;}
+.modal-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.modal-icon{width:72px;height:72px;border-radius:14px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.modal-icon img{width:100%;height:100%;object-fit:contain;}
+.modal-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.modal-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.modal-section{margin-bottom:16px;}
+.modal-section-title{font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.modal-section-content{font-size:14px;color:var(--text);line-height: 1.6;background:var(--bg-card2);padding:12px 14px;border-radius:8px;}
+.modal-detail-img{width:100%;border-radius:10px;margin-top:8px;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0;z-index:99;}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--text-dim);text-decoration:none;font-size: 12px;padding:4px 12px;}
+.bottom-nav a.active{color:var(--purple);}
+.bottom-nav .icon{font-size:20px;}
+@media(max-width:768px){
+  .engraving-grid,.skill-grid,.rune-grid,.armor-grid,.pet-grid,.build-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;}
+  .engraving-icon,.skill-icon,.rune-icon,.armor-icon,.pet-icon{width:48px;height:48px;}
+  .engraving-name,.skill-name,.rune-name,.armor-name,.pet-name{font-size:12px;}
+  .catalog-toolbar{flex-direction:column;align-items:stretch;}
+  .catalog-search-box{max-width:100%;}
+  .catalog-count{margin-left:0;text-align:center;}
+  .modal-body{padding:16px;}
+  .modal-header{flex-direction:column;text-align:center;}
+}
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
+
+/* === 顶部导航 === */
+.nav-icon-btn {
+  background: none; border: none; color: var(--text); font-size: 16px; cursor: pointer;
+  padding: 8px 9px; border-radius: 8px; transition: all 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+.fullscreen-search {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(5,5,10,0.96); z-index: 10000;
+  align-items: flex-start; justify-content: center; padding-top: 100px;
+  backdrop-filter: blur(8px);
+}
+.fullscreen-search.active { display: flex; }
+.search-container { width: 90%; max-width: 600px; }
+.search-box { position: relative; display: flex; align-items: center; }
+.search-close-btn {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--text-dim); font-size: 20px;
+  cursor: pointer; padding: 4px 8px; line-height: 1; z-index: 1;
+}
+.search-close-btn:hover { color: var(--text); }
+  .nav-icon-btn { font-size: 14px; padding: 8px 7px; }
+body.light-theme .fullscreen-search { background: rgba(244,244,248,0.97); }
+.guild-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(11,11,18,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(232, 184, 75,0.15);
+}
+.guild-nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; gap: 16px;
+}
+.guild-nav-left { display: flex; align-items: center; gap: 12px; }
+.guild-logo-wrap { display: flex; align-items: center; }
+.guild-logo {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid rgba(232, 184, 75,0.4);
+  box-shadow: 0 0 12px rgba(232, 184, 75,0.2);
+  object-fit: cover;
+}
+.guild-nav-info { display: flex; flex-direction: column; }
+.guild-nav-name {
+  font-size: 16px; font-weight: 800; color: var(--gold);
+  letter-spacing: 1px; line-height: 1.2;
+}
+.guild-nav-slogan { font-size: 12px; color: var(--text-dim); letter-spacing: 0.5px; }
+.guild-nav-links { display: flex; gap: 4px; flex: 1; justify-content: center; }
+.guild-nav-link {
+  color: var(--text-dim); font-size: 13px; text-decoration: none;
+  padding: 8px 14px; border-radius: 8px; transition: all 0.2s;
+  font-weight: 500; white-space: nowrap;
+}
+.guild-nav-link:hover { color: var(--gold); background: rgba(232, 184, 75,0.08); }
+.guild-nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.recruit-status {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+  padding: 4px 10px; border-radius: 20px;
+}
+.guild-login-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  border: none; color: #1a1a2e; font-size: 13px; font-weight: 700;
+  padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+}
+.guild-login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232, 184, 75,0.3); }
+  .guild-nav-inner { padding: 8px 12px; gap: 8px; flex-wrap: wrap; }
+  .guild-nav-left { gap: 8px; }
+  .guild-logo { width: 36px; height: 36px; }
+  .guild-nav-name { font-size: 14px; }
+  .guild-nav-slogan { display: none; }
+  .guild-nav-links { order: 3; width: 100%; justify-content: center; gap: 12px; padding: 4px 0; border-top: 1px solid rgba(232, 184, 75,0.1); }
+  .guild-nav-link { font-size: 12px; }
+  .guild-nav-right { gap: 6px; }
+  .guild-login-btn { font-size: 12px; padding: 8px 10px; }
+  .nav-icon-btn { font-size: 16px; padding: 8px; }
+  .guild-nav-name { font-size: 13px; }
+  .guild-logo { width: 32px; height: 32px; }
+  .guild-nav-links { gap: 8px; }
+  .guild-nav-link { font-size: 12px; }
+
+/* 攻略卡片 */
+.guide-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding: 16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.guide-card:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(167,139,250,0.15);}
+.guide-card.wip{opacity:0.6;cursor:not-allowed;}
+.guide-card.wip:hover{transform:none;box-shadow:none;}
+.guide-icon{width:48px;height:48px;border-radius:10px;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;font-size: 20px;margin-bottom:10px;}
+.guide-title{font-size: 14px;font-weight:700;margin-bottom:4px;}
+.guide-desc{font-size:12px;color:var(--text-dim);line-height: 1.6;margin-bottom:8px;}
+.guide-status{font-size: 12px;padding:2px 8px;border-radius:4px;display:inline-block;}
+.status-online{background:rgba(52,211,153,0.15);color:#34d399;}
+.status-wip{background:rgba(148,163,184,0.15);color:#94a3b8;}
+</style>
+</head>
+<body>
+<nav class="guild-nav">
+        <div class="guild-nav-inner">
+          <div class="guild-nav-left">
+            <a href="index.html" class="guild-logo-wrap">
+              <img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+            </a>
+            <div class="guild-nav-info">
+              <div class="guild-nav-name">天涯若比邻</div>
+              <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+            </div>
+          </div>
+          <div class="guild-nav-links">
+            <a href="index.html" class="guild-nav-link">首页</a>
+            <a href="builds-guides.html" class="guild-nav-link active">配装攻略</a>
+            <a href="library.html" class="guild-nav-link">资料库</a>
+            <a href="guild.html" class="guild-nav-link">公会</a>
+            <a href="tools.html" class="guild-nav-link">工具</a>
+          </div>
+          <div class="guild-nav-right">
+            <div class="recruit-status" title="招募中">
+              <span class="recruit-dot"></span>
+              <span class="recruit-text">招募中</span>
+            </div>
+            <button class="guild-login-btn" onclick="openLoginModal()">登录</button>
+            <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+            <button class="nav-icon-btn" onclick="toggleFullscreenSearch()" title="搜索">🔍</button>
+          </div>
+        </div>
+        </nav>
+<!-- 全屏搜索框 -->
+        <div class="fullscreen-search" id="fullscreenSearch">
+        <div class="search-container">
+        <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="fullscreenSearchInput" placeholder="搜索流派名称..." oninput="filterBuilds(this.value)">
+        <button class="search-close-btn" onclick="toggleFullscreenSearch()">&times;</button>
+        </div>
+        <div class="search-hint">按 <kbd>ESC</kbd> 关闭 &nbsp;|&nbsp; 按 <kbd>Ctrl+K</kbd> 快速打开搜索</div>
+        </div>
+        </div>
+<div class="header">
+  <h1>⚔️ 配装攻略</h1>
+</div>
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="build" onclick="switchTab('build')">配装</button>
+  <button class="tab-btn" data-tab="guides" onclick="switchTab('guides')">攻略大全</button>
+</div>
+<!-- ===== 配装Tab ===== -->
+<div class="tab-panel" id="panel-build">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="buildSearch" placeholder="搜索配装名称/流派..." class="catalog-search-input">
+    </div>
+    <div class="catalog-filter-group" id="buildFilter">
+      <button class="filter-btn active" data-filter="all" onclick="filterBuilds('all')">全部</button>
+      <button class="filter-btn" data-filter="野蛮人" onclick="filterBuilds('野蛮人')">野蛮人</button>
+      <button class="filter-btn" data-filter="秘法师" onclick="filterBuilds('秘法师')">秘法师</button>
+      <button class="filter-btn" data-filter="游侠" onclick="filterBuilds('游侠')">游侠</button>
+    </div>
+    <div class="catalog-count" id="buildCount">18 套配装</div>
+  </div>
+  <div class="build-grid" id="buildGrid"></div>
+  <div class="empty-state" id="buildEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的配装</div>
+  </div>
+</div>
+
+
+<!-- ===== 攻略大全Tab ===== -->
+<div class="tab-panel" id="panel-guides">
+  <div class="catalog-toolbar">
+    <div class="catalog-search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="guidesSearch" placeholder="搜索攻略分类..." class="catalog-search-input">
+    </div>
+    <div class="catalog-count" id="guidesCount">10 个分类</div>
+  </div>
+  <div class="engraving-grid" id="guidesGrid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr));"></div>
+  <div class="empty-state" id="guidesEmpty" style="display:none;">
+    <div style="font-size:40px;margin-bottom:8px;">&#128269;</div>
+    <div style="color:var(--text-dim);font-size:13px;">没有找到匹配的攻略</div>
+  </div>
+</div>
+
+
+<div class="bottom-nav">
+  <a href="index.html"><span class="icon">🏠</span>首页</a>
+  <a href="builds-guides.html" class="active"><span class="icon">⚔️</span>配装</a>
+  <a href="library.html"><span class="icon">📚</span>资料</a>
+  <a href="guild.html"><span class="icon">👥</span>公会</a>
+  <a href="tools.html"><span class="icon">🔧</span>工具</a>
+</div>
+<script src="builds-data.js?v=20260927c"></script>
+<script src="guides-data.js?v=20260927c"></script>
+<script src="search-data.js"></script>
+<script src="music-player.js?v=20260927c"></script>
+<script>
+function escapeHtml(str) {
+  return (str || '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+tab));
+  if(tab==='build') renderBuilds();
+  if(tab==='guides') renderGuides();
+}
+
+// ===== 配装Tab逻辑 =====
+let currentBuildFilter='all', buildSearchTimer=null;
+function renderBuilds() {
+  const grid=document.getElementById('buildGrid'),empty=document.getElementById('buildEmpty');
+  const search=(document.getElementById('buildSearch').value||'').toLowerCase().trim();
+  let list=BUILDS_DATA;
+  if(currentBuildFilter!=='all') list=list.filter(e=>e.class===currentBuildFilter);
+  if(search) list=list.filter(e=>(e.name||'').toLowerCase().includes(search)||(e.desc||'').toLowerCase().includes(search)||(e.tags||[]).some(t=>t.toLowerCase().includes(search)));
+  document.getElementById('buildCount').textContent=`${list.length} 套配装`;
+  if(list.length===0){grid.style.display='none';empty.style.display='block';return;}
+  grid.style.display='grid';empty.style.display='none';
+  grid.innerHTML=list.map(e=>`<a href="${e.url}" class="build-card" data-id="${e.id}" style="text-decoration:none;color:inherit;">
+    <div class="build-icon">&#9876;</div>
+    <div class="build-name">${escapeHtml(e.name)}</div>
+    <span class="build-class cls-${escapeHtml(e.class)}">${e.class}</span>
+    <div class="build-tags">${(e.tags||[]).map(t=>`<span class="build-tag">${escapeHtml(t)}</span>`).join('')}</div>
+    <div class="build-desc-preview">${escapeHtml(e.desc).replace(/\n/g,'<br>')}</div></a>`).join('');
+}
+function filterBuilds(filter){currentBuildFilter=filter;document.querySelectorAll('#buildFilter .filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));renderBuilds();}
+
+// ===== 攻略大全渲染 =====
+function renderGuides(){
+  if(typeof GUIDES_DATA==='undefined'||!GUIDES_DATA){
+    document.getElementById('guidesCount').textContent='数据加载中...';
+    document.getElementById('guidesEmpty').style.display='block';
+    document.getElementById('guidesEmpty').querySelector('div:last-child').textContent='数据加载中，请刷新页面';
+    document.getElementById('guidesGrid').innerHTML='';
+    return;
+  }
+  var list = GUIDES_DATA.slice();
+  var s = (document.getElementById('guidesSearch').value||'').toLowerCase();
+  if(s) list = list.filter(function(g){return (g.name||'').toLowerCase().indexOf(s)>-1||(g.category||'').toLowerCase().indexOf(s)>-1||(g.desc||'').toLowerCase().indexOf(s)>-1;});
+  document.getElementById('guidesCount').textContent = list.length+' 个分类';
+  var empty = document.getElementById('guidesEmpty');
+  var grid = document.getElementById('guidesGrid');
+  if(list.length===0){empty.style.display='block';empty.querySelector('div:last-child').textContent='没有找到匹配的攻略';grid.innerHTML='';return;}
+  empty.style.display='none';
+  grid.innerHTML = list.map(function(g){
+    var isOnline = g.status==='已上线';
+    var onclick = isOnline?'onclick="window.location.href=\''+g.url+'\'"':'';
+    var cls = isOnline?'guide-card':'guide-card wip';
+    var statusCls = isOnline?'status-online':'status-wip';
+    return '<div class="'+cls+'" '+onclick+'>'+
+      '<div class="guide-icon">'+(isOnline?'&#128218;':'&#128274;')+'</div>'+
+      '<div class="guide-title">'+escapeHtml(g.name)+'</div>'+
+      '<div class="guide-desc">'+(g.desc?escapeHtml(g.desc):'敬请期待')+'</div>'+
+      '<span class="guide-status '+statusCls+'">'+escapeHtml(g.status)+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+// ===== 公共函数（顶部导航用） =====
+function openLoginModal(){ window.location.href='admin.html'; }
+function toggleTheme(){
+  var body=document.body;
+  if(body.dataset.theme==='light'){body.dataset.theme='dark';localStorage.setItem('theme','dark');}
+  else{body.dataset.theme='light';localStorage.setItem('theme','light');}
+}
+function toggleFullscreenSearch(){
+  var fs=document.getElementById('fullscreenSearch');
+  if(!fs)return;
+  if(fs.style.display==='flex'){fs.style.display='none';}
+  else{fs.style.display='flex';var inp=document.getElementById('fullscreenSearchInput');if(inp)inp.focus();}
+}
+
+// ===== 主题初始化 =====
+(function(){try{var t=localStorage.getItem('theme');if(t==='light')document.body.dataset.theme='light';}catch(e){}})();
+
+// ===== 键盘事件 =====
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){var fs=document.getElementById('fullscreenSearch');if(fs)fs.style.display='none';}
+  if(e.ctrlKey&&e.key==='k'){e.preventDefault();toggleFullscreenSearch();}
+});
+
+// ===== 页面初始化 =====
+function initBuildsGuides(){
+  var bs=document.getElementById('buildSearch');
+  if(bs) bs.addEventListener('input', function(){clearTimeout(buildSearchTimer);buildSearchTimer=setTimeout(renderBuilds,300);});
+  var gs=document.getElementById('guidesSearch');
+  if(gs) gs.addEventListener('input', renderGuides);
+  switchTab('build');
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', initBuildsGuides);
+}else{
+  initBuildsGuides();
+}
+</script>
+</body>
+</html>

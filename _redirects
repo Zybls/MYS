@@ -1,0 +1,3 @@
+# 旧域名 301 重定向到新域名
+https://yxmsy.dpdns.org/* https://ykmys.com/:splat 301
+https://api.yxmsy.dpdns.org/* https://api.ykmys.com/:splat 301

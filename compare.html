@@ -1,0 +1,513 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配装对比 · 英雄没有闪 | 天涯若比邻</title>
+<meta property="og:title" content="配装对比">
+<meta property="og:description" content="配装对比 - 天涯若比邻公会站">
+<meta property="og:image" content="https://ykmys.com/guild-badge.png">
+<meta property="og:url" content="https://ykmys.com/compare.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="英雄没有闪S2赛季配装对比工具，选择2-3套配装并排对比。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%96%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --blue: #3b82f6; --red: #ef4444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.7; font-size: 16px; min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+.site-nav {
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3); flex-shrink: 0;
+}
+.nav-inner { max-width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover { color: var(--gold); }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+
+.selector-bar {
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
+  padding: 12px 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.selector-bar label { font-size: 14px; color: var(--text-dim); }
+.build-select {
+  background: var(--bg-card2); color: var(--text); border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 12px; font-size: 14px; font-family: inherit;
+  min-width: 160px; cursor: pointer;
+}
+.build-select:focus { outline: none; border-color: var(--gold); }
+.compare-btn {
+  background: var(--gold); color: #0a0a0f; border: none; border-radius: 6px;
+  padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer;
+  font-family: inherit; min-height: 36px;
+}
+.compare-btn:hover { background: #fbbf24; }
+.compare-btn:disabled { background: var(--border); color: var(--text-dim); cursor: not-allowed; }
+.clear-btn {
+  background: none; color: var(--text-dim); border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 16px; font-size: 14px; cursor: pointer;
+  font-family: inherit;
+}
+.clear-btn:hover { color: var(--red); border-color: var(--red); }
+
+.compare-container {
+  flex: 1; display: flex; gap: 4px; padding: 4px;
+  overflow: hidden; min-height: 0;
+}
+.compare-panel {
+  flex: 1; display: flex; flex-direction: column;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; min-width: 0;
+}
+.panel-header {
+  padding: 10px 14px; background: var(--bg-card2); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.panel-title { font-size: 14px; font-weight: bold; color: var(--gold); }
+.panel-actions { display: flex; gap: 6px; }
+.panel-btn {
+  background: none; border: none; color: var(--text-dim); font-size: 14px;
+  cursor: pointer; padding: 4px 8px; border-radius: 4px; min-height: 28px;
+}
+.panel-btn:hover { color: var(--text); background: var(--bg-card); }
+.compare-frame {
+  flex: 1; width: 100%; border: none; background: #fff;
+}
+.empty-panel {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); font-size: 14px; flex-direction: column; gap: 10px;
+}
+.empty-panel .icon { font-size: 40px; opacity: 0.3; }
+
+.sync-scroll-btn {
+  position: fixed; bottom: 20px; right: 20px; z-index: 100;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%;
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.sync-scroll-btn.active { background: var(--gold); border-color: var(--gold); }
+
+@media (max-width: 768px) {
+  .compare-container { flex-direction: column; }
+  .compare-panel { min-height: 300px; }
+  .selector-bar { padding: 10px; }
+  .build-select { min-width: 120px; font-size: 13px; }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+
+  /* 语言切换按钮 */
+  .lang-btn { background: none; border: 1px solid rgba(240,176,64,0.3); color: var(--text-dim); 
+    font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; 
+    transition: all 0.2s; min-width: 28px; text-align: center; }
+  .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
+  .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
+
+/* ===== 公会导航（统一） ===== */
+.guild-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(11,11,18,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(245,158,11,0.15);
+}
+.guild-nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; gap: 12px;
+}
+.guild-nav-left { display: flex; align-items: center; gap: 12px; }
+.guild-logo-wrap { display: flex; align-items: center; }
+.guild-logo {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid rgba(245,158,11,0.4);
+  box-shadow: 0 0 10px rgba(245,158,11,0.2);
+  object-fit: cover;
+}
+.guild-nav-info { display: flex; flex-direction: column; }
+.guild-nav-name {
+  font-size: 15px; font-weight: 800; color: var(--gold);
+  letter-spacing: 0.5px; line-height: 1.2;
+}
+.guild-nav-slogan { font-size: 10px; color: var(--text-dim); }
+.guild-back-btn {
+  color: var(--text-dim); font-size: 12px; text-decoration: none;
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+  transition: all 0.2s; margin-left: 4px;
+}
+.guild-back-btn:hover { color: var(--gold); border-color: var(--gold); background: rgba(245,158,11,0.08); }
+.guild-nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.recruit-status {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+  padding: 3px 9px; border-radius: 20px;
+}
+.recruit-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.recruit-text { font-size: 10px; color: #4ade80; font-weight: 600; }
+.nav-icon-btn {
+  background: none; border: none; color: var(--text); font-size: 15px; cursor: pointer;
+  padding: 6px 8px; border-radius: 6px; transition: all 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+.lang-switch { display: flex; gap: 2px; background: var(--bg-card2); border-radius: 6px; padding: 2px; }
+.lang-switch .lang-btn {
+  background: none; border: none; color: var(--text-dim);
+  font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 4px;
+  transition: all 0.2s; min-width: 26px; text-align: center; font-weight: 600;
+}
+.lang-switch .lang-btn:hover { color: var(--gold); }
+.lang-switch .lang-btn.active { background: var(--gold); color: #1a1a2e; }
+@media (max-width: 639px) {
+  .guild-nav-inner { padding: 6px 12px; gap: 8px; }
+  .guild-logo { width: 34px; height: 34px; }
+  .guild-nav-name { font-size: 13px; }
+  .guild-nav-slogan { display: none; }
+  .guild-back-btn { font-size: 11px; padding: 4px 8px; }
+  .recruit-text { display: none; }
+  .nav-icon-btn { font-size: 14px; padding: 5px 6px; }
+}
+
+
+/* ===== 亮色主题 ===== */
+[data-theme="light"] { --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa; --bg-card-hover:#f0f0f5; --border:#e0e0e8; --border-hover:#c8c8d0; --gold:#d97706; --gold-dim:#b45309; --gold-glow:rgba(217,119,6,.1); --text:#1a1a2e; --text-dim:#5a5a6e; --text-bright:#0a0a15; }
+[data-theme="light"] body { background:var(--bg) !important; color:var(--text) !important; }
+[data-theme="light"] .guild-nav { background:rgba(255,255,255,.95) !important; backdrop-filter:blur(12px); border-bottom:1px solid #e0e0e8 !important; }
+[data-theme="light"] .guild-nav-name, [data-theme="light"] .guild-name { color:#78350f !important; }
+[data-theme="light"] .guild-nav-slogan, [data-theme="light"] .guild-slogan { color:#92400e !important; }
+[data-theme="light"] .guild-nav-link, [data-theme="light"] .nav-link { color:#1a1a2e !important; }
+[data-theme="light"] .guild-nav-link:hover, [data-theme="light"] .nav-link:hover { color:#d97706 !important; }
+[data-theme="light"] .hero-section, [data-theme="light"] .hero { background:linear-gradient(135deg,#fef3c7,#fde68a 50%,#fcd34d) !important; }
+[data-theme="light"] .hero-title, [data-theme="light"] .hero h1 { color:#78350f !important; }
+[data-theme="light"] .hero-subtitle, [data-theme="light"] .hero p { color:#92400e !important; }
+[data-theme="light"] .section-title, [data-theme="light"] h2 { color:#1a1a2e !important; }
+[data-theme="light"] .card, [data-theme="light"] .build-card, [data-theme="light"] .member-card, [data-theme="light"] .timeline-item { background:#fff !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .card:hover, [data-theme="light"] .build-card:hover { border-color:#d97706 !important; box-shadow:0 4px 20px rgba(217,119,6,.15) !important; }
+[data-theme="light"] .stat-value { color:#d97706 !important; }
+[data-theme="light"] .music-player { background:rgba(255,255,255,.95) !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .music-player .song-name { color:#1a1a2e !important; }
+[data-theme="light"] .announcement-bar { background:linear-gradient(90deg,#fef3c7,#fde68a) !important; color:#78350f !important; }
+[data-theme="light"] .progress-bar { background:#e0e0e8 !important; }
+[data-theme="light"] .progress-fill { background:linear-gradient(90deg,#fbbf24,#f59e0b) !important; }
+[data-theme="light"] .guild-login-btn, [data-theme="light"] .login-btn { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .nav-icon-btn, [data-theme="light"] .theme-toggle { background:#f0f0f5 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a { background:#fff !important; border:1px solid #e0e0e8 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a:hover { border-color:#d97706 !important; color:#d97706 !important; }
+[data-theme="light"] .badge-gold { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .badge-silver { background:linear-gradient(135deg,#e5e7eb,#d1d5db) !important; color:#374151 !important; }
+[data-theme="light"] .badge-bronze { background:linear-gradient(135deg,#fdba74,#fb923c) !important; color:#7c2d12 !important; }
+[data-theme="light"] .recruit-text { color:#16a34a !important; }
+[data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
+
+
+.hidden{display:none}
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:#60a5fa}
+.nav-item .nav-icon{font-size:20px}
+
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
+</style>
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/tools.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/compare.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/tools.html" />
+  <link rel="canonical" href="https://ykmys.com/tools.html">
+</head>
+<body style="padding-bottom:80px">
+<h1 class="hidden">配装对比</h1>
+
+<div class="guild-nav">
+  <div class="guild-nav-inner">
+    <div class="guild-nav-left">
+      <a href="index.html" class="guild-logo-wrap">
+        <img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+      </a>
+      <div class="guild-nav-info">
+        <div class="guild-nav-name">天涯若比邻</div>
+        <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+      </div>
+      <a href="index.html" class="guild-back-btn">← 首页</a>
+    </div>
+    <div class="guild-nav-right">
+      <div class="recruit-status"><span class="recruit-dot"></span><span class="recruit-text">招募中</span></div>
+      <button class="nav-icon-btn" onclick="toggleSearch()" title="搜索">🔍</button>
+      <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="zh" title="中文">中</button>
+        <button class="lang-btn" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="selector-bar">
+  <label>配装1：</label>
+  <select class="build-select" id="select1" onchange="updateCompare()"></select>
+  <label>配装2：</label>
+  <select class="build-select" id="select2" onchange="updateCompare()"></select>
+  <label>配装3：</label>
+  <select class="build-select" id="select3" onchange="updateCompare()"></select>
+  <button class="clear-btn" onclick="clearAll()">清空</button>
+</div>
+
+<div class="compare-container" id="compareContainer">
+  <div class="compare-panel" id="panel1">
+    <div class="panel-header">
+      <span class="panel-title" id="title1">配装1</span>
+      <div class="panel-actions">
+        <button class="panel-btn" onclick="openInNew(1)" title="新窗口打开">↗</button>
+      </div>
+    </div>
+    <div class="empty-panel"><div class="icon">📋</div>请选择配装</div>
+  </div>
+  <div class="compare-panel" id="panel2">
+    <div class="panel-header">
+      <span class="panel-title" id="title2">配装2</span>
+      <div class="panel-actions">
+        <button class="panel-btn" onclick="openInNew(2)" title="新窗口打开">↗</button>
+      </div>
+    </div>
+    <div class="empty-panel"><div class="icon">📋</div>请选择配装</div>
+  </div>
+  <div class="compare-panel" id="panel3" class="hidden">
+    <div class="panel-header">
+      <span class="panel-title" id="title3">配装3</span>
+      <div class="panel-actions">
+        <button class="panel-btn" onclick="openInNew(3)" title="新窗口打开">↗</button>
+      </div>
+    </div>
+    <div class="empty-panel"><div class="icon">📋</div>请选择配装</div>
+  </div>
+</div>
+
+<button class="sync-scroll-btn" id="syncBtn" onclick="toggleSync()" title="同步滚动">🔗</button>
+
+<script>
+var BUILDS = [
+  {url:"shadow-dian.html", name:"梦花感电 3.0", class:"游侠"},
+  {url:"youxia-shengyin-jingji.html", name:"圣银荆棘枪", class:"游侠"},
+  {url:"youxia-gandian.html", name:"感电流派", class:"游侠"},
+  {url:"youxia-jingji-pk.html", name:"荆棘PK", class:"游侠"},
+  {url:"youxia-jingji-pve.html", name:"荆棘PVE", class:"游侠"},
+  {url:"zhuling-huoyan.html", name:"烛灵火焰", class:"法师"},
+  {url:"fashi-yanling-yanbao.html", name:"炎灵炎爆", class:"法师"},
+  {url:"fashi-yanbao.html", name:"炎爆流", class:"法师"},
+  {url:"fashi-leiquan.html", name:"雷拳", class:"法师"},
+  {url:"fashi-bingyan-pk.html", name:"冰焰PK", class:"法师"},
+  {url:"fashi-leidian-shaquan.html", name:"雷电杀拳", class:"法师"},
+  {url:"tianfa-huodao.html", name:"天罚火刀", class:"野蛮人"},
+  {url:"zhanshi-leichui-pve.html", name:"雷锤PVE", class:"野蛮人"},
+  {url:"zhanshi-leichui-pk.html", name:"雷锤PK", class:"野蛮人"},
+  {url:"zhanshi-diandao.html", name:"电刀", class:"野蛮人"},
+  {url:"zhanshi-leixuan.html", name:"雷旋", class:"野蛮人"},
+  {url:"huodao-shouling.html", name:"火刀首领", class:"野蛮人"},
+];
+
+var syncScroll = false;
+
+// 初始化下拉框
+function initSelects() {
+  var options = '<option value="">-- 请选择 --</option>';
+  BUILDS.forEach(function(b) {
+    options += '<option value="' + b.url + '">' + b.name + '（' + b.class + '）</option>';
+  });
+  ['select1','select2','select3'].forEach(function(id) {
+    document.getElementById(id).innerHTML = options;
+  });
+  
+  // 从URL参数读取
+  var params = new URLSearchParams(location.search);
+  var b1 = params.get('b1'), b2 = params.get('b2'), b3 = params.get('b3');
+  if (b1) document.getElementById('select1').value = b1;
+  if (b2) document.getElementById('select2').value = b2;
+  if (b3) document.getElementById('select3').value = b3;
+  updateCompare();
+}
+
+function updateCompare() {
+  var s1 = document.getElementById('select1').value;
+  var s2 = document.getElementById('select2').value;
+  var s3 = document.getElementById('select3').value;
+  
+  // 第三个面板显示控制
+  document.getElementById('panel3').style.display = s3 ? '' : 'none';
+  
+  [1,2,3].forEach(function(n) {
+    var url = document.getElementById('select' + n).value;
+    var panel = document.getElementById('panel' + n);
+    var build = BUILDS.find(function(b) { return b.url === url; });
+    
+    if (build) {
+      document.getElementById('title' + n).textContent = build.name;
+      // 检查是否已有iframe
+      var existing = panel.querySelector('.compare-frame');
+      if (existing) {
+        existing.src = url;
+      } else {
+        // 移除empty-panel，加iframe
+        var empty = panel.querySelector('.empty-panel');
+        if (empty) empty.remove();
+        var iframe = document.createElement('iframe');
+        iframe.className = 'compare-frame';
+        iframe.src = url;
+        iframe.loading = 'lazy';
+        panel.appendChild(iframe);
+      }
+    } else {
+      document.getElementById('title' + n).textContent = '配装' + n;
+      var iframe = panel.querySelector('.compare-frame');
+      if (iframe) iframe.remove();
+      if (!panel.querySelector('.empty-panel')) {
+        var empty = document.createElement('div');
+        empty.className = 'empty-panel';
+        empty.innerHTML = '<div class="icon">📋</div>请选择配装';
+        panel.appendChild(empty);
+      }
+    }
+  });
+  
+  // 更新URL
+  var params = [];
+  if (s1) params.push('b1=' + s1);
+  if (s2) params.push('b2=' + s2);
+  if (s3) params.push('b3=' + s3);
+  history.replaceState(null, '', params.length ? '?' + params.join('&') : location.pathname);
+}
+
+function clearAll() {
+  ['select1','select2','select3'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  updateCompare();
+}
+
+function openInNew(n) {
+  var url = document.getElementById('select' + n).value;
+  if (url) window.open(url, '_blank');
+}
+
+function toggleSync() {
+  syncScroll = !syncScroll;
+  var btn = document.getElementById('syncBtn');
+  btn.classList.toggle('active', syncScroll);
+  if (syncScroll) {
+    var frames = document.querySelectorAll('.compare-frame');
+    frames.forEach(function(f) {
+      f.contentWindow.onscroll = function() {
+        var st = f.contentWindow.scrollY;
+        frames.forEach(function(other) {
+          if (other !== f) other.contentWindow.scrollTo(0, st);
+        });
+      };
+    });
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+
+initSelects();
+
+// PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
+</script>
+  <script src="js/i18n.js"></script>
+
+<script>
+// 通用函数别名
+if (typeof toggleSearch === 'undefined') {
+  function toggleSearch() { if (typeof toggleFullscreenSearch === 'function') toggleFullscreenSearch(); }
+}
+if (typeof closeAnnouncement === 'undefined') {
+  function closeAnnouncement() { var b=document.getElementById('announcementBar'); if(b) b.style.display='none'; }
+}
+if (typeof openLoginModal === 'undefined') {
+  function openLoginModal() { alert('登录功能开发中'); }
+}
+// ESC关闭搜索
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var s = document.getElementById('fullscreenSearch');
+    if (s && s.classList.contains('active')) { s.classList.remove('active'); document.body.style.overflow=''; }
+  }
+});
+// Ctrl+K打开搜索
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'k') { e.preventDefault(); if (typeof toggleFullscreenSearch==='function') toggleFullscreenSearch(); }
+});
+</script>
+
+<script src="search-data.js"></script>
+<script src="search.js"></script>
+
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item" data-page="index"><span class="nav-icon">🏠</span>首页</a>
+  <a href="builds-guides.html" class="nav-item" data-page="builds"><span class="nav-icon">⚔️</span>配装</a>
+  <a href="library.html" class="nav-item" data-page="library"><span class="nav-icon">📚</span>资料</a>
+  <a href="guild.html" class="nav-item" data-page="guild"><span class="nav-icon">👥</span>公会</a>
+  <a href="tools.html" class="nav-item" data-page="tools"><span class="nav-icon">🔧</span>工具</a>
+</div>
+<script>
+(function(){
+  var path = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'index','builds-guides.html':'builds','library.html':'library','guild.html':'guild','tools.html':'tools'};
+  var page = map[path] || '';
+  if(page){
+    var item = document.querySelector('.bottom-nav .nav-item[data-page="'+page+'"]');
+    if(item) item.classList.add('active');
+  }
+})();
+</script>
+
+<script src="music-player.js?v=20260927c"></script>
+</body>
+</html>

@@ -1,0 +1,711 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刻印图鉴 · 英雄没有闪 | 天涯若比邻</title>
+<meta property="og:title" content="刻印图鉴">
+<meta property="og:description" content="刻印图鉴 - 英雄没有闪全刻印效果一览">
+<meta property="og:image" content="https://ykmys.com/guild-badge.png">
+<meta property="og:url" content="https://ykmys.com/engravings.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="英雄没有闪S2赛季刻印图鉴全收录，野蛮人、秘法师及通用刻印，含刻印效果详解。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #0a0a0f; --bg-card: #14141e; --bg-card2: #1e293b;
+  --border: #2e2e44; --gold: #f59e0b; --text: #d8d8e8; --text-dim: #94a3b8;
+  --green: #2dd4bf; --purple: #a855f7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.7; padding: 16px; max-width: 1200px; margin: 0 auto; font-size: 16px;
+}
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(10,10,15,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(240,176,64,0.3);
+}
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { color: #f0b040; font-size: 18px; font-weight: bold; text-decoration: none; }
+.nav-home-btn, .nav-link { color: var(--text-dim); font-size: 15px; text-decoration: none; padding: 6px 14px; border-radius: 4px; }
+.nav-home-btn:hover, .nav-link:hover { color: var(--gold); }
+.nav-game-name { color: var(--text-dim); font-size: 15px; }
+.nav-theme-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; padding: 10px 12px; border-radius: 6px; min-height: 44px; min-width: 44px; }
+body { padding-top: 68px; }
+
+.hero { text-align: center; padding: 28px 20px 20px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 16px; }
+.hero h1 { font-size: 28px; color: var(--gold); margin-bottom: 8px; }
+.hero .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 12px; }
+.hero .stats { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.hero .stat-item { text-align: center; }
+.hero .stat-num { font-size: 24px; font-weight: bold; color: var(--purple); }
+.hero .stat-label { font-size: 12px; color: var(--text-dim); }
+
+.class-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+.class-tab { padding: 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dim); cursor: pointer; font-size: 15px; font-weight: bold; text-align: center; transition: all 0.2s; font-family: inherit; }
+.class-tab.active { border-color: var(--purple); color: var(--purple); background: rgba(168,85,247,0.1); }
+.class-tab:hover { border-color: var(--purple); }
+.class-tab .tab-count { display: block; font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+.class-tab.active .tab-count { color: var(--purple); }
+
+.engraving-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.engraving-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.engraving-card:hover { border-color: var(--purple); transform: translateY(-2px); }
+.engraving-img-wrap { width: 60px; height: 60px; margin: 0 auto 8px; border-radius: 50%; overflow: hidden; background: var(--bg-card2); display: flex; align-items: center; justify-content: center; border: 2px solid var(--purple); }
+.engraving-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.engraving-img-placeholder { font-size: 24px; }
+.engraving-name { font-size: 14px; font-weight: bold; margin-bottom: 4px; }
+.engraving-pos { font-size: 11px; color: var(--text-dim); background: var(--bg-card2); padding: 2px 8px; border-radius: 8px; display: inline-block; }
+
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; position: relative; }
+.modal-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 24px; cursor: pointer; min-width: 44px; min-height: 44px; }
+.detail-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.detail-img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--purple); }
+.detail-info { flex: 1; }
+.detail-name { font-size: 20px; font-weight: bold; margin-bottom: 4px; color: var(--purple); }
+.detail-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.detail-tag { font-size: 12px; color: var(--text-dim); background: var(--bg-card2); padding: 2px 10px; border-radius: 10px; }
+.detail-section { margin-bottom: 14px; }
+.detail-title { font-size: 14px; font-weight: bold; color: var(--gold); margin-bottom: 4px; padding-left: 10px; border-left: 3px solid var(--gold); }
+.detail-text { font-size: 14px; line-height: 1.8; }
+
+.disclaimer { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 14px 16px; margin-top: 20px; font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+.disclaimer strong { color: var(--gold); }
+
+@media (max-width: 768px) {
+  body { font-size: 15px; padding: 12px; padding-top: 60px; }
+  .hero h1 { font-size: 22px; }
+  .engraving-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+  .engraving-img-wrap { width: 48px; height: 48px; }
+  .engraving-name { font-size: 12px; }
+  .engraving-card { padding: 10px 6px; }
+  .nav-game-name { display: none; }
+  .class-tabs { gap: 6px; }
+  .class-tab { font-size: 13px; padding: 8px 4px; }
+  .breadcrumb { font-size: 11px; padding: 0 8px; }
+  .section-title { font-size: 16px; }
+  .modal { max-width: 92vw; padding: 16px; }
+  .modal-close { top: 8px; right: 10px; font-size: 20px; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 14px; padding: 8px; padding-top: 56px; }
+  .hero { padding: 16px 12px; }
+  .hero h1 { font-size: 20px; }
+  .hero p { font-size: 13px; }
+  .engraving-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .engraving-card { padding: 8px 4px; }
+  .engraving-img-wrap { width: 44px; height: 44px; }
+  .engraving-name { font-size: 11px; line-height: 1.3; }
+  .engraving-type { font-size: 10px; }
+  .class-tabs { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .class-tab { font-size: 12px; padding: 6px 2px; }
+  .guild-nav-right { gap: 4px; }
+  .lang-switch { display: none; }
+  .nav-icon-btn { font-size: 16px; padding: 6px; }
+  .search-input { font-size: 14px; }
+  .section-title { font-size: 15px; margin-bottom: 10px; }
+  .modal { max-width: 95vw; max-height: 90vh; padding: 14px; }
+  .modal-title { font-size: 18px; }
+  .modal-desc { font-size: 13px; }
+}
+
+@media (max-width: 360px) {
+  .engraving-grid { grid-template-columns: repeat(2, 1fr); }
+  .guild-nav-name { font-size: 12px; }
+}
+body.light-theme { --bg: #f5f5f7; --bg-card: #fff; --bg-card2: #f8f9fa; --text: #1a1a2e; --text-dim: #666; --border: #e0e0e0; }
+body.light-theme .site-nav { background: rgba(255,255,255,0.95); }
+
+.breadcrumb {
+  max-width: 1200px; margin: 0 auto 12px; padding: 0 4px;
+  font-size: 13px; color: #94a3b8;
+}
+.breadcrumb a { color: #94a3b8; text-decoration: none; }
+.breadcrumb a:hover { color: #f59e0b; }
+.breadcrumb .sep { margin: 0 8px; color: #4a5568; }
+.breadcrumb .current { color: #f59e0b; }
+
+
+  /* 语言切换按钮 */
+  .lang-btn { background: none; border: 1px solid rgba(240,176,64,0.3); color: var(--text-dim); 
+    font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; 
+    transition: all 0.2s; min-width: 28px; text-align: center; }
+  .lang-btn:hover { background: rgba(240,176,64,0.15); color: var(--gold); border-color: var(--gold); }
+  .lang-btn.active { background: rgba(240,176,64,0.2); color: var(--gold); border-color: var(--gold); font-weight: bold; }
+
+/* ===== 公会导航（统一） ===== */
+.guild-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(11,11,18,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(245,158,11,0.15);
+}
+.guild-nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; gap: 12px;
+}
+.guild-nav-left { display: flex; align-items: center; gap: 12px; }
+.guild-logo-wrap { display: flex; align-items: center; }
+.guild-logo {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid rgba(245,158,11,0.4);
+  box-shadow: 0 0 10px rgba(245,158,11,0.2);
+  object-fit: cover;
+}
+.guild-nav-info { display: flex; flex-direction: column; }
+.guild-nav-name {
+  font-size: 15px; font-weight: 800; color: var(--gold);
+  letter-spacing: 0.5px; line-height: 1.2;
+}
+.guild-nav-slogan { font-size: 10px; color: var(--text-dim); }
+.guild-back-btn {
+  color: var(--text-dim); font-size: 12px; text-decoration: none;
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+  transition: all 0.2s; margin-left: 4px;
+}
+.guild-back-btn:hover { color: var(--gold); border-color: var(--gold); background: rgba(245,158,11,0.08); }
+.guild-nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.recruit-status {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+  padding: 3px 9px; border-radius: 20px;
+}
+.recruit-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.recruit-text { font-size: 10px; color: #4ade80; font-weight: 600; }
+.nav-icon-btn {
+  background: none; border: none; color: var(--text); font-size: 15px; cursor: pointer;
+  padding: 6px 8px; border-radius: 6px; transition: all 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-icon-btn:hover { background: var(--bg-card2); color: var(--gold); }
+.lang-switch { display: flex; gap: 2px; background: var(--bg-card2); border-radius: 6px; padding: 2px; }
+.lang-switch .lang-btn {
+  background: none; border: none; color: var(--text-dim);
+  font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 4px;
+  transition: all 0.2s; min-width: 26px; text-align: center; font-weight: 600;
+}
+.lang-switch .lang-btn:hover { color: var(--gold); }
+.lang-switch .lang-btn.active { background: var(--gold); color: #1a1a2e; }
+@media (max-width: 639px) {
+  .guild-nav-inner { padding: 6px 12px; gap: 8px; }
+  .guild-logo { width: 34px; height: 34px; }
+  .guild-nav-name { font-size: 13px; }
+  .guild-nav-slogan { display: none; }
+  .guild-back-btn { font-size: 11px; padding: 4px 8px; }
+  .recruit-text { display: none; }
+  .nav-icon-btn { font-size: 14px; padding: 5px 6px; }
+}
+
+
+/* ===== 亮色主题 ===== */
+[data-theme="light"] { --bg:#f5f5f7; --bg-card:#fff; --bg-card2:#f8f8fa; --bg-card-hover:#f0f0f5; --border:#e0e0e8; --border-hover:#c8c8d0; --gold:#d97706; --gold-dim:#b45309; --gold-glow:rgba(217,119,6,.1); --text:#1a1a2e; --text-dim:#5a5a6e; --text-bright:#0a0a15; }
+[data-theme="light"] body { background:var(--bg) !important; color:var(--text) !important; }
+[data-theme="light"] .guild-nav { background:rgba(255,255,255,.95) !important; backdrop-filter:blur(12px); border-bottom:1px solid #e0e0e8 !important; }
+[data-theme="light"] .guild-nav-name, [data-theme="light"] .guild-name { color:#78350f !important; }
+[data-theme="light"] .guild-nav-slogan, [data-theme="light"] .guild-slogan { color:#92400e !important; }
+[data-theme="light"] .guild-nav-link, [data-theme="light"] .nav-link { color:#1a1a2e !important; }
+[data-theme="light"] .guild-nav-link:hover, [data-theme="light"] .nav-link:hover { color:#d97706 !important; }
+[data-theme="light"] .hero-section, [data-theme="light"] .hero { background:linear-gradient(135deg,#fef3c7,#fde68a 50%,#fcd34d) !important; }
+[data-theme="light"] .hero-title, [data-theme="light"] .hero h1 { color:#78350f !important; }
+[data-theme="light"] .hero-subtitle, [data-theme="light"] .hero p { color:#92400e !important; }
+[data-theme="light"] .section-title, [data-theme="light"] h2 { color:#1a1a2e !important; }
+[data-theme="light"] .card, [data-theme="light"] .build-card, [data-theme="light"] .member-card, [data-theme="light"] .timeline-item { background:#fff !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .card:hover, [data-theme="light"] .build-card:hover { border-color:#d97706 !important; box-shadow:0 4px 20px rgba(217,119,6,.15) !important; }
+[data-theme="light"] .stat-value { color:#d97706 !important; }
+[data-theme="light"] .music-player { background:rgba(255,255,255,.95) !important; border:1px solid #e0e0e8 !important; }
+[data-theme="light"] .music-player .song-name { color:#1a1a2e !important; }
+[data-theme="light"] .announcement-bar { background:linear-gradient(90deg,#fef3c7,#fde68a) !important; color:#78350f !important; }
+[data-theme="light"] .progress-bar { background:#e0e0e8 !important; }
+[data-theme="light"] .progress-fill { background:linear-gradient(90deg,#fbbf24,#f59e0b) !important; }
+[data-theme="light"] .guild-login-btn, [data-theme="light"] .login-btn { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .nav-icon-btn, [data-theme="light"] .theme-toggle { background:#f0f0f5 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a { background:#fff !important; border:1px solid #e0e0e8 !important; color:#1a1a2e !important; }
+[data-theme="light"] .quick-nav a:hover { border-color:#d97706 !important; color:#d97706 !important; }
+[data-theme="light"] .badge-gold { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#78350f !important; }
+[data-theme="light"] .badge-silver { background:linear-gradient(135deg,#e5e7eb,#d1d5db) !important; color:#374151 !important; }
+[data-theme="light"] .badge-bronze { background:linear-gradient(135deg,#fdba74,#fb923c) !important; color:#7c2d12 !important; }
+[data-theme="light"] .recruit-text { color:#16a34a !important; }
+[data-theme="light"] .tag, [data-theme="light"] .build-tag { background:#f0f0f5 !important; color:#5a5a6e !important; border:1px solid #e0e0e8 !important; }
+
+
+.hidden{display:none}
+
+/* 移动端导航栏横向滚动 */
+@media (max-width: 768px) {
+  .nav-inner { overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .nav-inner::-webkit-scrollbar { display: none !important; }
+  .nav-links { flex-wrap: nowrap !important; flex-shrink: 0 !important; }
+  .nav-link { white-space: nowrap !important; flex-shrink: 0 !important; }
+}
+
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#a1a1aa;font-size:11px;gap:2px;flex:1}
+.nav-item.active{color:#60a5fa}
+.nav-item .nav-icon{font-size:20px}
+
+
+/* PC端隐藏底部导航（移动端专用） */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0 !important; }
+  .main-content { padding-bottom: 0 !important; }
+  .container { padding-bottom: 0 !important; }
+  /* PC端播放器移到右上角，避免遮挡底部内容 */
+  .music-player { bottom: auto !important; top: 80px !important; right: 20px !important; }
+}
+
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f59e0b">
+  <link rel="alternate" hreflang="zh" href="https://ykmys.com/engravings.html" />
+  <link rel="alternate" hreflang="en" href="https://ykmys.com/engravings.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://ykmys.com/engravings.html" />
+  <link rel="canonical" href="https://ykmys.com/engravings.html">
+</head>
+<body>
+
+<div style="background:linear-gradient(90deg,#f59e0b,#d97706);color:#fff;padding:10px 16px;text-align:center;font-size:14px;position:sticky;top:0;z-index:999;">
+  📢 本页内容已迁移至资料库新版，<a href="library.html#engraving" style="color:#fff;font-weight:700;text-decoration:underline;">点击进入新版</a>
+</div>
+
+
+<div class="guild-nav">
+  <div class="guild-nav-inner">
+    <div class="guild-nav-left">
+      <a href="index.html" class="guild-logo-wrap">
+        <img loading="lazy" src="guild-badge.png" alt="天涯若比邻" class="guild-logo">
+      </a>
+      <div class="guild-nav-info">
+        <div class="guild-nav-name">天涯若比邻</div>
+        <div class="guild-nav-slogan">众志成城 · 共战神殿</div>
+      </div>
+      <a href="index.html" class="guild-back-btn">← 首页</a>
+    </div>
+    <div class="guild-nav-right">
+      <div class="recruit-status"><span class="recruit-dot"></span><span class="recruit-text">招募中</span></div>
+      <button class="nav-icon-btn" onclick="toggleSearch()" title="搜索">🔍</button>
+      <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="zh" title="中文">中</button>
+        <button class="lang-btn" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="breadcrumb">
+  <a href="index.html">🏠 首页</a>
+  <span class="sep">/</span>
+  <span class="current">⚡ 刻印图鉴</span>
+</div>
+
+<div class="hero">
+  <h1>⚡ 刻印图鉴 · 全收录</h1>
+  <div class="subtitle">官方图鉴数据 · 野蛮人 / 秘法师 / 通用刻印</div>
+  <div class="stats">
+    <div class="stat-item"><div class="stat-num">48</div><div class="stat-label">总刻印</div></div>
+    <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">野蛮人</div></div>
+    <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">秘法师</div></div>
+    <div class="stat-item"><div class="stat-num">30</div><div class="stat-label">通用</div></div>
+  </div>
+</div>
+
+<div class="class-tabs">
+  <button class="class-tab active" data-class="ranger" onclick="switchClass(this)">🏹 野蛮人刻印<span class="tab-count">12个</span></button>
+  <button class="class-tab" data-class="mage" onclick="switchClass(this)">🔮 秘法师刻印<span class="tab-count">6个</span></button>
+  <button class="class-tab" data-class="common" onclick="switchClass(this)">🌟 通用刻印<span class="tab-count">30个</span></button>
+</div>
+
+<div id="ranger-eng" class="class-section">
+<div class="engraving-grid">
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_1", "name": "超级闪光", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/dc24620e7b330b68df8404d8a130220c.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d4f4cc9f41a846aa4c4ef94337d2a3f0.png", "effect": "造成暴击伤害时，施放超级闪光，每5秒最多触发1次。", "sort_num": "1", "local_img": "assets/engravings/content_1.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_1.png" alt="超级闪光" loading="lazy"></div>
+        <div class="engraving-name">超级闪光</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_2", "name": "腐化浪潮", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/afd97cbbce7493ddf4309de71bc663f6.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6500c7e257e5419e6529ec50b14978c9.png", "effect": "击中处于持续伤害状态的敌人时施放一阵毒液，对大范围内的敌人施加腐化每5秒最多触发1次。", "sort_num": "2", "local_img": "assets/engravings/content_2.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_2.png" alt="腐化浪潮" loading="lazy"></div>
+        <div class="engraving-name">腐化浪潮</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_3", "name": "冠军拳套", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5f161e43b3af6dfaa805accc915f611a.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/79c57d2d0784ac9ec84bcd275e306c7a.png", "effect": "核心技能击中时有20%概率施放冠军之拳，每5秒最多触发1次；每次施展掌控或终极技能时获得蓄力。", "sort_num": "3", "local_img": "assets/engravings/content_3.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_3.png" alt="冠军拳套" loading="lazy"></div>
+        <div class="engraving-name">冠军拳套</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_4", "name": "巨人壁垒", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7beccffcef43e1d21bc9587a5e79a56b.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/15e9c237aafcc324007e49fabed75cd3.png", "effect": "每隔5秒，下一次基础技能造成10倍伤害，同时获得40%最大生命值的护盾，持续5秒。", "sort_num": "4", "local_img": "assets/engravings/content_4.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_4.png" alt="巨人壁垒" loading="lazy"></div>
+        <div class="engraving-name">巨人壁垒</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_5", "name": "烈日光环", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/563ff5a773af76dbbe08366aa50d63b7.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d3cf5d920bf111a319c6489aec700abf.png", "effect": "施加持续伤害类效果时展开烈日光环，每5秒最多触发1次。", "sort_num": "5", "local_img": "assets/engravings/content_5.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_5.png" alt="烈日光环" loading="lazy"></div>
+        <div class="engraving-name">烈日光环</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_6", "name": "流星", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/de41f8e472875ce3738c04b474903ed6.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/3bfc764ea6bd896e1a11109a80272a35.png", "effect": "核心技能造成伤害时有30%概率施放流星，每5秒最多触发1次。", "sort_num": "6", "local_img": "assets/engravings/content_6.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_6.png" alt="流星" loading="lazy"></div>
+        <div class="engraving-name">流星</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_7", "name": "熔岩爆裂", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0cf19f0ddc78f88eb654b1094f3094b8.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6b057a7ab93d3c90adc7f4c40137b9da.png", "effect": "造成元素伤害时有50%概率施放熔岩奔涌，每5秒最多触发1次。", "sort_num": "7", "local_img": "assets/engravings/content_7.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_7.png" alt="熔岩爆裂" loading="lazy"></div>
+        <div class="engraving-name">熔岩爆裂</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_8", "name": "虚空裂口", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/909114a64ef821cc7961832d4ce5ef31.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/65138f1b3dfada19f0f886675e8a35dd.png", "effect": "施放终极技能或掌控技能时施放虚空裂口，每5秒最多触发1次。", "sort_num": "8", "local_img": "assets/engravings/content_8.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_8.png" alt="虚空裂口" loading="lazy"></div>
+        <div class="engraving-name">虚空裂口</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_9", "name": "以太光束", "class": "野蛮人", "position": "通用", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/44683d3719110041003576f03fe470c6.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/b0a23206669223b33d90082fd4145ba6.png", "effect": "施放核心技能时施放以太光束，每5秒最多触发1次。", "sort_num": "9", "local_img": "assets/engravings/content_9.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_9.png" alt="以太光束" loading="lazy"></div>
+        <div class="engraving-name">以太光束</div>
+        <div class="engraving-pos">通用</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_10", "name": "战争印记", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/35319c10c7b504435cfe3462b704ace1.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f923fc8ae95fef089fb3eb3ad45db838.png", "effect": "你的基础技能有30%概率施加2秒眩晕和10秒战争印记。效果结束前无法重复施加。", "sort_num": "10", "local_img": "assets/engravings/content_10.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_10.png" alt="战争印记" loading="lazy"></div>
+        <div class="engraving-name">战争印记</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_11", "name": "震耳噪音", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f279243cc38b874e12acd2fd45e765db.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/03f76379257ad1ee792c1f65fb6ce011.png", "effect": "施放掌控技能后发出一阵怒吼，对周围所有敌人造成1000%攻击力的元素伤害和失衡，每5秒最多触发1次。", "sort_num": "11", "local_img": "assets/engravings/content_11.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_11.png" alt="震耳噪音" loading="lazy"></div>
+        <div class="engraving-name">震耳噪音</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_12", "name": "征服者", "class": "野蛮人", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/20359dd2d932b8e03d7686857a54a37d.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/bc0c013cc0000d14ef3644eb3d810bcc.png", "effect": "施展核心技能时有50%概率获得征服者，每5秒最多触发1次。", "sort_num": "12", "local_img": "assets/engravings/content_12.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_12.png" alt="征服者" loading="lazy"></div>
+        <div class="engraving-name">征服者</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+</div>
+
+</div>
+
+<div id="mage-eng" class="class-section" class="hidden">
+<div class="engraving-grid">
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_13", "name": "保护祝福", "class": "秘法师", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/99cc4188d32e4496da3084945c300672.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2595dc31c4a0d271b791e8171a598ac0.png", "effect": "生命值首次降低至40%时，获得最大生命值100%的护盾，最多持续6秒。", "sort_num": "13", "local_img": "assets/engravings/content_13.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_13.png" alt="保护祝福" loading="lazy"></div>
+        <div class="engraving-name">保护祝福</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_14", "name": "复仇", "class": "秘法师", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/490d4b06d422e2e950907d078a92d68d.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c55e4c83daecb58c6a9a52df24ddccfc.png", "effect": "受到大于等于最大生命值10%的伤害时，你的核心技能在接下来的2秒内伤害翻倍，这个效果每5秒最多触发1次。", "sort_num": "14", "local_img": "assets/engravings/content_14.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_14.png" alt="复仇" loading="lazy"></div>
+        <div class="engraving-name">复仇</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_15", "name": "海浪之歌", "class": "秘法师", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5e47b5065e330a5010783c45f271b2e0.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d86cdd2c4768e8c1b567df3e8809d058.png", "effect": "造成伤害时有10%概率施放海浪攻击，造成100%攻击力的元素伤害并施加寒冷，每10秒最多触发1次。", "sort_num": "15", "local_img": "assets/engravings/content_15.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_15.png" alt="海浪之歌" loading="lazy"></div>
+        <div class="engraving-name">海浪之歌</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_16", "name": "回春", "class": "秘法师", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6b79443ca60ede957addc38dbac2fc17.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9bc5be91d884b3d4f316046cd2baded1.png", "effect": "核心刻印效果触发时，在3秒内持续恢复总计40%最大生命值。", "sort_num": "16", "local_img": "assets/engravings/content_16.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_16.png" alt="回春" loading="lazy"></div>
+        <div class="engraving-name">回春</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_17", "name": "强风射击", "class": "秘法师", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/f96c21c243357e8acf46f1d2914a3e9c.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/11335f4f4c7b7902c9c2aa9da3e6c1af.png", "effect": "击中敌人时有20%概率施展强风射击，对大范围敌人造成50%攻击力的元素伤害、施加击退和禁锢1.5秒，每8秒最多触发1次。", "sort_num": "17", "local_img": "assets/engravings/content_17.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_17.png" alt="强风射击" loading="lazy"></div>
+        <div class="engraving-name">强风射击</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_18", "name": "余震", "class": "秘法师", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/afcdf6294ed460b1d5cc2ab5a7136612.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/dfdad98d457ccd25d124b7702e27bb00.png", "effect": "核心刻印效果触发时，击飞附近的敌人，同时造成100%攻击力的物理伤害。", "sort_num": "18", "local_img": "assets/engravings/content_18.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_18.png" alt="余震" loading="lazy"></div>
+        <div class="engraving-name">余震</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+</div>
+
+</div>
+
+<div id="common-eng" class="class-section" class="hidden">
+<div class="engraving-grid">
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_19", "name": "巨神兵", "class": "通用", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/14d4fb7f7ef92e7b7869f64a3d7dceca.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6f2b1e363dc218fc75b7fbd2f872083d.png", "effect": "使自身体型增大15%、最大生命值提升15%、护盾效果提升15%。", "sort_num": "19", "local_img": "assets/engravings/content_19.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_19.png" alt="巨神兵" loading="lazy"></div>
+        <div class="engraving-name">巨神兵</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_20", "name": "狂热", "class": "通用", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/17ab1143d10c6615f78ce602e6f13902.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/9b7a7dfe5c0ff84962baf41b4e5b3829.png", "effect": "在战斗中每隔8秒，消耗5%当前生命值，解除自身受到的控制效果并获得狂热。", "sort_num": "20", "local_img": "assets/engravings/content_20.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_20.png" alt="狂热" loading="lazy"></div>
+        <div class="engraving-name">狂热</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_21", "name": "力量祝福", "class": "通用", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/58a8e0f32220700e0527b46f84b63daf.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/707376c96c97a3fad7a8be06f48c046f.png", "effect": "核心刻印效果触发时，伤害强化提升60%，持续2秒。", "sort_num": "21", "local_img": "assets/engravings/content_21.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_21.png" alt="力量祝福" loading="lazy"></div>
+        <div class="engraving-name">力量祝福</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_22", "name": "灵巧", "class": "通用", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/41d5280e9dfd0926d269bac03fd5c800.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/fdbdceab353bf8ee8c0c31950eb29d60.png", "effect": "核心刻印效果触发时，使闪避提升25%，持续2.5秒。", "sort_num": "22", "local_img": "assets/engravings/content_22.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_22.png" alt="灵巧" loading="lazy"></div>
+        <div class="engraving-name">灵巧</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_23", "name": "领袖", "class": "通用", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1771d8c21c113e91c257e08f69cd688c.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/12bc71c801287f2ee9acdee5ff1e081c.png", "effect": "你的所有友军(不包括自己)伤害强化提升15%、急速提升15%。", "sort_num": "23", "local_img": "assets/engravings/content_23.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_23.png" alt="领袖" loading="lazy"></div>
+        <div class="engraving-name">领袖</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_24", "name": "全能", "class": "通用", "position": "property_1", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/94d655526fd3244fa16fdc025e7e5726.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/74beb831f94dec701bf5d9f0d3f43b12.png", "effect": "生命值高于80%时，使自身伤害强化提升20%、伤害减免提升15%。", "sort_num": "24", "local_img": "assets/engravings/content_24.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_24.png" alt="全能" loading="lazy"></div>
+        <div class="engraving-name">全能</div>
+        <div class="engraving-pos">主刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_25", "name": "疯刃专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/175877c4932c5e97c1b58e5eac3771b9.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6f28d7082054b1950c3564ff06de9e7f.png", "effect": "[野蛮人限定]疯刃击中时根据疯刃增益效果层数附加每层额外20%攻击力的物理伤害。", "sort_num": "25", "local_img": "assets/engravings/content_25.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_25.png" alt="疯刃专家" loading="lazy"></div>
+        <div class="engraving-name">疯刃专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_26", "name": "破伤专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/70971630e9b37b1665469f1a3a010810.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a7950101718095498663c035d4b14c4d.png", "effect": "[野蛮人限定]装备破伤技能时，施放核心技能有40%概率触发额外施法，施放所装备的破伤。", "sort_num": "26", "local_img": "assets/engravings/content_26.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_26.png" alt="破伤专家" loading="lazy"></div>
+        <div class="engraving-name">破伤专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_27", "name": "重砍专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/cffb5f6be50522b7ff5acddd3dd274c9.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4dec1b35c14652aacbfe897eec15ab30.png", "effect": "[野蛮人限定]重砍触发跳劈时使目标急速和闪避降低20%，持续2秒;重砍触发护盾时使自身招架提升30%，持续2秒。", "sort_num": "27", "local_img": "assets/engravings/content_27.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_27.png" alt="重砍专家" loading="lazy"></div>
+        <div class="engraving-name">重砍专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_28", "name": "无情收割专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/3986084bec6059bcc34684e9e9a87fdb.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/af35d7d5a5bf34328a31e10027e80384.png", "effect": "[野蛮人限定]无情收割施加踉跄状态。", "sort_num": "28", "local_img": "assets/engravings/content_28.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_28.png" alt="无情收割专家" loading="lazy"></div>
+        <div class="engraving-name">无情收割专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_29", "name": "旋风斩专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/fa812eb0c09f6ca480fb56fc64d1e6cc.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/c5e01901a1868de40c96f2f01a45b017.png", "effect": "[野蛮人限定]施放旋风斩时会快速朝前方发射5道剑气，造成共计750%攻击力的物理伤害，每5秒最多触发1次。", "sort_num": "29", "local_img": "assets/engravings/content_29.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_29.png" alt="旋风斩专家" loading="lazy"></div>
+        <div class="engraving-name">旋风斩专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_30", "name": "原力锤专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ffb605d39d51df7172aa300cf31bb6fe.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1c646805dba57540923fe59964c0d2f0.png", "effect": "[野蛮人限定]原力锤有3%概率造成1.5秒眩晕和2.5秒弱化。", "sort_num": "30", "local_img": "assets/engravings/content_30.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_30.png" alt="原力锤专家" loading="lazy"></div>
+        <div class="engraving-name">原力锤专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_31", "name": "寒冰弹专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/34644e9eb8f9e2e535cc0fe5179e9e49.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/36c8ed65e2e765306a1054ff67ad5eb6.png", "effect": "[秘法师限定]敌人累计被寒冰弹命中20次会产生1秒冻结。", "sort_num": "31", "local_img": "assets/engravings/content_31.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_31.png" alt="寒冰弹专家" loading="lazy"></div>
+        <div class="engraving-name">寒冰弹专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_32", "name": "火焰波专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a1f4e34ac37f6ce94434ec2993a29d42.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/812aeb5b9c982735b84f0d7aef72f51c.png", "effect": "[秘法师限定]火焰波到达终点时有25%概率返回，对沿途的敌人造成伤害。", "sort_num": "32", "local_img": "assets/engravings/content_32.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_32.png" alt="火焰波专家" loading="lazy"></div>
+        <div class="engraving-name">火焰波专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_33", "name": "闪电鞭专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a78b7160399e3d1a90d78906a54b681f.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/65a338b5802bfae8a4bb6e7af4e70869.png", "effect": "[秘法师限定]闪电鞭有10%概率产生闪电链，对5个敌人造成100%攻击力的电元素伤害并施加震颤，持续2.5秒。", "sort_num": "33", "local_img": "assets/engravings/content_33.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_33.png" alt="闪电鞭专家" loading="lazy"></div>
+        <div class="engraving-name">闪电鞭专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_34", "name": "火球术专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/09c285b1fb87f78b1dc04c73be9fb28e.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e548ad77ecfb81721810d751716605c7.png", "effect": "[秘法师限定]火球术击中敌人时产生一次额外的元素爆炸，造成150%攻击的元素伤害并施加燃烧、冰焰燃烧、电各1层。每2秒最多触发1次。", "sort_num": "34", "local_img": "assets/engravings/content_34.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_34.png" alt="火球术专家" loading="lazy"></div>
+        <div class="engraving-name">火球术专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_35", "name": "闪电拳专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/17f9216b281fa1fc0d243f49edb8f957.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/b4b0aa5a0fed6fe988a5478dfbe859bb.png", "effect": "[秘法师限定]每第五次施放闪电拳必定暴击，且每1%暴击率额外提升2%闪电拳增伤。", "sort_num": "35", "local_img": "assets/engravings/content_35.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_35.png" alt="闪电拳专家" loading="lazy"></div>
+        <div class="engraving-name">闪电拳专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_36", "name": "寒冰光束专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/4063fa5dce24316e3606341f5c5a3590.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/a4e221c02d3cea7168a75e210d11feb6.png", "effect": "[秘法师限定]施放寒冰光束时，在接下来的3秒内持续恢复总计18点能量每6秒最多触发1次。", "sort_num": "36", "local_img": "assets/engravings/content_36.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_36.png" alt="寒冰光束专家" loading="lazy"></div>
+        <div class="engraving-name">寒冰光束专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_37", "name": "奋勇冲击专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0a91721d2631667688c4a0784a1e3b07.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/62596c87cc7fbcee8571ef6e908ba9a0.png", "effect": "[野蛮人限定]奋勇冲击的伤害倍率提升到3次总计500%，并且奋勇冲击具有额外20%暴击率和80%暴击伤害。", "sort_num": "37", "local_img": "assets/engravings/content_37.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_37.png" alt="奋勇冲击专家" loading="lazy"></div>
+        <div class="engraving-name">奋勇冲击专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_38", "name": "坚不可摧专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/71d8b3ae7f02bf186752cc4cee074829.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7c46db06cb7e79455cdab10ccb91f8ff.png", "effect": "[野蛮人限定]坚不可摧护盾存在期间，最终暴击伤害抗性提升40%。", "sort_num": "38", "local_img": "assets/engravings/content_38.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_38.png" alt="坚不可摧专家" loading="lazy"></div>
+        <div class="engraving-name">坚不可摧专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_39", "name": "聚气咆哮专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2de265c18d925983dd25a292d4202af2.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/71a98c2a64f937b8b50c738cb9464a59.png", "effect": "[野蛮人限定]聚气咆哮期间施放核心技能延长聚气咆哮效果0.5秒持续时间，每次施放聚气咆哮最多延长4秒。", "sort_num": "39", "local_img": "assets/engravings/content_39.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_39.png" alt="聚气咆哮专家" loading="lazy"></div>
+        <div class="engraving-name">聚气咆哮专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_40", "name": "决战咆哮专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/5f30cd8c420b680795db7c50a18e9e80.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/ae2e627a568ee8685eb2af83078eb6e4.png", "effect": "[野蛮人限定]决战咆哮期间每累计消耗20点怒气，使终极技能冷却时间减少1秒。", "sort_num": "40", "local_img": "assets/engravings/content_40.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_40.png" alt="决战咆哮专家" loading="lazy"></div>
+        <div class="engraving-name">决战咆哮专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_41", "name": "踏平专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d27aeac66bf1dda97339a9dde47016ff.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/058c3ac90085fa0041da41a09e918422.png", "effect": "[野蛮人限定]踏平击中首领或其他玩家时，冷却时间减少2秒。", "sort_num": "41", "local_img": "assets/engravings/content_41.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_41.png" alt="踏平专家" loading="lazy"></div>
+        <div class="engraving-name">踏平专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_42", "name": "跃空击专家", "class": "通用", "position": "property_2", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/41751c9c1c61ea7d07c760c86d2b5fcd.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/669c3ff19ae8384ac2d6970a9b9c3c3c.png", "effect": "[野蛮人限定]跃空击落地时将中等范围内的敌人拉到自己身边。", "sort_num": "42", "local_img": "assets/engravings/content_42.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_42.png" alt="跃空击专家" loading="lazy"></div>
+        <div class="engraving-name">跃空击专家</div>
+        <div class="engraving-pos">副刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_43", "name": "冰霜盾专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/8ee3da8f32e1f4a7a615442f56c199c8.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6e1c5807b0d1a147886b28363b3bfb30.png", "effect": "[秘法师限定]每次受到攻击时有30%概率使冰霜盾当前冷却减少1秒。", "sort_num": "43", "local_img": "assets/engravings/content_43.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_43.png" alt="冰霜盾专家" loading="lazy"></div>
+        <div class="engraving-name">冰霜盾专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_44", "name": "引力场专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/d77a772c56961eb01b01120aa98ac20c.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/e01cd5111636dd20fb598b1bcbb3c2ae.png", "effect": "[秘法师限定]累计在引力场内超过3秒的敌人会被眩晕1秒。", "sort_num": "44", "local_img": "assets/engravings/content_44.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_44.png" alt="引力场专家" loading="lazy"></div>
+        <div class="engraving-name">引力场专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_45", "name": "魔焰花专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/13a87278bc9320fc0fa5acb7574b5b19.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/7c46fd4347d30509665061cb88b60056.png", "effect": "[秘法师限定]魔焰花造成伤害时为你回复1点能量。", "sort_num": "45", "local_img": "assets/engravings/content_45.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_45.png" alt="魔焰花专家" loading="lazy"></div>
+        <div class="engraving-name">魔焰花专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_46", "name": "闪电球专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/0b24564473dd5bbda17688db3b0f9b4f.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/da4d045805a2f3f6b54f070219e19261.png", "effect": "[秘法师限定]闪电球对敌人施加元素易伤，持续3秒。", "sort_num": "46", "local_img": "assets/engravings/content_46.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_46.png" alt="闪电球专家" loading="lazy"></div>
+        <div class="engraving-name">闪电球专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_47", "name": "闪现专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/6dfde8f213a4cc80dc2150c3ec96d2d7.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/186e4e140310230442afce568da52742.png", "effect": "[秘法师限定]闪现后使自身闪避提升15%，持续3秒。", "sort_num": "47", "local_img": "assets/engravings/content_47.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_47.png" alt="闪现专家" loading="lazy"></div>
+        <div class="engraving-name">闪现专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+      <div class="engraving-card" onclick='showEngravingDetail({"id": "content_48", "name": "震荡专家", "class": "通用", "position": "property_3", "img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/2497b5a3dfa331b9759f456fb205ea9c.png", "detail_img": "https://activity.oiz611.com/img/pic/tplhd/2025/05/tplhd_g1051_250512100330/1787a6cf968d24bd093dc6572240dc33.png", "effect": "[秘法师限定]震荡击中敌人时施加缓慢，持续5秒", "sort_num": "48", "local_img": "assets/engravings/content_48.png"})'>
+        <div class="engraving-img-wrap"><img src="assets/engravings/content_48.png" alt="震荡专家" loading="lazy"></div>
+        <div class="engraving-name">震荡专家</div>
+        <div class="engraving-pos">辅助刻印</div>
+      </div>
+</div>
+
+</div>
+
+<div class="disclaimer">
+  <strong>📌 数据来源：</strong>本页刻印数据整理自《英雄没有闪》官方图鉴（activity.oiz611.com），共48个刻印。点击刻印卡片查看详细效果。<br><br>
+  <strong>⚠️ 说明：</strong>刻印数据来自官方图鉴API，游戏版本更新后刻印效果可能变化，请以游戏内实际为准。野蛮人刻印暂未收录，待官方图鉴更新后补充。
+</div>
+
+<div class="modal-overlay" id="engravingModal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('light-theme');
+  var btn = document.querySelector('.nav-theme-btn');
+  btn.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+  localStorage.setItem('yxmys_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+}
+if (localStorage.getItem('yxmys_theme') === 'light') {
+  document.body.classList.add('light-theme');
+  document.querySelector('.nav-theme-btn').textContent = '☀️';
+}
+
+function switchClass(btn) {
+  document.querySelectorAll('.class-tab').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var cls = btn.dataset.class;
+  document.getElementById('ranger-eng').style.display = cls === 'ranger' ? '' : 'none';
+  document.getElementById('mage-eng').style.display = cls === 'mage' ? '' : 'none';
+  document.getElementById('common-eng').style.display = cls === 'common' ? '' : 'none';
+}
+
+var posMap = {"property_1": "主刻印", "property_2": "副刻印", "property_3": "辅助刻印", "none": "通用"};
+
+function showEngravingDetail(eng) {
+  var posName = posMap[eng.position] || '通用';
+  var imgHtml = eng.local_img ? '<img loading="lazy" src="' + eng.local_img + '" alt="' + (eng.name||'') + '" class="detail-img">' : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;">⚡</div>';
+  
+  var html = '<div class="detail-header">' + imgHtml +
+    '<div class="detail-info">' +
+    '<div class="detail-name">' + eng.name + '</div>' +
+    '<div class="detail-meta">' +
+    '<span class="detail-tag">' + eng.class + '</span>' +
+    '<span class="detail-tag">' + posName + '</span>' +
+    '</div></div></div>' +
+    '<div class="detail-section"><div class="detail-title">刻印效果</div><div class="detail-text">' + (eng.effect || '无') + '</div></div>';
+  
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('engravingModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('engravingModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+</script>
+<script>
+// PWA Service Worker 注册
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./service-worker.js').catch(function() {});
+  });
+}
+</script>
+  <script src="js/i18n.js"></script>
+
+<script>
+// 通用函数别名
+if (typeof toggleSearch === 'undefined') {
+  function toggleSearch() { if (typeof toggleFullscreenSearch === 'function') toggleFullscreenSearch(); }
+}
+if (typeof closeAnnouncement === 'undefined') {
+  function closeAnnouncement() { var b=document.getElementById('announcementBar'); if(b) b.style.display='none'; }
+}
+if (typeof openLoginModal === 'undefined') {
+  function openLoginModal() { alert('登录功能开发中'); }
+}
+// ESC关闭搜索
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var s = document.getElementById('fullscreenSearch');
+    if (s && s.classList.contains('active')) { s.classList.remove('active'); document.body.style.overflow=''; }
+  }
+});
+// Ctrl+K打开搜索
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'k') { e.preventDefault(); if (typeof toggleFullscreenSearch==='function') toggleFullscreenSearch(); }
+});
+</script>
+
+<script src="search-data.js"></script>
+<script src="search.js"></script>
+
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item" data-page="index"><span class="nav-icon">🏠</span>首页</a>
+  <a href="builds-guides.html" class="nav-item" data-page="builds"><span class="nav-icon">⚔️</span>配装</a>
+  <a href="library.html" class="nav-item" data-page="library"><span class="nav-icon">📚</span>资料</a>
+  <a href="guild.html" class="nav-item" data-page="guild"><span class="nav-icon">👥</span>公会</a>
+  <a href="tools.html" class="nav-item" data-page="tools"><span class="nav-icon">🔧</span>工具</a>
+</div>
+<script>
+(function(){
+  var path = location.pathname.split('/').pop() || 'index.html';
+  var map = {'index.html':'index','builds-guides.html':'builds','library.html':'library','guild.html':'guild','tools.html':'tools'};
+  var page = map[path] || '';
+  if(page){
+    var item = document.querySelector('.bottom-nav .nav-item[data-page="'+page+'"]');
+    if(item) item.classList.add('active');
+  }
+})();
+</script>
+
+<script src="music-player.js?v=20260927c"></script>
+</body>
+</html>

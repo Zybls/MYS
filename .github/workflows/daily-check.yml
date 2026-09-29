@@ -1,0 +1,55 @@
+name: Daily Site Check
+
+# 每日网站体检（C+ 方案）：导航过 CF → 同 context evaluate fetch
+# 产出双轨：① commit 到 reports 分支（持久）② artifact 保留 30 天（快速下载）
+# 无任何 Secrets 依赖（用内置 GITHUB_TOKEN）
+on:
+  schedule:
+    - cron: "0 0 * * *"        # UTC 00:00 = 北京时间 08:00
+  workflow_dispatch:            # 手动触发按钮（Phase D 验证用）
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Playwright
+        run: |
+          pip install playwright==1.63.0
+          playwright install --with-deps chromium
+
+      - name: Run daily check
+        env:
+          ASK_QWEN_ENABLED: "0"   # CI 上无本地 Qwen，仅 P0 也不调
+          SKIP_QWEN: "1"          # 兼容别名：跳过 Qwen 调用
+          LOCAL_INDEX: "index.html"
+          REPORT_DIR: "."
+        run: python tools/daily_check.py
+
+      - name: Commit report to reports branch
+        if: always()
+        run: |
+          git config user.name  "ykmys-bot"
+          git config user.email "bot@ykmys.com"
+          DATE=$(date +%Y%m%d)
+          mkdir -p reports && cp daily-check-$DATE.md reports/ 2>/dev/null || echo "no report file"
+          git checkout -B reports origin/reports 2>/dev/null || git checkout --orphan reports
+          git add reports/
+          git commit -m "daily check $DATE" || echo "no changes to commit"
+          git push origin reports
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-check-${{ github.run_id }}
+          path: daily-check-*.md
+          retention-days: 30
