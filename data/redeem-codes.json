@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-09-26T01:23:17.771363",
-  "total": 11,
+  "updated_at": "2026-10-05T15:06:09.538925",
+  "total": 12,
   "active": 7,
   "codes": [
     {
@@ -46,10 +46,26 @@
       "type": "permanent"
     },
     {
+      "code": "8C2M1iWWnc",
+      "reward": "福利站 | 社区周礼包码（10.5-10.11）",
+      "expire": "即日起-2026年10月11日",
+      "active": true,
+      "type": "weekly",
+      "thread_id": "2146551"
+    },
+    {
+      "code": "1443p4bTcn",
+      "reward": "福利站 | 社区周礼包码（9.28-10.4）",
+      "expire": "即日起-2026年10月4日",
+      "active": false,
+      "type": "weekly",
+      "thread_id": "2144290"
+    },
+    {
       "code": "7T4b6UtRw0",
       "reward": "福利站 | 社区周礼包码（9.21-9.27）",
       "expire": "即日起-2026年9月27日",
-      "active": true,
+      "active": false,
       "type": "weekly",
       "thread_id": "2142135"
     },
@@ -62,28 +78,20 @@
       "thread_id": "2140474"
     },
     {
-      "code": "iLn3S81Xl5",
-      "reward": "福利站 | 社区周礼包码（9.7-9.13）",
-      "expire": "即日起-2026年9月13日",
+      "code": "f4720Cc52r",
+      "reward": "福利站 | 中秋节礼包码",
+      "expire": "即日起-2026年10月1日",
       "active": false,
-      "type": "weekly",
-      "thread_id": "2139114"
+      "type": "festival",
+      "thread_id": "2142894"
     },
     {
-      "code": "6YG467qLi4",
-      "reward": "福利站 | 社区周礼包码（8.31-9.6）",
-      "expire": "即日起-2026年9月6日",
+      "code": "02S0k57j85",
+      "reward": "福利站 | 秋分礼包码（9.23-9.29）",
+      "expire": "即日起-2026年9月29日",
       "active": false,
-      "type": "weekly",
-      "thread_id": "2137841"
-    },
-    {
-      "code": "20V7t1miAx",
-      "reward": "福利站 | 社区周礼包码（8.24-8.30）",
-      "expire": "即日起-2026年8月30日",
-      "active": false,
-      "type": "weekly",
-      "thread_id": "2136190"
+      "type": "festival",
+      "thread_id": "2142637"
     }
   ]
 }
